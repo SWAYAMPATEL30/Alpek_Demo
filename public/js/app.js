@@ -1585,8 +1585,15 @@ async function switchSupplierTender(rfqId, rerenderTable = true) {
 
     const partBadge = document.getElementById('supplierParticipationStatusBadge');
 
+    const isoSelect = document.getElementById('supplierIsoAnswer');
+    const leadTimeEl = document.getElementById('supplierLeadTimeInput');
+    const remarksEl = document.getElementById('supplierTechnicalRemarks');
+
     if (myQuote && myQuote.lineItemBids && myQuote.lineItemBids[0]) {
       if (inputEl) inputEl.value = Number(myQuote.lineItemBids[0].unitPrice).toFixed(2);
+      if (leadTimeEl) leadTimeEl.value = myQuote.leadTimeDays || '';
+      if (remarksEl) remarksEl.value = myQuote.technicalProposal || '';
+      if (isoSelect) isoSelect.value = myQuote.isoCertified ? 'Yes' : 'No';
       if (checklistSteps[2]) {
         checklistSteps[2].classList.add('done');
         checklistSteps[2].classList.remove('current');
@@ -1600,7 +1607,11 @@ async function switchSupplierTender(rfqId, rerenderTable = true) {
         partBadge.innerHTML = '<span style="background:#dcfce7; color:#15803d; font-weight:800; padding:6px 16px; border-radius:20px; font-size:13px; border:1px solid #86efac; box-shadow:0 1px 3px rgba(0,0,0,0.05);">&#10003; Status: Participated</span>';
       }
     } else {
-      if (inputEl) inputEl.value = item.targetPrice ? Number(item.targetPrice).toFixed(2) : '3.00';
+      // Unquoted RFQ -> completely empty form fields for invited vendors
+      if (inputEl) inputEl.value = '';
+      if (leadTimeEl) leadTimeEl.value = '';
+      if (remarksEl) remarksEl.value = '';
+      if (isoSelect) isoSelect.value = '';
       if (checklistSteps[2]) {
         checklistSteps[2].classList.remove('done');
         checklistSteps[2].classList.add('current');
@@ -1644,7 +1655,19 @@ function calculateSupplierSubtotal() {
 
   if (!inputEl) return;
 
-  let unitPrice = parseSupplierUnitPrice(inputEl.value);
+  const rawVal = inputEl.value ? inputEl.value.trim() : '';
+  if (!rawVal) {
+    if (lineSubtotalEl) lineSubtotalEl.textContent = '—';
+    if (groupSubtotalEl) groupSubtotalEl.innerHTML = '<strong>—</strong>';
+    return;
+  }
+
+  let unitPrice = parseSupplierUnitPrice(rawVal);
+  if (unitPrice <= 0) {
+    if (lineSubtotalEl) lineSubtotalEl.textContent = '—';
+    if (groupSubtotalEl) groupSubtotalEl.innerHTML = '<strong>—</strong>';
+    return;
+  }
 
   const rfq = AppState.activeSupplierRfq;
   const item = (rfq && rfq.lineItems && rfq.lineItems[0]) || { quantity: 7125000 };
@@ -1652,7 +1675,7 @@ function calculateSupplierSubtotal() {
   const currency = (rfq && rfq.currency) || 'COP';
   const total = unitPrice * quantity;
 
-  const formatted = `$${total.toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${currency}`;
+  const formatted = `${total.toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${currency}`;
 
   if (lineSubtotalEl) lineSubtotalEl.textContent = formatted;
   if (groupSubtotalEl) groupSubtotalEl.innerHTML = `<strong>${formatted}</strong>`;
@@ -1669,8 +1692,31 @@ async function submitSupplierFullBid() {
   const leadTimeEl = document.getElementById('supplierLeadTimeInput');
   const remarksEl = document.getElementById('supplierTechnicalRemarks');
 
-  let unitPrice = parseSupplierUnitPrice(inputEl ? inputEl.value : '3.00');
-  if (unitPrice <= 0) unitPrice = 3.00;
+  if (!isoSelect || !isoSelect.value) {
+    showSapToast('Please select your ISO 9001:2015 quality certification status.', 'warning');
+    if (isoSelect) isoSelect.focus();
+    return;
+  }
+
+  if (!leadTimeEl || !leadTimeEl.value || Number(leadTimeEl.value) <= 0) {
+    showSapToast('Please enter your guaranteed delivery lead time in business days.', 'warning');
+    if (leadTimeEl) leadTimeEl.focus();
+    return;
+  }
+
+  if (!remarksEl || !remarksEl.value.trim()) {
+    showSapToast('Please enter technical proposal & compliance notes.', 'warning');
+    if (remarksEl) remarksEl.focus();
+    return;
+  }
+
+  const rawPrice = inputEl ? inputEl.value.trim() : '';
+  let unitPrice = parseSupplierUnitPrice(rawPrice);
+  if (!rawPrice || unitPrice <= 0) {
+    showSapToast('Please enter your unit price offer before submitting.', 'warning');
+    if (inputEl) inputEl.focus();
+    return;
+  }
 
   const rfq = AppState.activeSupplierRfq;
   const item = (rfq && rfq.lineItems && rfq.lineItems[0]) || { itemNo: '2.1.1', quantity: 7125000 };
@@ -1678,9 +1724,9 @@ async function submitSupplierFullBid() {
   const total = unitPrice * quantity;
   const itemNo = item.itemNo || '10';
 
-  const leadTimeDays = Number(leadTimeEl ? leadTimeEl.value : 8) || 8;
-  const remarks = remarksEl ? remarksEl.value : 'Complete proposal complying with technical specifications and ISO 9001:2015 certification.';
-  const isoAnswer = isoSelect ? isoSelect.value : 'Yes';
+  const leadTimeDays = Number(leadTimeEl.value) || 8;
+  const remarks = remarksEl.value.trim();
+  const isoAnswer = isoSelect.value;
 
   const payload = {
     supplierId: currentUser.supplierId || 'SUP-SONDA',

@@ -815,7 +815,8 @@
                     1. ISO 9001:2015 Quality Certificate <span style="color:#ef4444;">*</span>
                   </label>
                   <select class="sap-field-input" id="supplierIsoAnswer" style="width:100%; font-weight:600;">
-                    <option value="Yes" selected>✓ Yes — Valid ISO 9001:2015 Certified</option>
+                    <option value="" disabled selected>-- Select ISO Certification --</option>
+                    <option value="Yes">✓ Yes — Valid ISO 9001:2015 Certified</option>
                     <option value="No">No — Not Certified</option>
                   </select>
                 </div>
@@ -825,7 +826,7 @@
                     2. Guaranteed Delivery Lead Time <span style="color:#ef4444;">*</span>
                   </label>
                   <div style="display:flex; align-items:center; gap:8px;">
-                    <input type="number" id="supplierLeadTimeInput" class="sap-field-input" value="8" min="1" max="90" style="width:100px; font-weight:700; text-align:center;">
+                    <input type="number" id="supplierLeadTimeInput" class="sap-field-input" value="" placeholder="e.g. 10" min="1" max="90" style="width:120px; font-weight:700; text-align:center;">
                     <span style="font-size:12px; color:#475569; font-weight:600;">Business Days</span>
                   </div>
                 </div>
@@ -834,7 +835,7 @@
                   <label style="display:block; font-size:12px; font-weight:700; color:#334155; margin-bottom:4px;">
                     3. Technical Specification Acceptance
                   </label>
-                  <input type="text" id="supplierTechnicalRemarks" class="sap-field-input" value="Fully compliant with technical specifications &amp; plant delivery norms." style="width:100%; font-size:12px;">
+                  <input type="text" id="supplierTechnicalRemarks" class="sap-field-input" value="" placeholder="Enter technical proposal &amp; compliance notes..." style="width:100%; font-size:12px;">
                 </div>
               </div>
             </div>
@@ -871,7 +872,7 @@
                   </label>
                   <div style="display:flex; align-items:center; gap:6px;">
                     <span style="font-size:16px; font-weight:800; color:#0284c7;">$</span>
-                    <input type="text" class="sap-field-input" id="supInputUnitPrice" value="3.00"
+                    <input type="text" class="sap-field-input" id="supInputUnitPrice" value="" placeholder="0.00"
                       oninput="calculateSupplierSubtotal()"
                       style="width:120px; font-size:16px; font-weight:800; text-align:right; border:2px solid #0284c7; border-radius:6px; padding:6px 10px;">
                     <span id="supCurrencyLabel" style="font-size:13px; font-weight:700; color:#475569;">COP</span>
@@ -881,7 +882,7 @@
                 <div style="text-align:right;">
                   <div style="font-size:11px; font-weight:700; color:#64748b; text-transform:uppercase;">Total Calculated Bid Subtotal</div>
                   <div id="supLineSubtotal" style="font-size:20px; font-weight:900; color:#15803d; margin-top:2px;">
-                    $21,375,000.00 COP
+                    —
                   </div>
                 </div>
               </div>
@@ -898,7 +899,7 @@
                 <div style="text-align:right;">
                   <div style="font-size:11px; font-weight:700; color:#64748b; text-transform:uppercase;">Total Proposal Amount</div>
                   <div id="supGroupSubtotal" style="font-size:22px; font-weight:900; color:#0f172a;">
-                    $21,375,000.00 COP
+                    —
                   </div>
                 </div>
 
