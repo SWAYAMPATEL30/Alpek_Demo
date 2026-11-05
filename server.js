@@ -64,7 +64,7 @@ const server = createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`\n================================================================`);
   console.log(`🚀 ALPEK SAP Supplier Linking Platform running on:`);
   console.log(`   http://localhost:${PORT}`);
