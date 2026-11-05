@@ -1,0 +1,2541 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alpek Demo Procurement Platform | Zero-Ariba Sourcing</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body class="sap-fiori-shell">
+  <!-- ========================================================================= -->
+  <!-- 1. DEDICATED PRODUCTION LOGIN SCREEN (DEFAULT WHEN NOT AUTHENTICATED)     -->
+  <!-- ========================================================================= -->
+  <div id="page-login" class="login-page-screen">
+    <div class="login-card-container">
+
+      <!-- Left Hero Banner -->
+      <div class="login-hero-pane">
+        <div class="login-brand-header">
+          <div class="login-brand-logo">AD</div>
+          <div>
+            <div class="login-brand-title">Alpek Demo</div>
+            <span class="login-brand-badge">Procurement Cloud</span>
+          </div>
+        </div>
+
+        <div class="login-hero-features">
+          <h3>Next-Gen Sourcing Platform</h3>
+          <div class="hero-feature-item">
+            <div class="hero-feature-icon">&#9881;</div>
+            <div class="hero-feature-text">
+              <strong>Zero-Ariba Self-Contained Architecture</strong>
+              <span>All PRs, RFQs, evaluations, and receiving live in your platform</span>
+            </div>
+          </div>
+          <div class="hero-feature-item">
+            <div class="hero-feature-icon">&#128101;</div>
+            <div class="hero-feature-text">
+              <strong>10 Strict RBAC Enterprise Personas</strong>
+              <span>Clean separation of employees, buyers, suppliers & warehouse</span>
+            </div>
+          </div>
+          <div class="hero-feature-item">
+            <div class="hero-feature-icon">&#128274;</div>
+            <div class="hero-feature-text">
+              <strong>Sealed Two-Envelope Bidding</strong>
+              <span>Isolated technical qualification & commercial evaluation</span>
+            </div>
+          </div>
+          <div class="hero-feature-item">
+            <div class="hero-feature-icon">&#127760;</div>
+            <div class="hero-feature-text">
+              <strong>Clean Core SAP S/4HANA & Excel Sync</strong>
+              <span>Only the final confirmed PO is dispatched via standard cXML/OData</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="login-hero-footer">
+          &bull; ISO 27001 Certified &bull; Clean Core Enterprise ERP &bull; 99.9% Uptime
+        </div>
+      </div>
+
+      <!-- Right Login Form & Quick Persona Selector -->
+      <div class="login-form-pane">
+        <h2>Welcome to Procurement Cloud</h2>
+        <p class="login-subtitle">Sign in to your role-based procurement workspace</p>
+
+        <form id="enterpriseLoginForm" onsubmit="handleLoginFormSubmit(event)">
+          <div class="login-input-group">
+            <label for="loginUsername">Username or Corporate Email</label>
+            <div class="login-input-wrapper">
+              <span class="login-input-icon">&#128100;</span>
+              <input type="text" id="loginUsername" class="login-input-field"
+                placeholder="e.g. valeria.martinez or carlos.ramirez" value="valeria.martinez" required>
+            </div>
+          </div>
+
+          <div class="login-input-group">
+            <label for="loginPassword">Password</label>
+            <div class="login-input-wrapper">
+              <span class="login-input-icon">&#128274;</span>
+              <input type="password" id="loginPassword" class="login-input-field" value="••••••••••••"
+                placeholder="Enter password" required>
+            </div>
+          </div>
+
+          <div class="login-extra-row">
+            <label>
+              <input type="checkbox" checked> Remember this device
+            </label>
+            <a href="#" style="color:#0284c7; text-decoration:none; font-weight:600;"
+              onclick="showSapToast('Single Sign-On (SSO) active for Alpek Demo enterprise domain.', 'info')">Need help
+              signing in?</a>
+          </div>
+
+          <button type="submit" class="login-btn-primary" id="btnSubmitLogin">
+            Sign In to Procurement Cloud &rarr;
+          </button>
+        </form>
+
+        <div class="login-divider-row">
+          <span>OR QUICK SIGN-IN AS DEMO PERSONA</span>
+        </div>
+
+        <div class="login-persona-grid">
+          <div class="login-persona-card" onclick="quickLoginAs('carlos.ramirez')">
+            <div class="login-p-avatar" style="background:#d97706;">CR</div>
+            <div class="login-p-info">
+              <span class="login-p-name">Carlos Ramirez</span>
+              <span class="login-p-role">1. Requester / Plant Demand</span>
+            </div>
+          </div>
+          <div class="login-persona-card" onclick="quickLoginAs('david.vance')">
+            <div class="login-p-avatar" style="background:#2563eb;">DV</div>
+            <div class="login-p-info">
+              <span class="login-p-name">David Vance</span>
+              <span class="login-p-role">2. Dept Manager / Finance</span>
+            </div>
+          </div>
+          <div class="login-persona-card" onclick="quickLoginAs('valeria.martinez')">
+            <div class="login-p-avatar" style="background:#0854a0;">VM</div>
+            <div class="login-p-info">
+              <span class="login-p-name">Valeria Martinez</span>
+              <span class="login-p-role">3. Procurement Buyer</span>
+            </div>
+          </div>
+          <div class="login-persona-card" onclick="quickLoginAs('sonda.vendor')">
+            <div class="login-p-avatar" style="background:#4f46e5;">SA</div>
+            <div class="login-p-info">
+              <span class="login-p-name">SONDA DE COLOMBIA</span>
+              <span class="login-p-role">4. Invited Vendor A</span>
+            </div>
+          </div>
+          <div class="login-persona-card" onclick="quickLoginAs('indorama.vendor')">
+            <div class="login-p-avatar" style="background:#059669;">SB</div>
+            <div class="login-p-info">
+              <span class="login-p-name">INDORAMA PETROCHEM</span>
+              <span class="login-p-role">5. Invited Vendor B</span>
+            </div>
+          </div>
+          <div class="login-persona-card" onclick="quickLoginAs('victor.chen')">
+            <div class="login-p-avatar" style="background:#0d9488;">VC</div>
+            <div class="login-p-info">
+              <span class="login-p-name">Dr. Victor Chen</span>
+              <span class="login-p-role">6. Technical Evaluator</span>
+            </div>
+          </div>
+          <div class="login-persona-card" onclick="quickLoginAs('sofia.morales')">
+            <div class="login-p-avatar" style="background:#0284c7;">SM</div>
+            <div class="login-p-info">
+              <span class="login-p-name">Sofia Morales</span>
+              <span class="login-p-role">7. Commercial Evaluator</span>
+            </div>
+          </div>
+          <div class="login-persona-card" onclick="quickLoginAs('carlos.fonseca')">
+            <div class="login-p-avatar" style="background:#107e3e;">CF</div>
+            <div class="login-p-info">
+              <span class="login-p-name">Carlos A. Fonseca</span>
+              <span class="login-p-role">8. Award Approver &amp; SAP Push</span>
+            </div>
+          </div>
+          <div class="login-persona-card" onclick="quickLoginAs('mateo.morales')">
+            <div class="login-p-avatar" style="background:#ea580c;">MM</div>
+            <div class="login-p-info">
+              <span class="login-p-name">Mateo Morales</span>
+              <span class="login-p-role">9. Warehouse Receiving (GRN)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 2. STREAMLINED AUTHENTICATED APPLICATION SHELL                            -->
+  <!-- ========================================================================= -->
+  <div id="page-app" class="app-screen hidden">
+    <!-- Streamlined Single Enterprise Topbar -->
+    <header class="app-topbar">
+      <!-- Brand & Workspace Title -->
+      <div class="topbar-brand" onclick="switchMainTab('sourcing')" title="Alpek Demo Procurement Cloud">
+        <div class="topbar-logo-badge">AD</div>
+        <div>
+          <span class="topbar-brand-title">Alpek Demo</span>
+          <span class="topbar-brand-sub">&bull; Procurement Cloud</span>
+        </div>
+      </div>
+
+      <!-- Center: Role-Tailored Navigation Pills -->
+      <nav class="topbar-nav-center" id="appNavPills">
+        <!-- Injected dynamically by updateRoleNavigation() -->
+      </nav>
+
+      <!-- Right User Menu & Settings -->
+      <div class="topbar-actions-right">
+        <!-- User Profile Dropdown Trigger -->
+        <div class="user-menu-wrapper">
+          <div class="user-profile-trigger" onclick="toggleProfileDropdown()" id="userProfileTrigger"
+            title="User Profile & Settings">
+            <div class="trigger-avatar" id="appUserAvatar">VM</div>
+            <div class="trigger-info">
+              <span class="trigger-name" id="appUserName">Valeria Martinez</span>
+              <span class="trigger-role" id="appUserRole">Procurement Buyer</span>
+            </div>
+            <span style="font-size:10px; color:#94a3b8; margin-left:4px;">&#9662;</span>
+          </div>
+
+          <!-- Professional Profile & Tools Dropdown Card -->
+          <div class="profile-dropdown-card" id="profileDropdownCard">
+            <div class="dropdown-user-header">
+              <strong id="dropdownName">Valeria Martinez</strong>
+              <span id="dropdownRole">Procurement Buyer</span>
+              <div id="dropdownEmail" style="font-size:11px; color:#94a3b8; margin-top:2px;">
+                valeria.martinez@abccompany.com</div>
+              <div style="margin-top:6px; display:inline-flex; align-items:center; gap:5px; font-size:11px; color:#10b981; font-weight:600;">
+                <span style="width:7px; height:7px; border-radius:50%; background:#10b981; box-shadow:0 0 6px #10b981;"></span> S/4HANA Clean Core Active
+              </div>
+            </div>
+            <button class="dropdown-menu-item signout-item" onclick="logoutUser()">
+              &#128682; Sign Out
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Real-Time Executive KPI Command Strip -->
+    <div class="executive-kpi-strip" id="executiveKpiStrip">
+      <div class="kpi-stat-card card-blue" onclick="navigateIfAuthorized('requester')"
+        title="Inbound Demand Metrics">
+        <div class="kpi-content-left">
+          <span class="kpi-subheading">Inbound Demand</span>
+          <span class="kpi-main-number" id="kpiStripTotalPrs">3</span>
+          <span class="kpi-context-pill" id="kpiStripPendingPrsPill">1 Pending Mgr Approval</span>
+        </div>
+        <div class="kpi-icon-bubble bubble-blue">📋</div>
+      </div>
+
+      <div class="kpi-stat-card card-purple" onclick="navigateIfAuthorized('sourcing')"
+        title="Active Sourcing Events">
+        <div class="kpi-content-left">
+          <span class="kpi-subheading">Active Sourcing RFQs</span>
+          <span class="kpi-main-number" id="kpiStripActiveRfqs">1</span>
+          <span class="kpi-context-pill" id="kpiStripRfqTimePill">Round 1 Bidding Active</span>
+        </div>
+        <div class="kpi-icon-bubble bubble-purple">🎯</div>
+      </div>
+
+      <div class="kpi-stat-card card-emerald" onclick="navigateIfAuthorized('supplier')"
+        title="Supplier Bids Submitted">
+        <div class="kpi-content-left">
+          <span class="kpi-subheading">Supplier Bids</span>
+          <span class="kpi-main-number" id="kpiStripQuotations">3</span>
+          <span class="kpi-context-pill" id="kpiStripSavingsPill" style="color:#059669; font-weight:700;">14.3% Est.
+            Savings</span>
+        </div>
+        <div class="kpi-icon-bubble bubble-emerald">📑</div>
+      </div>
+
+      <div class="kpi-stat-card card-amber" onclick="navigateIfAuthorized('approver')"
+        title="Internal Approval Status">
+        <div class="kpi-content-left">
+          <span class="kpi-subheading">Internal Approval</span>
+          <span class="kpi-main-number" id="kpiStripAwardStatus">1</span>
+          <span class="kpi-context-pill" id="kpiStripAwardPill">Awaiting Sign-Off</span>
+        </div>
+        <div class="kpi-icon-bubble bubble-amber">⚖️</div>
+      </div>
+
+      <div class="kpi-stat-card card-slate" onclick="navigateIfAuthorized('excel_erp')"
+        title="Committed Purchase Orders">
+        <div class="kpi-content-left">
+          <span class="kpi-subheading">S/4HANA Committed POs</span>
+          <span class="kpi-main-number" id="kpiStripTotalPos">1</span>
+          <span class="kpi-context-pill" id="kpiStripPoPill">Clean Core OData Sync</span>
+        </div>
+        <div class="kpi-icon-bubble bubble-slate">📦</div>
+      </div>
+    </div>
+
+    <!-- Main Workspace Container -->
+    <main class="sap-workspace" id="appMainWorkspace">
+
+      <!-- ========================================================================= -->
+      <!-- VIEW A: STRATEGIC SOURCING PROJECT WORKSPACE (BUYER PERSPECTIVE)         -->
+      <!-- Matches video frame 1860s, 2460s, 3060s, 3660s                           -->
+      <!-- ========================================================================= -->
+      <div class="workspace-view active" id="view-sourcing-project">
+
+        <!-- Stage 3: Approved Requisitions Inbound Queue (Convert to RFQ) -->
+        <div class="sap-card"
+          style="margin-bottom:18px; border-left:4px solid #0284c7; background:#ffffff; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+          <div class="card-toolbar" style="padding-bottom:10px;">
+            <div>
+              <span class="card-title" style="color:#0284c7;">📥 Approved Requisitions Queue (Step 3: Create Sourcing
+                RFQ)</span>
+              <div class="card-subtitle">Purchase Requisitions approved by Department Managers waiting for Buyer
+                (Valeria Martinez) to create an RFQ tender</div>
+            </div>
+            <div class="toolbar-actions">
+              <span class="status-pill approved" id="buyerApprovedPrsCountBadge">Approved PRs</span>
+              <button class="sap-btn sap-btn-secondary sap-btn-sm" onclick="loadBuyerApprovedPrs()">🔄 Refresh
+                PRs</button>
+            </div>
+          </div>
+          <table class="sap-table">
+            <thead>
+              <tr>
+                <th>PR Number</th>
+                <th>Material / Title</th>
+                <th>Quantity</th>
+                <th>Estimated Budget</th>
+                <th>Requester</th>
+                <th>Manager Status</th>
+                <th style="text-align:right;">Sourcing Action</th>
+              </tr>
+            </thead>
+            <tbody id="buyerApprovedPrsBody">
+              <!-- Dynamically populated by loadBuyerApprovedPrs() -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- DIAGRAM: Sourcing Event Creation & Publish — Technical & Economic Requirements & Supplier Selection -->
+        <div class="sap-card" style="margin-bottom:18px; border-left:4px solid #7c3aed; background:#faf5ff;">
+          <div class="card-toolbar" style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:10px;">
+            <div style="flex:1; min-width:320px;">
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px; flex-wrap:wrap;">
+                <span class="card-title" style="color:#7c3aed; font-size:15px; font-weight:700;">⚙️ Sourcing Event Configuration &amp; Publication (Architecture: Step 1 &amp; 2)</span>
+                <span id="cfgActiveEventBadge" style="background:#ede9fe; color:#6d28d9; border:1px solid #c4b5fd; font-weight:700; font-size:11px; padding:2px 10px; border-radius:12px;">
+                  Active Event
+                </span>
+              </div>
+              <div class="card-subtitle" style="margin-bottom:8px;">Buyer configures Technical Requirements, Economic Requirements, and selects multiple suppliers before publishing the tender event to market.</div>
+
+              <!-- Dedicated Event, PR, Material & PO Traceability Banner -->
+              <div style="background:#ffffff; border:1px solid #e9d5ff; border-radius:8px; padding:10px 14px; box-shadow:0 1px 3px rgba(124,58,237,0.06); margin-top:6px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px; border-bottom:1px solid #f3e8ff; padding-bottom:8px;">
+                  <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                    <span style="font-size:10px; font-weight:800; background:#7c3aed; color:#fff; padding:2px 8px; border-radius:4px; text-transform:uppercase; letter-spacing:0.5px;">Active Sourcing Project</span>
+                    <strong id="cfgEventTitle" style="font-size:14px; color:#1e1b4b;">Loading Event Name...</strong>
+                    <span id="cfgEventIdBadge" style="font-size:12px; color:#6b21a8; font-weight:700; font-family:monospace;">(ID: --)</span>
+                  </div>
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <label for="cfgRfqSelector" style="font-size:11px; font-weight:700; color:#6b21a8;">Switch Tender:</label>
+                    <select id="cfgRfqSelector" onchange="switchSourcingProject(this.value)" class="sap-field-input" style="padding:3px 8px; font-size:11px; font-weight:600; border-radius:4px; max-width:280px; border-color:#c4b5fd;">
+                    </select>
+                  </div>
+                </div>
+                <div style="display:flex; flex-wrap:wrap; gap:8px; font-size:11px;">
+                  <span style="background:#f8fafc; border:1px solid #e2e8f0; color:#334155; padding:4px 10px; border-radius:6px;">
+                    📋 <strong>Source PR:</strong> <span id="cfgMetaPrNumber" style="font-weight:700; color:#0284c7;">--</span>
+                  </span>
+                  <span style="background:#f8fafc; border:1px solid #e2e8f0; color:#334155; padding:4px 10px; border-radius:6px;">
+                    📦 <strong>Material:</strong> <span id="cfgMetaMaterial" style="font-weight:700; color:#1e293b;">--</span>
+                  </span>
+                  <span style="background:#f8fafc; border:1px solid #e2e8f0; color:#334155; padding:4px 10px; border-radius:6px;">
+                    🏭 <strong>Plant &amp; Dept:</strong> <span id="cfgMetaPlant" style="color:#475569;">--</span>
+                  </span>
+                  <span style="background:#ecfdf5; border:1px solid #a7f3d0; color:#065f46; padding:4px 10px; border-radius:6px;" id="cfgMetaPoBadge">
+                    📝 <strong>Follow-on PO:</strong> <span id="cfgMetaPoNumber" style="font-weight:700;">--</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="toolbar-actions">
+              <span id="biddingClosedBadge" style="display:none;"></span>
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:14px; padding:4px 0 8px;">
+
+            <!-- Technical Requirements Card -->
+            <div style="background:#fff; border:1px solid #ddd6fe; border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
+              <div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                  <span style="font-weight:700; font-size:13px; color:#5b21b6;">🔬 1. Technical Requirements</span>
+                  <span id="techReqStatusBadge"><span style="color:#b45309; font-weight:600; font-size:11px;">Pending Configuration</span></span>
+                </div>
+                <div style="font-size:11px; color:#64748b; line-height:1.5; margin-bottom:10px;">
+                  • ISO 9001:2015 certifications<br>
+                  • Technical specifications &amp; testing<br>
+                  • Quality standards &amp; compliance
+                </div>
+              </div>
+              <button class="sap-btn sap-btn-primary sap-btn-sm" style="background:#7c3aed; width:100%; font-weight:600;"
+                onclick="openConfigureTechnicalModal(AppState.currentRfqId)">
+                ⚙️ Configure Technical
+              </button>
+            </div>
+
+            <!-- Economic Requirements Card -->
+            <div style="background:#fff; border:1px solid #bbf7d0; border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
+              <div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                  <span style="font-weight:700; font-size:13px; color:#15803d;">💰 2. Economic Requirements</span>
+                  <span id="econReqStatusBadge"><span style="color:#b45309; font-weight:600; font-size:11px;">Pending Configuration</span></span>
+                </div>
+                <div style="font-size:11px; color:#64748b; line-height:1.5; margin-bottom:10px;">
+                  • Target unit price &amp; budget ceiling<br>
+                  • Commercial terms (Net 60 Days)<br>
+                  • Incoterms (DDP Plant Vereda Morrison)
+                </div>
+              </div>
+              <button class="sap-btn sap-btn-primary sap-btn-sm" style="background:#15803d; width:100%; font-weight:600;"
+                onclick="openConfigureEconomicModal(AppState.currentRfqId)">
+                💰 Configure Economic
+              </button>
+            </div>
+
+            <!-- Supplier Selection Card (Multi-Supplier Selection) -->
+            <div style="background:#fff; border:1px solid #bfdbfe; border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
+              <div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                  <span style="font-weight:700; font-size:13px; color:#0369a1;">👥 3. Select Suppliers (<span id="invitedSupplierCountBadge">3</span>)</span>
+                  <span class="status-pill confirmed" style="font-size:10px;">Multi-Vendor</span>
+                </div>
+                <div id="cfgInvitedSuppliersBadges" style="display:flex; flex-wrap:wrap; gap:4px; margin-bottom:10px; min-height:48px;">
+                  <!-- Dynamic invited supplier badges -->
+                </div>
+              </div>
+              <button class="sap-btn sap-btn-secondary sap-btn-sm" style="width:100%; font-weight:600; color:#0369a1; border-color:#0284c7;"
+                onclick="openInviteSuppliersModal(AppState.currentRfqId)">
+                👥 Select / Invite Suppliers
+              </button>
+            </div>
+
+            <!-- Dynamic Bidding Timer & Control Card -->
+            <div style="background:#fff; border:1px solid #fed7aa; border-radius:10px; padding:14px; display:flex; flex-direction:column; justify-content:space-between;">
+              <div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                  <span style="font-weight:700; font-size:13px; color:#c2410c;">⏱️ 4. Bidding Timer</span>
+                  <span id="buyerTimerStatusPill" class="status-pill approved" style="font-size:10px;">Active</span>
+                </div>
+                <div style="background:#fffbeb; border:1px solid #fef08a; border-radius:6px; padding:6px; text-align:center; margin-bottom:8px;">
+                  <div style="font-size:10px; font-weight:700; color:#854d0e; text-transform:uppercase;">Time Remaining</div>
+                  <div id="buyerBiddingCountdownDisplay" style="font-size:20px; font-weight:800; color:#b45309; font-family:monospace; letter-spacing:1px; margin:2px 0;">--:--:--</div>
+                  <div id="buyerDeadlineTimestamp" style="font-size:10px; color:#78350f;">Calculating...</div>
+                </div>
+              </div>
+              <div style="display:flex; gap:6px;">
+                <button class="sap-btn sap-btn-secondary sap-btn-sm" style="flex:1; font-size:11px; padding:4px;"
+                  onclick="openSetBiddingDeadlineModal(AppState.currentRfqId)" title="Adjust or extend bidding deadline">
+                  ⏱️ Set Timer
+                </button>
+                <button class="sap-btn sap-btn-sm" id="btnCloseBidding"
+                  style="background:#c2410c; color:#fff; flex:1; font-size:11px; padding:4px;"
+                  onclick="closeBiddingManually(AppState.currentRfqId)">
+                  🔒 Close Early
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Publication Action Banner -->
+          <div id="rfqPublicationBanner" style="margin-top:10px; padding:10px 16px; background:#fff; border:1px solid #e2e8f0; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span id="rfqPubStatusIcon" style="font-size:18px;">📢</span>
+              <div>
+                <strong id="rfqPubStatusTitle" style="font-size:12px; color:#0f172a;">Event Status: OPEN FOR BIDDING</strong>
+                <div id="rfqPubStatusSubtitle" style="font-size:11px; color:#64748b;">Suppliers can submit sealed technical and economic bid proposals until deadline.</div>
+              </div>
+            </div>
+            <button class="sap-btn sap-btn-primary sap-btn-sm" id="btnPublishRfqDirect"
+              style="background:#0284c7; font-weight:700; display:none;"
+              onclick="publishCurrentRfqDirect()">
+              🚀 Publish Event &amp; Send Invitations
+            </button>
+          </div>
+        </div>
+
+        <!-- Sourcing Project Title Banner -->
+        <div class="project-header-bar">
+          <div class="project-title-area">
+            <div class="project-id-badge">
+              <span class="id-number" id="projIdText">2000000892</span>
+              <span class="team-icon" title="Team project">&#128101;</span>
+            </div>
+            <h1 class="project-main-title" id="projMainTitle">Sourcing Project Test V2</h1>
+            <div class="project-meta-chips">
+              <span class="chip-type">RFP</span>
+              <span class="chip-divider">|</span>
+              <span class="chip-status" id="projChipStatus">Review responses</span>
+              <span class="chip-divider">|</span>
+              <span class="chip-docid">ID: Doc2432956265</span>
+              <span class="chip-divider">|</span>
+              <span class="chip-round" id="projRoundBadge">Round 1</span>
+              <span class="chip-divider">|</span>
+              <span class="timer-countdown" id="buyerHeaderTimerBadge" style="background:#fef3c7; border:1px solid #fde68a; color:#92400e; padding:2px 10px; border-radius:999px; font-weight:700; font-family:monospace; font-size:12px;">⏱️ Time Remaining: <strong id="buyerHeaderTimerText">--:--:--</strong></span>
+            </div>
+
+            <!-- RFQ Project Selector Dropdown -->
+            <div style="margin-top:10px; display:flex; align-items:center; gap:8px;">
+              <span style="font-size:11px; font-weight:700; color:#475569;">SELECT TENDER PROJECT:</span>
+              <select id="rfqProjectSelector" onchange="switchSourcingProject(this.value)" class="sap-field-input"
+                style="padding:4px 8px; font-size:12px; font-weight:600; border-radius:4px; max-width:480px;">
+                <option value="Doc2432956265">Doc2432956265 - Sourcing Project Test V2 (SUMINISTROS REFRI)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="project-header-actions">
+            <button class="sap-btn sap-btn-secondary" id="btnOpenEnvelope" onclick="openEnvelopeDetails()">Open envelope</button>
+            <button class="sap-btn sap-btn-secondary" onclick="exportExcel()">Export to Excel</button>
+            <button class="sap-btn sap-btn-secondary">Close</button>
+            <button class="sap-btn sap-btn-ghost">&bull;&bull;&bull;</button>
+          </div>
+        </div>
+
+        <!-- SAP Ariba Sourcing 5-Stage Stepper Progression (Exact from Video) -->
+        <div class="sourcing-stepper-container">
+          <div class="stepper-track">
+            <div class="step-node completed" id="stepNode1">
+              <div class="step-circle">&#10003;</div>
+              <span class="step-label">Create</span>
+            </div>
+            <div class="step-line completed" id="stepLine1"></div>
+
+            <div class="step-node completed" id="stepNode2">
+              <div class="step-circle">&#10003;</div>
+              <span class="step-label">Publish</span>
+            </div>
+            <div class="step-line completed" id="stepLine2"></div>
+
+            <div class="step-node completed" id="stepNode3">
+              <div class="step-circle">&#10003;</div>
+              <span class="step-label">Monitor</span>
+            </div>
+            <div class="step-line active" id="stepLine3"></div>
+
+            <div class="step-node active" id="stepNode4">
+              <div class="step-circle">4</div>
+              <span class="step-label">Review responses</span>
+            </div>
+            <div class="step-line" id="stepLine4"></div>
+
+            <div class="step-node" id="stepNode5">
+              <div class="step-circle">5</div>
+              <span class="step-label">Award</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inner Workspace Tabs (Tasks, Award Scenarios, Contracts, Messages) -->
+        <div class="inner-tabs-container">
+          <div class="inner-tabs-bar">
+            <button class="inner-tab" data-target="tab-tasks" onclick="switchInnerTab('tab-tasks')">Tasks <span
+                class="tab-count" id="countTasks">5</span></button>
+            <button class="inner-tab active" data-target="tab-awards" onclick="switchInnerTab('tab-awards')">Award
+              scenarios</button>
+            <button class="inner-tab" data-target="tab-allocations" onclick="switchInnerTab('tab-allocations')">Allocate
+              awards</button>
+            <button class="inner-tab" data-target="tab-contracts" onclick="switchInnerTab('tab-contracts')">Associated
+              Contracts</button>
+            <button class="inner-tab" data-target="tab-specifications"
+              onclick="switchInnerTab('tab-specifications')">Questions, requirements, and attachments</button>
+            <button class="inner-tab" data-target="tab-messages"
+              onclick="switchInnerTab('tab-messages')">Messages</button>
+          </div>
+
+          <!-- 1. Tasks Tab Content (Exact tasks from video frame 1860s/2460s/3060s) -->
+          <div class="inner-tab-content" id="tab-tasks">
+            <div class="sap-card">
+              <div class="card-toolbar">
+                <span class="card-title">&#9662; Tasks</span>
+                <div class="toolbar-actions">
+                  <input type="text" class="sap-filter-input" placeholder="Search tasks...">
+                  <button class="sap-btn sap-btn-secondary sap-btn-sm">Create &or;</button>
+                  <button class="sap-btn sap-btn-secondary sap-btn-sm">Cancel optional tasks</button>
+                </div>
+              </div>
+
+              <table class="sap-table">
+                <thead>
+                  <tr>
+                    <th width="30"><input type="checkbox"></th>
+                    <th>Phases and tasks</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Owner</th>
+                    <th>Due date</th>
+                    <th>Approvers or reviewers</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="tasksTableBody">
+                  <tr>
+                    <td><input type="checkbox"></td>
+                    <td><strong>Approval For Publish for RFP Bidding Process*</strong></td>
+                    <td>Approval for publish</td>
+                    <td><span class="status-badge approved">&#10003; Approved</span></td>
+                    <td><span class="owner-pill">VM</span> Valeria Martinez</td>
+                    <td>10/10/2026</td>
+                    <td><span class="team-tag">GA</span> GTE_Purchases and Materials Manager</td>
+                    <td><button class="sap-btn sap-btn-ghost sap-btn-sm" onclick="showApprovalDetails()">View
+                        flow</button></td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"></td>
+                    <td><strong>Approval for Timing Change for RFP Bidding Process*</strong></td>
+                    <td>Approval for timing change</td>
+                    <td><span class="status-badge approved">&#10003; Approved</span></td>
+                    <td><span class="owner-pill">VM</span> Valeria Martinez</td>
+                    <td>10/10/2026</td>
+                    <td><span class="team-tag">GA</span> GTE_Purchases and Materials Manager</td>
+                    <td><button class="sap-btn sap-btn-ghost sap-btn-sm">View flow</button></td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"></td>
+                    <td><strong>Review for Team Grading</strong></td>
+                    <td>Review for team grading</td>
+                    <td><span class="status-badge reviewed">&#10003; Reviewed</span></td>
+                    <td><span class="owner-pill">VM</span> Valeria Martinez</td>
+                    <td>10/10/2026</td>
+                    <td><span class="team-tag">PO</span> Project Owner + 1</td>
+                    <td><button class="sap-btn sap-btn-secondary sap-btn-sm">Create new round</button></td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox"></td>
+                    <td><strong>Complete Award Budget Field and Legal Representative Approver*</strong></td>
+                    <td>To do</td>
+                    <td><span class="status-badge completed">&#10003; Complete</span></td>
+                    <td><span class="owner-pill">VM</span> Valeria Martinez</td>
+                    <td>10/10/2026</td>
+                    <td>Project Owner</td>
+                    <td><button class="sap-btn sap-btn-secondary sap-btn-sm" disabled>Completed</button></td>
+                  </tr>
+                  <tr class="highlight-row">
+                    <td><input type="checkbox"></td>
+                    <td><strong>Approval For Award for RFP Bidding Process*</strong></td>
+                    <td>Approval for award</td>
+                    <td><span class="status-badge pending" id="badgeAwardApproval">Ready for approval</span></td>
+                    <td><span class="owner-pill">PO</span> Project Owner</td>
+                    <td>10/10/2026</td>
+                    <td><span class="team-tag gc-tag">GC</span> GTE_SOCIAL-Cost Control COL + 3</td>
+                    <td><button class="sap-btn sap-btn-primary sap-btn-sm" onclick="triggerAwardApproval()">Approve
+                        Award</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 2. Award Scenarios & Side-by-Side Comparison Matrix -->
+          <div class="inner-tab-content active" id="tab-awards">
+            <div class="sap-card">
+              <div class="card-toolbar">
+                <div>
+                  <span class="card-title">&#9662; Side-by-Side Quotation Comparison & Evaluation Matrix</span>
+                  <div class="card-subtitle">Event: Doc2432956265 - Sourcing Project Test V2 | Currency: <strong>COP
+                      (Colombian Pesos)</strong> | ShipTo: <strong>VEREDA MORRISON RÍO DE ORO, 20 Colombia</strong>
+                  </div>
+                </div>
+                <div class="toolbar-actions">
+                  <button class="sap-btn sap-btn-secondary sap-btn-sm" onclick="recalculateSavings()">Recalculate
+                    Savings</button>
+                  <button class="sap-btn sap-btn-primary" id="btnAwardScenario" onclick="submitAwardRecommendation()">
+                    <span class="btn-icon">&#128228;</span> Submit Award Recommendation for Approval
+                  </button>
+                </div>
+              </div>
+
+              <!-- Quotation Comparison Matrix Table -->
+              <div class="table-scroll-container">
+                <table class="sap-matrix-table" id="matrixComparisonTable">
+                  <thead id="matrixComparisonThead">
+                    <!-- Dynamic Supplier Columns rendered from live data -->
+                  </thead>
+                  <tbody id="matrixComparisonTbody">
+                    <!-- Dynamic Line Items & Supplier Bids rendered from live data -->
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Approval Status Callout -->
+              <div class="sap-approval-callout" id="approvalStrategyCallout">
+                <div class="callout-icon">&#9432;</div>
+                <div class="callout-body">
+                  <strong>Governance Approval Policy: Stage 3 Internal Approval Committee (Carlos Alberto Fonseca)</strong>
+                  <p>Submitting this recommendation forwards the evaluated supplier proposal to Carlos Alberto Fonseca (Award Approver) for formal Stage 3 governance sign-off. Once approved in the Award Approver Cockpit, the platform notifies the winning supplier and transmits the final Purchase Order to SAP S/4HANA via Clean Core OData &amp; cXML.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Questions, Requirements & Attachments -->
+          <div class="inner-tab-content" id="tab-specifications">
+            <div class="sap-card">
+              <span class="card-title">Questions, Requirements, and Attachments</span>
+              <div class="spec-list">
+                <div class="spec-item">
+                  <span class="spec-num">1.0</span>
+                  <div class="spec-desc">
+                    <strong>Technical Specifications & Quality Requirements</strong>
+                    <p>All delivered chemicals and consumables must comply with ISO 9001 and Gran Tierra Energy
+                      Environmental Safety Standards for Altamira & Vereda Morrison operations.</p>
+                  </div>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-num">2.0</span>
+                  <div class="spec-desc">
+                    <strong>Attached Documents</strong>
+                    <p><a href="#" class="sap-link">&#128206; GTE_Tender_Specifications_Refri_2026.pdf (1.4 MB)</a></p>
+                    <p><a href="#" class="sap-link">&#128206; Anexo_Tarifas_Morrison_Colombia.xlsx (420 KB)</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- VIEW B: SUPPLIER PORTAL (ISOLATED SECURE BIDDING CONSOLE)                 -->
+      <!-- Matches video frame 2850s                                                 -->
+      <!-- ========================================================================= -->
+      <div class="workspace-view" id="view-supplier-portal">
+
+        <!-- Architecture Diagram: Custom Supplier Portal Banner -->
+        <div
+          style="background:linear-gradient(135deg,#eff6ff,#dbeafe); border:2px solid #3b82f6; border-radius:12px; padding:14px 20px; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:16px;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="font-size:26px;">🌐</div>
+            <div>
+              <div style="font-weight:800; font-size:15px; color:#1e40af;">Custom Supplier Portal (Supplier View) —
+                Architecture Column 3</div>
+              <div style="font-size:12px; color:#1d4ed8; margin-top:2px;">Receive event invitation &bull; Submit
+                technical bid response &bull; Submit economic bid response &bull; Status: Participated &#10003;</div>
+            </div>
+          </div>
+          <div id="supplierParticipationStatusBadge">
+            <span
+              style="background:#e2e8f0; color:#475569; font-weight:700; padding:6px 14px; border-radius:20px; font-size:12px;">Status:
+              Invitation Received</span>
+          </div>
+        </div>
+
+        <!-- Award Trigger Notification Container (Populated dynamically when Award Trigger fires) -->
+        <div id="supplierAwardNotificationPanel" style="display:none; margin-bottom:16px;"></div>
+
+        <!-- 1. INVITED TENDERS SELECTION QUEUE -->
+        <div class="sap-card"
+          style="margin-bottom: 16px; border-left: 4px solid #4f46e5; box-shadow: 0 1px 3px rgba(0,0,0,0.06);">
+          <div class="card-toolbar"
+            style="display:flex; justify-content:space-between; align-items:center; background:#f8fafc; border-bottom:1px solid #e2e8f0; padding:12px 18px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span class="card-title" style="color:#4f46e5; font-size:15px; font-weight:700;">📑 Invited Tenders & RFQs
+                (Supplier Bidding Inbox)</span>
+              <span class="status-pill approved" id="supplierInvitedTendersCountBadge" style="font-size:11px;">Loading
+                tenders...</span>
+            </div>
+            <button class="sap-btn sap-btn-secondary sap-btn-sm" onclick="loadSupplierPortalData()">🔄 Refresh
+              Tenders</button>
+          </div>
+          <div class="table-container" style="max-height: 240px; overflow-y: auto;">
+            <table class="sap-table">
+              <thead>
+                <tr>
+                  <th width="150">Tender ID</th>
+                  <th>Project Title & Scope</th>
+                  <th width="140">Tender Status</th>
+                  <th width="150">Your Bid Status</th>
+                  <th width="140" style="text-align:right;">Bidding Action</th>
+                </tr>
+              </thead>
+              <tbody id="supplierInvitedTendersBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 2. STREAMLINED TENDER BIDDING COCKPIT -->
+        <div class="sap-card" style="margin-bottom: 20px;">
+          <!-- Tender Header & Status Bar -->
+          <div style="display:flex; justify-content:space-between; align-items:center; background:#f8fafc; border-bottom:1px solid #e2e8f0; padding:16px 20px; border-radius:8px 8px 0 0; gap:16px; flex-wrap:wrap;">
+            <div style="flex:1; min-width:300px;">
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                <span style="font-size:11px; font-weight:700; color:#475569; text-transform:uppercase;">Active Tender Project:</span>
+                <select id="supplierTenderSelector" class="sap-field-input"
+                  style="font-weight:700; color:#1e293b; padding:4px 10px; max-width:440px; font-size:12px;"
+                  onchange="switchSupplierTender(this.value)">
+                  <!-- Options populated dynamically -->
+                </select>
+              </div>
+              <h1 class="supplier-event-title" id="supEventTitle" style="font-size:17px; font-weight:800; color:#0f172a; margin:0 0 4px 0;">Doc2432956265 - Sourcing Project Test V2</h1>
+              <div style="display:flex; align-items:center; gap:12px; font-size:12px; color:#475569;">
+                <span>Delivery Plant: <strong id="supPlantNameHeader">VEREDA MORRISON PLANT</strong></span>
+                <span>&bull;</span>
+                <span>Round: <strong>1</strong></span>
+              </div>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div class="timer-countdown" id="supplierBiddingTimer" style="background:#fef3c7; border:1px solid #fde68a; color:#92400e; padding:6px 14px; border-radius:20px; font-weight:700; font-size:12px;">
+                <span class="timer-icon">⏱️</span> Bidding Closes: <strong id="supplierTimeRemainingText" style="font-family:monospace; font-weight:800;">--:--:--</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2-Step Transparent Proposal Form -->
+          <div style="padding:20px;">
+            <!-- STEP 1: TECHNICAL ENVELOPE -->
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px; margin-bottom:18px;">
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+                <span style="background:#2563eb; color:#ffffff; font-size:11px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 1</span>
+                <strong style="font-size:14px; color:#0f172a;">Technical Proposal &amp; Quality Compliance (Envelope 1)</strong>
+                <span style="font-size:11px; color:#64748b; margin-left:auto;">Pricing remains sealed from technical evaluators</span>
+              </div>
+
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:16px;">
+                <div>
+                  <label style="display:block; font-size:12px; font-weight:700; color:#334155; margin-bottom:4px;">
+                    1. ISO 9001:2015 Quality Certificate <span style="color:#ef4444;">*</span>
+                  </label>
+                  <select class="sap-field-input" id="supplierIsoAnswer" style="width:100%; font-weight:600;">
+                    <option value="Yes" selected>✓ Yes — Valid ISO 9001:2015 Certified</option>
+                    <option value="No">No — Not Certified</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label style="display:block; font-size:12px; font-weight:700; color:#334155; margin-bottom:4px;">
+                    2. Guaranteed Delivery Lead Time <span style="color:#ef4444;">*</span>
+                  </label>
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <input type="number" id="supplierLeadTimeInput" class="sap-field-input" value="8" min="1" max="90" style="width:100px; font-weight:700; text-align:center;">
+                    <span style="font-size:12px; color:#475569; font-weight:600;">Business Days</span>
+                  </div>
+                </div>
+
+                <div>
+                  <label style="display:block; font-size:12px; font-weight:700; color:#334155; margin-bottom:4px;">
+                    3. Technical Specification Acceptance
+                  </label>
+                  <input type="text" id="supplierTechnicalRemarks" class="sap-field-input" value="Fully compliant with technical specifications &amp; plant delivery norms." style="width:100%; font-size:12px;">
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 2: COMMERCIAL ENVELOPE -->
+            <div style="background:#ffffff; border:1px solid #cbd5e1; border-radius:8px; padding:16px; margin-bottom:18px;">
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
+                <span style="background:#0284c7; color:#ffffff; font-size:11px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 2</span>
+                <strong style="font-size:14px; color:#0f172a;">Commercial Pricing &amp; Unit Tariffs (Envelope 2)</strong>
+                <span style="font-size:11px; color:#64748b; margin-left:auto;">Unit price multiplied by requested quantity</span>
+              </div>
+
+              <!-- Scope Demand Details Callout -->
+              <div style="background:#eff6ff; border-left:4px solid #3b82f6; padding:10px 14px; border-radius:4px; margin-bottom:14px;">
+                <div style="font-size:13px; font-weight:700; color:#1e40af;" id="supLineItemCodeName">2.1.1 REFRIGERANT-134A INDUSTRIAL</div>
+                <div style="font-size:12px; color:#334155; margin-top:2px;" id="supLineItemDesc">Refrigeration Supplies &amp; Industrial Chemical Consumables</div>
+                <div style="font-size:11px; color:#64748b; margin-top:4px;">
+                  Ship-to Plant: <strong id="supLineItemPlant">VEREDA MORRISON PLANT</strong> &bull; Requested Delivery: <span id="supDeliveryDate">Oct 13, 2026</span>
+                </div>
+              </div>
+
+              <!-- Clear Bidding Row -->
+              <div style="display:flex; align-items:center; justify-content:space-between; background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:16px; gap:16px; flex-wrap:wrap;">
+                <div>
+                  <div style="font-size:11px; font-weight:700; color:#64748b; text-transform:uppercase;">Required Demand Quantity</div>
+                  <div style="font-size:18px; font-weight:800; color:#0f172a; margin-top:2px;">
+                    <span id="supItemQuantity">7,125,000</span> <span id="supItemUnit" style="font-size:14px; font-weight:600; color:#475569;">Units</span>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="supInputUnitPrice" style="display:block; font-size:11px; font-weight:700; color:#0284c7; text-transform:uppercase; margin-bottom:4px;">
+                    Your Unit Price Offer <span style="color:#ef4444;">*</span>
+                  </label>
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <span style="font-size:16px; font-weight:800; color:#0284c7;">$</span>
+                    <input type="text" class="sap-field-input" id="supInputUnitPrice" value="3.00"
+                      oninput="calculateSupplierSubtotal()"
+                      style="width:120px; font-size:16px; font-weight:800; text-align:right; border:2px solid #0284c7; border-radius:6px; padding:6px 10px;">
+                    <span id="supCurrencyLabel" style="font-size:13px; font-weight:700; color:#475569;">COP</span>
+                  </div>
+                </div>
+
+                <div style="text-align:right;">
+                  <div style="font-size:11px; font-weight:700; color:#64748b; text-transform:uppercase;">Total Calculated Bid Subtotal</div>
+                  <div id="supLineSubtotal" style="font-size:20px; font-weight:900; color:#15803d; margin-top:2px;">
+                    $21,375,000.00 COP
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Commercial Terms & Total Proposal Bar -->
+            <div style="display:flex; justify-content:space-between; align-items:center; background:#f1f5f9; border:1px solid #cbd5e1; border-radius:8px; padding:16px 20px; gap:16px; flex-wrap:wrap;">
+              <div style="font-size:12px; color:#475569;">
+                <div>Payment Terms: <strong>Net 60 Days</strong> &bull; Incoterms: <strong>DDP (Delivered Duty Paid)</strong></div>
+                <div style="font-size:11px; color:#64748b; margin-top:2px;">Warranty: 12 months minimum guarantee upon plant delivery acceptance.</div>
+              </div>
+
+              <div style="display:flex; align-items:center; gap:20px;">
+                <div style="text-align:right;">
+                  <div style="font-size:11px; font-weight:700; color:#64748b; text-transform:uppercase;">Total Proposal Amount</div>
+                  <div id="supGroupSubtotal" style="font-size:22px; font-weight:900; color:#0f172a;">
+                    $21,375,000.00 COP
+                  </div>
+                </div>
+
+                <div style="display:flex; gap:8px;">
+                  <button class="sap-btn sap-btn-primary" onclick="submitSupplierFullBid()"
+                    style="background:#0284c7; font-weight:800; font-size:14px; padding:10px 22px; box-shadow:0 2px 6px rgba(2,132,199,0.3);">
+                    🚀 Submit Complete Quotation
+                  </button>
+                  <button class="sap-btn sap-btn-secondary" onclick="updateSupplierTotals()" title="Recalculate Totals">
+                    🔄 Recalculate
+                  </button>
+                  <button class="sap-btn sap-btn-secondary" onclick="showSapToast('Quotation draft saved successfully.', 'info')" title="Save Draft">
+                    💾 Save Draft
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hidden compatibility anchors for legacy DOM references -->
+            <div style="display:none;">
+              <span id="supParentItemTitle"></span>
+              <span id="supActivityUnit">1 Activity Unit</span>
+              <span id="supItemDate">Tue, Oct 13, 2026</span>
+              <ul class="checklist-steps"><li class="step-item"></li><li class="step-item"></li><li class="step-item"></li><li class="step-item"></li></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- VIEW 1: REQUESTER / EMPLOYEE WORKSPACE (STAGE 1)                          -->
+      <!-- ========================================================================= -->
+      <div class="workspace-view" id="view-requester">
+        <!-- KPI Stats Row -->
+        <div class="kpi-row">
+          <div class="kpi-card">
+            <div class="kpi-title">My Requisitions</div>
+            <div class="kpi-value" id="kpiReqTotalPrs">2</div>
+            <div class="kpi-subtext">Total Requisitions created</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Pending Mgr Approval</div>
+            <div class="kpi-value" style="color:#d97706;" id="kpiReqPendingPrs">1</div>
+            <div class="kpi-subtext">Waiting for David Vance (Finance)</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Returned for Correction</div>
+            <div class="kpi-value" style="color:#c0392b;" id="kpiReqReturnedPrs">0</div>
+            <div class="kpi-subtext">Requires specification update</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Approved & In Sourcing</div>
+            <div class="kpi-value" style="color:#107e3e;" id="kpiReqApprovedPrs">1</div>
+            <div class="kpi-subtext">Tender active with Suppliers</div>
+          </div>
+        </div>
+
+        <!-- Alert if any PR was returned for correction -->
+        <div id="requesterReturnedAlert" class="hidden"
+          style="background:#fef2f2; border:1px solid #f87171; border-radius:4px; padding:12px 16px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <strong style="color:#b91c1c;">⚠️ Action Required: Requisition Returned by Manager</strong>
+            <p id="returnedReasonText" style="margin:4px 0 0 0; color:#7f1d1d; font-size:12px;">Manager notes: Please
+              attach technical specifications sheet.</p>
+          </div>
+          <button class="sap-btn sap-btn-primary sap-btn-sm" style="background:#b91c1c;"
+            onclick="openResubmitPrModal()">Revise & Resubmit</button>
+        </div>
+
+        <div class="sap-card">
+          <div class="card-toolbar">
+            <div>
+              <span class="card-title">&#128119; My Plant Purchase Requisitions (Carlos Ramirez)</span>
+              <div class="card-subtitle">Operational plant materials and consumables for Altamira & OP ANG plants</div>
+            </div>
+            <div class="toolbar-actions">
+              <button class="sap-btn sap-btn-primary sap-btn-sm" onclick="openAddPrModal()">&#10133; Create New Purchase
+                Requisition</button>
+              <button class="sap-btn sap-btn-secondary sap-btn-sm" onclick="switchMainTab('excel_erp')">&#128202; View
+                Inbound PR Excel Sheet</button>
+            </div>
+          </div>
+
+          <table class="sap-table" id="requesterPrTable">
+            <thead>
+              <tr>
+                <th>PR Number</th>
+                <th>Requisition Title / Material</th>
+                <th>Quantity & Unit</th>
+                <th>Budget (Target Price)</th>
+                <th>Plant & Cost Center</th>
+                <th>Approval Status</th>
+                <th>Lineage</th>
+              </tr>
+            </thead>
+            <tbody id="requesterPrTableBody">
+              <!-- Dynamically populated by loadRequesterPrs() -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- My Plant Deliveries Receipt Section -->
+        <div class="sap-card" style="margin-top:20px;">
+          <div class="card-toolbar">
+            <div>
+              <span class="card-title">&#128230; Received Plant Deliveries & Receipts</span>
+              <div class="card-subtitle">Physical delivery tracking for materials requested by Plant Operations</div>
+            </div>
+          </div>
+          <table class="sap-table">
+            <thead>
+              <tr>
+                <th>PO Number</th>
+                <th>Material</th>
+                <th>Ordered Qty</th>
+                <th>Received Qty</th>
+                <th>Delivery Status</th>
+                <th>Carrier & Delivery Waybill</th>
+              </tr>
+            </thead>
+            <tbody id="requesterDeliveriesTableBody">
+              <tr>
+                <td><strong>PO-450009180</strong></td>
+                <td>REFRIGERATION SUPPLIES & INDUSTRIAL CONSUMABLES</td>
+                <td>7,125,000 Units</td>
+                <td><span style="color:#107e3e; font-weight:700;">7,125,000 (100%)</span></td>
+                <td><span class="status-pill delivered">Delivered in Full</span></td>
+                <td>Trans-Caribe Logistics (Waybill REM-89214)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- VIEW 2: DEPARTMENT MANAGER / FINANCE WORKSPACE (STAGE 2)                  -->
+      <!-- ========================================================================= -->
+      <div class="workspace-view" id="view-manager">
+        <div class="kpi-row">
+          <div class="kpi-card">
+            <div class="kpi-title">Pending My Approval</div>
+            <div class="kpi-value" style="color:#d97706;" id="kpiMgrPendingCount">1</div>
+            <div class="kpi-subtext">Requisitions awaiting budget check</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Pending Value</div>
+            <div class="kpi-value" id="kpiMgrPendingValue">$425,000 USD</div>
+            <div class="kpi-subtext">Bulk Purified Terephthalic Acid (PTA)</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Monthly Budget Remaining</div>
+            <div class="kpi-value" style="color:#107e3e;">$1,850,000 USD</div>
+            <div class="kpi-subtext">Plant Operations Cost Center 80120</div>
+          </div>
+        </div>
+
+        <div class="sap-card">
+          <div class="card-toolbar">
+            <div>
+              <span class="card-title">&#128188; Department Manager PR Verification Queue (David Vance)</span>
+              <div class="card-subtitle">Validate operational necessity, cost center allocations, and financial budget
+                availability</div>
+            </div>
+            <div class="toolbar-actions">
+              <button class="sap-btn sap-btn-secondary sap-btn-sm" onclick="loadManagerQueue()">&#128260; Refresh
+                Queue</button>
+            </div>
+          </div>
+
+          <table class="sap-table" id="managerPrTable">
+            <thead>
+              <tr>
+                <th>PR Number</th>
+                <th>Requester</th>
+                <th>Material & Purpose</th>
+                <th>Cost Center</th>
+                <th>Budget Amount</th>
+                <th>Required By</th>
+                <th style="text-align:right;">Governance Actions</th>
+              </tr>
+            </thead>
+            <tbody id="managerPrTableBody">
+              <!-- Dynamically populated by loadManagerQueue() -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- VIEW 6A: TECHNICAL EVALUATOR WORKSPACE (STAGE 6 - ENVELOPE 1)             -->
+      <!-- Two-Envelope Separation: Pricing is sealed / hidden from technical review -->
+      <!-- ========================================================================= -->
+      <div class="workspace-view" id="view-tech-eval">
+        <div class="sap-card">
+          <div class="card-toolbar">
+            <div>
+              <span class="card-title">&#129514; Technical Proposal Evaluation Committee (Dr. Victor Chen)</span>
+              <div class="card-subtitle">Two-Envelope Protocol: Commercial pricing is SEALED and strictly hidden from technical committee</div>
+            </div>
+            <div class="toolbar-actions">
+              <span class="envelope-badge technical">&#128274; Technical Envelope Open (Pricing Sealed)</span>
+            </div>
+          </div>
+
+          <!-- Active Tender & PR Demand Selector -->
+          <div style="display:flex; justify-content:space-between; align-items:center; background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:10px 14px; margin-bottom:14px; gap:12px; flex-wrap:wrap;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-size:11px; font-weight:700; color:#475569; text-transform:uppercase;">Select Tender to Evaluate:</span>
+              <select id="techEvalRfqSelector" class="sap-field-input" onchange="switchTechEvalRfq(this.value)"
+                style="padding:4px 8px; font-size:12px; font-weight:700; max-width:440px;">
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+            <div id="techEvalPrDemandInfo" style="font-size:12px; color:#334155; font-weight:600;">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+
+          <div
+            style="background:#eff6ff; border-left:4px solid #2563eb; padding:12px 16px; margin-bottom:16px; font-size:12px;">
+            <strong>Security &amp; Compliance Rules:</strong> Under Alpek Demo procurement policy, technical evaluators
+            score vendor ISO certifications, delivery timelines, and technical suitability without knowledge of
+            commercial pricing to ensure zero bias.
+          </div>
+
+          <table class="sap-table" id="techEvalTable">
+            <thead>
+              <tr>
+                <th>Supplier Name</th>
+                <th>ANID &amp; ID</th>
+                <th>ISO 9001:2015 Cert</th>
+                <th>Lead Time</th>
+                <th>Technical Proposal</th>
+                <th>Technical Score (0-100)</th>
+                <th>Compliance Decision</th>
+              </tr>
+            </thead>
+            <tbody id="techEvalTableBody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+
+          <div style="margin-top:20px; display:flex; justify-content:flex-end;">
+            <button class="sap-btn sap-btn-primary" onclick="submitTechnicalEvaluation()" style="background:#2563eb;">
+              &#10003; Submit Official Technical Evaluation
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- VIEW 6B: COMMERCIAL EVALUATOR WORKSPACE (STAGE 6 - ENVELOPE 2)            -->
+      <!-- Commercial pricing, unit tariffs, budget baseline comparison              -->
+      <!-- ========================================================================= -->
+      <div class="workspace-view" id="view-comm-eval">
+        <div class="sap-card">
+          <div class="card-toolbar">
+            <div>
+              <span class="card-title">&#128176; Commercial Pricing &amp; Tariff Analysis (Sofia Morales)</span>
+              <div class="card-subtitle">Two-Envelope Protocol: Commercial evaluation of submitted unit tariffs and budget savings</div>
+            </div>
+            <div class="toolbar-actions">
+              <span class="envelope-badge commercial" id="commEnvelopeBadge">&#128178; Commercial Envelope Open</span>
+            </div>
+          </div>
+
+          <!-- Active Tender & PR Demand Selector -->
+          <div style="display:flex; justify-content:space-between; align-items:center; background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:10px 14px; margin-bottom:14px; gap:12px; flex-wrap:wrap;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-size:11px; font-weight:700; color:#475569; text-transform:uppercase;">Select Tender to Evaluate:</span>
+              <select id="commEvalRfqSelector" class="sap-field-input" onchange="switchCommEvalRfq(this.value)"
+                style="padding:4px 8px; font-size:12px; font-weight:700; max-width:440px;">
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+            <div id="commEvalPrDemandInfo" style="font-size:12px; color:#334155; font-weight:600;">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+
+          <div id="commEvalBaselineCallout"
+            style="background:#f0fdf4; border-left:4px solid #16a34a; padding:12px 16px; margin-bottom:16px; font-size:12px;">
+            <!-- Dynamic baseline populated from RFQ data -->
+          </div>
+
+          <table class="sap-table" id="commEvalTable">
+            <thead>
+              <tr>
+                <th>Supplier Name</th>
+                <th>Submitted Unit Tariff</th>
+                <th>Total Bid Amount</th>
+                <th>Payment Terms</th>
+                <th>Savings vs Baseline</th>
+                <th>Commercial Score (0-100)</th>
+              </tr>
+            </thead>
+            <tbody id="commEvalTableBody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+
+          <div style="margin-top:20px; display:flex; justify-content:flex-end;">
+            <button class="sap-btn sap-btn-primary" onclick="submitCommercialEvaluation()" style="background:#16a34a;">
+              &#10003; Submit Commercial Price Evaluation
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- VIEW 7: INTERNAL APPROVAL PROCESS (STAGE 3 — ARCHITECTURE DIAGRAM)         -->
+      <!-- ========================================================================= -->
+      <!-- VIEW 7: EXECUTIVE AWARD APPROVAL WORKSPACE (STAGE 7)                       -->
+      <!-- Executive review of multi-criteria rankings & SAP S/4HANA PO sign-off       -->
+      <!-- ========================================================================= -->
+      <div class="workspace-view" id="view-approver">
+        <!-- Architecture Diagram Stage 3 Banner -->
+        <div style="background:linear-gradient(135deg,#f0fdf4,#dcfce7); border:2px solid #22c55e; border-radius:12px; padding:14px 20px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+          <div style="display:flex; align-items:center; gap:14px;">
+            <div style="font-size:26px;">🔐</div>
+            <div>
+              <div style="font-weight:800; font-size:15px; color:#14532d;">Stage 3 (Architecture Diagram): Internal Approval Process</div>
+              <div style="font-size:12px; color:#166534; margin-top:2px;">Review multi-criteria supplier evaluation rankings, verify committee sign-offs, and trigger outbound PO integration to SAP S/4HANA.</div>
+            </div>
+          </div>
+          <div><span class="status-badge pending" id="approverPendingBadge">1 Award Awaiting Approval</span></div>
+        </div>
+
+        <div class="sap-card">
+          <!-- Card Header & Tender Event Selector -->
+          <div class="card-toolbar" style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px; border-bottom:1px solid #e2e8f0; padding-bottom:12px; margin-bottom:14px;">
+            <div>
+              <span class="card-title" style="color:#15803d; font-size:16px; font-weight:800;">⚖️ Executive Award Approval Cockpit (Carlos Alberto Fonseca)</span>
+              <div class="card-subtitle">Sourcing Director review of evaluated bids, committee scores, and follow-on Purchase Order dispatch.</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <label for="approverRfqSelector" style="font-size:11px; font-weight:700; color:#15803d; text-transform:uppercase;">Select Tender:</label>
+              <select id="approverRfqSelector" onchange="loadApproverReviewData(this.value)" class="sap-field-input" style="padding:4px 10px; font-size:12px; font-weight:600; border-radius:6px; min-width:280px; border-color:#86efac;">
+              </select>
+            </div>
+          </div>
+
+          <!-- Product & Lineage Identity Banner -->
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:12px 16px; margin-bottom:16px;">
+            <div style="font-size:14px; font-weight:800; color:#0f172a; margin-bottom:6px;" id="apprEventTitle">
+              Doc2432956265 — Sourcing Project Test V2 (SUMINISTROS REFRI)
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:10px; font-size:11px;">
+              <span style="background:#ffffff; border:1px solid #cbd5e1; color:#334155; padding:4px 10px; border-radius:6px;">
+                📦 <strong>Procured Product:</strong> <span id="apprMetaMaterial" style="font-weight:700; color:#0f172a;">SUMINISTROS REFRI • 7,125,000 Unit</span>
+              </span>
+              <span style="background:#ffffff; border:1px solid #cbd5e1; color:#334155; padding:4px 10px; border-radius:6px;">
+                📋 <strong>Source PR:</strong> <span id="apprMetaPr" style="font-weight:700; color:#0284c7;">PR-3000010443 (SAP: 3000010443)</span>
+              </span>
+              <span style="background:#ffffff; border:1px solid #cbd5e1; color:#334155; padding:4px 10px; border-radius:6px;">
+                🏭 <strong>Target Plant:</strong> <span id="apprMetaPlant" style="color:#475569;">Gran Tierra Energy - Vereda Morrison (OP ANG)</span>
+              </span>
+              <span style="background:#fef3c7; border:1px solid #fde68a; color:#92400e; padding:4px 10px; border-radius:6px;">
+                💰 <strong>Baseline Budget Ceiling:</strong> <span id="apprMetaBudget" style="font-weight:700;">$24,937,500 COP ($3.50/unit)</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Section: Evaluated Supplier Ranking & Comparison Table -->
+          <div style="margin-bottom:18px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <strong style="font-size:13px; color:#0f172a;">📊 Evaluated Supplier Proposals &amp; Ranking (Sorted by Competitiveness)</strong>
+              <span style="font-size:11px; color:#64748b;">Two-Envelope Evaluation Completed &bull; Ready for Executive Award</span>
+            </div>
+            <table class="sap-table" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+              <thead>
+                <tr style="background:#f1f5f9;">
+                  <th style="width:110px; text-align:center;">Rank</th>
+                  <th>Supplier Name &amp; ANID</th>
+                  <th>Technical &amp; ISO Suitability</th>
+                  <th>Unit Tariff</th>
+                  <th>Total Bid Amount</th>
+                  <th>Verified Budget Savings</th>
+                  <th>Evaluation Score</th>
+                  <th style="text-align:center;">Award Recommendation</th>
+                </tr>
+              </thead>
+              <tbody id="approverSupplierTableBody">
+                <!-- Dynamically populated by loadApproverReviewData() -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Committee Governance Sign-Off Row -->
+          <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:14px; margin-bottom:18px;">
+            <div style="font-size:12px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;">
+              🛡️ Two-Envelope Governance &amp; Committee Approvals Verified
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:12px;">
+              <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:6px; padding:10px;">
+                <div style="font-weight:700; color:#166534; font-size:12px;">🔬 Technical Committee</div>
+                <div style="font-size:11px; color:#14532d; margin-top:2px;">
+                  <strong>Dr. Victor Chen:</strong> ISO 9001:2015 active, technical specs compliant. Lead time: 8 business days.
+                </div>
+              </div>
+              <div style="background:#f0f9ff; border:1px solid #bae6fd; border-radius:6px; padding:10px;">
+                <div style="font-weight:700; color:#0369a1; font-size:12px;">💰 Commercial Committee</div>
+                <div style="font-size:11px; color:#0c4a6e; margin-top:2px;">
+                  <strong>Sofia Morales:</strong> Tariff pricing scored, Net 60 payment terms approved, 14.3% savings verified.
+                </div>
+              </div>
+              <div style="background:#faf5ff; border:1px solid #e9d5ff; border-radius:6px; padding:10px;">
+                <div style="font-weight:700; color:#6b21a8; font-size:12px;">👤 Procurement Buyer</div>
+                <div style="font-size:11px; color:#581c87; margin-top:2px;">
+                  <strong>Valeria Martinez:</strong> Recommended SONDA DE COLOMBIA S A based on multi-criteria ranking.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Final Decision & Award Commit Action Box -->
+          <div class="action-box-card action-box-approver" style="border-radius:10px; padding:18px; border:2px solid #22c55e; background:linear-gradient(135deg,#f0fdf4,#ffffff);">
+            <div style="flex:1;">
+              <h3 style="margin:0 0 6px 0; color:#15803d; font-size:16px;">Final Executive Decision: Approve Award &amp; Commit PO</h3>
+              <p style="margin:0; color:#334155; font-size:13px; line-height:1.6;">
+                Approving activates the <strong>Award Trigger</strong>: notifies winning vendor, generates follow-on Purchase Order, and dispatches Award Data Integration payload to <strong>SAP S/4HANA (ME21N)</strong> and <strong>Sheet 2 (SAP_PO_Outbound.csv)</strong>.<br>
+                Product: <strong id="apprDecProduct">SUMINISTROS REFRI (7,125,000 Units)</strong><br>
+                Selected Awardee: <strong id="apprDecWinner" style="color:#15803d; font-size:14px;">SONDA DE COLOMBIA S A</strong> &bull; Total Value: <strong id="apprDecAmount" style="color:#0f172a;">$21.375.000,00 COP</strong> &bull; Verified Net Savings: <strong id="apprDecSavings" style="color:#15803d;">$3.562.500,00 COP (14.3%)</strong>
+              </p>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:8px; min-width:260px;">
+              <button class="sap-btn sap-btn-primary" id="btnApproverDispatchPo"
+                onclick="executeApproverFinalPoCommit()" style="background:#15803d; font-size:13px; font-weight:700; padding:12px 18px; border-radius:6px; box-shadow:0 2px 4px rgba(21,128,61,0.2);">
+                ✅ Approve Award &amp; Transmit Final PO to SAP ERP
+              </button>
+              <button class="sap-btn sap-btn-secondary" style="color:#b91c1c; border-color:#fca5a5; font-size:12px; padding:8px 14px;"
+                onclick="showSapToast('Award returned to Buyer for re-evaluation.','info')">
+                ↩️ Reject &amp; Return for Re-evaluation
+              </button>
+            </div>
+          </div>
+
+          <!-- Award Trigger Post-Execution Status Area -->
+          <div id="awardTriggerStatus"></div>
+
+          <!-- Bottom Architectural Integration Note -->
+          <div style="margin-top:14px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:12px 14px;">
+            <div style="font-weight:700; color:#334155; font-size:12px; margin-bottom:3px;">
+              System Award (To External) — Diagram Stage 4: Award Data Integration
+            </div>
+            <div class="sub-text" style="margin:0; font-size:11px; color:#64748b;">
+              Upon sign-off, the platform transmits cXML 1.2.040 and SAP IDoc ORDERS05 payloads via SAP Cloud Connector. Award Data Integration &rarr; External System Post-Processing &rarr; S/4HANA PO Created. All transactions logged in Managed Gateway (CIG) audit trail.
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- VIEW 10: PLANT RECEIVING TEAM / WAREHOUSE WORKSPACE (STAGE 10)            -->
+      <!-- Record Goods Receipt (GRN) with partial deliveries and discrepancy checks -->
+      <!-- ========================================================================= -->
+      <div class="workspace-view" id="view-receiving">
+        <div class="sap-card">
+          <div class="card-toolbar">
+            <div>
+              <span class="card-title">&#128666; Inward Goods Receipt & Plant Inspection (Mateo Morales)</span>
+              <div class="card-subtitle">Record physical delivery receipts (GRN), partial batch fulfillments, and
+                carrier discrepancy notes</div>
+            </div>
+            <div class="toolbar-actions">
+              <button class="sap-btn sap-btn-primary sap-btn-sm" onclick="openRecordGrnModal()">&#10133; Record Goods
+                Receipt (GRN)</button>
+            </div>
+          </div>
+
+          <table class="sap-table" id="receivingPoTable">
+            <thead>
+              <tr>
+                <th>Purchase Order</th>
+                <th>SAP PO #</th>
+                <th>Supplier</th>
+                <th>Material</th>
+                <th>Ordered Qty</th>
+                <th>Received Qty</th>
+                <th>Remaining Qty</th>
+                <th>Delivery Status</th>
+                <th style="text-align:right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="receivingPoTableBody">
+              <!-- Dynamically populated by loadReceivingQueue() -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Historical GRN Logs -->
+        <div class="sap-card" style="margin-top:20px;">
+          <div class="card-toolbar">
+            <div>
+              <span class="card-title">&#128221; Recorded Goods Receipt Notes (GRN Archive)</span>
+              <div class="card-subtitle">Official inspection and receiving certificates for Alpek Demo plants</div>
+            </div>
+          </div>
+          <table class="sap-table" id="grnArchiveTable">
+            <thead>
+              <tr>
+                <th>GRN Number</th>
+                <th>Received Date</th>
+                <th>Received By</th>
+                <th>Delivery Note (Waybill)</th>
+                <th>Carrier</th>
+                <th>Quantity Received</th>
+                <th>Inspection Status</th>
+                <th>Discrepancy Notes</th>
+              </tr>
+            </thead>
+            <tbody id="grnArchiveTableBody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- VIEW 11: ORDER COMPLETION & CLOSURE WORKSPACE (STAGE 11)                  -->
+      <!-- Final reconciliation and formal order closure                             -->
+      <!-- ========================================================================= -->
+      <div class="workspace-view" id="view-order-closure">
+        <div class="sap-card">
+          <div class="card-toolbar">
+            <div>
+              <span class="card-title">&#128100; Order Reconciliation & Formal Closure (Procurement & Finance)</span>
+              <div class="card-subtitle">Verify that 100% of quantities are received, exceptions resolved, and close the
+                order</div>
+            </div>
+          </div>
+
+          <table class="sap-table" id="closurePoTable">
+            <thead>
+              <tr>
+                <th>PO Number</th>
+                <th>SAP Doc #</th>
+                <th>Supplier</th>
+                <th>Total Value</th>
+                <th>Ordered vs Received</th>
+                <th>Reconciliation Status</th>
+                <th style="text-align:right;">Completion Action</th>
+              </tr>
+            </thead>
+            <tbody id="closurePoTableBody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- VIEW: DUMMY SAP EXCEL SHEET (INBOUND & OUTBOUND SPREADSHEET ERP)          -->
+      <!-- Simple transparent Excel replacement for SAP ERP integration              -->
+      <!-- ========================================================================= -->
+      <div class="workspace-view" id="view-excel-erp">
+        <div class="excel-window-card">
+          <div class="excel-window-header">
+            <div class="excel-header-title">
+              <span>&#128202; SAP Dummy ERP Database (Excel / CSV Spreadsheet Engine)</span>
+              <span class="excel-file-badge" id="excelActiveBadge">SAP_PR_Inbound.csv</span>
+            </div>
+            <div class="toolbar-actions">
+              <button class="sap-btn sap-btn-secondary sap-btn-sm" onclick="downloadCurrentExcelSheet()">&#128229;
+                Download .CSV</button>
+              <button class="sap-btn sap-btn-primary sap-btn-sm" onclick="openAddPrModal()">&#10133; Add New Row
+                (PR)</button>
+              <button class="sap-btn sap-btn-secondary sap-btn-sm" onclick="loadExcelSheetData()">&#128260;
+                Refresh</button>
+            </div>
+          </div>
+
+          <div class="excel-sheet-selector-bar">
+            <div class="excel-tabs-group">
+              <button class="excel-sheet-tab active" id="btnTabPrSheet" onclick="switchExcelSheet('prs')">&#128196;
+                Sheet 1: Inbound Requisitions (SAP_PR_Inbound.csv)</button>
+              <button class="excel-sheet-tab" id="btnTabPoSheet" onclick="switchExcelSheet('pos')">&#128203; Sheet 2:
+                Outbound Purchase Orders (SAP_PO_Outbound.csv)</button>
+            </div>
+            <div class="sub-text">
+              <span>Data comes IN from Sheet 1 &bull; Data goes OUT to Sheet 2 upon Sourcing Award</span>
+            </div>
+          </div>
+
+          <div class="excel-grid-container">
+            <table class="excel-table" id="excelSheetTable">
+              <thead id="excelSheetHead">
+                <!-- Rendered by JS -->
+              </thead>
+              <tbody id="excelSheetBody">
+                <!-- Rendered by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- VIEW C: SAP ERP GUI SIMULATION (ME51N / ME53N)                            -->
+      <!-- Matches video frame 0660s & 3720s                                         -->
+      <!-- ========================================================================= -->
+      <div class="workspace-view" id="view-sap-erp">
+        <div class="sap-gui-window">
+          <!-- SAP GUI Top Menu -->
+          <div class="gui-menubar">
+            <span>Purchase Requisition</span>
+            <span>Edit</span>
+            <span>Environment</span>
+            <span>System</span>
+            <span>Help</span>
+            <span class="gui-locale-tag">EN English (US)</span>
+          </div>
+
+          <!-- SAP GUI Command Bar -->
+          <div class="gui-cmdbar">
+            <div class="gui-logo">SAP</div>
+            <div class="gui-cmd-box">
+              <input type="text" class="gui-cmd-input" value="/nME53N" title="SAP Transaction Code">
+              <button class="gui-btn-check">&#10003;</button>
+            </div>
+            <div class="gui-quick-actions">
+              <button class="gui-tool-btn" title="Save">&#128190;</button>
+              <button class="gui-tool-btn" title="Back" onclick="switchMainTab('sourcing')">&lsaquo;</button>
+              <button class="gui-tool-btn" title="Exit">&#8855;</button>
+              <button class="gui-tool-btn" title="Cancel">&#8855;</button>
+              <button class="gui-tool-btn" title="Print">&#128424;</button>
+            </div>
+          </div>
+
+          <!-- SAP GUI Screen Title -->
+          <div class="gui-screen-title" id="guiScreenTitle">
+            <span>Display Purchase Req. 3000010443</span>
+          </div>
+
+          <!-- SAP GUI Document Overview -->
+          <div class="gui-body-content">
+            <div class="gui-doc-header">
+              <div class="gui-field-group">
+                <label>Document Type:</label>
+                <input type="text" class="gui-field-input" value="NB - RFQ Non-Stock" readonly>
+              </div>
+              <div class="gui-field-group">
+                <label>Release Strategy:</label>
+                <input type="text" class="gui-field-input font-green" value="CP >2K GVRNMNT REL (Approved)" readonly>
+              </div>
+              <div class="gui-field-group">
+                <label>Processing Status:</label>
+                <input type="text" class="gui-field-input font-blue" id="guiProcStatus"
+                  value="RFQ created (Doc2432956265)" readonly>
+              </div>
+            </div>
+
+            <!-- SAP Grid Table (Exact from ME51N/ME53N) -->
+            <table class="gui-grid-table">
+              <thead>
+                <tr>
+                  <th width="30">Status</th>
+                  <th>Item</th>
+                  <th>Agreement</th>
+                  <th>Short Text</th>
+                  <th>Unit</th>
+                  <th>Quantity</th>
+                  <th>Crcy</th>
+                  <th>Valn Price</th>
+                  <th>Total Value</th>
+                  <th>Delivery Date</th>
+                  <th>Plant</th>
+                  <th>Stor. Loc.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-center">&#9650;</td>
+                  <td>10</td>
+                  <td>D</td>
+                  <td><strong>SUMINISTROS REFRI</strong></td>
+                  <td>AU</td>
+                  <td>1</td>
+                  <td>COP</td>
+                  <td>7.125.000,00</td>
+                  <td><strong>7.125.000,00</strong></td>
+                  <td>08.10.2026</td>
+                  <td>OP ANG (GTE Col)</td>
+                  <td>0001</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Bottom Tabs (Quantities, Valuation, Account Assignment, Status) -->
+            <div class="gui-subtabs">
+              <span class="gui-tab">Quantities/Dates</span>
+              <span class="gui-tab">Valuation</span>
+              <span class="gui-tab">Account Assignment</span>
+              <span class="gui-tab active">Status & Follow-on</span>
+              <span class="gui-tab">Contact Person</span>
+              <span class="gui-tab">Texts</span>
+            </div>
+
+            <div class="gui-tab-panel">
+              <div class="gui-status-box">
+                <div class="gui-stat-row">
+                  <span>Proc.stat.: <strong>RFQ created & Sourced via SAP Ariba</strong></span>
+                  <span>Follow-on PO: <strong id="guiFollowOnPo">450009180 (Committed)</strong></span>
+                </div>
+                <div class="gui-stat-row">
+                  <span>Created By: <strong>Valeria Martinez</strong></span>
+                  <span>Release Indicator: <strong>A (Approved by Carlos Alberto Fonseca)</strong></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- VIEW D: MANAGED GATEWAY FOR SPEND & NETWORK (CIG AUDIT TRAIL)              -->
+      <!-- Matches video frame 1860s third browser tab                               -->
+      <!-- ========================================================================= -->
+      <div class="workspace-view" id="view-cig-integration">
+        <div class="sap-card">
+          <div class="card-toolbar">
+            <div>
+              <span class="card-title">&#9662; SAP Integration Suite / Managed Gateway for Spend&Network (CIG)</span>
+              <div class="card-subtitle">Transaction audit trail between SAP S/4HANA (S4P_100), Ariba Sourcing, and
+                External Supplier Network</div>
+            </div>
+            <div class="toolbar-actions">
+              <button class="sap-btn sap-btn-secondary sap-btn-sm" onclick="syncSapRequisitions()">Poll S/4HANA
+                OData</button>
+              <button class="sap-btn sap-btn-secondary sap-btn-sm" onclick="resetToInitialState()">Reset
+                Simulation</button>
+            </div>
+          </div>
+
+          <table class="sap-table" id="cigAuditTable">
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Document Type / Protocol</th>
+                <th>Direction</th>
+                <th>Source & Target</th>
+                <th>Document ID</th>
+                <th>HTTP Code</th>
+                <th>Integration Status</th>
+                <th>Payload</th>
+              </tr>
+            </thead>
+            <tbody id="cigAuditTableBody">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div> <!-- /#page-app -->
+
+  <!-- ========================================================================= -->
+  <!-- POPUP: FOLLOW-ON DOCUMENTS CREATED (EXACT POPUP FROM VIDEO FRAME 3660s)   -->
+  <!-- ========================================================================= -->
+  <div class="sap-modal-backdrop hidden" id="modalFollowOnSuccess">
+    <div class="sap-dialog sap-dialog-sm">
+      <div class="sap-dialog-header">
+        <span class="sap-dialog-title">&#10003; Follow-on documents created successfully</span>
+        <button class="sap-dialog-close" onclick="closeFollowOnModal()">&times;</button>
+      </div>
+      <div class="sap-dialog-body">
+        <p class="sap-modal-message">The follow-on document has been created successfully.</p>
+        <div class="followon-info-box">
+          <div>SAP S/4HANA Document: <strong id="modalFollowOnDocNumber">PO 450009180</strong></div>
+          <div>Awarded To: <strong>SONDA DE COLOMBIA S A</strong></div>
+          <div>Transmission Protocol: <strong>cXML 1.2.040 OrderRequest</strong></div>
+        </div>
+      </div>
+      <div class="sap-dialog-footer">
+        <button class="sap-btn sap-btn-primary" onclick="closeFollowOnModal()">Stay</button>
+        <button class="sap-btn sap-btn-secondary" onclick="goToSapErpView()">Go to dashboard</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- XML / cXML Payload Inspector Modal -->
+  <div class="sap-modal-backdrop hidden" id="modalXmlInspector">
+    <div class="sap-dialog sap-dialog-lg">
+      <div class="sap-dialog-header">
+        <span class="sap-dialog-title" id="xmlModalTitle">Raw Payload Inspector</span>
+        <button class="sap-dialog-close" onclick="closeXmlModal()">&times;</button>
+      </div>
+      <div class="sap-dialog-body">
+        <pre class="sap-code-block" id="xmlModalPre"></pre>
+      </div>
+      <div class="sap-dialog-footer">
+        <button class="sap-btn sap-btn-secondary" onclick="closeXmlModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add New Row to Dummy SAP PR Excel Sheet -->
+  <div class="sap-modal-backdrop hidden" id="modalAddPrToSheet">
+    <div class="sap-dialog sap-dialog-md">
+      <div class="sap-dialog-header">
+        <span class="sap-dialog-title">&#10133; Push New Requisition into Dummy SAP Excel Sheet</span>
+        <button class="sap-dialog-close" onclick="closeAddPrModal()">&times;</button>
+      </div>
+      <div class="sap-dialog-body">
+        <p class="sub-text">Simulates an SAP ERP planner creating an ME51N requisition. It writes directly to
+          <code>SAP_PR_Inbound.csv</code> and pushes to Sourcing.</p>
+        <form id="formAddPrToSheet" onsubmit="handleAddPrToSheetSubmit(event)">
+          <div class="form-group" style="margin-bottom: 12px;">
+            <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Material Description
+              *</label>
+            <input type="text" id="newPrDesc" class="sap-field-input"
+              placeholder="e.g. Industrial Refrigerant R-134a Cylinders" required style="width:100%;">
+          </div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+            <div>
+              <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Quantity *</label>
+              <input type="number" id="newPrQty" class="sap-field-input" value="1000" required style="width:100%;">
+            </div>
+            <div>
+              <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Unit of Measure</label>
+              <select id="newPrUnit" class="sap-field-input" style="width:100%;">
+                <option value="Unidad">Unidad (AU)</option>
+                <option value="TON">TON</option>
+                <option value="KG">KG</option>
+                <option value="Cylinder">Cylinder</option>
+                <option value="PC">PC</option>
+              </select>
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+            <div>
+              <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Valuation Unit Price
+                (COP) *</label>
+              <input type="number" step="0.01" id="newPrPrice" class="sap-field-input" value="3.50" required
+                style="width:100%;">
+            </div>
+            <div>
+              <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Target Plant</label>
+              <input type="text" id="newPrPlant" class="sap-field-input" value="OP ANG (GTE Col)" style="width:100%;">
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div>
+              <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Requester</label>
+              <input type="text" id="newPrRequester" class="sap-field-input" value="Carlos Ramirez" style="width:100%;">
+            </div>
+            <div>
+              <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Department</label>
+              <input type="text" id="newPrDept" class="sap-field-input" value="Plant Operations (OP ANG)"
+                style="width:100%;">
+            </div>
+          </div>
+          <div class="sap-dialog-footer" style="margin-top: 18px; padding-right:0;">
+            <button type="button" class="sap-btn sap-btn-secondary" onclick="closeAddPrModal()">Cancel</button>
+            <button type="submit" class="sap-btn sap-btn-primary">&#128190; Write Row to Excel & Sync</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Prototype Comparison (Why this is 10x easier than SAP) -->
+  <div class="sap-modal-backdrop hidden" id="modalComparison">
+    <div class="sap-dialog sap-dialog-lg">
+      <div class="sap-dialog-header">
+        <span class="sap-dialog-title">&#128202; Why This Platform Is 10x Easier Than SAP Ariba</span>
+        <button class="sap-dialog-close" onclick="closeComparisonModal()">&times;</button>
+      </div>
+      <div class="sap-dialog-body">
+        <p>A direct comparison demonstrating why this prototype provides a radically simplified user experience while
+          maintaining 100% SAP enterprise compliance:</p>
+
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Workflow Stage</th>
+              <th class="comp-sap-col">Traditional SAP S/4HANA + Ariba (35+ Clicks)</th>
+              <th class="comp-this-col">This Platform (3 Clicks / Excel Backed)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Requisition Ingestion</strong></td>
+              <td class="comp-sap-col">Requires SAP Cloud Connector, BTP CIG mappings, custom ABAP RFCs, and 15
+                configuration steps.</td>
+              <td class="comp-this-col"><strong>Transparent Excel Sheet / Clean Core REST:</strong> Reads directly from
+                <code>SAP_PR_Inbound.csv</code> or OData without touching core ABAP.</td>
+            </tr>
+            <tr>
+              <td><strong>2. Sourcing Project Creation</strong></td>
+              <td class="comp-sap-col">Navigating 8 nested tabs (Summary, Rules, Team, Suppliers, Content, Envelopes)
+                taking ~45 minutes.</td>
+              <td class="comp-this-col"><strong>Instant Sourcing Cockpit:</strong> 1-click import from Requisition,
+                automatically setting up the 5-stage stepper and evaluation matrix.</td>
+            </tr>
+            <tr>
+              <td><strong>3. Supplier Bidding</strong></td>
+              <td class="comp-sap-col">Vendors must register on SAP Business Network (Ariba Network), pay annual fees,
+                navigate confusing sub-menus, and reset passwords.</td>
+              <td class="comp-this-col"><strong>Zero-Friction Supplier Portal:</strong> Vendors open direct link, fill
+                unit tariffs on a clean checklist console, and click <em>Enviar respuesta</em>.</td>
+            </tr>
+            <tr>
+              <td><strong>4. Award & Follow-on PO</strong></td>
+              <td class="comp-sap-col">Manual scenario allocation, separate approval routing, complex IDoc dispatch, and
+                high failure rates.</td>
+              <td class="comp-this-col"><strong>1-Click Award:</strong> Automated lowest-bid scenario recommendation,
+                instant follow-on PO creation, and row written back to Excel sheet.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sap-dialog-footer">
+        <button class="sap-btn sap-btn-primary" onclick="closeComparisonModal()">Got It, Back to Prototype</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Role-Based Access Control (RBAC) User Selection / Login -->
+  <div class="sap-modal-backdrop hidden" id="modalRbacDirectory">
+    <div class="sap-dialog sap-dialog-lg">
+      <div class="sap-dialog-header">
+        <span class="sap-dialog-title">&#128101; Select Your Persona & Role (RBAC Switcher)</span>
+        <button class="sap-dialog-close" onclick="closeRbacModal()">&times;</button>
+      </div>
+      <div class="sap-dialog-body">
+        <p>Switch between the 4 enterprise procurement personas to test their specific abilities, workflows, and strict
+          permission boundaries:</p>
+
+        <div class="persona-grid-10" id="personaDirectoryContainer">
+          <!-- Dynamically populated or pre-rendered with 10 personas -->
+          <!-- Persona 1: Requester -->
+          <div class="persona-card" id="cardRoleRequester" onclick="loginAsSpecificUser('usr-requester')">
+            <div>
+              <div class="persona-header">
+                <div class="persona-avatar" style="background:#d97706;">CR</div>
+                <div>
+                  <div class="persona-info-title">Carlos Ramirez</div>
+                  <span class="persona-info-role" style="background:#fef3c7; color:#b45309;">1. Requester /
+                    Employee</span>
+                </div>
+              </div>
+              <div class="persona-desc"><strong>Plant Operations (Altamira).</strong> Creates PRs with items, quantity,
+                purpose, budget, and required dates. Tracks approvals & deliveries.</div>
+            </div>
+            <button class="persona-btn-login" style="background:#d97706; color:#fff;">Login as Requester</button>
+          </div>
+
+          <!-- Persona 2: Department Manager / Finance -->
+          <div class="persona-card" id="cardRoleManager" onclick="loginAsSpecificUser('usr-manager')">
+            <div>
+              <div class="persona-header">
+                <div class="persona-avatar" style="background:#2563eb;">DV</div>
+                <div>
+                  <div class="persona-info-title">David Vance</div>
+                  <span class="persona-info-role" style="background:#dbeafe; color:#1d4ed8;">2. Dept Manager /
+                    Finance</span>
+                </div>
+              </div>
+              <div class="persona-desc"><strong>Operations & Finance.</strong> Checks business need, cost center budget,
+                and details. Approves, rejects, or returns PR for correction.</div>
+            </div>
+            <button class="persona-btn-login" style="background:#2563eb; color:#fff;">Login as Dept Manager</button>
+          </div>
+
+          <!-- Persona 3: Procurement Buyer -->
+          <div class="persona-card active-persona" id="cardRoleBuyer" onclick="loginAsSpecificUser('usr-buyer')">
+            <div>
+              <div class="persona-header">
+                <div class="persona-avatar" style="background:#0854a0;">VM</div>
+                <div>
+                  <div class="persona-info-title">Valeria Martinez</div>
+                  <span class="persona-info-role" style="background:#e0f2fe; color:#0369a1;">3. Procurement Buyer</span>
+                </div>
+              </div>
+              <div class="persona-desc"><strong>Strategic Sourcing.</strong> Converts approved PRs to RFQs, defines
+                specifications, terms, deadlines, invites suppliers, and recommends awards.</div>
+            </div>
+            <button class="persona-btn-login" style="background:#0854a0; color:#fff;">Login as Buyer</button>
+          </div>
+
+          <!-- Persona 4: RFQ Approver -->
+          <div class="persona-card" id="cardRoleRfqApprover" onclick="loginAsSpecificUser('usr-rfq-approver')">
+            <div>
+              <div class="persona-header">
+                <div class="persona-avatar" style="background:#7c3aed;">EG</div>
+                <div>
+                  <div class="persona-info-title">Elena Gomez</div>
+                  <span class="persona-info-role" style="background:#ede9fe; color:#6d28d9;">4. RFQ Approver</span>
+                </div>
+              </div>
+              <div class="persona-desc"><strong>Procurement Governance.</strong> Reviews and approves RFQ
+                specifications, commercial terms, and invited suppliers prior to public release.</div>
+            </div>
+            <button class="persona-btn-login" style="background:#7c3aed; color:#fff;">Login as RFQ Approver</button>
+          </div>
+
+          <!-- Persona 5: Supplier A (SONDA) -->
+          <div class="persona-card" id="cardRoleSupplierA" onclick="loginAsSpecificUser('usr-supplier-sonda')">
+            <div>
+              <div class="persona-header">
+                <div class="persona-avatar" style="background:#4f46e5;">SA</div>
+                <div>
+                  <div class="persona-info-title">SONDA DE COLOMBIA S A</div>
+                  <span class="persona-info-role" style="background:#e0e7ff; color:#3730a3;">4. Supplier A
+                    (AN11459791479)</span>
+                </div>
+              </div>
+              <div class="persona-desc"><strong>Invited Vendor.</strong> Strictly isolated. Sees only RFQs invited to
+                Supplier A, asks questions, submits confidential bids and dispatches PO shipments.</div>
+            </div>
+            <button class="persona-btn-login" style="background:#4f46e5; color:#fff;">Login as Supplier A
+              (SONDA)</button>
+          </div>
+
+          <!-- Persona 6: Supplier B (INDORAMA) -->
+          <div class="persona-card" id="cardRoleSupplierB" onclick="loginAsSpecificUser('usr-supplier-indorama')">
+            <div>
+              <div class="persona-header">
+                <div class="persona-avatar" style="background:#059669;">SB</div>
+                <div>
+                  <div class="persona-info-title">INDORAMA PETROCHEM</div>
+                  <span class="persona-info-role" style="background:#d1fae5; color:#065f46;">5. Supplier B
+                    (AN10928371928)</span>
+                </div>
+              </div>
+              <div class="persona-desc"><strong>Invited Vendor.</strong> Strictly confidential isolation. Cannot view
+                Supplier A's data. Submits quotes and tracks their own POs.</div>
+            </div>
+            <button class="persona-btn-login" style="background:#059669; color:#fff;">Login as Supplier B
+              (INDORAMA)</button>
+          </div>
+
+          <!-- Persona 7: Technical Evaluator -->
+          <div class="persona-card" id="cardRoleTechEval" onclick="loginAsSpecificUser('usr-tech-eval')">
+            <div>
+              <div class="persona-header">
+                <div class="persona-avatar" style="background:#0284c7;">VC</div>
+                <div>
+                  <div class="persona-info-title">Dr. Victor Chen</div>
+                  <span class="persona-info-role" style="background:#e0f2fe; color:#0284c7;">6. Technical
+                    Evaluator</span>
+                </div>
+              </div>
+              <div class="persona-desc"><strong>Evaluation Committee.</strong> Two-Envelope Protocol: Evaluates ISO
+                compliance, technical suitability and lead times. Pricing is sealed & hidden.</div>
+            </div>
+            <button class="persona-btn-login" style="background:#0284c7; color:#fff;">Login as Technical
+              Evaluator</button>
+          </div>
+
+          <!-- Persona 8: Commercial Evaluator -->
+          <div class="persona-card" id="cardRoleCommEval" onclick="loginAsSpecificUser('usr-comm-eval')">
+            <div>
+              <div class="persona-header">
+                <div class="persona-avatar" style="background:#16a34a;">SM</div>
+                <div>
+                  <div class="persona-info-title">Sofia Morales</div>
+                  <span class="persona-info-role" style="background:#dcfce7; color:#15803d;">7. Commercial
+                    Evaluator</span>
+                </div>
+              </div>
+              <div class="persona-desc"><strong>Evaluation Committee.</strong> Analyzes submitted unit tariffs, pricing
+                savings vs baseline ($3.50 COP vs $3.00 COP) and payment terms.</div>
+            </div>
+            <button class="persona-btn-login" style="background:#16a34a; color:#fff;">Login as Commercial
+              Evaluator</button>
+          </div>
+
+          <!-- Persona 9: Award Approver -->
+          <div class="persona-card" id="cardRoleApprover" onclick="loginAsSpecificUser('usr-award-approver')">
+            <div>
+              <div class="persona-header">
+                <div class="persona-avatar" style="background:#107e3e;">CF</div>
+                <div>
+                  <div class="persona-info-title">Carlos Alberto Fonseca</div>
+                  <span class="persona-info-role" style="background:#dcfce7; color:#15803d;">8. Award Approver &amp;
+                    SAP</span>
+                </div>
+              </div>
+              <div class="persona-desc"><strong>Financial Controller.</strong> Reviews comparison matrix & budget
+                savings ($3.56M COP saved / 14.3%). Approves award and transmits PO to SAP ERP.</div>
+            </div>
+            <button class="persona-btn-login" style="background:#107e3e; color:#fff;">Login as Award Approver</button>
+          </div>
+
+          <!-- Persona 10: Receiving Team -->
+          <div class="persona-card" id="cardRoleReceiving" onclick="loginAsSpecificUser('usr-receiving')">
+            <div>
+              <div class="persona-header">
+                <div class="persona-avatar" style="background:#ea580c;">MM</div>
+                <div>
+                  <div class="persona-info-title">Mateo Morales</div>
+                  <span class="persona-info-role" style="background:#ffedd5; color:#c2410c;">9. Receiving Team /
+                    Warehouse</span>
+                </div>
+              </div>
+              <div class="persona-desc"><strong>Plant Warehouse.</strong> Records physical Goods Receipt (GRN), partial
+                batch deliveries, and inspection discrepancies.</div>
+            </div>
+            <button class="persona-btn-login" style="background:#ea580c; color:#fff;">Login as Receiving Team</button>
+          </div>
+        </div>
+      </div>
+      <div class="sap-dialog-footer">
+        <button class="sap-btn sap-btn-secondary" onclick="closeRbacModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Complete User Roles & Capabilities Guide -->
+  <div class="sap-modal-backdrop hidden" id="modalRoleGuide">
+    <div class="sap-dialog sap-dialog-lg">
+      <div class="sap-dialog-header">
+        <span class="sap-dialog-title">&#128214; Alpek Demo Complete Procurement Flow & User Roles Guide</span>
+        <button class="sap-dialog-close" onclick="closeRoleGuideModal()">&times;</button>
+      </div>
+      <div class="sap-dialog-body">
+        <div style="background:#f8fafc; border-left:4px solid #0854a0; padding:12px 16px; margin-bottom:16px;">
+          <strong>Zero-Ariba Core Architecture:</strong><br>
+          <span style="font-size:12px; color:#475569;">The platform completely eliminates SAP Ariba. The entire
+            lifecycle (Stages 1 through 11) runs 100% inside our intuitive web application. We integrate with SAP only
+            at the two natural boundaries: reading the Inbound PR and sending the Outbound Purchase Order. Strict RBAC
+            is enforced in the backend.</span>
+        </div>
+
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th width="160">User / Persona</th>
+              <th width="200">What they see after login</th>
+              <th>Platform Abilities & Workflow Stage</th>
+              <th>Backend Security & Boundaries</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Requester / Employee</strong><br><span class="sub-text">Carlos Ramirez</span></td>
+              <td>Their PRs, corrections, approval status, and deliveries</td>
+              <td>Stage 1: Creates PR with needed items, quantity, purpose, budget, and required date. Can edit and
+                resubmit if returned.</td>
+              <td>Cannot view competitor quotes, evaluate bids, or approve spend.</td>
+            </tr>
+            <tr>
+              <td><strong>2. Dept Manager / Finance</strong><br><span class="sub-text">David Vance</span></td>
+              <td>Assigned approval tasks and relevant budget information</td>
+              <td>Stage 2: Checks business need, cost center budget, and details. Approves, rejects, or returns PR for
+                correction with comments.</td>
+              <td>Cannot publish tenders or submit quotes.</td>
+            </tr>
+            <tr>
+              <td><strong>3. Procurement Buyer</strong><br><span class="sub-text">Valeria Martinez</span></td>
+              <td>Their RFQs, suppliers, deadlines, quotations workflow and POs</td>
+              <td>Stage 3 & 8: Creates RFQ from approved PR, defines terms, deadlines, invited suppliers, recommends
+                winning bid, generates PO.</td>
+              <td>Full sourcing authority. Cannot authorize final award budget alone.</td>
+            </tr>
+            <tr>
+              <td><strong>4. RFQ Approver</strong><br><span class="sub-text">Elena Gomez</span></td>
+              <td>Only approval tasks assigned to them / governance group</td>
+              <td>Stage 4: Reviews and approves RFQ specifications and terms prior to official publication to suppliers.
+              </td>
+              <td>Cannot alter pricing or commercial proposals.</td>
+            </tr>
+            <tr>
+              <td><strong>5. Supplier A & Supplier B</strong><br><span class="sub-text">SONDA & INDORAMA</span></td>
+              <td>Only RFQs invited to that supplier, its quotations and its own POs</td>
+              <td>Stage 5 & 10: Logs in separately, asks clarification questions, submits sealed unit tariffs before
+                deadline, dispatches shipments.</td>
+              <td><strong>Strictly Confidential Isolation:</strong> Backend forbids viewing competitor bids or internal
+                data.</td>
+            </tr>
+            <tr>
+              <td><strong>6. Technical Evaluator</strong><br><span class="sub-text">Dr. Victor Chen</span></td>
+              <td>Assigned technical evaluation tasks and permitted information</td>
+              <td>Stage 6: Opens technical envelope. Evaluates technical suitability, ISO compliance, and lead times.
+              </td>
+              <td><strong>Sealed Bidding:</strong> Unit pricing and commercial tariffs are completely hidden from
+                technical evaluator.</td>
+            </tr>
+            <tr>
+              <td><strong>7. Commercial Evaluator</strong><br><span class="sub-text">Sofia Morales</span></td>
+              <td>Assigned commercial evaluation tasks and permitted pricing</td>
+              <td>Stage 6: Evaluates commercial pricing, savings % vs baseline, and financial payment terms.</td>
+              <td>Cannot modify specifications or approve awards.</td>
+            </tr>
+            <tr>
+              <td><strong>8. Award Approver</strong><br><span class="sub-text">Carlos Alberto Fonseca</span></td>
+              <td>Award review queue, savings audit, and SAP dispatch button</td>
+              <td>Stage 7 & 9: Reviews comparative matrix and justification. Approves award and dispatches confirmed PO
+                to SAP ERP.</td>
+              <td>Only authorized persona capable of triggering the outbound SAP boundary.</td>
+            </tr>
+            <tr>
+              <td><strong>9. Receiving Team</strong><br><span class="sub-text">Mateo Morales</span></td>
+              <td>Confirmed POs pending delivery and inward logistics queue</td>
+              <td>Stage 10: Records Goods Receipt (GRN), partial batch fulfillments, inspection pass/fail, and
+                discrepancy notes.</td>
+              <td>Cannot modify PO commercial pricing or terms.</td>
+            </tr>
+            <tr>
+              <td><strong>10. Procurement / Finance</strong><br><span class="sub-text">Order Closure</span></td>
+              <td>Reconciled purchase orders with complete receipts</td>
+              <td>Stage 11: Reconciles received vs ordered quantities, verifies exceptions, and formally
+                completes/closes the order.</td>
+              <td>Seals the order lifecycle.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sap-dialog-footer">
+        <button class="sap-btn sap-btn-primary" onclick="closeRoleGuideModal()">Close Guide</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: CONFIGURE TECHNICAL REQUIREMENTS (Buyer — Architecture Diagram)    -->
+  <!-- ========================================================================= -->
+  <div class="sap-modal-backdrop hidden" id="modalConfigureTechnical">
+    <div class="sap-dialog" style="max-width: 580px;">
+      <div class="sap-dialog-header" style="background:#f5f3ff; border-bottom:1px solid #ddd6fe;">
+        <span class="sap-dialog-title" style="color:#5b21b6;">⚙️ Configure Technical Requirements (Step 1)</span>
+        <button class="sap-dialog-close" onclick="closeConfigureTechnicalModal()">&times;</button>
+      </div>
+      <form onsubmit="submitTechnicalRequirements(event)">
+        <div class="sap-dialog-body">
+          <input type="hidden" id="techReqRfqId">
+          <div class="sap-form-group">
+            <label class="sap-label">Technical Specifications &amp; Standards *</label>
+            <textarea id="techReqSpecifications" class="sap-field-input" rows="3"
+              style="width:100%; box-sizing:border-box;" required
+              placeholder="Detailed technical specifications, material purity, testing procedures, packaging requirements..."></textarea>
+          </div>
+          <div class="sap-form-group">
+            <label class="sap-label">Mandatory Certifications (Comma-separated)</label>
+            <input type="text" id="techReqCertifications" class="sap-field-input"
+              style="width:100%; box-sizing:border-box;" value="ISO 9001:2015, Environmental Safety Protocol GTE-COL">
+            <span class="sub-text">e.g. ISO 9001:2015, ISO 14001, CE Mark, ASME Section VIII</span>
+          </div>
+          <div class="sap-form-group">
+            <label class="sap-label">Technical Compliance &amp; Acceptance Criteria</label>
+            <textarea id="techReqCriteria" class="sap-field-input" rows="2" style="width:100%; box-sizing:border-box;"
+              placeholder="Criteria required for technical bid to pass evaluation..."></textarea>
+          </div>
+        </div>
+        <div class="sap-dialog-footer">
+          <button type="button" class="sap-btn sap-btn-secondary"
+            onclick="closeConfigureTechnicalModal()">Cancel</button>
+          <button type="submit" class="sap-btn sap-btn-primary" style="background:#7c3aed;">Save Technical
+            Requirements</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: CONFIGURE ECONOMIC REQUIREMENTS (Buyer — Architecture Diagram)     -->
+  <!-- ========================================================================= -->
+  <div class="sap-modal-backdrop hidden" id="modalConfigureEconomic">
+    <div class="sap-dialog" style="max-width: 580px;">
+      <div class="sap-dialog-header" style="background:#f0fdf4; border-bottom:1px solid #bbf7d0;">
+        <span class="sap-dialog-title" style="color:#15803d;">💰 Configure Economic Requirements (Step 1)</span>
+        <button class="sap-dialog-close" onclick="closeConfigureEconomicModal()">&times;</button>
+      </div>
+      <form onsubmit="submitEconomicRequirements(event)">
+        <div class="sap-dialog-body">
+          <input type="hidden" id="econReqRfqId">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+            <div class="sap-form-group">
+              <label class="sap-label">Target Unit Price (COP) *</label>
+              <input type="number" step="0.01" id="econReqTargetPrice" class="sap-field-input"
+                style="width:100%; box-sizing:border-box;" required placeholder="3.50">
+            </div>
+            <div class="sap-form-group">
+              <label class="sap-label">Budget Ceiling (COP) *</label>
+              <input type="number" step="0.01" id="econReqBudgetCeiling" class="sap-field-input"
+                style="width:100%; box-sizing:border-box;" required placeholder="24937500">
+            </div>
+          </div>
+          <div class="sap-form-group">
+            <label class="sap-label">Commercial Payment Terms</label>
+            <select id="econReqPaymentTerms" class="sap-field-input" style="width:100%; box-sizing:border-box;">
+              <option value="Net 60 Days" selected>Net 60 Days</option>
+              <option value="Net 45 Days">Net 45 Days</option>
+              <option value="Net 30 Days">Net 30 Days</option>
+              <option value="Letter of Credit (LC)">Letter of Credit (LC)</option>
+            </select>
+          </div>
+          <div class="sap-form-group">
+            <label class="sap-label">Incoterms / Delivery Terms</label>
+            <input type="text" id="econReqDeliveryTerms" class="sap-field-input"
+              style="width:100%; box-sizing:border-box;" value="DDP - Delivered Duty Paid to Plant Vereda Morrison">
+          </div>
+        </div>
+        <div class="sap-dialog-footer">
+          <button type="button" class="sap-btn sap-btn-secondary"
+            onclick="closeConfigureEconomicModal()">Cancel</button>
+          <button type="submit" class="sap-btn sap-btn-primary" style="background:#15803d;">Save Economic
+            Requirements</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: CREATE SOURCING RFQ (Buyer — Multi-Supplier Selection & Timer)      -->
+  <!-- ========================================================================= -->
+  <div class="sap-modal-backdrop hidden" id="modalCreateRfq">
+    <div class="sap-dialog" style="max-width: 640px;">
+      <div class="sap-dialog-header" style="background:#f8fafc; border-bottom:1px solid #e2e8f0;">
+        <span class="sap-dialog-title" style="color:#0f172a;">⚡ Create &amp; Configure Sourcing Event (RFQ)</span>
+        <button class="sap-dialog-close" onclick="closeCreateRfqModal()">&times;</button>
+      </div>
+      <form onsubmit="handleCreateRfqFormSubmit(event)">
+        <div class="sap-dialog-body">
+          <input type="hidden" id="createRfqSourcePrId">
+          <div style="background:#f1f5f9; padding:10px 14px; border-radius:6px; margin-bottom:14px; font-size:12px; color:#334155;">
+            <strong>Inbound Approved PR:</strong> <span id="createRfqPrSummary">PR-3000010443 — SUMINISTROS REFRI</span>
+          </div>
+
+          <div class="sap-form-group">
+            <label class="sap-label">Sourcing Event Title *</label>
+            <input type="text" id="createRfqTitle" class="sap-field-input" style="width:100%; box-sizing:border-box;" required
+              placeholder="e.g. Sourcing RFP for Plant Industrial Consumables">
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+            <div class="sap-form-group">
+              <label class="sap-label">Dynamic Bidding Duration (Timer) *</label>
+              <select id="createRfqDurationSelect" class="sap-field-input" style="width:100%; box-sizing:border-box;" onchange="handleDurationChange(this.value)">
+                <option value="5">⏱️ 5 Minutes (Quick Live Demo)</option>
+                <option value="60">⏱️ 1 Hour</option>
+                <option value="1440" selected>⏱️ 24 Hours (1 Day)</option>
+                <option value="2880">⏱️ 48 Hours (2 Days)</option>
+                <option value="4320">⏱️ 72 Hours (3 Days)</option>
+              </select>
+            </div>
+            <div class="sap-form-group">
+              <label class="sap-label">Commercial Terms</label>
+              <input type="text" id="createRfqCommercialTerms" class="sap-field-input" style="width:100%; box-sizing:border-box;"
+                value="Net 60 Days, DDP Plant Vereda Morrison">
+            </div>
+          </div>
+
+          <!-- Select Suppliers to Invite (Multiple Selection) -->
+          <div class="sap-form-group" style="margin-top:12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <label class="sap-label" style="margin:0;">
+                👥 Select Suppliers to Invite (<span id="createRfqSelectedCount" style="color:#0284c7; font-weight:700;">3</span> selected)
+              </label>
+              <div style="display:flex; gap:6px;">
+                <button type="button" class="sap-btn sap-btn-ghost sap-btn-sm" style="font-size:11px; padding:2px 6px;" onclick="toggleAllCreateSuppliers(true)">Select All</button>
+                <button type="button" class="sap-btn sap-btn-ghost sap-btn-sm" style="font-size:11px; padding:2px 6px;" onclick="toggleAllCreateSuppliers(false)">Clear</button>
+              </div>
+            </div>
+            <div class="sub-text" style="margin-bottom:6px;">Select more than one supplier to invite to this tender event:</div>
+            <div id="createRfqSuppliersList" style="max-height:190px; overflow-y:auto; border:1px solid #cbd5e1; border-radius:6px; padding:6px; background:#fff; display:flex; flex-direction:column; gap:4px;">
+              <!-- Checkboxes dynamically populated by openCreateRfqModal() -->
+            </div>
+          </div>
+        </div>
+
+        <div class="sap-dialog-footer" style="display:flex; justify-content:space-between; align-items:center;">
+          <button type="button" class="sap-btn sap-btn-secondary" onclick="closeCreateRfqModal()">Cancel</button>
+          <div style="display:flex; gap:8px;">
+            <button type="submit" name="submitType" value="draft" class="sap-btn sap-btn-secondary" style="font-weight:600;">
+              Save Draft
+            </button>
+            <button type="submit" name="submitType" value="publish" class="sap-btn sap-btn-primary" style="background:#0284c7; font-weight:700;">
+              🚀 Create &amp; Publish Sourcing Event
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: MANAGE / INVITE SUPPLIERS (Buyer — Multi-Supplier Selection)       -->
+  <!-- ========================================================================= -->
+  <div class="sap-modal-backdrop hidden" id="modalInviteSuppliers">
+    <div class="sap-dialog" style="max-width: 580px;">
+      <div class="sap-dialog-header" style="background:#f0f9ff; border-bottom:1px solid #bae6fd;">
+        <span class="sap-dialog-title" style="color:#0369a1;">👥 Select &amp; Invite Suppliers to Tender</span>
+        <button class="sap-dialog-close" onclick="closeInviteSuppliersModal()">&times;</button>
+      </div>
+      <form onsubmit="handleInviteSuppliersSubmit(event)">
+        <div class="sap-dialog-body">
+          <input type="hidden" id="inviteSuppliersRfqId">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <div style="font-size:12px; color:#475569;">
+              Choose qualified suppliers to invite to <strong><span id="inviteSuppliersRfqTitle">Tender</span></strong>:
+            </div>
+            <div style="display:flex; gap:6px;">
+              <button type="button" class="sap-btn sap-btn-ghost sap-btn-sm" style="font-size:11px; padding:2px 6px;" onclick="toggleAllManageSuppliers(true)">Select All</button>
+              <button type="button" class="sap-btn sap-btn-ghost sap-btn-sm" style="font-size:11px; padding:2px 6px;" onclick="toggleAllManageSuppliers(false)">Clear</button>
+            </div>
+          </div>
+          <div id="manageSuppliersCheckboxList" style="max-height:220px; overflow-y:auto; border:1px solid #cbd5e1; border-radius:6px; padding:6px; background:#fff; display:flex; flex-direction:column; gap:4px;">
+            <!-- Dynamic checkboxes -->
+          </div>
+        </div>
+        <div class="sap-dialog-footer">
+          <button type="button" class="sap-btn sap-btn-secondary" onclick="closeInviteSuppliersModal()">Cancel</button>
+          <button type="submit" class="sap-btn sap-btn-primary" style="background:#0284c7; font-weight:700;">
+            ✓ Update Suppliers &amp; Dispatch Invitations
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: CONFIGURE DYNAMIC BIDDING TIMER (Buyer — Dynamic Countdown)        -->
+  <!-- ========================================================================= -->
+  <div class="sap-modal-backdrop hidden" id="modalSetBiddingDeadline">
+    <div class="sap-dialog" style="max-width: 500px;">
+      <div class="sap-dialog-header" style="background:#fffbeb; border-bottom:1px solid #fde68a;">
+        <span class="sap-dialog-title" style="color:#92400e;">⏱️ Set Dynamic Bidding Countdown Timer</span>
+        <button class="sap-dialog-close" onclick="closeSetBiddingDeadlineModal()">&times;</button>
+      </div>
+      <form onsubmit="handleSetBiddingDeadlineSubmit(event)">
+        <div class="sap-dialog-body">
+          <input type="hidden" id="setDeadlineRfqId">
+          <div class="sap-form-group">
+            <label class="sap-label">Select Countdown Duration</label>
+            <div style="display:flex; flex-direction:column; gap:8px; margin-top:6px;">
+              <label style="display:flex; align-items:center; gap:8px; font-size:13px; cursor:pointer;">
+                <input type="radio" name="deadlineQuickOption" value="5" onchange="toggleCustomDeadlineInput(false)" checked>
+                <strong>5 Minutes (Live Test / Demo Countdown)</strong> — Watch the timer tick down in real time
+              </label>
+              <label style="display:flex; align-items:center; gap:8px; font-size:13px; cursor:pointer;">
+                <input type="radio" name="deadlineQuickOption" value="60" onchange="toggleCustomDeadlineInput(false)">
+                <strong>1 Hour</strong> — Short bidding sprint
+              </label>
+              <label style="display:flex; align-items:center; gap:8px; font-size:13px; cursor:pointer;">
+                <input type="radio" name="deadlineQuickOption" value="1440" onchange="toggleCustomDeadlineInput(false)">
+                <strong>24 Hours (1 Day)</strong> — Standard procurement window
+              </label>
+              <label style="display:flex; align-items:center; gap:8px; font-size:13px; cursor:pointer;">
+                <input type="radio" name="deadlineQuickOption" value="2880" onchange="toggleCustomDeadlineInput(false)">
+                <strong>48 Hours (2 Days)</strong> — Complex sourcing event
+              </label>
+              <label style="display:flex; align-items:center; gap:8px; font-size:13px; cursor:pointer;">
+                <input type="radio" name="deadlineQuickOption" value="custom" onchange="toggleCustomDeadlineInput(true)">
+                <strong>Custom Date &amp; Time</strong>
+              </label>
+            </div>
+          </div>
+          <div class="sap-form-group hidden" id="customDeadlineInputGroup" style="margin-top:10px;">
+            <label class="sap-label">Pick Exact Expiration Timestamp *</label>
+            <input type="datetime-local" id="customDeadlineValue" class="sap-field-input" style="width:100%; box-sizing:border-box;">
+          </div>
+        </div>
+        <div class="sap-dialog-footer">
+          <button type="button" class="sap-btn sap-btn-secondary" onclick="closeSetBiddingDeadlineModal()">Cancel</button>
+          <button type="submit" class="sap-btn sap-btn-primary" style="background:#b45309; font-weight:700;">
+            ⏱️ Apply &amp; Start Live Countdown
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Revise & Resubmit Returned PR (Requester) -->
+  <div class="sap-modal-backdrop hidden" id="modalResubmitPr">
+    <div class="sap-dialog" style="max-width: 580px;">
+      <div class="sap-dialog-header" style="background:#eff6ff; border-bottom:1px solid #bfdbfe;">
+        <span class="sap-dialog-title" style="color:#1e40af;">✏️ Revise &amp; Resubmit Requisition</span>
+        <button class="sap-dialog-close" onclick="closeResubmitPrModal()">&times;</button>
+      </div>
+      <form id="resubmitPrForm" onsubmit="submitPrRevision(event)">
+        <div class="sap-dialog-body">
+          <input type="hidden" id="resubmitPrId">
+
+          <!-- Manager's notes banner -->
+          <div
+            style="background:#fef2f2; border:1px solid #fecaca; border-radius:8px; padding:12px; margin-bottom:14px;">
+            <div style="font-weight:700; color:#b91c1c; font-size:12px; margin-bottom:3px;">⚠️ Department Manager Notes:
+            </div>
+            <div id="resubmitManagerNotes" style="font-size:13px; color:#7f1d1d; font-weight:600;">Please revise
+              specifications.</div>
+          </div>
+
+          <div class="sap-form-group">
+            <label class="sap-label">Material / Demand Title *</label>
+            <input type="text" id="resubmitPrTitle" class="sap-field-input" style="width:100%; box-sizing:border-box;"
+              required>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="sap-form-group">
+              <label class="sap-label">Quantity *</label>
+              <input type="number" id="resubmitPrQty" class="sap-field-input" style="width:100%; box-sizing:border-box;"
+                required oninput="calculateResubmitBudget()">
+            </div>
+            <div class="sap-form-group">
+              <label class="sap-label">Target Unit Price (COP) *</label>
+              <input type="number" step="0.01" id="resubmitPrPrice" class="sap-field-input"
+                style="width:100%; box-sizing:border-box;" required oninput="calculateResubmitBudget()">
+            </div>
+          </div>
+
+          <div class="sap-form-group">
+            <label class="sap-label">Recalculated Budget (COP)</label>
+            <input type="text" id="resubmitPrTotalDisplay" class="sap-field-input"
+              style="width:100%; box-sizing:border-box; background:#f8fafc; font-weight:700; color:#0f172a;" readonly>
+          </div>
+
+          <div class="sap-form-group">
+            <label class="sap-label">Revision Notes to Manager *</label>
+            <textarea id="resubmitPrNotes" class="sap-field-input" rows="2" style="width:100%; box-sizing:border-box;"
+              placeholder="Explain the corrections made to your department manager..."></textarea>
+          </div>
+        </div>
+        <div class="sap-dialog-footer">
+          <button type="button" class="sap-btn sap-btn-secondary" onclick="closeResubmitPrModal()">Cancel</button>
+          <button type="submit" class="sap-btn sap-btn-primary" style="background:#2563eb;">Resubmit to Department
+            Manager &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Return PR for Correction -->
+  <div class="sap-modal-backdrop hidden" id="modalReturnPr">
+    <div class="sap-dialog">
+      <div class="sap-dialog-header">
+        <span class="sap-dialog-title">&#9888; Return Requisition for Correction</span>
+        <button class="sap-dialog-close" onclick="closeReturnPrModal()">&times;</button>
+      </div>
+      <div class="sap-dialog-body">
+        <input type="hidden" id="returnPrId">
+        <p style="margin-bottom:12px; font-size:12px;">Specify the reason why this requisition is being returned to the
+          employee for correction:</p>
+        <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Correction Comments / Required
+          Changes:</label>
+        <textarea id="returnPrComments" class="sap-field-input" rows="4" style="width:100%; font-family:inherit;"
+          placeholder="e.g. Please attach manufacturer technical specification sheet and revise estimated unit price."></textarea>
+      </div>
+      <div class="sap-dialog-footer">
+        <button class="sap-btn sap-btn-secondary" onclick="closeReturnPrModal()">Cancel</button>
+        <button class="sap-btn sap-btn-primary" style="background:#c0392b;"
+          onclick="submitPrReturnForCorrection()">Return to Requester</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Record Goods Receipt (GRN) -->
+  <div class="sap-modal-backdrop hidden" id="modalRecordGrn">
+    <div class="sap-dialog">
+      <div class="sap-dialog-header">
+        <span class="sap-dialog-title">&#128666; Record Inward Goods Receipt (GRN)</span>
+        <button class="sap-dialog-close" onclick="closeRecordGrnModal()">&times;</button>
+      </div>
+      <div class="sap-dialog-body">
+        <form id="recordGrnForm" onsubmit="submitGoodsReceipt(event)">
+          <input type="hidden" id="grnPoId" value="PO-450009180">
+          <div style="margin-bottom:12px;">
+            <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Purchase Order</label>
+            <input type="text" id="grnPoDisplay" class="sap-field-input" value="PO-450009180 (SUMINISTROS REFRI)"
+              readonly style="width:100%;">
+          </div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:12px;">
+            <div>
+              <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Received Quantity
+                (Units)</label>
+              <input type="number" id="grnReceivedQty" class="sap-field-input" value="7125000" required
+                style="width:100%;">
+            </div>
+            <div>
+              <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Delivery Note (Waybill
+                #)</label>
+              <input type="text" id="grnDeliveryNote" class="sap-field-input" value="REM-89214" required
+                style="width:100%;">
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:12px;">
+            <div>
+              <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Carrier
+                Logistics</label>
+              <input type="text" id="grnCarrier" class="sap-field-input" value="Trans-Caribe Logistics"
+                style="width:100%;">
+            </div>
+            <div>
+              <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Inspector /
+                Receiver</label>
+              <input type="text" id="grnReceivedBy" class="sap-field-input" value="Mateo Morales" style="width:100%;">
+            </div>
+          </div>
+          <div style="margin-bottom:12px;">
+            <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px;">Inspection Status &
+              Discrepancies</label>
+            <textarea id="grnDiscrepancyNotes" class="sap-field-input" rows="2" style="width:100%;"
+              placeholder="Complete delivery received in good condition. All cylinders inspected."></textarea>
+          </div>
+          <div class="sap-dialog-footer" style="padding-right:0;">
+            <button type="button" class="sap-btn sap-btn-secondary" onclick="closeRecordGrnModal()">Cancel</button>
+            <button type="submit" class="sap-btn sap-btn-primary" style="background:#107e3e;">&#10003; Save & Issue
+              Official GRN</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: 11-Stage End-to-End Traceability Lineage Drawer -->
+  <div class="sap-modal-backdrop hidden" id="modalTraceability">
+    <div class="sap-dialog sap-dialog-lg">
+      <div class="sap-dialog-header">
+        <span class="sap-dialog-title">&#128065; End-to-End Procurement Lineage & Traceability (PR &rarr; RFQ &rarr; PO
+          &rarr; SAP &rarr; GRN)</span>
+        <button class="sap-dialog-close" onclick="closeTraceabilityModal()">&times;</button>
+      </div>
+      <div class="sap-dialog-body">
+        <div style="background:#f1f5f9; padding:10px 14px; border-radius:4px; font-size:12px; margin-bottom:14px;">
+          <strong>Audit Traceability:</strong> Every purchase order can be verified backwards to its award decision,
+          sealed quotations, approved RFQ, and original Purchase Requisition.
+        </div>
+
+        <div class="trace-timeline" id="traceabilityTimelineContainer">
+          <!-- Dynamically populated by renderTraceability() -->
+        </div>
+      </div>
+      <div class="sap-dialog-footer">
+        <button class="sap-btn sap-btn-primary" onclick="closeTraceabilityModal()">Close Traceability</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="sap-toast-stack" id="sapToastStack"></div>
+
+  <script src="/js/app.js?v=3.0"></script>
+</body>
+
+</html>

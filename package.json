@@ -1,0 +1,25 @@
+{
+  "name": "alpek-sap-supplier-linking-platform",
+  "version": "1.0.0",
+  "description": "ALPEK SAP S/4HANA Supplier Linking and Sourcing Platform (SAP Ariba Alternative)",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "sap",
+    "s4hana",
+    "clean-core",
+    "ariba",
+    "procurement",
+    "sourcing",
+    "rfq",
+    "cxml",
+    "idoc",
+    "alpek"
+  ],
+  "author": "ALPEK Enterprise Solutions",
+  "license": "MIT"
+}
