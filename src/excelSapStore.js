@@ -13,6 +13,11 @@ if (!fs.existsSync(DATA_DIR)) {
 }
 
 export class ExcelSapStore {
+  safeWrite(filePath, content) {
+    try {
+      fs.writeFileSync(filePath, content, 'utf-8');
+    } catch (err) {}
+  }
   constructor() {
     this.prFilePath = path.join(DATA_DIR, 'SAP_PR_Inbound.csv');
     this.poFilePath = path.join(DATA_DIR, 'SAP_PO_Outbound.csv');
@@ -28,7 +33,7 @@ export class ExcelSapStore {
         '10009242,NB,10,Specialty Polymer Stabilizers Compound,8000,KG,14.50,2020 (Columbia),Sourcing Pending,Sarah Jenkins,Polyester Production,2026-10-22',
         '10009243,NB,10,Conductive FIBC Big Bags 1000kg,12000,PC,18.20,3030 (Cosoleacaque),Sourcing Pending,Mateo Morales,Packaging & Warehouse,2026-10-25'
       ].join('\n');
-      fs.writeFileSync(this.prFilePath, defaultPrCsv, 'utf-8');
+      this.safeWrite(this.prFilePath, );
     }
 
     if (!fs.existsSync(this.poFilePath) || force) {
@@ -36,7 +41,7 @@ export class ExcelSapStore {
         'SAP_PO_Number,Source_PR,RFQ_Doc_ID,Awarded_Supplier,Supplier_ANID,Unit_Price_COP,Total_Amount_COP,Commit_Timestamp,Status',
         '450009180,3000010443,Doc2432956265,SONDA DE COLOMBIA S A,AN11459791479,3.00,21375000.00,2026-10-10T14:30:00Z,POSTED_CONFIRMED'
       ].join('\n');
-      fs.writeFileSync(this.poFilePath, defaultPoCsv, 'utf-8');
+      this.safeWrite(this.poFilePath, );
     }
   }
 
