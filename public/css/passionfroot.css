@@ -1152,3 +1152,122 @@ a {
   border-radius: var(--radius-md);
   margin-bottom: 18px;
 }
+
+/* =============================================================================
+   11. PASSIONFROOT BENTO COCKPIT & SPLIT GRID LAYOUTS
+   ============================================================================= */
+
+.bento-cockpit-grid {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 1080px) {
+  .bento-cockpit-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bento-split-grid {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 1080px) {
+  .bento-split-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bento-equal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+  .bento-equal-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cockpit-hero-banner {
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: var(--radius-xl) !important;
+  padding: 24px 30px !important;
+  margin-bottom: 24px !important;
+  box-shadow: var(--shadow-card) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 18px !important;
+}
+
+.cockpit-title-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+}
+
+.cockpit-icon-badge {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: var(--radius-full) !important;
+  background: var(--bg-subtle) !important;
+  border: 1px solid var(--border-subtle) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 22px !important;
+  flex-shrink: 0 !important;
+}
+
+.cockpit-meta-strip {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  flex-wrap: wrap !important;
+  font-size: 12px !important;
+  color: var(--ink-700) !important;
+  margin-top: 6px !important;
+}
+
+.cockpit-meta-item {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.cockpit-actions-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  flex-wrap: wrap !important;
+}
+
+.envelope-step-box {
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 24px !important;
+  margin-bottom: 20px !important;
+}
+
+.envelope-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  background: var(--brand-dark) !important;
+  color: #FFFFFF !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  padding: 4px 10px !important;
+  border-radius: var(--radius-full) !important;
+  letter-spacing: 0.05em !important;
+}
