@@ -896,3 +896,411 @@ a {
 .hidden {
   display: none !important;
 }
+
+/* =============================================================================
+   COMPLETE PASSIONFROOT THEME FOR ALL INTERNAL APP PAGES
+   ============================================================================= */
+
+/* Main App Container */
+#page-app {
+  background-color: var(--bg-page) !important;
+  color: var(--ink-900) !important;
+  font-family: var(--font-sans) !important;
+  min-height: 100vh;
+  padding-bottom: 60px;
+}
+
+/* Floating Glassmorphic App Topbar (Matches Landing Page) */
+.app-topbar {
+  max-width: 1360px !important;
+  margin: 16px auto 20px auto !important;
+  padding: 8px 24px !important;
+  background: rgba(250, 248, 245, 0.92) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: var(--radius-full) !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03) !important;
+  height: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  position: sticky !important;
+  top: 12px !important;
+  z-index: 500 !important;
+}
+
+.topbar-brand {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+}
+
+.topbar-logo-badge {
+  width: 32px !important;
+  height: 32px !important;
+  background: var(--brand-dark) !important;
+  color: #FFFFFF !important;
+  border-radius: var(--radius-full) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: 800 !important;
+  font-size: 13px !important;
+}
+
+.topbar-brand-title {
+  font-family: var(--font-serif) !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: var(--ink-900) !important;
+  letter-spacing: -0.02em !important;
+}
+
+.topbar-brand-sub {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: var(--brand-coral) !important;
+  background: var(--brand-coral-subtle) !important;
+  padding: 2px 8px !important;
+  border-radius: var(--radius-full) !important;
+  margin-left: 6px !important;
+  border: 1px solid rgba(224, 83, 60, 0.2) !important;
+}
+
+/* Center Nav Pills */
+.topbar-nav-center {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: var(--bg-subtle) !important;
+  padding: 4px !important;
+  border-radius: var(--radius-full) !important;
+  border: 1px solid var(--border-subtle) !important;
+}
+
+.nav-pill-btn {
+  background: transparent !important;
+  border: none !important;
+  padding: 7px 18px !important;
+  border-radius: var(--radius-full) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: var(--ink-700) !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.nav-pill-btn:hover:not(.active) {
+  color: var(--ink-900) !important;
+  background: rgba(255, 255, 255, 0.6) !important;
+}
+
+.nav-pill-btn.active {
+  background: var(--brand-dark) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* User Profile Trigger & Menu */
+.user-profile-trigger {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: var(--radius-full) !important;
+  padding: 4px 14px 4px 6px !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+}
+
+.user-profile-trigger:hover {
+  border-color: var(--border-medium) !important;
+  box-shadow: var(--shadow-subtle) !important;
+}
+
+.user-avatar-badge {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: var(--radius-full) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  font-size: 11px !important;
+}
+
+.profile-dropdown-card {
+  position: absolute !important;
+  top: calc(100% + 10px) !important;
+  right: 0 !important;
+  width: 260px !important;
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border-medium) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-float) !important;
+  padding: 18px !important;
+  display: none;
+  z-index: 1000 !important;
+}
+
+.profile-dropdown-card.show {
+  display: block !important;
+}
+
+/* Executive KPI Strip (Passionfroot Hero Style) */
+.executive-kpi-strip {
+  max-width: 1360px !important;
+  margin: 0 auto 28px auto !important;
+  padding: 0 16px !important;
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+  gap: 16px !important;
+}
+
+.kpi-stat-card {
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 22px 24px !important;
+  box-shadow: var(--shadow-subtle) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
+}
+
+.kpi-stat-card::after {
+  display: none !important;
+}
+
+.kpi-stat-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: var(--shadow-card) !important;
+  border-color: var(--border-medium) !important;
+}
+
+.kpi-subheading {
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: var(--ink-500) !important;
+  margin-bottom: 6px !important;
+}
+
+.kpi-main-number {
+  font-family: var(--font-serif) !important;
+  font-size: 32px !important;
+  font-weight: 700 !important;
+  color: var(--ink-900) !important;
+  line-height: 1.1 !important;
+  margin-bottom: 6px !important;
+}
+
+.kpi-context-pill {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: var(--ink-700) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+.kpi-icon-bubble {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: var(--radius-full) !important;
+  background: var(--bg-subtle) !important;
+  border: 1px solid var(--border-subtle) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 18px !important;
+}
+
+/* Internal Workspace & Cards */
+.sap-workspace, .workspace-content, .app-content-body {
+  max-width: 1360px !important;
+  margin: 0 auto !important;
+  padding: 0 16px 48px 16px !important;
+}
+
+.sap-card, .sourcing-cockpit-card {
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: var(--radius-xl) !important;
+  padding: 30px !important;
+  box-shadow: var(--shadow-subtle) !important;
+  margin-bottom: 28px !important;
+}
+
+.card-title, .sap-dialog-title, .content-header h2 {
+  font-family: var(--font-serif) !important;
+  font-size: 24px !important;
+  font-weight: 600 !important;
+  color: var(--ink-900) !important;
+  letter-spacing: -0.02em !important;
+}
+
+.card-subtitle {
+  color: var(--ink-500) !important;
+  font-size: 13.5px !important;
+  margin-top: 4px !important;
+}
+
+/* Side-by-Side Comparison Matrix */
+.matrix-table, .sap-table {
+  width: 100% !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: var(--radius-lg) !important;
+  overflow: hidden !important;
+  background: var(--bg-surface) !important;
+}
+
+.matrix-table th, .sap-table th {
+  background: var(--bg-subtle) !important;
+  color: var(--ink-700) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  padding: 16px 20px !important;
+  border-bottom: 1px solid var(--border-subtle) !important;
+}
+
+.matrix-table td, .sap-table td {
+  padding: 16px 20px !important;
+  border-bottom: 1px solid rgba(28, 25, 23, 0.05) !important;
+  color: var(--ink-900) !important;
+  font-size: 13.5px !important;
+}
+
+.matrix-table tr:hover td, .sap-table tr:hover td {
+  background-color: rgba(250, 248, 245, 0.6) !important;
+}
+
+/* Winner Column in Matrix */
+.winner-column, .most-competitive-bid {
+  background: rgba(240, 253, 244, 0.7) !important;
+  border-left: 2px solid var(--accent-emerald) !important;
+  border-right: 2px solid var(--accent-emerald) !important;
+}
+
+/* Buttons System */
+.sap-btn, button.sap-btn, .btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  border-radius: var(--radius-full) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  padding: 10px 22px !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  border: 1px solid transparent !important;
+  text-decoration: none !important;
+}
+
+.sap-btn-primary, button.sap-btn-primary, .btn-primary {
+  background: var(--brand-dark) !important;
+  color: #FFFFFF !important;
+  border-color: var(--brand-dark) !important;
+}
+
+.sap-btn-primary:hover, button.sap-btn-primary:hover, .btn-primary:hover {
+  background: var(--brand-dark-hover) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 14px rgba(25, 23, 22, 0.16) !important;
+}
+
+.sap-btn-secondary, button.sap-btn-secondary, .btn-secondary {
+  background: var(--bg-subtle) !important;
+  color: var(--ink-800) !important;
+  border-color: var(--border-medium) !important;
+}
+
+.sap-btn-secondary:hover, button.sap-btn-secondary:hover, .btn-secondary:hover {
+  background: var(--bg-foundation) !important;
+  border-color: var(--border-strong) !important;
+}
+
+/* Form Inputs */
+.sap-field-input, input[type="text"], input[type="number"], select {
+  background: var(--bg-subtle) !important;
+  border: 1px solid var(--border-medium) !important;
+  border-radius: var(--radius-sm) !important;
+  padding: 10px 14px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 13.5px !important;
+  color: var(--ink-900) !important;
+  outline: none !important;
+  transition: all 0.15s ease !important;
+}
+
+.sap-field-input:focus, input[type="text"]:focus, input[type="number"]:focus, select:focus {
+  background: #FFFFFF !important;
+  border-color: var(--ink-900) !important;
+  box-shadow: 0 0 0 3px rgba(25, 23, 22, 0.08) !important;
+}
+
+/* Modals & Dialogs (Passionfroot Floating Cards) */
+.sap-modal-backdrop {
+  background: rgba(25, 23, 22, 0.5) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 2000 !important;
+}
+
+.sap-dialog {
+  background: var(--bg-page) !important;
+  border: 1px solid var(--border-medium) !important;
+  border-radius: var(--radius-xl) !important;
+  box-shadow: var(--shadow-float) !important;
+  padding: 32px !important;
+  max-width: 650px !important;
+  width: 90% !important;
+}
+
+.sap-dialog-header {
+  border-bottom: 1px solid var(--border-subtle) !important;
+  padding-bottom: 16px !important;
+  margin-bottom: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.sap-dialog-close {
+  background: var(--bg-subtle) !important;
+  border: 1px solid var(--border-subtle) !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: var(--radius-full) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 16px !important;
+  color: var(--ink-700) !important;
+  cursor: pointer !important;
+}
+
+.sap-dialog-close:hover {
+  background: var(--bg-foundation) !important;
+  color: var(--ink-900) !important;
+}

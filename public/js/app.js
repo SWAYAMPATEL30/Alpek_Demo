@@ -28,7 +28,7 @@ let currentUser = {
   role: 'buyer',
   roleLabel: 'Category Buyer & Sourcing Manager',
   initials: 'VM',
-  avatarColor: '#0854a0'
+  avatarColor: '#191716'
 };
 
 // Document Initializer
@@ -102,7 +102,7 @@ function updateHeaderUserBadge() {
   const dropEmail = document.getElementById('dropdownEmail');
 
   const initials = currentUser.initials || 'MP';
-  const color = currentUser.avatarColor || '#0854a0';
+  const color = currentUser.avatarColor || '#191716';
   const name = currentUser.name || 'User';
   const roleLabel = currentUser.roleLabel || currentUser.role;
   const email = currentUser.email || `${currentUser.username || 'user'}@abccompany.com`;
@@ -767,7 +767,7 @@ function updateBuyerCockpitStatusControls(rfq) {
   if (btnAward) {
     if (rfq.status === 'PENDING_AWARD_APPROVAL') {
       btnAward.disabled = true;
-      btnAward.style.background = '#0284c7';
+      btnAward.style.background = '#191716';
       btnAward.style.border = 'none';
       btnAward.style.cursor = 'default';
       btnAward.innerHTML = '&#9203; Recommendation Submitted — Awaiting Approval (Carlos Alberto Fonseca)';
@@ -974,14 +974,14 @@ async function loadBuyerApprovedPrs() {
       const hasRfq = !!pr.linkedRfqId;
 
       return `
-        <tr style="${isToothbrush ? 'background:#f0f9ff; border-left:3px solid #0284c7;' : ''}">
+        <tr style="${isToothbrush ? 'background:#FDF3F1; border-left:3px solid #E0533C;' : ''}">
           <td><strong>${escapeHtml(pr.id)}</strong><br><span style="font-size:10px; color:#64748b;">SAP: ${escapeHtml(pr.sapPrNumber || '-')}</span></td>
           <td>
-            <strong style="color:#0284c7; font-size:13px;">${escapeHtml(pr.title)}</strong><br>
+            <strong style="color:#191716; font-size:13px;">${escapeHtml(pr.title)}</strong><br>
             <span style="font-size:11px; color:#475569;">${escapeHtml(pr.purpose)}</span>
           </td>
           <td><strong>${pr.lineItems[0] ? pr.lineItems[0].quantity.toLocaleString() : '1'}</strong> ${pr.lineItems[0] ? pr.lineItems[0].unit : 'Unit'}</td>
-          <td><strong style="color:#0854a0;">$${(pr.estimatedBudget || 0).toLocaleString()} ${pr.currency || 'COP'}</strong></td>
+          <td><strong style="color:#191716;">$${(pr.estimatedBudget || 0).toLocaleString()} ${pr.currency || 'COP'}</strong></td>
           <td>${escapeHtml(pr.requesterName)}<br><span style="font-size:10px; color:#64748b;">${escapeHtml(pr.department)}</span></td>
           <td>
             <span class="status-pill ${hasRfq ? 'confirmed' : 'approved'}">
@@ -991,7 +991,7 @@ async function loadBuyerApprovedPrs() {
           <td style="text-align:right;">
             ${hasRfq 
               ? `<button class="sap-btn sap-btn-secondary sap-btn-sm" onclick="switchSourcingProject('${pr.linkedRfqId}')">View Tender RFQ</button>`
-              : `<button class="sap-btn sap-btn-primary sap-btn-sm" style="background:#0284c7; font-weight:700;" onclick="openCreateRfqModal('${pr.id}')">
+              : `<button class="sap-btn sap-btn-primary sap-btn-sm" style="background:#191716; font-weight:700;" onclick="openCreateRfqModal('${pr.id}')">
                   ⚡ Create Sourcing RFQ
                 </button>`
             }
@@ -1430,7 +1430,7 @@ function renderComparisonMatrix() {
       <td style="background:#f8fafc;">
         <div>Quantity: <strong>${quantity.toLocaleString()} ${escapeHtml(item.unit || 'Unit')}</strong></div>
         <div>Target Unit: <strong>$${targetUnitPrice.toFixed(2)} ${currency}</strong></div>
-        <div style="font-weight:700; color:#0854a0;">Est. Total: $${baselineTotal.toLocaleString()} ${currency}</div>
+        <div style="font-weight:700; color:#191716;">Est. Total: $${baselineTotal.toLocaleString()} ${currency}</div>
       </td>
       ${invitedSupplierIds.map(supId => {
         const quote = quotations.find(q => q.supplierId === supId);
@@ -1451,7 +1451,7 @@ function renderComparisonMatrix() {
         return `
           <td class="text-center ${isLowest ? 'winner-cell' : ''}">
             <div class="unit-price" style="font-size:15px; font-weight:800; color:#0f172a;">$${unitPrice.toFixed(2)} ${currency}</div>
-            <div class="sub-price" style="font-size:12px; font-weight:700; color:#0284c7; margin:2px 0;">Total: $${totalAmount.toLocaleString()} ${currency}</div>
+            <div class="sub-price" style="font-size:12px; font-weight:700; color:#191716; margin:2px 0;">Total: $${totalAmount.toLocaleString()} ${currency}</div>
             ${savingsPct > 0 
               ? `<span class="savings-tag" style="background:#dcfce7; color:#15803d; font-size:10px; font-weight:700; padding:2px 8px; border-radius:10px;">${savingsPct}% Below Baseline</span>`
               : `<span style="font-size:10px; color:#64748b;">At Target Budget</span>`
@@ -1491,7 +1491,7 @@ function renderComparisonMatrix() {
   bodyHtml += `
     <tr class="total-row" style="background:#f8fafc; font-weight:800;">
       <td><strong>TOTAL EVALUATED PROPOSAL (${currency})</strong></td>
-      <td style="color:#0854a0;"><strong>$${baselineTotal.toLocaleString()} ${currency}</strong></td>
+      <td style="color:#191716;"><strong>$${baselineTotal.toLocaleString()} ${currency}</strong></td>
       ${invitedSupplierIds.map(supId => {
         const quote = quotations.find(q => q.supplierId === supId);
         if (!quote) return `<td class="text-center" style="color:#94a3b8; font-size:11px;">--</td>`;
@@ -2325,7 +2325,7 @@ async function loadRequesterPrs() {
           <td><span class="status-pill ${statusClass}">${escapeHtml(pr.status.replace(/_/g, ' '))}</span></td>
           <td style="white-space:nowrap;">
             <button class="sap-btn sap-btn-secondary sap-btn-sm" onclick="openTraceabilityModal('pr', '${pr.id}')">&#128065; Trace Lineage</button>
-            ${isReturned ? `<button class="sap-btn sap-btn-primary sap-btn-sm" style="background:#2563eb; margin-left:4px;" onclick="openResubmitPrModal('${pr.id}')">✏️ Revise</button>` : ''}
+            ${isReturned ? `<button class="sap-btn sap-btn-primary sap-btn-sm" style="background:#191716; margin-left:4px;" onclick="openResubmitPrModal('${pr.id}')">✏️ Revise</button>` : ''}
           </td>
         </tr>
       `;
@@ -2365,7 +2365,7 @@ async function loadManagerQueue() {
           <span style="font-size:11px; color:#475569;">${escapeHtml(pr.purpose)}</span>
         </td>
         <td>${escapeHtml(pr.costCenter)}</td>
-        <td><strong style="color:#0854a0;">$${pr.estimatedBudget.toLocaleString()} ${pr.currency}</strong></td>
+        <td><strong style="color:#191716;">$${pr.estimatedBudget.toLocaleString()} ${pr.currency}</strong></td>
         <td>${escapeHtml(pr.requiredDate || '2026-11-30')}</td>
         <td style="text-align:right; white-space:nowrap;">
           <button class="sap-btn sap-btn-primary sap-btn-sm" style="background:#15803d;" onclick="approvePrAsManager('${pr.id}')">&#10003; Approve</button>
@@ -2710,7 +2710,7 @@ async function loadCommEvalQueue() {
       return `
         <tr>
           <td><strong>${escapeHtml(q.supplierName || q.supplierId)}</strong></td>
-          <td><strong style="color:#0854a0;">$${unitPrice.toFixed(2)} ${rfqCurrency}</strong></td>
+          <td><strong style="color:#191716;">$${unitPrice.toFixed(2)} ${rfqCurrency}</strong></td>
           <td><strong>$${total.toLocaleString()} ${rfqCurrency}</strong></td>
           <td>${escapeHtml(q.paymentTerms || 'Net 60 Days')}</td>
           <td>
@@ -3169,7 +3169,7 @@ async function loadApproverReviewData(rfqId) {
                 <div style="color:#15803d; font-weight:700; font-size:11px;">✓ ISO 9001:2015 Verified</div>
                 <div style="font-size:11px; color:#475569;">Lead Time: <strong>${escapeHtml(String(q.leadTimeDays || 8))} Business Days</strong></div>
               </td>
-              <td style="vertical-align:middle; font-weight:800; color:#0854a0; font-size:13px;">
+              <td style="vertical-align:middle; font-weight:800; color:#191716; font-size:13px;">
                 $${unitPrice.toFixed(2)} ${currency}
               </td>
               <td style="vertical-align:middle;">

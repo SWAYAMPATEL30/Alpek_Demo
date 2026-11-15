@@ -288,7 +288,7 @@
           style="margin-bottom:18px; border-left:4px solid #0284c7; background:#ffffff; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
           <div class="card-toolbar" style="padding-bottom:10px;">
             <div>
-              <span class="card-title" style="color:#0284c7;">📥 Approved Requisitions Queue (Step 3: Create Sourcing
+              <span class="card-title" style="color:#191716;">📥 Approved Requisitions Queue (Step 3: Create Sourcing
                 RFQ)</span>
               <div class="card-subtitle">Purchase Requisitions approved by Department Managers waiting for Buyer
                 (Valeria Martinez) to create an RFQ tender</div>
@@ -333,27 +333,27 @@
               <div style="background:#ffffff; border:1px solid #e9d5ff; border-radius:8px; padding:10px 14px; box-shadow:0 1px 3px rgba(124,58,237,0.06); margin-top:6px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px; border-bottom:1px solid #f3e8ff; padding-bottom:8px;">
                   <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-                    <span style="font-size:10px; font-weight:800; background:#7c3aed; color:#fff; padding:2px 8px; border-radius:4px; text-transform:uppercase; letter-spacing:0.5px;">Active Sourcing Project</span>
+                    <span style="font-size:10px; font-weight:800; background:#7c3aed; color:#fff; padding:2px 8px; border-radius:12px; text-transform:uppercase; letter-spacing:0.5px;">Active Sourcing Project</span>
                     <strong id="cfgEventTitle" style="font-size:14px; color:#1e1b4b;">Loading Event Name...</strong>
                     <span id="cfgEventIdBadge" style="font-size:12px; color:#6b21a8; font-weight:700; font-family:monospace;">(ID: --)</span>
                   </div>
                   <div style="display:flex; align-items:center; gap:6px;">
                     <label for="cfgRfqSelector" style="font-size:11px; font-weight:700; color:#6b21a8;">Switch Tender:</label>
-                    <select id="cfgRfqSelector" onchange="switchSourcingProject(this.value)" class="sap-field-input" style="padding:3px 8px; font-size:11px; font-weight:600; border-radius:4px; max-width:280px; border-color:#c4b5fd;">
+                    <select id="cfgRfqSelector" onchange="switchSourcingProject(this.value)" class="sap-field-input" style="padding:3px 8px; font-size:11px; font-weight:600; border-radius:12px; max-width:280px; border-color:#c4b5fd;">
                     </select>
                   </div>
                 </div>
                 <div style="display:flex; flex-wrap:wrap; gap:8px; font-size:11px;">
-                  <span style="background:#f8fafc; border:1px solid #e2e8f0; color:#334155; padding:4px 10px; border-radius:6px;">
-                    📋 <strong>Source PR:</strong> <span id="cfgMetaPrNumber" style="font-weight:700; color:#0284c7;">--</span>
+                  <span style="background:#f8fafc; border:1px solid #e2e8f0; color:#334155; padding:4px 10px; border-radius:9999px;">
+                    📋 <strong>Source PR:</strong> <span id="cfgMetaPrNumber" style="font-weight:700; color:#191716;">--</span>
                   </span>
-                  <span style="background:#f8fafc; border:1px solid #e2e8f0; color:#334155; padding:4px 10px; border-radius:6px;">
+                  <span style="background:#f8fafc; border:1px solid #e2e8f0; color:#334155; padding:4px 10px; border-radius:9999px;">
                     📦 <strong>Material:</strong> <span id="cfgMetaMaterial" style="font-weight:700; color:#1e293b;">--</span>
                   </span>
-                  <span style="background:#f8fafc; border:1px solid #e2e8f0; color:#334155; padding:4px 10px; border-radius:6px;">
+                  <span style="background:#f8fafc; border:1px solid #e2e8f0; color:#334155; padding:4px 10px; border-radius:9999px;">
                     🏭 <strong>Plant &amp; Dept:</strong> <span id="cfgMetaPlant" style="color:#475569;">--</span>
                   </span>
-                  <span style="background:#ecfdf5; border:1px solid #a7f3d0; color:#065f46; padding:4px 10px; border-radius:6px;" id="cfgMetaPoBadge">
+                  <span style="background:#ecfdf5; border:1px solid #a7f3d0; color:#065f46; padding:4px 10px; border-radius:9999px;" id="cfgMetaPoBadge">
                     📝 <strong>Follow-on PO:</strong> <span id="cfgMetaPoNumber" style="font-weight:700;">--</span>
                   </span>
                 </div>
@@ -414,7 +414,7 @@
                   <!-- Dynamic invited supplier badges -->
                 </div>
               </div>
-              <button class="sap-btn sap-btn-secondary sap-btn-sm" style="width:100%; font-weight:600; color:#0369a1; border-color:#0284c7;"
+              <button class="sap-btn sap-btn-secondary sap-btn-sm" style="width:100%; font-weight:600; color:#0369a1; border-color:#191716;"
                 onclick="openInviteSuppliersModal(AppState.currentRfqId)">
                 👥 Select / Invite Suppliers
               </button>
@@ -427,7 +427,7 @@
                   <span style="font-weight:700; font-size:13px; color:#c2410c;">⏱️ 4. Bidding Timer</span>
                   <span id="buyerTimerStatusPill" class="status-pill approved" style="font-size:10px;">Active</span>
                 </div>
-                <div style="background:#fffbeb; border:1px solid #fef08a; border-radius:6px; padding:6px; text-align:center; margin-bottom:8px;">
+                <div style="background:#fffbeb; border:1px solid #fef08a; border-radius:9999px; padding:6px; text-align:center; margin-bottom:8px;">
                   <div style="font-size:10px; font-weight:700; color:#854d0e; text-transform:uppercase;">Time Remaining</div>
                   <div id="buyerBiddingCountdownDisplay" style="font-size:20px; font-weight:800; color:#b45309; font-family:monospace; letter-spacing:1px; margin:2px 0;">--:--:--</div>
                   <div id="buyerDeadlineTimestamp" style="font-size:10px; color:#78350f;">Calculating...</div>
@@ -457,7 +457,7 @@
               </div>
             </div>
             <button class="sap-btn sap-btn-primary sap-btn-sm" id="btnPublishRfqDirect"
-              style="background:#0284c7; font-weight:700; display:none;"
+              style="background:#191716; font-weight:700; display:none;"
               onclick="publishCurrentRfqDirect()">
               🚀 Publish Event &amp; Send Invitations
             </button>
@@ -488,7 +488,7 @@
             <div style="margin-top:10px; display:flex; align-items:center; gap:8px;">
               <span style="font-size:11px; font-weight:700; color:#475569;">SELECT TENDER PROJECT:</span>
               <select id="rfqProjectSelector" onchange="switchSourcingProject(this.value)" class="sap-field-input"
-                style="padding:4px 8px; font-size:12px; font-weight:600; border-radius:4px; max-width:480px;">
+                style="padding:4px 8px; font-size:12px; font-weight:600; border-radius:12px; max-width:480px;">
                 <option value="Doc2432956265">Doc2432956265 - Sourcing Project Test V2 (SUMINISTROS REFRI)</option>
               </select>
             </div>
@@ -798,7 +798,7 @@
             <!-- STEP 1: TECHNICAL ENVELOPE -->
             <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px; margin-bottom:18px;">
               <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
-                <span style="background:#2563eb; color:#ffffff; font-size:11px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 1</span>
+                <span style="background:#191716; color:#ffffff; font-size:11px; font-weight:800; padding:3px 8px; border-radius:12px;">STEP 1</span>
                 <strong style="font-size:14px; color:#0f172a;">Technical Proposal &amp; Quality Compliance (Envelope 1)</strong>
                 <span style="font-size:11px; color:#64748b; margin-left:auto;">Pricing remains sealed from technical evaluators</span>
               </div>
@@ -837,13 +837,13 @@
             <!-- STEP 2: COMMERCIAL ENVELOPE -->
             <div style="background:#ffffff; border:1px solid #cbd5e1; border-radius:8px; padding:16px; margin-bottom:18px;">
               <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
-                <span style="background:#0284c7; color:#ffffff; font-size:11px; font-weight:800; padding:3px 8px; border-radius:4px;">STEP 2</span>
+                <span style="background:#191716; color:#ffffff; font-size:11px; font-weight:800; padding:3px 8px; border-radius:12px;">STEP 2</span>
                 <strong style="font-size:14px; color:#0f172a;">Commercial Pricing &amp; Unit Tariffs (Envelope 2)</strong>
                 <span style="font-size:11px; color:#64748b; margin-left:auto;">Unit price multiplied by requested quantity</span>
               </div>
 
               <!-- Scope Demand Details Callout -->
-              <div style="background:#eff6ff; border-left:4px solid #3b82f6; padding:10px 14px; border-radius:4px; margin-bottom:14px;">
+              <div style="background:#F5F2EB; border-left:4px solid #E0533C; padding:10px 14px; border-radius:12px; margin-bottom:14px;">
                 <div style="font-size:13px; font-weight:700; color:#1e40af;" id="supLineItemCodeName">2.1.1 REFRIGERANT-134A INDUSTRIAL</div>
                 <div style="font-size:12px; color:#334155; margin-top:2px;" id="supLineItemDesc">Refrigeration Supplies &amp; Industrial Chemical Consumables</div>
                 <div style="font-size:11px; color:#64748b; margin-top:4px;">
@@ -852,7 +852,7 @@
               </div>
 
               <!-- Clear Bidding Row -->
-              <div style="display:flex; align-items:center; justify-content:space-between; background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:16px; gap:16px; flex-wrap:wrap;">
+              <div style="display:flex; align-items:center; justify-content:space-between; background:#f8fafc; border:1px solid #e2e8f0; border-radius:9999px; padding:16px; gap:16px; flex-wrap:wrap;">
                 <div>
                   <div style="font-size:11px; font-weight:700; color:#64748b; text-transform:uppercase;">Required Demand Quantity</div>
                   <div style="font-size:18px; font-weight:800; color:#0f172a; margin-top:2px;">
@@ -861,14 +861,14 @@
                 </div>
 
                 <div>
-                  <label for="supInputUnitPrice" style="display:block; font-size:11px; font-weight:700; color:#0284c7; text-transform:uppercase; margin-bottom:4px;">
+                  <label for="supInputUnitPrice" style="display:block; font-size:11px; font-weight:700; color:#191716; text-transform:uppercase; margin-bottom:4px;">
                     Your Unit Price Offer <span style="color:#ef4444;">*</span>
                   </label>
                   <div style="display:flex; align-items:center; gap:6px;">
-                    <span style="font-size:16px; font-weight:800; color:#0284c7;">$</span>
+                    <span style="font-size:16px; font-weight:800; color:#191716;">$</span>
                     <input type="text" class="sap-field-input" id="supInputUnitPrice" value="" placeholder="0.00"
                       oninput="calculateSupplierSubtotal()"
-                      style="width:120px; font-size:16px; font-weight:800; text-align:right; border:2px solid #0284c7; border-radius:6px; padding:6px 10px;">
+                      style="width:120px; font-size:16px; font-weight:800; text-align:right; border:1px solid #191716; border-radius:9999px; padding:6px 10px;">
                     <span id="supCurrencyLabel" style="font-size:13px; font-weight:700; color:#475569;">COP</span>
                   </div>
                 </div>
@@ -899,7 +899,7 @@
 
                 <div style="display:flex; gap:8px;">
                   <button class="sap-btn sap-btn-primary" onclick="submitSupplierFullBid()"
-                    style="background:#0284c7; font-weight:800; font-size:14px; padding:10px 22px; box-shadow:0 2px 6px rgba(2,132,199,0.3);">
+                    style="background:#191716; font-weight:800; font-size:14px; padding:10px 22px; box-shadow:0 2px 6px rgba(25,23,22,0.15);">
                     🚀 Submit Complete Quotation
                   </button>
                   <button class="sap-btn sap-btn-secondary" onclick="updateSupplierTotals()" title="Recalculate Totals">
@@ -953,7 +953,7 @@
 
         <!-- Alert if any PR was returned for correction -->
         <div id="requesterReturnedAlert" class="hidden"
-          style="background:#fef2f2; border:1px solid #f87171; border-radius:4px; padding:12px 16px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center;">
+          style="background:#fef2f2; border:1px solid #f87171; border-radius:12px; padding:12px 16px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center;">
           <div>
             <strong style="color:#b91c1c;">⚠️ Action Required: Requisition Returned by Manager</strong>
             <p id="returnedReasonText" style="margin:4px 0 0 0; color:#7f1d1d; font-size:12px;">Manager notes: Please
@@ -1113,7 +1113,7 @@
           </div>
 
           <div
-            style="background:#eff6ff; border-left:4px solid #2563eb; padding:12px 16px; margin-bottom:16px; font-size:12px;">
+            style="background:#F5F2EB; border-left:4px solid #2563eb; padding:12px 16px; margin-bottom:16px; font-size:12px;">
             <strong>Security &amp; Compliance Rules:</strong> Under Alpek Demo procurement policy, technical evaluators
             score vendor ISO certifications, delivery timelines, and technical suitability without knowledge of
             commercial pricing to ensure zero bias.
@@ -1137,7 +1137,7 @@
           </table>
 
           <div style="margin-top:20px; display:flex; justify-content:flex-end;">
-            <button class="sap-btn sap-btn-primary" onclick="submitTechnicalEvaluation()" style="background:#2563eb;">
+            <button class="sap-btn sap-btn-primary" onclick="submitTechnicalEvaluation()" style="background:#191716;">
               &#10003; Submit Official Technical Evaluation
             </button>
           </div>
@@ -1231,7 +1231,7 @@
             </div>
             <div style="display:flex; align-items:center; gap:8px;">
               <label for="approverRfqSelector" style="font-size:11px; font-weight:700; color:#15803d; text-transform:uppercase;">Select Tender:</label>
-              <select id="approverRfqSelector" onchange="loadApproverReviewData(this.value)" class="sap-field-input" style="padding:4px 10px; font-size:12px; font-weight:600; border-radius:6px; min-width:280px; border-color:#86efac;">
+              <select id="approverRfqSelector" onchange="loadApproverReviewData(this.value)" class="sap-field-input" style="padding:4px 10px; font-size:12px; font-weight:600; border-radius:9999px; min-width:280px; border-color:#86efac;">
               </select>
             </div>
           </div>
@@ -1242,16 +1242,16 @@
               Doc2432956265 — Sourcing Project Test V2 (SUMINISTROS REFRI)
             </div>
             <div style="display:flex; flex-wrap:wrap; gap:10px; font-size:11px;">
-              <span style="background:#ffffff; border:1px solid #cbd5e1; color:#334155; padding:4px 10px; border-radius:6px;">
+              <span style="background:#ffffff; border:1px solid #cbd5e1; color:#334155; padding:4px 10px; border-radius:9999px;">
                 📦 <strong>Procured Product:</strong> <span id="apprMetaMaterial" style="font-weight:700; color:#0f172a;">SUMINISTROS REFRI • 7,125,000 Unit</span>
               </span>
-              <span style="background:#ffffff; border:1px solid #cbd5e1; color:#334155; padding:4px 10px; border-radius:6px;">
-                📋 <strong>Source PR:</strong> <span id="apprMetaPr" style="font-weight:700; color:#0284c7;">PR-3000010443 (SAP: 3000010443)</span>
+              <span style="background:#ffffff; border:1px solid #cbd5e1; color:#334155; padding:4px 10px; border-radius:9999px;">
+                📋 <strong>Source PR:</strong> <span id="apprMetaPr" style="font-weight:700; color:#191716;">PR-3000010443 (SAP: 3000010443)</span>
               </span>
-              <span style="background:#ffffff; border:1px solid #cbd5e1; color:#334155; padding:4px 10px; border-radius:6px;">
+              <span style="background:#ffffff; border:1px solid #cbd5e1; color:#334155; padding:4px 10px; border-radius:9999px;">
                 🏭 <strong>Target Plant:</strong> <span id="apprMetaPlant" style="color:#475569;">Gran Tierra Energy - Vereda Morrison (OP ANG)</span>
               </span>
-              <span style="background:#fef3c7; border:1px solid #fde68a; color:#92400e; padding:4px 10px; border-radius:6px;">
+              <span style="background:#fef3c7; border:1px solid #fde68a; color:#92400e; padding:4px 10px; border-radius:9999px;">
                 💰 <strong>Baseline Budget Ceiling:</strong> <span id="apprMetaBudget" style="font-weight:700;">$24,937,500 COP ($3.50/unit)</span>
               </span>
             </div>
@@ -1288,19 +1288,19 @@
               🛡️ Two-Envelope Governance &amp; Committee Approvals Verified
             </div>
             <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:12px;">
-              <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:6px; padding:10px;">
+              <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:9999px; padding:10px;">
                 <div style="font-weight:700; color:#166534; font-size:12px;">🔬 Technical Committee</div>
                 <div style="font-size:11px; color:#14532d; margin-top:2px;">
                   <strong>Dr. Victor Chen:</strong> ISO 9001:2015 active, technical specs compliant. Lead time: 8 business days.
                 </div>
               </div>
-              <div style="background:#f0f9ff; border:1px solid #bae6fd; border-radius:6px; padding:10px;">
+              <div style="background:#f0f9ff; border:1px solid #bae6fd; border-radius:9999px; padding:10px;">
                 <div style="font-weight:700; color:#0369a1; font-size:12px;">💰 Commercial Committee</div>
                 <div style="font-size:11px; color:#0c4a6e; margin-top:2px;">
                   <strong>Sofia Morales:</strong> Tariff pricing scored, Net 60 payment terms approved, 14.3% savings verified.
                 </div>
               </div>
-              <div style="background:#faf5ff; border:1px solid #e9d5ff; border-radius:6px; padding:10px;">
+              <div style="background:#faf5ff; border:1px solid #e9d5ff; border-radius:9999px; padding:10px;">
                 <div style="font-weight:700; color:#6b21a8; font-size:12px;">👤 Procurement Buyer</div>
                 <div style="font-size:11px; color:#581c87; margin-top:2px;">
                   <strong>Valeria Martinez:</strong> Recommended SONDA DE COLOMBIA S A based on multi-criteria ranking.
@@ -1321,7 +1321,7 @@
             </div>
             <div style="display:flex; flex-direction:column; gap:8px; min-width:260px;">
               <button class="sap-btn sap-btn-primary" id="btnApproverDispatchPo"
-                onclick="executeApproverFinalPoCommit()" style="background:#15803d; font-size:13px; font-weight:700; padding:12px 18px; border-radius:6px; box-shadow:0 2px 4px rgba(21,128,61,0.2);">
+                onclick="executeApproverFinalPoCommit()" style="background:#15803d; font-size:13px; font-weight:700; padding:12px 18px; border-radius:9999px; box-shadow:0 2px 4px rgba(21,128,61,0.2);">
                 ✅ Approve Award &amp; Transmit Final PO to SAP ERP
               </button>
               <button class="sap-btn sap-btn-secondary" style="color:#b91c1c; border-color:#fca5a5; font-size:12px; padding:8px 14px;"
@@ -1848,7 +1848,7 @@
           <div class="persona-card" id="cardRoleManager" onclick="loginAsSpecificUser('usr-manager')">
             <div>
               <div class="persona-header">
-                <div class="persona-avatar" style="background:#2563eb;">DV</div>
+                <div class="persona-avatar" style="background:#191716;">DV</div>
                 <div>
                   <div class="persona-info-title">David Vance</div>
                   <span class="persona-info-role" style="background:#dbeafe; color:#1d4ed8;">2. Dept Manager /
@@ -1858,14 +1858,14 @@
               <div class="persona-desc"><strong>Operations & Finance.</strong> Checks business need, cost center budget,
                 and details. Approves, rejects, or returns PR for correction.</div>
             </div>
-            <button class="persona-btn-login" style="background:#2563eb; color:#fff;">Login as Dept Manager</button>
+            <button class="persona-btn-login" style="background:#191716; color:#fff;">Login as Dept Manager</button>
           </div>
 
           <!-- Persona 3: Procurement Buyer -->
           <div class="persona-card active-persona" id="cardRoleBuyer" onclick="loginAsSpecificUser('usr-buyer')">
             <div>
               <div class="persona-header">
-                <div class="persona-avatar" style="background:#0854a0;">VM</div>
+                <div class="persona-avatar" style="background:#191716;">VM</div>
                 <div>
                   <div class="persona-info-title">Valeria Martinez</div>
                   <span class="persona-info-role" style="background:#e0f2fe; color:#0369a1;">3. Procurement Buyer</span>
@@ -1874,7 +1874,7 @@
               <div class="persona-desc"><strong>Strategic Sourcing.</strong> Converts approved PRs to RFQs, defines
                 specifications, terms, deadlines, invites suppliers, and recommends awards.</div>
             </div>
-            <button class="persona-btn-login" style="background:#0854a0; color:#fff;">Login as Buyer</button>
+            <button class="persona-btn-login" style="background:#191716; color:#fff;">Login as Buyer</button>
           </div>
 
           <!-- Persona 4: RFQ Approver -->
@@ -1933,17 +1933,17 @@
           <div class="persona-card" id="cardRoleTechEval" onclick="loginAsSpecificUser('usr-tech-eval')">
             <div>
               <div class="persona-header">
-                <div class="persona-avatar" style="background:#0284c7;">VC</div>
+                <div class="persona-avatar" style="background:#191716;">VC</div>
                 <div>
                   <div class="persona-info-title">Dr. Victor Chen</div>
-                  <span class="persona-info-role" style="background:#e0f2fe; color:#0284c7;">6. Technical
+                  <span class="persona-info-role" style="background:#e0f2fe; color:#191716;">6. Technical
                     Evaluator</span>
                 </div>
               </div>
               <div class="persona-desc"><strong>Evaluation Committee.</strong> Two-Envelope Protocol: Evaluates ISO
                 compliance, technical suitability and lead times. Pricing is sealed & hidden.</div>
             </div>
-            <button class="persona-btn-login" style="background:#0284c7; color:#fff;">Login as Technical
+            <button class="persona-btn-login" style="background:#191716; color:#fff;">Login as Technical
               Evaluator</button>
           </div>
 
@@ -2213,7 +2213,7 @@
       <form onsubmit="handleCreateRfqFormSubmit(event)">
         <div class="sap-dialog-body">
           <input type="hidden" id="createRfqSourcePrId">
-          <div style="background:#f1f5f9; padding:10px 14px; border-radius:6px; margin-bottom:14px; font-size:12px; color:#334155;">
+          <div style="background:#f1f5f9; padding:10px 14px; border-radius:9999px; margin-bottom:14px; font-size:12px; color:#334155;">
             <strong>Inbound Approved PR:</strong> <span id="createRfqPrSummary">PR-3000010443 — SUMINISTROS REFRI</span>
           </div>
 
@@ -2245,7 +2245,7 @@
           <div class="sap-form-group" style="margin-top:12px;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
               <label class="sap-label" style="margin:0;">
-                👥 Select Suppliers to Invite (<span id="createRfqSelectedCount" style="color:#0284c7; font-weight:700;">3</span> selected)
+                👥 Select Suppliers to Invite (<span id="createRfqSelectedCount" style="color:#191716; font-weight:700;">3</span> selected)
               </label>
               <div style="display:flex; gap:6px;">
                 <button type="button" class="sap-btn sap-btn-ghost sap-btn-sm" style="font-size:11px; padding:2px 6px;" onclick="toggleAllCreateSuppliers(true)">Select All</button>
@@ -2253,7 +2253,7 @@
               </div>
             </div>
             <div class="sub-text" style="margin-bottom:6px;">Select more than one supplier to invite to this tender event:</div>
-            <div id="createRfqSuppliersList" style="max-height:190px; overflow-y:auto; border:1px solid #cbd5e1; border-radius:6px; padding:6px; background:#fff; display:flex; flex-direction:column; gap:4px;">
+            <div id="createRfqSuppliersList" style="max-height:190px; overflow-y:auto; border:1px solid #cbd5e1; border-radius:9999px; padding:6px; background:#fff; display:flex; flex-direction:column; gap:4px;">
               <!-- Checkboxes dynamically populated by openCreateRfqModal() -->
             </div>
           </div>
@@ -2265,7 +2265,7 @@
             <button type="submit" name="submitType" value="draft" class="sap-btn sap-btn-secondary" style="font-weight:600;">
               Save Draft
             </button>
-            <button type="submit" name="submitType" value="publish" class="sap-btn sap-btn-primary" style="background:#0284c7; font-weight:700;">
+            <button type="submit" name="submitType" value="publish" class="sap-btn sap-btn-primary" style="background:#191716; font-weight:700;">
               🚀 Create &amp; Publish Sourcing Event
             </button>
           </div>
@@ -2295,13 +2295,13 @@
               <button type="button" class="sap-btn sap-btn-ghost sap-btn-sm" style="font-size:11px; padding:2px 6px;" onclick="toggleAllManageSuppliers(false)">Clear</button>
             </div>
           </div>
-          <div id="manageSuppliersCheckboxList" style="max-height:220px; overflow-y:auto; border:1px solid #cbd5e1; border-radius:6px; padding:6px; background:#fff; display:flex; flex-direction:column; gap:4px;">
+          <div id="manageSuppliersCheckboxList" style="max-height:220px; overflow-y:auto; border:1px solid #cbd5e1; border-radius:9999px; padding:6px; background:#fff; display:flex; flex-direction:column; gap:4px;">
             <!-- Dynamic checkboxes -->
           </div>
         </div>
         <div class="sap-dialog-footer">
           <button type="button" class="sap-btn sap-btn-secondary" onclick="closeInviteSuppliersModal()">Cancel</button>
-          <button type="submit" class="sap-btn sap-btn-primary" style="background:#0284c7; font-weight:700;">
+          <button type="submit" class="sap-btn sap-btn-primary" style="background:#191716; font-weight:700;">
             ✓ Update Suppliers &amp; Dispatch Invitations
           </button>
         </div>
@@ -2364,7 +2364,7 @@
   <!-- Modal: Revise & Resubmit Returned PR (Requester) -->
   <div class="sap-modal-backdrop hidden" id="modalResubmitPr">
     <div class="sap-dialog" style="max-width: 580px;">
-      <div class="sap-dialog-header" style="background:#eff6ff; border-bottom:1px solid #bfdbfe;">
+      <div class="sap-dialog-header" style="background:#F5F2EB; border-bottom:1px solid #bfdbfe;">
         <span class="sap-dialog-title" style="color:#1e40af;">✏️ Revise &amp; Resubmit Requisition</span>
         <button class="sap-dialog-close" onclick="closeResubmitPrModal()">&times;</button>
       </div>
@@ -2414,7 +2414,7 @@
         </div>
         <div class="sap-dialog-footer">
           <button type="button" class="sap-btn sap-btn-secondary" onclick="closeResubmitPrModal()">Cancel</button>
-          <button type="submit" class="sap-btn sap-btn-primary" style="background:#2563eb;">Resubmit to Department
+          <button type="submit" class="sap-btn sap-btn-primary" style="background:#191716;">Resubmit to Department
             Manager &rarr;</button>
         </div>
       </form>
@@ -2512,7 +2512,7 @@
         <button class="sap-dialog-close" onclick="closeTraceabilityModal()">&times;</button>
       </div>
       <div class="sap-dialog-body">
-        <div style="background:#f1f5f9; padding:10px 14px; border-radius:4px; font-size:12px; margin-bottom:14px;">
+        <div style="background:#f1f5f9; padding:10px 14px; border-radius:12px; font-size:12px; margin-bottom:14px;">
           <strong>Audit Traceability:</strong> Every purchase order can be verified backwards to its award decision,
           sealed quotations, approved RFQ, and original Purchase Requisition.
         </div>
