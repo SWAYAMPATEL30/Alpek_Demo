@@ -1,66 +1,87 @@
 /* =============================================================================
-   ALPEK DEMO PROCUREMENT CLOUD - PASSIONFROOT DESIGN SYSTEM
-   Inspired by passionfroot.me warm editorial minimalist luxury aesthetic
+   ALPEK DEMO PROCUREMENT PLATFORM - PASSIONFROOT DESIGN SYSTEM
+   Pixel-perfect design clone based on https://www.passionfroot.me/
+   Warm Alabaster Canvas • Editorial Serif Headings • Luxury Ink & Coral Accents • Floating Pill Components
    ============================================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..800&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url("https://use.typekit.net/iur2yej.css");
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Nunito+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..800&display=swap");
 
 :root {
-  --font-serif: 'Fraunces', Georgia, serif;
-  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  
+  /* Typography - Passionfroot Editorial Stack */
+  --font-serif: "new-kansas", "Fraunces", Georgia, serif;
+  --font-heading: "new-kansas", "Fraunces", Georgia, serif;
+  --font-sans: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-accent: "Caveat", cursive;
+
   /* Passionfroot Warm Minimalist Palette */
-  --bg-page: #FAF8F5;
-  --bg-surface: #FFFFFF;
-  --bg-subtle: #F5F2EB;
-  --bg-foundation: #EFECE6;
-  
-  --ink-900: #191716;
-  --ink-800: #2C2826;
-  --ink-700: #44403C;
-  --ink-500: #78716C;
-  --ink-400: #A8A29E;
-  --ink-200: #E7E5E4;
-  
+  --bg-page: #FAF8F5;          /* Warm alabaster canvas */
+  --bg-surface: #FFFFFF;       /* Clean bento card white */
+  --bg-subtle: #F5F2EB;        /* Warm sand pill background */
+  --bg-foundation: #EDEAE4;    /* Structural divider warm sand */
+
+  --ink-900: #191716;          /* Deep luxury charcoal text / primary dark */
+  --ink-800: #2C2826;          /* Elevated charcoal */
+  --ink-700: #4B4643;          /* Secondary prose */
+  --ink-500: #8C867F;          /* Subdued label metadata */
+  --ink-400: #B5AFA6;          /* Placeholder tone */
+  --ink-200: #EDEAE4;          /* Warm hairline border */
+
+  /* Passionfroot Signature Coral & Orange */
   --brand-coral: #E0533C;
   --brand-coral-hover: #C9422B;
-  --brand-coral-subtle: #FDF3F1;
+  --brand-coral-subtle: #FDF1EE;
+  --brand-orange: #EB6928;
   --brand-dark: #191716;
   --brand-dark-hover: #292524;
-  
+
+  /* Semantic Status Tones */
   --accent-emerald: #15803D;
-  --accent-emerald-subtle: #F0FDF4;
-  --accent-blue: #0284C7;
-  --accent-blue-subtle: #F0F9FF;
+  --accent-emerald-subtle: #ECFDF5;
+  --accent-emerald-border: #A7F3D0;
+
   --accent-amber: #B45309;
   --accent-amber-subtle: #FFFBEB;
-  
-  --border-subtle: rgba(28, 25, 23, 0.08);
-  --border-medium: rgba(28, 25, 23, 0.14);
-  --border-strong: rgba(28, 25, 23, 0.22);
-  
+  --accent-amber-border: #FDE68A;
+
+  --accent-blue: #0369A1;
+  --accent-blue-subtle: #F0F9FF;
+  --accent-blue-border: #BAE6FD;
+
+  --accent-red: #B91C1C;
+  --accent-red-subtle: #FEF2F2;
+  --accent-red-border: #FECACA;
+
+  /* Borders & Radii */
+  --border-subtle: #EDEAE4;
+  --border-medium: #DDD7CE;
+  --border-strong: #191716;
+
   --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 18px;
-  --radius-xl: 24px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 26px;
   --radius-full: 9999px;
-  
-  --shadow-subtle: 0 1px 2px rgba(28, 25, 23, 0.04);
-  --shadow-card: 0 4px 16px -2px rgba(28, 25, 23, 0.05), 0 2px 6px -1px rgba(28, 25, 23, 0.03);
-  --shadow-float: 0 12px 36px -6px rgba(28, 25, 23, 0.10), 0 4px 12px -2px rgba(28, 25, 23, 0.04);
+
+  /* Elevations */
+  --shadow-subtle: 0 1px 3px rgba(25, 23, 22, 0.04);
+  --shadow-card: 0 4px 20px -4px rgba(25, 23, 22, 0.05), 0 2px 6px -1px rgba(25, 23, 22, 0.02);
+  --shadow-float: 0 16px 48px -8px rgba(25, 23, 22, 0.12), 0 4px 14px -2px rgba(25, 23, 22, 0.04);
+  --shadow-dialog: 0 24px 64px -12px rgba(25, 23, 22, 0.25);
 }
 
-/* Base Resets & Global Styles */
-* {
+/* Base Resets & Global Typography */
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body.sap-fiori-shell {
+html, body {
   background-color: var(--bg-page);
   color: var(--ink-900);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -68,10 +89,11 @@ body.sap-fiori-shell {
   min-height: 100vh;
 }
 
-h1, h2, h3, .font-editorial {
+h1, h2, h3, h4, .font-editorial, .font-serif {
   font-family: var(--font-serif);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.02em;
+  color: var(--ink-900);
 }
 
 a {
@@ -98,7 +120,7 @@ a {
   z-index: 100;
   padding: 0 24px;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
 }
 
@@ -106,13 +128,13 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(250, 248, 245, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
-  padding: 10px 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.02);
+  padding: 8px 20px;
+  box-shadow: 0 4px 20px -2px rgba(25, 23, 22, 0.06), 0 1px 2px rgba(25, 23, 22, 0.03);
 }
 
 .pf-brand {
@@ -121,7 +143,7 @@ a {
   gap: 10px;
   text-decoration: none;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--ink-900);
   font-family: var(--font-serif);
 }
@@ -138,6 +160,7 @@ a {
   font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 800;
+  box-shadow: 0 2px 6px rgba(25, 23, 22, 0.2);
 }
 
 .pf-nav-links {
@@ -170,45 +193,49 @@ a {
   justify-content: center;
   gap: 8px;
   border-radius: var(--radius-full);
-  padding: 8px 20px;
+  padding: 9px 22px;
   font-size: 13.5px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  border: none;
+  border: 1px solid transparent;
   text-decoration: none;
 }
 
 .pf-btn-dark {
   background: var(--brand-dark);
   color: #FFFFFF;
+  border-color: var(--brand-dark);
+  box-shadow: 0 2px 8px rgba(25, 23, 22, 0.15);
 }
 
 .pf-btn-dark:hover {
   background: var(--brand-dark-hover);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(25, 23, 22, 0.15);
+  box-shadow: 0 6px 16px rgba(25, 23, 22, 0.2);
 }
 
 .pf-btn-coral {
   background: var(--brand-coral);
   color: #FFFFFF;
+  box-shadow: 0 3px 12px rgba(224, 83, 60, 0.25);
 }
 
 .pf-btn-coral:hover {
   background: var(--brand-coral-hover);
   transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(224, 83, 60, 0.35);
 }
 
 .pf-btn-outline {
-  background: transparent;
+  background: #FFFFFF;
   color: var(--ink-800);
-  border: 1px solid var(--border-medium);
+  border: 1px solid var(--border-subtle);
 }
 
 .pf-btn-outline:hover {
   background: var(--bg-subtle);
-  border-color: var(--border-strong);
+  border-color: var(--border-medium);
 }
 
 /* Hero Section */
@@ -223,14 +250,15 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--bg-subtle);
-  border: 1px solid var(--border-medium);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
   padding: 6px 16px;
   font-size: 12.5px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--ink-700);
   margin-bottom: 24px;
+  box-shadow: var(--shadow-subtle);
 }
 
 .pf-pill-dot {
@@ -243,7 +271,7 @@ a {
 
 .pf-hero-title {
   font-size: clamp(38px, 6vw, 68px);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--ink-900);
   line-height: 1.08;
   letter-spacing: -0.03em;
@@ -281,7 +309,7 @@ a {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 16px;
-  max-width: 1040px;
+  max-width: 1100px;
   margin: 0 auto 80px;
 }
 
@@ -289,7 +317,7 @@ a {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: 24px 20px;
+  padding: 24px 22px;
   text-align: left;
   box-shadow: var(--shadow-subtle);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -298,12 +326,13 @@ a {
 .pf-stat-card:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-card);
+  border-color: var(--border-medium);
 }
 
 .pf-stat-value {
   font-family: var(--font-serif);
-  font-size: 32px;
-  font-weight: 700;
+  font-size: 34px;
+  font-weight: 500;
   color: var(--ink-900);
   line-height: 1.1;
   margin-bottom: 6px;
@@ -324,7 +353,7 @@ a {
 
 .pf-login-card {
   background: var(--bg-surface);
-  border: 1px solid var(--border-medium);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
   padding: 40px;
   box-shadow: var(--shadow-float);
@@ -337,7 +366,7 @@ a {
 
 .pf-login-header h2 {
   font-size: 26px;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--ink-900);
   margin-bottom: 8px;
 }
@@ -354,26 +383,25 @@ a {
 .pf-form-label {
   display: block;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--ink-700);
   margin-bottom: 6px;
 }
 
 .pf-input-text {
   width: 100%;
-  background: var(--bg-subtle);
-  border: 1px solid var(--border-medium);
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: 12px 16px;
   font-family: var(--font-sans);
   font-size: 14px;
   color: var(--ink-900);
-  transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
   outline: none;
 }
 
 .pf-input-text:focus {
-  background: #FFFFFF;
   border-color: var(--ink-900);
   box-shadow: 0 0 0 3px rgba(25, 23, 22, 0.08);
 }
@@ -427,17 +455,17 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 12px;
+  padding: 10px 14px;
   background: var(--bg-subtle);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   font-size: 12.5px;
 }
 
 .pf-cred-info strong {
   display: block;
   color: var(--ink-900);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .pf-cred-info span {
@@ -449,7 +477,7 @@ a {
   background: var(--bg-surface);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-full);
-  padding: 4px 10px;
+  padding: 4px 12px;
   font-size: 11.5px;
   font-weight: 700;
   color: var(--ink-800);
@@ -476,7 +504,7 @@ a {
 }
 
 .pf-section-heading h3 {
-  font-size: 36px;
+  font-size: 38px;
   color: var(--ink-900);
   margin-bottom: 12px;
 }
@@ -504,6 +532,7 @@ a {
 .pf-bento-card:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-card);
+  border-color: var(--border-medium);
 }
 
 .pf-bento-num {
@@ -548,386 +577,36 @@ a {
 }
 
 /* =============================================================================
-   2. AUTHENTICATED WORKSPACE SHELL (PASSIONFROOT THEME)
+   2. AUTHENTICATED INTERNAL PAGES - PASSIONFROOT FLOATING SHELL & BENTO SYSTEM
    ============================================================================= */
 
-.app-screen {
-  background-color: var(--bg-page);
-  min-height: 100vh;
-}
-
-/* Topbar */
-.app-topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 24px;
-  background: rgba(250, 248, 245, 0.90);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-subtle);
-  position: sticky;
-  top: 0;
-  z-index: 50;
-}
-
-.topbar-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-}
-
-.topbar-logo-badge {
-  width: 32px;
-  height: 32px;
-  background: var(--brand-dark);
-  color: #FFFFFF;
-  border-radius: var(--radius-full);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 13px;
-}
-
-.topbar-brand-title {
-  font-family: var(--font-serif);
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--ink-900);
-}
-
-.topbar-brand-sub {
-  font-size: 12px;
-  color: var(--ink-500);
-  margin-left: 4px;
-}
-
-/* Navigation Pills */
-.topbar-nav-center {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--bg-subtle);
-  padding: 4px;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--border-subtle);
-}
-
-.nav-pill-btn {
-  background: transparent;
-  border: none;
-  padding: 6px 16px;
-  border-radius: var(--radius-full);
-  font-family: var(--font-sans);
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--ink-700);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.nav-pill-btn:hover {
-  color: var(--ink-900);
-  background: rgba(255, 255, 255, 0.5);
-}
-
-.nav-pill-btn.active {
-  background: var(--bg-surface);
-  color: var(--ink-900);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-/* User profile button & dropdown */
-.user-profile-trigger {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-full);
-  padding: 4px 14px 4px 6px;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.user-profile-trigger:hover {
-  border-color: var(--border-medium);
-  box-shadow: var(--shadow-subtle);
-}
-
-.user-avatar-badge {
-  width: 28px;
-  height: 28px;
-  border-radius: var(--radius-full);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #FFFFFF;
-  font-weight: 700;
-  font-size: 11px;
-}
-
-.user-profile-meta {
-  text-align: left;
-}
-
-.user-name-label {
-  font-size: 12.5px;
-  font-weight: 700;
-  color: var(--ink-900);
-  display: block;
-}
-
-.user-role-label {
-  font-size: 11px;
-  color: var(--ink-500);
-  display: block;
-}
-
-.profile-dropdown-card {
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  width: 260px;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-medium);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-float);
-  padding: 16px;
-  display: none;
-  z-index: 100;
-}
-
-.profile-dropdown-card.show {
-  display: block;
-}
-
-/* Workspace Content Wrapper */
-.app-content-body {
-  max-width: 1360px;
-  margin: 0 auto;
-  padding: 24px;
-}
-
-/* KPI Summary Bar */
-.kpi-summary-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.kpi-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 18px 20px;
-  box-shadow: var(--shadow-subtle);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.kpi-card:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-card);
-}
-
-.kpi-label {
-  font-size: 11.5px;
-  font-weight: 700;
-  color: var(--ink-500);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 6px;
-}
-
-.kpi-value {
-  font-family: var(--font-serif);
-  font-size: 26px;
-  font-weight: 700;
-  color: var(--ink-900);
-  line-height: 1.1;
-  margin-bottom: 4px;
-}
-
-.kpi-subtext {
-  font-size: 12px;
-  color: var(--ink-500);
-}
-
-/* Cards & Tables */
-.sap-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-subtle);
-  margin-bottom: 24px;
-  overflow: hidden;
-}
-
-.sap-card-header {
-  padding: 18px 24px;
-  border-bottom: 1px solid var(--border-subtle);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.sap-card-title {
-  font-family: var(--font-serif);
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--ink-900);
-}
-
-.sap-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13.5px;
-}
-
-.sap-table th {
-  background: var(--bg-subtle);
-  color: var(--ink-700);
-  font-weight: 700;
-  text-align: left;
-  padding: 12px 18px;
-  border-bottom: 1px solid var(--border-subtle);
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.sap-table td {
-  padding: 14px 18px;
-  border-bottom: 1px solid var(--border-subtle);
-  color: var(--ink-900);
-}
-
-.sap-table tr:hover td {
-  background-color: var(--bg-subtle);
-}
-
-/* Buttons */
-.sap-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border-radius: var(--radius-full);
-  padding: 8px 18px;
-  font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  border: none;
-}
-
-.sap-btn-primary {
-  background: var(--brand-dark);
-  color: #FFFFFF;
-}
-
-.sap-btn-primary:hover {
-  background: var(--brand-dark-hover);
-  transform: translateY(-1px);
-}
-
-.sap-btn-secondary {
-  background: var(--bg-subtle);
-  color: var(--ink-800);
-  border: 1px solid var(--border-medium);
-}
-
-.sap-btn-secondary:hover {
-  background: var(--bg-foundation);
-}
-
-/* Status Badges */
-.sap-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 12px;
-  border-radius: var(--radius-full);
-  font-size: 11.5px;
-  font-weight: 700;
-}
-
-.sap-badge-success {
-  background: var(--accent-emerald-subtle);
-  color: var(--accent-emerald);
-  border: 1px solid rgba(21, 128, 61, 0.2);
-}
-
-.sap-badge-warning {
-  background: var(--accent-amber-subtle);
-  color: var(--accent-amber);
-  border: 1px solid rgba(180, 83, 9, 0.2);
-}
-
-.sap-badge-info {
-  background: var(--accent-blue-subtle);
-  color: var(--accent-blue);
-  border: 1px solid rgba(2, 132, 199, 0.2);
-}
-
-/* Form Inputs */
-.sap-field-input {
-  background: var(--bg-subtle);
-  border: 1px solid var(--border-medium);
-  border-radius: var(--radius-sm);
-  padding: 9px 12px;
-  font-family: var(--font-sans);
-  font-size: 13.5px;
-  color: var(--ink-900);
-  outline: none;
-  transition: border-color 0.15s ease, background-color 0.15s ease;
-}
-
-.sap-field-input:focus {
-  background: #FFFFFF;
-  border-color: var(--ink-900);
-  box-shadow: 0 0 0 3px rgba(25, 23, 22, 0.08);
-}
-
-/* Utility Hidden */
-.hidden {
-  display: none !important;
-}
-
-/* =============================================================================
-   COMPLETE PASSIONFROOT THEME FOR ALL INTERNAL APP PAGES
-   ============================================================================= */
-
-/* Main App Container */
-#page-app {
+#page-app, .app-screen {
   background-color: var(--bg-page) !important;
   color: var(--ink-900) !important;
-  font-family: var(--font-sans) !important;
+  font-family: var(--font-body) !important;
   min-height: 100vh;
-  padding-bottom: 60px;
+  padding-bottom: 80px;
 }
 
-/* Floating Glassmorphic App Topbar (Matches Landing Page) */
+/* Floating App Header (Identical DNA to Passionfroot Landing Pill) */
 .app-topbar {
-  max-width: 1360px !important;
-  margin: 16px auto 20px auto !important;
-  padding: 8px 24px !important;
-  background: rgba(250, 248, 245, 0.92) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
+  max-width: 1320px !important;
+  width: calc(100% - 32px) !important;
+  margin: 16px auto 24px auto !important;
+  padding: 8px 20px !important;
+  background: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
   border: 1px solid var(--border-subtle) !important;
   border-radius: var(--radius-full) !important;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03) !important;
-  height: auto !important;
+  box-shadow: 0 4px 20px -2px rgba(25, 23, 22, 0.06), 0 1px 2px rgba(25, 23, 22, 0.03) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
   position: sticky !important;
   top: 12px !important;
   z-index: 500 !important;
+  height: auto !important;
 }
 
 .topbar-brand {
@@ -939,8 +618,8 @@ a {
 }
 
 .topbar-logo-badge {
-  width: 32px !important;
-  height: 32px !important;
+  width: 34px !important;
+  height: 34px !important;
   background: var(--brand-dark) !important;
   color: #FFFFFF !important;
   border-radius: var(--radius-full) !important;
@@ -949,24 +628,25 @@ a {
   justify-content: center !important;
   font-weight: 800 !important;
   font-size: 13px !important;
+  box-shadow: 0 2px 6px rgba(25, 23, 22, 0.2) !important;
 }
 
 .topbar-brand-title {
   font-family: var(--font-serif) !important;
   font-size: 18px !important;
-  font-weight: 700 !important;
+  font-weight: 600 !important;
   color: var(--ink-900) !important;
-  letter-spacing: -0.02em !important;
+  letter-spacing: -0.01em !important;
 }
 
 .topbar-brand-sub {
   font-size: 11px !important;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
   color: var(--brand-coral) !important;
   background: var(--brand-coral-subtle) !important;
-  padding: 2px 8px !important;
+  padding: 3px 10px !important;
   border-radius: var(--radius-full) !important;
-  margin-left: 6px !important;
+  margin-left: 8px !important;
   border: 1px solid rgba(224, 83, 60, 0.2) !important;
 }
 
@@ -974,7 +654,7 @@ a {
 .topbar-nav-center {
   display: flex !important;
   align-items: center !important;
-  gap: 6px !important;
+  gap: 4px !important;
   background: var(--bg-subtle) !important;
   padding: 4px !important;
   border-radius: var(--radius-full) !important;
@@ -984,7 +664,7 @@ a {
 .nav-pill-btn {
   background: transparent !important;
   border: none !important;
-  padding: 7px 18px !important;
+  padding: 8px 18px !important;
   border-radius: var(--radius-full) !important;
   font-family: var(--font-sans) !important;
   font-size: 13px !important;
@@ -996,21 +676,28 @@ a {
 
 .nav-pill-btn:hover:not(.active) {
   color: var(--ink-900) !important;
-  background: rgba(255, 255, 255, 0.6) !important;
+  background: rgba(255, 255, 255, 0.7) !important;
 }
 
 .nav-pill-btn.active {
   background: var(--brand-dark) !important;
   color: #FFFFFF !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 8px rgba(25, 23, 22, 0.15) !important;
 }
 
 /* User Profile Trigger & Menu */
-.user-profile-trigger {
+.topbar-actions-right {
   display: flex !important;
   align-items: center !important;
   gap: 10px !important;
-  background: var(--bg-surface) !important;
+}
+
+.user-profile-trigger {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: #FFFFFF !important;
   border: 1px solid var(--border-subtle) !important;
   border-radius: var(--radius-full) !important;
   padding: 4px 14px 4px 6px !important;
@@ -1023,28 +710,41 @@ a {
   box-shadow: var(--shadow-subtle) !important;
 }
 
-.user-avatar-badge {
+.trigger-avatar {
   width: 28px !important;
   height: 28px !important;
   border-radius: var(--radius-full) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+  background: var(--brand-dark) !important;
   color: #FFFFFF !important;
   font-weight: 700 !important;
   font-size: 11px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.trigger-name {
+  font-weight: 700 !important;
+  font-size: 12.5px !important;
+  color: var(--ink-900) !important;
+}
+
+.trigger-role {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: var(--ink-500) !important;
 }
 
 .profile-dropdown-card {
   position: absolute !important;
   top: calc(100% + 10px) !important;
   right: 0 !important;
-  width: 260px !important;
+  width: 270px !important;
   background: var(--bg-surface) !important;
   border: 1px solid var(--border-medium) !important;
   border-radius: var(--radius-lg) !important;
   box-shadow: var(--shadow-float) !important;
-  padding: 18px !important;
+  padding: 20px !important;
   display: none;
   z-index: 1000 !important;
 }
@@ -1053,13 +753,16 @@ a {
   display: block !important;
 }
 
-/* Executive KPI Strip (Passionfroot Hero Style) */
+/* =============================================================================
+   3. EXECUTIVE KPI COMMAND STRIP (PASSIONFROOT BENTO METRIC RIBBON)
+   ============================================================================= */
+
 .executive-kpi-strip {
-  max-width: 1360px !important;
+  max-width: 1320px !important;
   margin: 0 auto 28px auto !important;
   padding: 0 16px !important;
   display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)) !important;
   gap: 16px !important;
 }
 
@@ -1074,7 +777,8 @@ a {
   justify-content: space-between !important;
   position: relative !important;
   overflow: hidden !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
+  cursor: pointer !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease !important;
 }
 
 .kpi-stat-card::after {
@@ -1088,10 +792,10 @@ a {
 }
 
 .kpi-subheading {
-  font-size: 11.5px !important;
+  font-size: 11px !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.05em !important;
+  letter-spacing: 0.07em !important;
   color: var(--ink-500) !important;
   margin-bottom: 6px !important;
 }
@@ -1099,16 +803,20 @@ a {
 .kpi-main-number {
   font-family: var(--font-serif) !important;
   font-size: 32px !important;
-  font-weight: 700 !important;
+  font-weight: 500 !important;
   color: var(--ink-900) !important;
   line-height: 1.1 !important;
   margin-bottom: 6px !important;
 }
 
 .kpi-context-pill {
-  font-size: 12px !important;
-  font-weight: 600 !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
   color: var(--ink-700) !important;
+  background: var(--bg-page) !important;
+  border: 1px solid var(--border-subtle) !important;
+  padding: 3px 10px !important;
+  border-radius: var(--radius-full) !important;
   display: inline-flex !important;
   align-items: center !important;
   gap: 4px !important;
@@ -1126,28 +834,48 @@ a {
   font-size: 18px !important;
 }
 
-/* Internal Workspace & Cards */
+/* =============================================================================
+   4. INTERNAL WORKSPACE BENTO CARDS ACROSS ALL 12 VIEWS
+   ============================================================================= */
+
 .sap-workspace, .workspace-content, .app-content-body {
-  max-width: 1360px !important;
+  max-width: 1320px !important;
   margin: 0 auto !important;
-  padding: 0 16px 48px 16px !important;
+  padding: 0 16px 80px 16px !important;
 }
 
 .sap-card, .sourcing-cockpit-card {
   background: var(--bg-surface) !important;
   border: 1px solid var(--border-subtle) !important;
   border-radius: var(--radius-xl) !important;
-  padding: 30px !important;
-  box-shadow: var(--shadow-subtle) !important;
-  margin-bottom: 28px !important;
+  padding: 32px !important;
+  box-shadow: var(--shadow-card) !important;
+  margin-bottom: 26px !important;
+  position: relative !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.sap-card:hover {
+  border-color: var(--border-medium) !important;
+}
+
+.card-toolbar {
+  margin-bottom: 22px !important;
+  padding-bottom: 16px !important;
+  border-bottom: 1px solid #F0ECE6 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
 }
 
 .card-title, .sap-dialog-title, .content-header h2 {
   font-family: var(--font-serif) !important;
-  font-size: 24px !important;
-  font-weight: 600 !important;
+  font-size: 22px !important;
+  font-weight: 500 !important;
   color: var(--ink-900) !important;
-  letter-spacing: -0.02em !important;
+  letter-spacing: -0.01em !important;
 }
 
 .card-subtitle {
@@ -1156,7 +884,10 @@ a {
   margin-top: 4px !important;
 }
 
-/* Side-by-Side Comparison Matrix */
+/* =============================================================================
+   5. PASSIONFROOT EDITORIAL TABLES & MATRICES
+   ============================================================================= */
+
 .matrix-table, .sap-table {
   width: 100% !important;
   border-collapse: separate !important;
@@ -1165,39 +896,47 @@ a {
   border-radius: var(--radius-lg) !important;
   overflow: hidden !important;
   background: var(--bg-surface) !important;
+  box-shadow: 0 2px 8px rgba(25, 23, 22, 0.02) !important;
 }
 
 .matrix-table th, .sap-table th {
-  background: var(--bg-subtle) !important;
-  color: var(--ink-700) !important;
+  background: var(--bg-page) !important;
+  color: var(--ink-500) !important;
   font-family: var(--font-sans) !important;
-  font-size: 12px !important;
+  font-size: 11px !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.04em !important;
-  padding: 16px 20px !important;
+  letter-spacing: 0.07em !important;
+  padding: 14px 18px !important;
   border-bottom: 1px solid var(--border-subtle) !important;
 }
 
 .matrix-table td, .sap-table td {
-  padding: 16px 20px !important;
-  border-bottom: 1px solid rgba(28, 25, 23, 0.05) !important;
+  padding: 16px 18px !important;
+  border-bottom: 1px solid #F3EFEA !important;
   color: var(--ink-900) !important;
   font-size: 13.5px !important;
 }
 
 .matrix-table tr:hover td, .sap-table tr:hover td {
-  background-color: rgba(250, 248, 245, 0.6) !important;
+  background-color: var(--bg-page) !important;
 }
 
-/* Winner Column in Matrix */
+.matrix-table tr:last-child td, .sap-table tr:last-child td {
+  border-bottom: none !important;
+}
+
+/* Two-Envelope Bid Matrix Highlighting */
 .winner-column, .most-competitive-bid {
-  background: rgba(240, 253, 244, 0.7) !important;
+  background: rgba(236, 253, 245, 0.6) !important;
   border-left: 2px solid var(--accent-emerald) !important;
   border-right: 2px solid var(--accent-emerald) !important;
 }
 
-/* Buttons System */
+/* =============================================================================
+   6. PASSIONFROOT ACTION BUTTON SYSTEM
+   ============================================================================= */
+
 .sap-btn, button.sap-btn, .btn {
   display: inline-flex !important;
   align-items: center !important;
@@ -1206,62 +945,125 @@ a {
   border-radius: var(--radius-full) !important;
   font-family: var(--font-sans) !important;
   font-size: 13.5px !important;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
   padding: 10px 22px !important;
   cursor: pointer !important;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
   border: 1px solid transparent !important;
   text-decoration: none !important;
+  line-height: 1.3 !important;
 }
 
 .sap-btn-primary, button.sap-btn-primary, .btn-primary {
   background: var(--brand-dark) !important;
   color: #FFFFFF !important;
   border-color: var(--brand-dark) !important;
+  box-shadow: 0 2px 8px rgba(25, 23, 22, 0.12) !important;
 }
 
 .sap-btn-primary:hover, button.sap-btn-primary:hover, .btn-primary:hover {
   background: var(--brand-dark-hover) !important;
   transform: translateY(-1px) !important;
-  box-shadow: 0 4px 14px rgba(25, 23, 22, 0.16) !important;
+  box-shadow: 0 6px 16px rgba(25, 23, 22, 0.18) !important;
 }
 
-.sap-btn-secondary, button.sap-btn-secondary, .btn-secondary {
-  background: var(--bg-subtle) !important;
+.sap-btn-secondary, button.sap-btn-secondary, .btn-secondary, .sap-btn-ghost {
+  background: #FFFFFF !important;
   color: var(--ink-800) !important;
+  border: 1px solid var(--border-subtle) !important;
+}
+
+.sap-btn-secondary:hover, button.sap-btn-secondary:hover, .btn-secondary:hover, .sap-btn-ghost:hover {
+  background: var(--bg-page) !important;
   border-color: var(--border-medium) !important;
 }
 
-.sap-btn-secondary:hover, button.sap-btn-secondary:hover, .btn-secondary:hover {
-  background: var(--bg-foundation) !important;
-  border-color: var(--border-strong) !important;
+.sap-btn-accent, .btn-coral {
+  background: var(--brand-coral) !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  box-shadow: 0 3px 12px rgba(224, 83, 60, 0.25) !important;
 }
 
-/* Form Inputs */
-.sap-field-input, input[type="text"], input[type="number"], select {
-  background: var(--bg-subtle) !important;
-  border: 1px solid var(--border-medium) !important;
-  border-radius: var(--radius-sm) !important;
+.sap-btn-accent:hover, .btn-coral:hover {
+  background: var(--brand-coral-hover) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 18px rgba(224, 83, 60, 0.35) !important;
+}
+
+.sap-btn-sm {
+  padding: 6px 14px !important;
+  font-size: 12px !important;
+}
+
+/* =============================================================================
+   7. STATUS PILLS & BADGES
+   ============================================================================= */
+
+.status-pill, .sap-badge {
+  border-radius: var(--radius-full) !important;
+  padding: 4px 12px !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+}
+
+.status-pill.approved, .sap-badge-success {
+  background: var(--accent-emerald-subtle) !important;
+  color: var(--accent-emerald) !important;
+  border: 1px solid var(--accent-emerald-border) !important;
+}
+
+.status-pill.pending, .sap-badge-warning {
+  background: var(--accent-amber-subtle) !important;
+  color: var(--accent-amber) !important;
+  border: 1px solid var(--accent-amber-border) !important;
+}
+
+.status-pill.confirmed, .sap-badge-info {
+  background: var(--accent-blue-subtle) !important;
+  color: var(--accent-blue) !important;
+  border: 1px solid var(--accent-blue-border) !important;
+}
+
+.status-pill.returned, .sap-badge-danger {
+  background: var(--accent-red-subtle) !important;
+  color: var(--accent-red) !important;
+  border: 1px solid var(--accent-red-border) !important;
+}
+
+/* =============================================================================
+   8. FORM CONTROLS & INPUTS
+   ============================================================================= */
+
+.sap-field-input, input[type="text"], input[type="number"], select, textarea {
+  background: #FFFFFF !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: var(--radius-md) !important;
   padding: 10px 14px !important;
   font-family: var(--font-sans) !important;
   font-size: 13.5px !important;
   color: var(--ink-900) !important;
   outline: none !important;
-  transition: all 0.15s ease !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
 }
 
-.sap-field-input:focus, input[type="text"]:focus, input[type="number"]:focus, select:focus {
-  background: #FFFFFF !important;
+.sap-field-input:focus, input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:focus {
   border-color: var(--ink-900) !important;
   box-shadow: 0 0 0 3px rgba(25, 23, 22, 0.08) !important;
 }
 
-/* Modals & Dialogs (Passionfroot Floating Cards) */
+/* =============================================================================
+   9. MODALS & DIALOGS (PASSIONFROOT FLOATING LUXURY CARDS)
+   ============================================================================= */
+
 .sap-modal-backdrop {
-  background: rgba(25, 23, 22, 0.5) !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  display: flex;
+  background: rgba(25, 23, 22, 0.6) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   position: fixed !important;
@@ -1277,18 +1079,21 @@ a {
   display: none !important;
 }
 
-.sap-dialog {
+.sap-dialog, .sap-modal-dialog {
   background: var(--bg-page) !important;
-  border: 1px solid var(--border-medium) !important;
+  border: 1px solid var(--border-subtle) !important;
   border-radius: var(--radius-xl) !important;
-  box-shadow: var(--shadow-float) !important;
-  padding: 32px !important;
-  max-width: 650px !important;
-  width: 90% !important;
+  box-shadow: var(--shadow-dialog) !important;
+  padding: 36px !important;
+  max-width: 680px !important;
+  width: 92% !important;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+  position: relative !important;
 }
 
 .sap-dialog-header {
-  border-bottom: 1px solid var(--border-subtle) !important;
+  border-bottom: 1px solid #F0ECE6 !important;
   padding-bottom: 16px !important;
   margin-bottom: 24px !important;
   display: flex !important;
@@ -1297,20 +1102,53 @@ a {
 }
 
 .sap-dialog-close {
-  background: var(--bg-subtle) !important;
+  background: #FFFFFF !important;
   border: 1px solid var(--border-subtle) !important;
-  width: 32px !important;
-  height: 32px !important;
+  width: 36px !important;
+  height: 36px !important;
   border-radius: var(--radius-full) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  font-size: 16px !important;
-  color: var(--ink-700) !important;
+  font-size: 18px !important;
+  color: var(--ink-900) !important;
   cursor: pointer !important;
+  transition: all 0.15s ease !important;
 }
 
 .sap-dialog-close:hover {
-  background: var(--bg-foundation) !important;
-  color: var(--ink-900) !important;
+  background: var(--bg-subtle) !important;
+  border-color: var(--border-medium) !important;
+}
+
+/* =============================================================================
+   10. VENDOR PORTAL STEP CONTAINERS & ENVELOPE SECTIONS
+   ============================================================================= */
+
+.envelope-step-box {
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.envelope-badge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--brand-dark);
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.05em;
+}
+
+.demand-callout {
+  background: var(--bg-subtle);
+  border-left: 4px solid var(--brand-coral);
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  margin-bottom: 18px;
 }

@@ -285,7 +285,7 @@
 
         <!-- Stage 3: Approved Requisitions Inbound Queue (Convert to RFQ) -->
         <div class="sap-card"
-          style="margin-bottom:18px; border-left:4px solid #0284c7; background:#ffffff; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+          style="margin-bottom:18px; border-left:4px solid #E0533C; background:#ffffff;">
           <div class="card-toolbar" style="padding-bottom:10px;">
             <div>
               <span class="card-title" style="color:#191716;">📥 Approved Requisitions Queue (Step 3: Create Sourcing
@@ -318,11 +318,11 @@
         </div>
 
         <!-- DIAGRAM: Sourcing Event Creation & Publish — Technical & Economic Requirements & Supplier Selection -->
-        <div class="sap-card" style="margin-bottom:18px; border-left:4px solid #7c3aed; background:#faf5ff;">
+        <div class="sap-card" style="margin-bottom:18px; border-left:4px solid #191716; background:#ffffff;">
           <div class="card-toolbar" style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:10px;">
             <div style="flex:1; min-width:320px;">
               <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px; flex-wrap:wrap;">
-                <span class="card-title" style="color:#7c3aed; font-size:15px; font-weight:700;">⚙️ Sourcing Event Configuration &amp; Publication (Architecture: Step 1 &amp; 2)</span>
+                <span class="card-title" style="color:#191716; font-size:16px; font-weight:700;">⚙️ Sourcing Event Configuration &amp; Publication (Architecture: Step 1 &amp; 2)</span>
                 <span id="cfgActiveEventBadge" style="background:#ede9fe; color:#6d28d9; border:1px solid #c4b5fd; font-weight:700; font-size:11px; padding:2px 10px; border-radius:12px;">
                   Active Event
                 </span>
@@ -333,13 +333,13 @@
               <div style="background:#ffffff; border:1px solid #e9d5ff; border-radius:8px; padding:10px 14px; box-shadow:0 1px 3px rgba(124,58,237,0.06); margin-top:6px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px; border-bottom:1px solid #f3e8ff; padding-bottom:8px;">
                   <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-                    <span style="font-size:10px; font-weight:800; background:#7c3aed; color:#fff; padding:2px 8px; border-radius:12px; text-transform:uppercase; letter-spacing:0.5px;">Active Sourcing Project</span>
-                    <strong id="cfgEventTitle" style="font-size:14px; color:#1e1b4b;">Loading Event Name...</strong>
-                    <span id="cfgEventIdBadge" style="font-size:12px; color:#6b21a8; font-weight:700; font-family:monospace;">(ID: --)</span>
+                    <span style="font-size:10px; font-weight:800; background:#191716; color:#fff; padding:3px 10px; border-radius:9999px; text-transform:uppercase; letter-spacing:0.5px;">Active Sourcing Project</span>
+                    <strong id="cfgEventTitle" style="font-size:15px; color:#191716; font-weight:700;">Loading Event Name...</strong>
+                    <span id="cfgEventIdBadge" style="font-size:12px; color:#E0533C; font-weight:700; font-family:monospace;">(ID: --)</span>
                   </div>
                   <div style="display:flex; align-items:center; gap:6px;">
-                    <label for="cfgRfqSelector" style="font-size:11px; font-weight:700; color:#6b21a8;">Switch Tender:</label>
-                    <select id="cfgRfqSelector" onchange="switchSourcingProject(this.value)" class="sap-field-input" style="padding:3px 8px; font-size:11px; font-weight:600; border-radius:12px; max-width:280px; border-color:#c4b5fd;">
+                    <label for="cfgRfqSelector" style="font-size:11px; font-weight:700; color:#4B4643;">Switch Tender:</label>
+                    <select id="cfgRfqSelector" onchange="switchSourcingProject(this.value)" class="sap-field-input" style="padding:3px 8px; font-size:11px; font-weight:600; border-radius:12px; max-width:280px; border-color:#EDEAE4;">
                     </select>
                   </div>
                 </div>
@@ -378,7 +378,7 @@
                   • Quality standards &amp; compliance
                 </div>
               </div>
-              <button class="sap-btn sap-btn-primary sap-btn-sm" style="background:#7c3aed; width:100%; font-weight:600;"
+              <button class="sap-btn sap-btn-primary sap-btn-sm" style="background:#191716; width:100%; font-weight:700;"
                 onclick="openConfigureTechnicalModal(AppState.currentRfqId)">
                 ⚙️ Configure Technical
               </button>
@@ -713,11 +713,11 @@
 
         <!-- Architecture Diagram: Custom Supplier Portal Banner -->
         <div
-          style="background:linear-gradient(135deg,#eff6ff,#dbeafe); border:2px solid #3b82f6; border-radius:12px; padding:14px 20px; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; gap:16px;">
+          style="background:#F5F2EB; border:1px solid #EDEAE4; border-radius:20px; padding:18px 24px; margin-bottom:20px; display:flex; align-items:center; justify-content:space-between; gap:16px;">
           <div style="display:flex; align-items:center; gap:12px;">
             <div style="font-size:26px;">🌐</div>
             <div>
-              <div style="font-weight:800; font-size:15px; color:#1e40af;">Custom Supplier Portal (Supplier View) —
+              <div style="font-family:var(--font-serif); font-size:18px; font-weight:700; color:#191716;">Custom Supplier Portal (Supplier View) —
                 Architecture Column 3</div>
               <div style="font-size:12px; color:#1d4ed8; margin-top:2px;">Receive event invitation &bull; Submit
                 technical bid response &bull; Submit economic bid response &bull; Status: Participated &#10003;</div>
@@ -844,7 +844,7 @@
 
               <!-- Scope Demand Details Callout -->
               <div style="background:#F5F2EB; border-left:4px solid #E0533C; padding:10px 14px; border-radius:12px; margin-bottom:14px;">
-                <div style="font-size:13px; font-weight:700; color:#1e40af;" id="supLineItemCodeName">2.1.1 REFRIGERANT-134A INDUSTRIAL</div>
+                <div style="font-size:14px; font-weight:700; color:#191716;" id="supLineItemCodeName">2.1.1 REFRIGERANT-134A INDUSTRIAL</div>
                 <div style="font-size:12px; color:#334155; margin-top:2px;" id="supLineItemDesc">Refrigeration Supplies &amp; Industrial Chemical Consumables</div>
                 <div style="font-size:11px; color:#64748b; margin-top:4px;">
                   Ship-to Plant: <strong id="supLineItemPlant">VEREDA MORRISON PLANT</strong> &bull; Requested Delivery: <span id="supDeliveryDate">Oct 13, 2026</span>
@@ -1113,7 +1113,7 @@
           </div>
 
           <div
-            style="background:#F5F2EB; border-left:4px solid #2563eb; padding:12px 16px; margin-bottom:16px; font-size:12px;">
+            style="background:#F5F2EB; border-left:4px solid #E0533C; padding:12px 16px; margin-bottom:16px; font-size:12px;">
             <strong>Security &amp; Compliance Rules:</strong> Under Alpek Demo procurement policy, technical evaluators
             score vendor ISO certifications, delivery timelines, and technical suitability without knowledge of
             commercial pricing to ensure zero bias.
@@ -1881,7 +1881,7 @@
           <div class="persona-card" id="cardRoleRfqApprover" onclick="loginAsSpecificUser('usr-rfq-approver')">
             <div>
               <div class="persona-header">
-                <div class="persona-avatar" style="background:#7c3aed;">EG</div>
+                <div class="persona-avatar" style="background:#191716;">EG</div>
                 <div>
                   <div class="persona-info-title">Elena Gomez</div>
                   <span class="persona-info-role" style="background:#ede9fe; color:#6d28d9;">4. RFQ Approver</span>
@@ -2365,7 +2365,7 @@
   <div class="sap-modal-backdrop hidden" id="modalResubmitPr">
     <div class="sap-dialog" style="max-width: 580px;">
       <div class="sap-dialog-header" style="background:#F5F2EB; border-bottom:1px solid #bfdbfe;">
-        <span class="sap-dialog-title" style="color:#1e40af;">✏️ Revise &amp; Resubmit Requisition</span>
+        <span class="sap-dialog-title" style="color:#191716;">✏️ Revise &amp; Resubmit Requisition</span>
         <button class="sap-dialog-close" onclick="closeResubmitPrModal()">&times;</button>
       </div>
       <form id="resubmitPrForm" onsubmit="submitPrRevision(event)">
