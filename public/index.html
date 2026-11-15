@@ -7,6 +7,96 @@
   <title>Alpek Demo Procurement Platform | Passionfroot Sourcing OS</title>
   <link rel="stylesheet" href="/css/styles.css">
   <link rel="stylesheet" href="/css/passionfroot.css">
+  <script>
+    function fillCredentials(username, password) {
+      var uInput = document.getElementById('loginUsername');
+      var pInput = document.getElementById('loginPassword');
+      if (uInput) uInput.value = username;
+      if (pInput) pInput.value = password;
+      if (typeof showSapToast === 'function') {
+        showSapToast('Credentials loaded for ' + username + '. Click Sign In.', 'info');
+      }
+    }
+    function quickFillCredentials(username, password) {
+      fillCredentials(username, password);
+    }
+    function toggleCredentialsDrawer() {
+      var drawer = document.getElementById('credentialsDrawer');
+      var arrow = document.getElementById('credToggleArrow');
+      if (!drawer) return;
+      var isHidden = drawer.style.display === 'none' || !drawer.style.display;
+      drawer.style.display = isHidden ? 'flex' : 'none';
+      if (arrow) arrow.innerHTML = isHidden ? '&uarr;' : '&darr;';
+    }
+    async function handleLoginFormSubmit(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      var username = (document.getElementById('loginUsername')?.value || '').trim();
+      var password = (document.getElementById('loginPassword')?.value || '').trim();
+      if (!username) {
+        if (typeof showSapToast === 'function') showSapToast('Please enter your work username or corporate email.', 'warning');
+        else alert('Please enter your work username or corporate email.');
+        return false;
+      }
+      var btn = document.getElementById('btnSubmitLogin');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = 'Authenticating with SAP S/4HANA...';
+      }
+      try {
+        var res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: username, id: username, password: password || 'Alpek@2026' })
+        });
+        var data = await res.json();
+        if (data.success) {
+          window.currentUser = data.user;
+          sessionStorage.setItem('abc_current_user', JSON.stringify(data.user));
+          var loginPage = document.getElementById('page-login');
+          var appPage = document.getElementById('page-app');
+          if (loginPage) loginPage.classList.add('hidden');
+          if (appPage) appPage.classList.remove('hidden');
+          if (typeof updateHeaderUserBadge === 'function') updateHeaderUserBadge();
+          if (typeof updateRoleNavigation === 'function') updateRoleNavigation();
+          if (typeof updateLiveKpiBar === 'function') updateLiveKpiBar();
+          if (typeof switchMainTab === 'function') {
+            if (data.user.role === 'supplier') switchMainTab('supplier');
+            else if (data.user.role === 'requester') switchMainTab('requester');
+            else if (data.user.role === 'manager') switchMainTab('manager');
+            else if (data.user.role === 'tech_evaluator') switchMainTab('tech_eval');
+            else if (data.user.role === 'comm_evaluator') switchMainTab('comm_eval');
+            else if (data.user.role === 'award_approver') switchMainTab('approver');
+            else if (data.user.role === 'receiving') switchMainTab('receiving');
+            else switchMainTab('sourcing');
+          }
+          if (typeof showSapToast === 'function') {
+            showSapToast('Welcome, ' + data.user.name + ' (' + (data.user.roleLabel || data.user.role) + ')', 'success');
+          }
+        } else {
+          if (typeof showSapToast === 'function') showSapToast(data.error || 'Authentication failed. Please verify credentials.', 'error');
+          else alert(data.error || 'Authentication failed.');
+        }
+      } catch (err) {
+        console.error('Login error:', err);
+        if (typeof showSapToast === 'function') showSapToast('Connection error during authentication.', 'error');
+        else alert('Connection error during authentication.');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = 'Sign In to Workspace &rarr;';
+        }
+      }
+      return false;
+    }
+    function handleCorporateLogin(e) {
+      return handleLoginFormSubmit(e);
+    }
+    window.handleCorporateLogin = handleCorporateLogin;
+    window.handleLoginFormSubmit = handleLoginFormSubmit;
+    window.quickFillCredentials = quickFillCredentials;
+    window.fillCredentials = fillCredentials;
+    window.toggleCredentialsDrawer = toggleCredentialsDrawer;
+  </script>
 </head>
 
 <body class="sap-fiori-shell">
@@ -2109,7 +2199,7 @@
   <!-- Toast Container -->
   <div class="sap-toast-stack" id="sapToastStack"></div>
 
-  <script src="/js/app.js?v=3.0"></script>
+  <script src="/js/app.js?v=3.5"></script>
 </body>
 
 </html>
