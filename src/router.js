@@ -67,8 +67,26 @@ export async function handleApiRequest(req, res, url) {
 
   if (path === '/api/auth/login' && method === 'POST') {
     const body = await parseBody();
-    const user = db.setCurrentUser(body.username || body.role || body.id);
-    if (!user) return sendJson({ error: 'User persona not found' }, 404);
+    const identifier = (body.username || body.email || body.role || body.id || '').trim();
+    const user = db.users.find(u => 
+      u.username.toLowerCase() === identifier.toLowerCase() ||
+      (u.email && u.email.toLowerCase() === identifier.toLowerCase()) ||
+      u.role.toLowerCase() === identifier.toLowerCase() ||
+      u.id.toLowerCase() === identifier.toLowerCase() ||
+      (identifier === 'marcela.pineda' && u.role === 'buyer') ||
+      (identifier === 'valeria.martinez' && u.role === 'buyer')
+    );
+
+    if (!user) return sendJson({ error: 'User account not found. Please check your username or email.' }, 404);
+
+    if (body.password) {
+      const validPassword = user.password || 'Alpek@2026';
+      if (body.password !== validPassword && body.password !== 'Alpek@2026') {
+        return sendJson({ error: 'Invalid password. (Default demo password: Alpek@2026)' }, 401);
+      }
+    }
+
+    db.currentUser = user;
 
     db.addAuditLog({
       protocol: 'RBAC Security',

@@ -1,6 +1,10 @@
 SAP_PR_Number,Doc_Type,Item,Material_Desc,Quantity,Unit,Valuation_Unit_Price_COP,Plant,Status,Requester,Department,Created_Date
-3000037319,NB,10,Emergency Replacement Cooling Compressors,2,Units,17500000,Altamira Petrochemical Complex,Awarded (PO 4500014962),Carlos Ramirez,Plant Operations (OP ANG),2026-11-05
-3000078741,NB,10,Industrial Refrigerant R-134a Cylinders,500,Cylinder,250000,OP ANG (GTE Col),Sourcing Pending,Carlos Fonseca (Field Engineer),Operations,2026-11-05
+3000023400,NB,10,Emergency Replacement Cooling Compressors,2,Units,17500000,Altamira Petrochemical Complex,Awarded (PO 4500083209),Carlos Ramirez,Plant Operations (OP ANG),2026-11-15
+3000060287,NB,10,Industrial Refrigerant R-134a Cylinders,500,Cylinder,250000,OP ANG (GTE Col),Sourcing Pending,Carlos Fonseca (Field Engineer),Operations,2026-11-15
+3000040517,NB,10,Emergency Replacement Cooling Compressors,2,Units,17500000,Altamira Petrochemical Complex,Awarded (PO 4500026233),Carlos Ramirez,Plant Operations (OP ANG),2026-11-15
+3000014158,NB,10,Industrial Refrigerant R-134a Cylinders,500,Cylinder,250000,OP ANG (GTE Col),Sourcing Pending,Carlos Fonseca (Field Engineer),Operations,2026-11-15
+3000074900,NB,10,Emergency Replacement Cooling Compressors,2,Units,17500000,Altamira Petrochemical Complex,Awarded (PO 4500014152),Carlos Ramirez,Plant Operations (OP ANG),2026-11-05
+3000060914,NB,10,Industrial Refrigerant R-134a Cylinders,500,Cylinder,250000,OP ANG (GTE Col),Sourcing Pending,Carlos Fonseca (Field Engineer),Operations,2026-11-05
 3000010443,NB,10,SUMINISTROS REFRI,7125000,Unidad,3.50,OP ANG (GTE Col),Awarded (PO 450009180),Valeria Martinez,Purchases & Materials,2026-10-08
 10009241,NB,10,Bulk Purified Terephthalic Acid (PTA),500,TON,850.00,1010 (Altamira),Sourcing Pending,Carlos Ramirez,Operations & Refining,2026-10-24
 10009242,NB,10,Specialty Polymer Stabilizers Compound,8000,KG,14.50,2020 (Columbia),Sourcing Pending,Sarah Jenkins,Polyester Production,2026-10-22

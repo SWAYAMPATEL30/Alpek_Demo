@@ -15,6 +15,7 @@ export class DataStore {
       {
         id: 'usr-requester',
         username: 'carlos.ramirez',
+        password: 'Alpek@2026',
         name: 'Carlos Ramirez',
         role: 'requester',
         roleLabel: 'Employee / Requester',
@@ -28,6 +29,7 @@ export class DataStore {
       {
         id: 'usr-manager',
         username: 'david.vance',
+        password: 'Alpek@2026',
         name: 'David Vance',
         role: 'manager',
         roleLabel: 'Department Manager / Finance',
@@ -41,6 +43,7 @@ export class DataStore {
       {
         id: 'usr-buyer',
         username: 'valeria.martinez',
+        password: 'Alpek@2026',
         name: 'Valeria Martinez',
         role: 'buyer',
         roleLabel: 'Procurement Buyer',
@@ -54,6 +57,7 @@ export class DataStore {
       {
         id: 'usr-supplier-sonda',
         username: 'sonda.vendor',
+        password: 'Alpek@2026',
         name: 'SONDA DE COLOMBIA S A',
         role: 'supplier',
         roleLabel: 'Invited Vendor (Supplier A)',
@@ -68,6 +72,7 @@ export class DataStore {
       {
         id: 'usr-supplier-indorama',
         username: 'indorama.vendor',
+        password: 'Alpek@2026',
         name: 'INDORAMA PETROCHEM S A S',
         role: 'supplier',
         roleLabel: 'Invited Vendor (Supplier B)',
@@ -82,6 +87,7 @@ export class DataStore {
       {
         id: 'usr-tech-eval',
         username: 'victor.chen',
+        password: 'Alpek@2026',
         name: 'Dr. Victor Chen',
         role: 'tech_evaluator',
         roleLabel: 'Technical Evaluator',
@@ -95,6 +101,7 @@ export class DataStore {
       {
         id: 'usr-comm-eval',
         username: 'sofia.morales',
+        password: 'Alpek@2026',
         name: 'Sofia Morales',
         role: 'comm_evaluator',
         roleLabel: 'Commercial Evaluator',
@@ -108,6 +115,7 @@ export class DataStore {
       {
         id: 'usr-award-approver',
         username: 'carlos.fonseca',
+        password: 'Alpek@2026',
         name: 'Carlos Alberto Fonseca',
         role: 'award_approver',
         roleLabel: 'Award Approver / Committee',
@@ -121,6 +129,7 @@ export class DataStore {
       {
         id: 'usr-receiving',
         username: 'mateo.morales',
+        password: 'Alpek@2026',
         name: 'Mateo Morales',
         role: 'receiving',
         roleLabel: 'Receiving Team / Warehouse',
@@ -134,6 +143,7 @@ export class DataStore {
       {
         id: 'usr-admin',
         username: 'admin',
+        password: 'Alpek@2026',
         name: 'System Administrator',
         role: 'admin',
         roleLabel: 'System Administrator',

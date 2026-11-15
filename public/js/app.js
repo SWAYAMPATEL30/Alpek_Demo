@@ -127,58 +127,130 @@ function updateHeaderUserBadge() {
   if (oldRole) oldRole.textContent = roleLabel;
 }
 
+
 // ============================================================================
-// 1. RBAC LOGIN & ROLE SWITCHER CONTROLLER (10 Personas)
+// 1. FORMAL PRODUCTION AUTHENTICATION & ROLE SWITCHER
 // ============================================================================
+
+const DEMO_CREDENTIALS = [
+  { username: 'carlos.ramirez', name: 'Carlos Ramirez', role: '1. Requester / Plant Demand', dept: 'Plant Operations (Altamira)' },
+  { username: 'david.vance', name: 'David Vance', role: '2. Dept Manager / Finance', dept: 'Operations & Finance' },
+  { username: 'valeria.martinez', name: 'Valeria Martinez', role: '3. Procurement Buyer', dept: 'Strategic Sourcing' },
+  { username: 'sonda.vendor', name: 'SONDA DE COLOMBIA', role: '4. Invited Vendor A', dept: 'Supplier Network (AN11459791479)' },
+  { username: 'indorama.vendor', name: 'INDORAMA PETROCHEM', role: '5. Invited Vendor B', dept: 'Supplier Network (AN10928371928)' },
+  { username: 'victor.chen', name: 'Dr. Victor Chen', role: '6. Technical Evaluator', dept: 'Engineering & QA' },
+  { username: 'sofia.morales', name: 'Sofia Morales', role: '7. Commercial Evaluator', dept: 'Commercial Spend Analysis' },
+  { username: 'carlos.fonseca', name: 'Carlos A. Fonseca', role: '8. Award Approver & SAP Push', dept: 'Executive Spend Control' },
+  { username: 'mateo.morales', name: 'Mateo Morales', role: '9. Warehouse Receiving (GRN)', dept: 'Inward Logistics & Plant Docks' },
+  { username: 'admin', name: 'System Administrator', role: 'System Admin', dept: 'IT & Platform Operations' }
+];
+
+function toggleCredentialsDrawer() {
+  const drawer = document.getElementById('credentialsDrawer');
+  const arrow = document.getElementById('credToggleArrow');
+  if (!drawer) return;
+  const isHidden = drawer.style.display === 'none' || !drawer.style.display;
+  drawer.style.display = isHidden ? 'flex' : 'none';
+  if (arrow) arrow.innerHTML = isHidden ? '&uarr;' : '&darr;';
+  if (isHidden && drawer.children.length === 0) {
+    renderCredentialsDrawer();
+  }
+}
+
+function renderCredentialsDrawer() {
+  const drawer = document.getElementById('credentialsDrawer');
+  if (!drawer) return;
+  drawer.innerHTML = DEMO_CREDENTIALS.map(c => `
+    <div class="pf-credential-row">
+      <div class="pf-cred-info">
+        <strong>${c.name} &bull; ${c.role}</strong>
+        <span>Username: ${c.username} | Pass: Alpek@2026 | ${c.dept}</span>
+      </div>
+      <button type="button" class="pf-btn-fill" onclick="fillCredentials('${c.username}', 'Alpek@2026')">
+        Use Credentials
+      </button>
+    </div>
+  `).join('');
+}
+
+function fillCredentials(username, password) {
+  const uInput = document.getElementById('loginUsername');
+  const pInput = document.getElementById('loginPassword');
+  if (uInput) uInput.value = username;
+  if (pInput) pInput.value = password;
+  showSapToast(`Credentials loaded for ${username}. Click Sign In.`, 'info');
+}
 
 async function handleLoginFormSubmit(e) {
   if (e) e.preventDefault();
   const username = document.getElementById('loginUsername')?.value.trim();
-  if (!username) return;
-  await loginAsSpecificUser(username);
+  const password = document.getElementById('loginPassword')?.value.trim();
+  if (!username) {
+    showSapToast('Please enter your work username or corporate email.', 'warning');
+    return;
+  }
+  await loginWithCredentials(username, password);
+}
+
+async function loginWithCredentials(userIdentifier, password) {
+  const btn = document.getElementById('btnSubmitLogin');
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = 'Authenticating with SAP S/4HANA...';
+  }
+
+  try {
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        username: userIdentifier, 
+        id: userIdentifier,
+        password: password || 'Alpek@2026'
+      })
+    });
+    const data = await res.json();
+    if (data.success) {
+      currentUser = data.user;
+      sessionStorage.setItem('abc_current_user', JSON.stringify(currentUser));
+
+      // Transition to authenticated application shell
+      const loginPage = document.getElementById('page-login');
+      const appPage = document.getElementById('page-app');
+      if (loginPage) loginPage.classList.add('hidden');
+      if (appPage) appPage.classList.remove('hidden');
+
+      updateHeaderUserBadge();
+      updateRoleNavigation();
+      updateLiveKpiBar();
+      closeProfileDropdown();
+      showSapToast(`Welcome, ${currentUser.name} (${currentUser.roleLabel})`, 'success');
+    } else {
+      showSapToast(data.error || 'Authentication failed. Please verify credentials.', 'error');
+    }
+  } catch (err) {
+    console.error('Login error:', err);
+    showSapToast('Connection error during authentication.', 'error');
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = 'Sign In to Procurement Cloud &rarr;';
+    }
+  }
 }
 
 function quickLoginAs(username) {
-  const usernameInput = document.getElementById('loginUsername');
-  if (usernameInput) usernameInput.value = username;
-  loginAsSpecificUser(username);
+  fillCredentials(username, 'Alpek@2026');
+  loginWithCredentials(username, 'Alpek@2026');
 }
 
-function logoutUser() {
-  sessionStorage.removeItem('abc_current_user');
-  const loginPage = document.getElementById('page-login');
-  const appPage = document.getElementById('page-app');
-  if (loginPage) loginPage.classList.remove('hidden');
-  if (appPage) appPage.classList.add('hidden');
-  closeProfileDropdown();
-  showSapToast('Signed out successfully. Choose a persona to sign in.', 'info');
-}
-
-function toggleProfileDropdown() {
-  const dropdown = document.getElementById('profileDropdownCard');
-  if (dropdown) dropdown.classList.toggle('show');
-}
-
-function closeProfileDropdown() {
-  const dropdown = document.getElementById('profileDropdownCard');
-  if (dropdown) dropdown.classList.remove('show');
-}
-
-// Close profile dropdown when clicking outside
-document.addEventListener('click', (e) => {
-  const trigger = document.getElementById('userProfileTrigger');
-  const card = document.getElementById('profileDropdownCard');
-  if (trigger && card && !trigger.contains(e.target) && !card.contains(e.target)) {
-    card.classList.remove('show');
-  }
-});
 
 async function loginAsSpecificUser(userIdentifier) {
   try {
     const res = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: userIdentifier, id: userIdentifier })
+      body: JSON.stringify({ username: userIdentifier, id: userIdentifier, password: 'Alpek@2026' })
     });
     const data = await res.json();
     if (data.success) {

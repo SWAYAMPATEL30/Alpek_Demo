@@ -6,170 +6,164 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alpek Demo Procurement Platform | Zero-Ariba Sourcing</title>
   <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/passionfroot.css">
 </head>
 
 <body class="sap-fiori-shell">
+    <!-- ========================================================================= -->
+  <!-- 1. PASSIONFROOT-INSPIRED CORPORATE LANDING PAGE & PRODUCTION LOGIN PORTAL -->
   <!-- ========================================================================= -->
-  <!-- 1. DEDICATED PRODUCTION LOGIN SCREEN (DEFAULT WHEN NOT AUTHENTICATED)     -->
-  <!-- ========================================================================= -->
-  <div id="page-login" class="login-page-screen">
-    <div class="login-card-container">
-
-      <!-- Left Hero Banner -->
-      <div class="login-hero-pane">
-        <div class="login-brand-header">
-          <div class="login-brand-logo">AD</div>
-          <div>
-            <div class="login-brand-title">Alpek Demo</div>
-            <span class="login-brand-badge">Procurement Cloud</span>
-          </div>
+  <div id="page-login" class="pf-landing-container">
+    <!-- Floating Luxury Navbar -->
+    <header class="pf-navbar-wrapper">
+      <nav class="pf-navbar">
+        <a href="#hero" class="pf-brand">
+          <span class="pf-brand-badge">AD</span>
+          <span>Alpek Demo</span>
+        </a>
+        <ul class="pf-nav-links">
+          <li><a href="#hero" class="pf-nav-link">Overview</a></li>
+          <li><a href="#features" class="pf-nav-link">Sourcing OS</a></li>
+          <li><a href="#features" class="pf-nav-link">Two-Envelope</a></li>
+          <li><a href="#features" class="pf-nav-link">SAP Clean Core</a></li>
+        </ul>
+        <div class="pf-nav-actions">
+          <a href="#login-portal" class="pf-btn-pill pf-btn-dark">Sign In &rarr;</a>
         </div>
+      </nav>
+    </header>
 
-        <div class="login-hero-features">
-          <h3>Next-Gen Sourcing Platform</h3>
-          <div class="hero-feature-item">
-            <div class="hero-feature-icon">&#9881;</div>
-            <div class="hero-feature-text">
-              <strong>Zero-Ariba Self-Contained Architecture</strong>
-              <span>All PRs, RFQs, evaluations, and receiving live in your platform</span>
-            </div>
-          </div>
-          <div class="hero-feature-item">
-            <div class="hero-feature-icon">&#128101;</div>
-            <div class="hero-feature-text">
-              <strong>10 Strict RBAC Enterprise Personas</strong>
-              <span>Clean separation of employees, buyers, suppliers & warehouse</span>
-            </div>
-          </div>
-          <div class="hero-feature-item">
-            <div class="hero-feature-icon">&#128274;</div>
-            <div class="hero-feature-text">
-              <strong>Sealed Two-Envelope Bidding</strong>
-              <span>Isolated technical qualification & commercial evaluation</span>
-            </div>
-          </div>
-          <div class="hero-feature-item">
-            <div class="hero-feature-icon">&#127760;</div>
-            <div class="hero-feature-text">
-              <strong>Clean Core SAP S/4HANA & Excel Sync</strong>
-              <span>Only the final confirmed PO is dispatched via standard cXML/OData</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="login-hero-footer">
-          &bull; ISO 27001 Certified &bull; Clean Core Enterprise ERP &bull; 99.9% Uptime
-        </div>
+    <!-- Hero Section -->
+    <section class="pf-hero-section" id="hero">
+      <div class="pf-pill-tag">
+        <span class="pf-pill-dot"></span>
+        <span>SAP S/4HANA Clean Core &bull; Enterprise Sourcing OS</span>
+      </div>
+      <h1 class="pf-hero-title">
+        Sourcing and supplier management, <em>finally simple.</em>
+      </h1>
+      <p class="pf-hero-subtitle">
+        The unified enterprise procurement workspace replacing legacy SAP Ariba. Run sealed two-envelope bidding, evaluate quotations with dynamic multi-criteria models, and commit approved purchase orders to S/4HANA in seconds.
+      </p>
+      <div class="pf-hero-ctas">
+        <a href="#login-portal" class="pf-btn-pill pf-btn-dark" style="padding:14px 32px; font-size:15px;">
+          Access Corporate Workspace &rarr;
+        </a>
+        <button type="button" onclick="toggleCredentialsDrawer()" class="pf-btn-pill pf-btn-outline" style="padding:14px 26px; font-size:14px;">
+          View Role Directory &amp; Credentials
+        </button>
       </div>
 
-      <!-- Right Login Form & Quick Persona Selector -->
-      <div class="login-form-pane">
-        <h2>Welcome to Procurement Cloud</h2>
-        <p class="login-subtitle">Sign in to your role-based procurement workspace</p>
+      <!-- Live Enterprise KPI Highlights -->
+      <div class="pf-stats-grid">
+        <div class="pf-stat-card">
+          <div class="pf-stat-value">14.3%</div>
+          <div class="pf-stat-label">Verified Baseline Savings</div>
+        </div>
+        <div class="pf-stat-card">
+          <div class="pf-stat-value">7.1M</div>
+          <div class="pf-stat-label">Units Procured via Clean Core</div>
+        </div>
+        <div class="pf-stat-card">
+          <div class="pf-stat-value">100%</div>
+          <div class="pf-stat-label">Sealed Envelope Compliance</div>
+        </div>
+        <div class="pf-stat-card">
+          <div class="pf-stat-value">38ms</div>
+          <div class="pf-stat-label">S/4HANA OData Latency</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formal Login Portal Section (Production Grade Formal) -->
+    <section class="pf-login-wrapper" id="login-portal">
+      <div class="pf-login-card">
+        <div class="pf-login-header">
+          <h2>Corporate Sign In</h2>
+          <p>Enter your authorized credentials to access your procurement portal.</p>
+        </div>
 
         <form id="enterpriseLoginForm" onsubmit="handleLoginFormSubmit(event)">
-          <div class="login-input-group">
-            <label for="loginUsername">Username or Corporate Email</label>
-            <div class="login-input-wrapper">
-              <span class="login-input-icon">&#128100;</span>
-              <input type="text" id="loginUsername" class="login-input-field"
-                placeholder="e.g. valeria.martinez or carlos.ramirez" value="valeria.martinez" required>
-            </div>
+          <div class="pf-form-group">
+            <label class="pf-form-label" for="loginUsername">Work Username or Email</label>
+            <input type="text" id="loginUsername" class="pf-input-text" placeholder="e.g. valeria.martinez" value="valeria.martinez" required autocomplete="username">
           </div>
 
-          <div class="login-input-group">
-            <label for="loginPassword">Password</label>
-            <div class="login-input-wrapper">
-              <span class="login-input-icon">&#128274;</span>
-              <input type="password" id="loginPassword" class="login-input-field" value="••••••••••••"
-                placeholder="Enter password" required>
+          <div class="pf-form-group">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <label class="pf-form-label" for="loginPassword" style="margin-bottom:0;">Password</label>
+              <span style="font-size:11.5px; color:var(--ink-500);">Default: Alpek@2026</span>
             </div>
+            <input type="password" id="loginPassword" class="pf-input-text" placeholder="••••••••••••" value="Alpek@2026" required autocomplete="current-password">
           </div>
 
-          <div class="login-extra-row">
-            <label>
-              <input type="checkbox" checked> Remember this device
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; font-size:12.5px; color:var(--ink-700);">
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+              <input type="checkbox" checked style="accent-color:var(--brand-dark);"> Remember this device
             </label>
-            <a href="#" style="color:#0284c7; text-decoration:none; font-weight:600;"
-              onclick="showSapToast('Single Sign-On (SSO) active for Alpek Demo enterprise domain.', 'info')">Need help
-              signing in?</a>
+            <a href="#" style="color:var(--brand-coral); font-weight:600;" onclick="showSapToast('Single Sign-On (SSO) active via SAP Cloud Identity Services.', 'info')">SSO Help</a>
           </div>
 
-          <button type="submit" class="login-btn-primary" id="btnSubmitLogin">
+          <button type="submit" class="pf-btn-pill pf-btn-dark pf-login-btn" id="btnSubmitLogin">
             Sign In to Procurement Cloud &rarr;
           </button>
         </form>
 
-        <div class="login-divider-row">
-          <span>OR QUICK SIGN-IN AS DEMO PERSONA</span>
+        <!-- Formal Collapsible Role Directory Drawer (Replaces messy quick access buttons) -->
+        <div class="pf-credentials-box">
+          <button type="button" class="pf-credentials-toggle" onclick="toggleCredentialsDrawer()">
+            <span>Corporate Role Directory (10 Enterprise Personas)</span>
+            <span id="credToggleArrow">&darr;</span>
+          </button>
+          <div class="pf-credentials-list" id="credentialsDrawer" style="display:none;"></div>
         </div>
+      </div>
+    </section>
 
-        <div class="login-persona-grid">
-          <div class="login-persona-card" onclick="quickLoginAs('carlos.ramirez')">
-            <div class="login-p-avatar" style="background:#d97706;">CR</div>
-            <div class="login-p-info">
-              <span class="login-p-name">Carlos Ramirez</span>
-              <span class="login-p-role">1. Requester / Plant Demand</span>
-            </div>
+    <!-- Feature Bento Grid (Passionfroot Style) -->
+    <section class="pf-features-section" id="features">
+      <div class="pf-section-heading">
+        <h3>Built for clean, mission-critical procurement.</h3>
+        <p>Zero core modifications, zero spreadsheets, 100% auditability.</p>
+      </div>
+
+      <div class="pf-bento-grid">
+        <div class="pf-bento-card">
+          <div class="pf-bento-num">01 / ARCHITECTURE</div>
+          <div class="pf-bento-title">SAP S/4HANA Clean Core</div>
+          <div class="pf-bento-desc">
+            Replaces heavy Ariba suites. Sourcing events and bid comparisons run locally in-memory, committing only the finalized purchase order back to SAP ERP via standard OData v4 and cXML payloads.
           </div>
-          <div class="login-persona-card" onclick="quickLoginAs('david.vance')">
-            <div class="login-p-avatar" style="background:#2563eb;">DV</div>
-            <div class="login-p-info">
-              <span class="login-p-name">David Vance</span>
-              <span class="login-p-role">2. Dept Manager / Finance</span>
-            </div>
+        </div>
+        <div class="pf-bento-card">
+          <div class="pf-bento-num">02 / COMPLIANCE</div>
+          <div class="pf-bento-title">Two-Envelope Protocol</div>
+          <div class="pf-bento-desc">
+            Technical proposal evaluation is strictly sealed from commercial unit pricing. Technical engineering evaluators score specs and ISO certifications with zero price bias.
           </div>
-          <div class="login-persona-card" onclick="quickLoginAs('valeria.martinez')">
-            <div class="login-p-avatar" style="background:#0854a0;">VM</div>
-            <div class="login-p-info">
-              <span class="login-p-name">Valeria Martinez</span>
-              <span class="login-p-role">3. Procurement Buyer</span>
-            </div>
-          </div>
-          <div class="login-persona-card" onclick="quickLoginAs('sonda.vendor')">
-            <div class="login-p-avatar" style="background:#4f46e5;">SA</div>
-            <div class="login-p-info">
-              <span class="login-p-name">SONDA DE COLOMBIA</span>
-              <span class="login-p-role">4. Invited Vendor A</span>
-            </div>
-          </div>
-          <div class="login-persona-card" onclick="quickLoginAs('indorama.vendor')">
-            <div class="login-p-avatar" style="background:#059669;">SB</div>
-            <div class="login-p-info">
-              <span class="login-p-name">INDORAMA PETROCHEM</span>
-              <span class="login-p-role">5. Invited Vendor B</span>
-            </div>
-          </div>
-          <div class="login-persona-card" onclick="quickLoginAs('victor.chen')">
-            <div class="login-p-avatar" style="background:#0d9488;">VC</div>
-            <div class="login-p-info">
-              <span class="login-p-name">Dr. Victor Chen</span>
-              <span class="login-p-role">6. Technical Evaluator</span>
-            </div>
-          </div>
-          <div class="login-persona-card" onclick="quickLoginAs('sofia.morales')">
-            <div class="login-p-avatar" style="background:#0284c7;">SM</div>
-            <div class="login-p-info">
-              <span class="login-p-name">Sofia Morales</span>
-              <span class="login-p-role">7. Commercial Evaluator</span>
-            </div>
-          </div>
-          <div class="login-persona-card" onclick="quickLoginAs('carlos.fonseca')">
-            <div class="login-p-avatar" style="background:#107e3e;">CF</div>
-            <div class="login-p-info">
-              <span class="login-p-name">Carlos A. Fonseca</span>
-              <span class="login-p-role">8. Award Approver &amp; SAP Push</span>
-            </div>
-          </div>
-          <div class="login-persona-card" onclick="quickLoginAs('mateo.morales')">
-            <div class="login-p-avatar" style="background:#ea580c;">MM</div>
-            <div class="login-p-info">
-              <span class="login-p-name">Mateo Morales</span>
-              <span class="login-p-role">9. Warehouse Receiving (GRN)</span>
-            </div>
+        </div>
+        <div class="pf-bento-card">
+          <div class="pf-bento-num">03 / COLLABORATION</div>
+          <div class="pf-bento-title">Supplier Bidding Cockpit</div>
+          <div class="pf-bento-desc">
+            Invited external vendors access an isolated, encrypted bidding portal. They submit proposals, lead times, and unit tariffs with dynamic baseline savings recalculation.
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- Formal Corporate Footer -->
+    <footer class="pf-footer">
+      <div class="pf-footer-content">
+        <div style="font-weight:600; color:var(--ink-900);">
+          Alpek Demo &bull; Enterprise Sourcing &amp; Supplier Linking Platform
+        </div>
+        <div>
+          ISO 27001 Certified &bull; Clean Core S/4HANA Architecture &bull; 99.9% Production SLA
+        </div>
+      </div>
+    </footer>
+  </div>
     </div>
   </div>
 
