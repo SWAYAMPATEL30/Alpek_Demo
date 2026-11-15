@@ -2937,7 +2937,11 @@ async function closePurchaseOrder(poId) {
 
 async function openTraceabilityModal(type, id) {
   const container = document.getElementById('traceabilityTimelineContainer');
-  document.getElementById('modalTraceability').classList.remove('hidden');
+  const mTrace = document.getElementById('modalTraceability');
+  if (mTrace) {
+    mTrace.classList.remove('hidden');
+    mTrace.style.display = 'flex';
+  }
   if (container) container.innerHTML = '<p style="text-align:center; padding:20px;">Tracing end-to-end lineage across all 11 stages...</p>';
 
   try {
@@ -2950,7 +2954,11 @@ async function openTraceabilityModal(type, id) {
 }
 
 function closeTraceabilityModal() {
-  document.getElementById('modalTraceability').classList.add('hidden');
+  const modal = document.getElementById('modalTraceability');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.style.display = 'none';
+  }
 }
 
 function renderTraceability(data) {
@@ -3667,3 +3675,21 @@ async function submitPrRevision(e) {
     showSapToast('Communication error: ' + err.message, 'error');
   }
 }
+
+
+// Global Modal Dismissal Handler (Backdrop Click & ESC Key)
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.sap-modal-backdrop:not(.hidden)').forEach(modal => {
+      modal.classList.add('hidden');
+      modal.style.display = 'none';
+    });
+  }
+});
+
+document.addEventListener('click', (e) => {
+  if (e.target.classList && e.target.classList.contains('sap-modal-backdrop')) {
+    e.target.classList.add('hidden');
+    e.target.style.display = 'none';
+  }
+});
