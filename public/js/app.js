@@ -181,6 +181,12 @@ function fillCredentials(username, password) {
   showSapToast(`Credentials loaded for ${username}. Click Sign In.`, 'info');
 }
 
+function quickFillCredentials(username, password) {
+  fillCredentials(username, password);
+}
+window.quickFillCredentials = quickFillCredentials;
+window.fillCredentials = fillCredentials;
+
 async function handleLoginFormSubmit(e) {
   if (e) e.preventDefault();
   const username = document.getElementById('loginUsername')?.value.trim();
@@ -191,6 +197,12 @@ async function handleLoginFormSubmit(e) {
   }
   await loginWithCredentials(username, password);
 }
+
+function handleCorporateLogin(e) {
+  return handleLoginFormSubmit(e);
+}
+window.handleCorporateLogin = handleCorporateLogin;
+window.handleLoginFormSubmit = handleLoginFormSubmit;
 
 async function loginWithCredentials(userIdentifier, password) {
   const btn = document.getElementById('btnSubmitLogin');
@@ -224,6 +236,26 @@ async function loginWithCredentials(userIdentifier, password) {
       updateRoleNavigation();
       updateLiveKpiBar();
       closeProfileDropdown();
+
+      // Navigate to default workspace for user role
+      if (currentUser.role === 'supplier') {
+        switchMainTab('supplier');
+      } else if (currentUser.role === 'requester') {
+        switchMainTab('requester');
+      } else if (currentUser.role === 'manager') {
+        switchMainTab('manager');
+      } else if (currentUser.role === 'tech_evaluator') {
+        switchMainTab('tech_eval');
+      } else if (currentUser.role === 'comm_evaluator') {
+        switchMainTab('comm_eval');
+      } else if (currentUser.role === 'award_approver') {
+        switchMainTab('approver');
+      } else if (currentUser.role === 'receiving') {
+        switchMainTab('receiving');
+      } else {
+        switchMainTab('sourcing');
+      }
+
       showSapToast(`Welcome, ${currentUser.name} (${currentUser.roleLabel})`, 'success');
     } else {
       showSapToast(data.error || 'Authentication failed. Please verify credentials.', 'error');
@@ -234,7 +266,7 @@ async function loginWithCredentials(userIdentifier, password) {
   } finally {
     if (btn) {
       btn.disabled = false;
-      btn.innerHTML = 'Sign In to Procurement Cloud &rarr;';
+      btn.innerHTML = 'Sign In to Workspace &rarr;';
     }
   }
 }

@@ -67,15 +67,45 @@ export async function handleApiRequest(req, res, url) {
 
   if (path === '/api/auth/login' && method === 'POST') {
     const body = await parseBody();
-    const identifier = (body.username || body.email || body.role || body.id || '').trim();
-    const user = db.users.find(u => 
-      u.username.toLowerCase() === identifier.toLowerCase() ||
-      (u.email && u.email.toLowerCase() === identifier.toLowerCase()) ||
-      u.role.toLowerCase() === identifier.toLowerCase() ||
-      u.id.toLowerCase() === identifier.toLowerCase() ||
-      (identifier === 'marcela.pineda' && u.role === 'buyer') ||
-      (identifier === 'valeria.martinez' && u.role === 'buyer')
-    );
+    const identifier = (body.username || body.email || body.role || body.id || '').trim().toLowerCase();
+    const user = db.users.find(u => {
+      const uName = (u.username || '').toLowerCase();
+      const uEmail = (u.email || '').toLowerCase();
+      const uRole = (u.role || '').toLowerCase();
+      const uId = (u.id || '').toLowerCase();
+
+      return uName === identifier ||
+        uEmail === identifier ||
+        uRole === identifier ||
+        uId === identifier ||
+        (identifier === 'buyer' && uRole === 'buyer') ||
+        (identifier === 'valeria.martinez' && uRole === 'buyer') ||
+        (identifier === 'marcela.pineda' && uRole === 'buyer') ||
+        (identifier === 'requester' && uRole === 'requester') ||
+        (identifier === 'carlos.ramirez' && uRole === 'requester') ||
+        (identifier === 'carlos.ruiz' && uRole === 'requester') ||
+        (identifier === 'manager' && uRole === 'manager') ||
+        (identifier === 'david.vance' && uRole === 'manager') ||
+        (identifier === 'mariana.torres' && uRole === 'manager') ||
+        (identifier === 'supplier_a' && (uId === 'usr-supplier-sonda' || uName === 'sonda.vendor')) ||
+        (identifier === 'supplier_b' && (uId === 'usr-supplier-indorama' || uName === 'indorama.vendor')) ||
+        (identifier === 'supplier' && (uId === 'usr-supplier-sonda' || uName === 'sonda.vendor')) ||
+        (identifier === 'sonda.vendor' && uId === 'usr-supplier-sonda') ||
+        (identifier === 'indorama.vendor' && uId === 'usr-supplier-indorama') ||
+        (identifier === 'tech_eval' && uRole === 'tech_evaluator') ||
+        (identifier === 'victor.chen' && uRole === 'tech_evaluator') ||
+        (identifier === 'elena.gomez' && uRole === 'tech_evaluator') ||
+        (identifier === 'comm_eval' && uRole === 'comm_evaluator') ||
+        (identifier === 'sofia.morales' && uRole === 'comm_evaluator') ||
+        (identifier === 'javier.ortega' && uRole === 'comm_evaluator') ||
+        (identifier === 'award_approver' && uRole === 'award_approver') ||
+        (identifier === 'carlos.fonseca' && uRole === 'award_approver') ||
+        (identifier === 'patricia.moreno' && uRole === 'award_approver') ||
+        (identifier === 'receiving' && uRole === 'receiving') ||
+        (identifier === 'mateo.morales' && uRole === 'receiving') ||
+        (identifier === 'roberto.gomez' && uRole === 'receiving') ||
+        (identifier === 'admin' && uRole === 'admin');
+    });
 
     if (!user) return sendJson({ error: 'User account not found. Please check your username or email.' }, 404);
 

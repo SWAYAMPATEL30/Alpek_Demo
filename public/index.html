@@ -91,7 +91,7 @@
           <p>Enter your enterprise credentials or select an evaluator persona below.</p>
         </div>
 
-        <form id="formCorporateLogin" onsubmit="handleCorporateLogin(event)">
+        <form id="formCorporateLogin" onsubmit="handleLoginFormSubmit(event); return false;">
           <div class="pf-form-group">
             <label class="pf-form-label" for="loginUsername">Corporate User ID / Username</label>
             <input type="text" id="loginUsername" class="pf-input-text" placeholder="e.g. buyer or supplier_a" required autocomplete="username" value="buyer">
