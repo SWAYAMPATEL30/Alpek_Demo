@@ -14,9 +14,9 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap">
 
   <link rel="stylesheet" href="/css/pf-official.css">
-  <link rel="stylesheet" href="/css/pf-overrides.css">
   <link rel="stylesheet" href="/css/styles.css?v=6.0">
   <link rel="stylesheet" href="/css/passionfroot.css?v=6.0">
+  <link rel="stylesheet" href="/css/pf-overrides.css?v=8.0">
 
   <script>
     function closeTraceabilityModal() {
@@ -160,33 +160,33 @@
   <div id="page-login" class="bg-foundation mx-0 flex min-h-screen flex-col">
 
     <!-- Passionfroot Authentic Floating Glass Header -->
-    <header class="fixed top-2 lg:top-5 left-1/2 -translate-x-1/2 z-50 w-[1320px] max-w-[calc(100%-16px)] lg:max-w-[calc(100%-32px)] vt-site-nav">
+    <header class="vt-site-nav">
       <nav aria-label="Main navigation">
-        <ul class="flex items-center justify-between">
+        <ul>
           <!-- Left: Brand Logo & Clean Core Status -->
-          <div class="flex items-center gap-2 rounded-xl p-1.25 pr-1.5 transition-all duration-300 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-md ring-1 ring-white/7 ring-inset shadow-[0_1px_1px_rgba(255,255,255,0.04)_inset,0_2px_8px_rgba(0,0,0,0.10)]">
-            <a href="/" class="flex h-9 items-center gap-2.5 px-3">
-              <span style="width:26px; height:26px; border-radius:50%; background:#190922; color:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; border:1px solid rgba(255,255,255,0.2);">AD</span>
-              <span class="font-heading font-semibold text-lg text-white tracking-tight">Alpek Sourcing OS</span>
-              <span class="text-[10px] font-bold uppercase tracking-wider text-[#FF8370] bg-[#FF8370]/15 px-2 py-0.5 rounded-full border border-[#FF8370]/25">Clean Core</span>
+          <div class="nav-pill-group">
+            <a href="/" style="display:flex; align-items:center; gap:10px; text-decoration:none;">
+              <span style="width:28px; height:28px; border-radius:50%; background:#E0533C; color:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; border:1px solid rgba(255,255,255,0.3);">AD</span>
+              <span style="font-family:var(--font-heading); font-weight:700; font-size:17px; color:#FFFFFF; letter-spacing:-0.02em;">Alpek Sourcing OS</span>
+              <span style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#FF8370; background:rgba(255,131,112,0.15); padding:2px 8px; border-radius:9999px; border:1px solid rgba(255,131,112,0.3);">Clean Core</span>
             </a>
           </div>
 
           <!-- Center: Nav Pills -->
-          <div class="hidden lg:flex items-center gap-1 rounded-xl p-1.25 transition-all duration-300 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-md ring-1 ring-white/7 ring-inset shadow-[0_1px_1px_rgba(255,255,255,0.04)_inset,0_2px_8px_rgba(0,0,0,0.10)]">
-            <a href="#hero-section" class="px-3.5 py-1.5 text-sm font-medium text-white/80 hover:text-white transition-colors">Overview</a>
-            <a href="#section-agent" class="px-3.5 py-1.5 text-sm font-medium text-white/80 hover:text-white transition-colors">Sourcing Agent</a>
-            <a href="#section-tenders" class="px-3.5 py-1.5 text-sm font-medium text-white/80 hover:text-white transition-colors">Two-Envelope</a>
-            <a href="#section-playbook" class="px-3.5 py-1.5 text-sm font-medium text-white/80 hover:text-white transition-colors">Clean Core ERP</a>
-            <a href="#section-faq" class="px-3.5 py-1.5 text-sm font-medium text-white/80 hover:text-white transition-colors">FAQ</a>
+          <div class="nav-pill-group" style="display:none; @media(min-width:1024px){display:flex;}">
+            <a href="#hero-section" class="nav-link-item">Overview</a>
+            <a href="#section-agent" class="nav-link-item">Sourcing Copilot</a>
+            <a href="#section-tenders" class="nav-link-item">Two-Envelope</a>
+            <a href="#section-playbook" class="nav-link-item">Clean Core ERP</a>
+            <a href="#section-faq" class="nav-link-item">FAQ</a>
           </div>
 
           <!-- Right: Actions -->
-          <div class="flex items-center gap-2">
-            <a href="#login-portal" class="px-4 py-2 text-sm font-semibold text-white bg-white/10 hover:bg-white/20 rounded-xl transition-all border border-white/10 backdrop-blur-sm">
-              Role Directory
+          <div style="display:flex; align-items:center; gap:8px;">
+            <a href="#login-portal" class="btn-nav-role">
+              Role Directory (10 Personas)
             </a>
-            <a href="#login-portal" class="px-5 py-2 text-sm font-bold text-[#190922] bg-[#F5F2EB] hover:bg-white rounded-xl transition-all shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
+            <a href="#login-portal" class="btn-nav-signin">
               Sign In &rarr;
             </a>
           </div>
@@ -195,93 +195,97 @@
     </header>
 
     <!-- SECTION 2: PASSIONFROOT OFFICIAL HERO SECTION -->
-    <section id="hero-section" class="pt-0 2xl:pt-3 w-full bg-brand-surface shadow-border-strong">
-      <div class="relative flex flex-col items-center overflow-hidden min-h-[calc(100dvh+128px)] md:min-h-[calc(100dvh-114px)] lg:min-h-[calc(100dvh-114px)] xl:min-h-[1192px] max-w-480 w-full mx-auto pt-28 md:pt-32 lg:pt-36 rounded-b-xl 2xl:rounded-xl">
-        <!-- Deep Obsidian-Plum Background Aura -->
-        <div class="absolute inset-0 z-0 overflow-hidden bg-[#190922]" style="top:0; transform:none;">
-          <div class="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_50%_30%,#3d1445_0%,#190922_70%)]"></div>
-          <div class="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#190922] to-transparent"></div>
+    <section id="hero-section" style="padding-top:100px; padding-bottom:60px; min-height:85vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:#190922; position:relative; overflow:hidden;">
+      <!-- Deep Obsidian-Plum Background Aura -->
+      <div style="position:absolute; inset:0; z-index:0; background:radial-gradient(circle at 50% 35%, #3d1445 0%, #190922 75%); pointer-events:none;"></div>
+      
+      <div style="width:100%; max-width:1200px; margin:0 auto; padding:0 20px; position:relative; z-index:10; display:flex; flex-direction:column; align-items:center; text-align:center;">
+        
+        <!-- Eyebrow Pill Tag -->
+        <div style="display:inline-flex; align-items:center; gap:8px; padding:6px 16px; border-radius:9999px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.18); backdrop-filter:blur(10px); margin-bottom:24px;">
+          <span style="width:8px; height:8px; border-radius:50%; background:#E0533C; display:inline-block; box-shadow:0 0 10px #E0533C;"></span>
+          <span style="color:#FFFFFF; font-size:12.5px; font-weight:600; letter-spacing:0.02em;">The Agentic Sourcing OS for SAP S/4HANA &bull; Clean Core v3.0</span>
         </div>
 
-        <div class="w-full flex flex-col max-w-360 mx-auto relative z-20">
-          <div class="w-full max-w-[90%] md:max-w-270 gap-5 lg:gap-6 px-4 xl:px-0 flex flex-col items-center text-center mx-auto">
-            <!-- Eyebrow Pill Tag -->
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-white/90 text-xs font-semibold">
-              <span class="w-2 h-2 rounded-full bg-[#E0533C] animate-pulse"></span>
-              <span>The Agentic Sourcing OS for SAP S/4HANA &bull; Clean Core v3.0</span>
-            </div>
+        <!-- Big Display Serif Heading -->
+        <h1 style="font-family:var(--font-heading); font-size:clamp(38px, 6vw, 76px); font-weight:500; color:#FFFFFF; line-height:1.08; letter-spacing:-0.03em; margin:0 0 12px 0;">
+          The Agentic Sourcing OS <br>
+          <span class="hero-subheading-italic" style="color:#FF8370; font-style:italic; font-family:var(--font-heading); font-weight:400;">for the Clean Core era.</span>
+        </h1>
 
-            <!-- Big Display Serif Heading -->
-            <div class="flex flex-col items-center">
-              <h1 class="font-heading text-white font-medium text-4xl sm:text-6xl lg:text-7xl xl:text-[80px] leading-[1.08] tracking-tight">
-                The Agentic Sourcing OS <br class="hidden sm:block">for the Clean Core era.
-              </h1>
-              <div class="mt-4 font-heading italic text-3xl sm:text-5xl text-[#FF8370]">
-                Enterprise procurement, finally simple.
-              </div>
-            </div>
+        <div style="font-family:var(--font-heading); font-size:clamp(22px, 3.5vw, 36px); font-style:italic; color:#FFFFFF; opacity:0.95; margin-bottom:20px;">
+          Enterprise procurement, finally simple.
+        </div>
 
-            <!-- Subtitle -->
-            <p class="max-w-2xl text-base sm:text-lg text-white/75 font-normal leading-relaxed">
-              Eliminate SAP Ariba complexity. Run multi-vendor strategic tenders, two-envelope blind evaluations, and instant S/4HANA purchase order integration with zero staging delays.
-            </p>
+        <!-- Subtitle -->
+        <p class="hero-desc" style="max-width:720px; font-size:clamp(15px, 1.8vw, 18px); color:rgba(255,255,255,0.85); line-height:1.6; margin:0 auto 32px auto; font-family:var(--font-body);">
+          Eliminate SAP Ariba complexity. Run multi-vendor strategic tenders, two-envelope blind evaluations, and instant S/4HANA purchase order integration with zero staging delays.
+        </p>
 
-            <!-- Hero CTAs -->
-            <div class="flex flex-wrap items-center justify-center gap-3 mt-2">
-              <a href="#login-portal" class="px-7 py-3.5 text-base font-bold text-[#190922] bg-white hover:bg-[#F5F2EB] rounded-full transition-all shadow-[0_4px_20px_rgba(255,255,255,0.25)] flex items-center gap-2">
-                <span>Access Sourcing Cockpit</span>
-                <span>&rarr;</span>
-              </a>
-              <button type="button" onclick="toggleCredentialsDrawer()" class="px-6 py-3.5 text-base font-semibold text-white bg-white/10 hover:bg-white/15 border border-white/20 rounded-full transition-all backdrop-blur-md">
-                Corporate Role Directory (10 Personas)
-              </button>
-            </div>
+        <!-- Hero CTAs -->
+        <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:12px; margin-bottom:40px;">
+          <a href="#login-portal" style="padding:14px 32px; font-size:15px; font-weight:700; color:#190922; background:#FFFFFF; border-radius:9999px; text-decoration:none; box-shadow:0 4px 20px rgba(255,255,255,0.3); transition:all 0.2s ease;">
+            Access Sourcing Cockpit &rarr;
+          </a>
+          <button type="button" onclick="toggleCredentialsDrawer()" style="padding:14px 28px; font-size:15px; font-weight:600; color:#FFFFFF; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.22); border-radius:9999px; backdrop-filter:blur(10px); cursor:pointer;">
+            Corporate Role Directory (10 Personas)
+          </button>
+        </div>
 
-            <!-- Interactive AI Prompt Search Cockpit -->
-            <div class="w-full max-w-3xl mt-6 p-2 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
-              <div class="flex flex-col sm:flex-row items-center gap-2 bg-[#23152C]/90 rounded-xl p-2 border border-white/10">
-                <div class="flex items-center gap-3 px-3 w-full">
-                  <span class="text-[#FF8370] text-lg">&#10024;</span>
-                  <input type="text" readonly value="Launch strategic tender for 7,125,000 units of industrial refrigerant at Vereda Morrison plant..." class="w-full bg-transparent text-white/90 text-sm outline-none font-medium">
-                </div>
-                <a href="#login-portal" class="whitespace-nowrap px-5 py-2.5 bg-[#E0533C] hover:bg-[#ff6950] text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-all shadow-md">
-                  Run Sourcing OS &rarr;
-                </a>
-              </div>
+        <!-- AI Copilot Prompt Bar (Passionfroot Signature) -->
+        <div class="pf-copilot-bar">
+          <div class="pf-copilot-input-row">
+            <span style="font-size:18px; color:#FF8370;">&#10024;</span>
+            <input type="text" readonly value="Launch strategic tender for 7,125,000 units of industrial refrigerant at Vereda Morrison plant...">
+            <a href="#login-portal">
+              Run Sourcing OS &rarr;
+            </a>
+          </div>
 
-              <!-- Quick Action Chips -->
-              <div class="flex flex-wrap items-center justify-center gap-2 pt-3 pb-1 text-xs">
-                <span class="text-white/50 text-[11px] font-semibold">Instant Actions:</span>
-                <span class="px-2.5 py-1 rounded-md bg-white/5 text-white/80 border border-white/10">01 / Technical Envelope Assay</span>
-                <span class="px-2.5 py-1 rounded-md bg-white/5 text-white/80 border border-white/10">02 / Commercial Sealed Bids</span>
-                <span class="px-2.5 py-1 rounded-md bg-white/5 text-white/80 border border-white/10">03 / Commit S/4HANA PO</span>
-              </div>
-            </div>
-
-            <!-- Telemetry Stat Pills -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 w-full max-w-3xl mt-4">
-              <div class="bg-white/5 border border-white/10 rounded-xl p-3 text-center">
-                <div class="font-heading text-2xl font-bold text-white">100%</div>
-                <div class="text-[11px] font-semibold text-white/60 uppercase tracking-wider mt-0.5">Clean Core Compliant</div>
-              </div>
-              <div class="bg-white/5 border border-white/10 rounded-xl p-3 text-center">
-                <div class="font-heading text-2xl font-bold text-[#4ade80]">14.3%</div>
-                <div class="text-[11px] font-semibold text-white/60 uppercase tracking-wider mt-0.5">Verified Savings</div>
-              </div>
-              <div class="bg-white/5 border border-white/10 rounded-xl p-3 text-center">
-                <div class="font-heading text-2xl font-bold text-[#FF8370]">2-Envelope</div>
-                <div class="text-[11px] font-semibold text-white/60 uppercase tracking-wider mt-0.5">Sealed Protocol</div>
-              </div>
-              <div class="bg-white/5 border border-white/10 rounded-xl p-3 text-center">
-                <div class="font-heading text-2xl font-bold text-white">Zero Ariba</div>
-                <div class="text-[11px] font-semibold text-white/60 uppercase tracking-wider mt-0.5">Direct OData Sync</div>
-              </div>
-            </div>
-
+          <!-- Quick Action Chips -->
+          <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:8px; padding-top:12px; padding-bottom:4px;">
+            <span style="color:rgba(255,255,255,0.5); font-size:11px; font-weight:600;">Instant Workflows:</span>
+            <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.06); color:rgba(255,255,255,0.85); border:1px solid rgba(255,255,255,0.12); font-size:11.5px; font-weight:600;">01 / Technical Envelope Assay</span>
+            <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.06); color:rgba(255,255,255,0.85); border:1px solid rgba(255,255,255,0.12); font-size:11.5px; font-weight:600;">02 / Commercial Sealed Bids</span>
+            <span style="padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.06); color:rgba(255,255,255,0.85); border:1px solid rgba(255,255,255,0.12); font-size:11.5px; font-weight:600;">03 / Commit S/4HANA PO</span>
           </div>
         </div>
+
+        <!-- Telemetry Stat Pills -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:14px; width:100%; max-width:820px; margin-top:36px;">
+          <div class="hero-stat-card">
+            <div class="val">100%</div>
+            <div class="lbl">Clean Core Compliant</div>
+          </div>
+          <div class="hero-stat-card">
+            <div class="val green">14.3%</div>
+            <div class="lbl">Verified Savings</div>
+          </div>
+          <div class="hero-stat-card">
+            <div class="val coral">2-Envelope</div>
+            <div class="lbl">Sealed Protocol</div>
+          </div>
+          <div class="hero-stat-card">
+            <div class="val">Zero Ariba</div>
+            <div class="lbl">Direct OData Sync</div>
+          </div>
+        </div>
+
       </div>
     </section>
+
+    <!-- Enterprise Trust Logo Strip -->
+    <div class="pf-trust-strip">
+      <div class="trust-caption">Trusted by global enterprise manufacturing &amp; energy leaders</div>
+      <div class="logo-grid">
+        <span class="trust-logo-item">Gran Tierra Energy</span>
+        <span class="trust-logo-item">ALPEK POLYESTER</span>
+        <span class="trust-logo-item">INDORAMA VENTURES</span>
+        <span class="trust-logo-item">BASF CHEMICALS</span>
+        <span class="trust-logo-item">SONDA DE COLOMBIA</span>
+        <span class="trust-logo-item">EMERSON PROCESS</span>
+      </div>
+    </div>
 
     <!-- SECTION: LOGO MARQUEE -->
     <div class="w-full py-12 border-b border-[#EDEAE4] bg-[#FAF8F5]">
