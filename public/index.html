@@ -2,6 +2,28 @@
 <html lang="en">
 
 <head>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-surface': '#FAF9F5',
+            'foundation': '#FAF9F5',
+            'ink-900': '#191716',
+            'brand-coral': '#E0533C',
+            'brand-dark': '#190922'
+          },
+          fontFamily: {
+            heading: ['"new-kansas"', 'Fraunces', 'Georgia', 'serif'],
+            serif: ['"new-kansas"', 'Fraunces', 'Georgia', 'serif'],
+            body: ['"Nunito Sans"', '-apple-system', 'sans-serif'],
+            sans: ['"Nunito Sans"', '-apple-system', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Passionfroot - The Agentic Sourcing OS for SAP S/4HANA</title>
@@ -288,22 +310,7 @@
     </div>
 
     <!-- SECTION: LOGO MARQUEE -->
-    <div class="w-full py-12 border-b border-[#EDEAE4] bg-[#FAF8F5]">
-      <div class="max-w-6xl mx-auto px-6 text-center">
-        <p class="text-xs font-bold uppercase tracking-widest text-[#8C867F] mb-6">
-          Trusted by global enterprise manufacturing &amp; energy leaders
-        </p>
-        <div class="flex flex-wrap items-center justify-center gap-8 md:gap-14 opacity-75 grayscale hover:grayscale-0 transition-all">
-          <span class="font-heading font-bold text-lg text-[#191716] tracking-tight">Gran Tierra Energy</span>
-          <span class="font-heading font-bold text-lg text-[#191716] tracking-tight">ALPEK POLYESTER</span>
-          <span class="font-heading font-bold text-lg text-[#191716] tracking-tight">INDORAMA VENTURES</span>
-          <span class="font-heading font-bold text-lg text-[#191716] tracking-tight">BASF CHEMICALS</span>
-          <span class="font-heading font-bold text-lg text-[#191716] tracking-tight">SONDA DE COLOMBIA</span>
-          <span class="font-heading font-bold text-lg text-[#191716] tracking-tight">EMERSON PROCESS</span>
-        </div>
-      </div>
-    </div>
-
+    
     <!-- SECTION 3: BENTO GRID 1 (MEET SOURCING OS) -->
     <section id="section-agent" class="w-full py-20 px-6 max-w-7xl mx-auto">
       <div class="text-center max-w-3xl mx-auto mb-16">

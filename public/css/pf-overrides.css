@@ -1,5 +1,5 @@
 /* =============================================================================
-   PASSIONFROOT HIGH-PRECISION THEME & CONTRAST OVERRIDES
+   PASSIONFROOT DESIGN SYSTEM - PIXEL-PERFECT BENTO & COMPONENT STYLING
    ============================================================================= */
 
 @import url("https://use.typekit.net/iur2yej.css");
@@ -12,10 +12,12 @@
   --font-sans: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
   --brand-surface: #FAF9F5;
   --bg-foundation: #FAF9F5;
+  --brand-dark: #190922;
+  --brand-coral: #E0533C;
 }
 
 /* =============================================================================
-   1. FLOATING PILL NAVBAR (PASSIONFROOT SIGNATURE)
+   1. FLOATING PILL NAVBAR
    ============================================================================= */
 .vt-site-nav {
   position: fixed !important;
@@ -99,7 +101,7 @@
 }
 
 /* =============================================================================
-   2. HERO SECTION CONTRAST & TYPOGRAPHY
+   2. HERO SECTION
    ============================================================================= */
 #hero-section {
   background-color: #190922 !important;
@@ -126,7 +128,6 @@
   color: rgba(255, 255, 255, 0.82) !important;
 }
 
-/* AI Copilot Prompt Bar */
 .pf-copilot-bar {
   background: rgba(35, 21, 44, 0.85) !important;
   border: 1px solid rgba(255, 255, 255, 0.18) !important;
@@ -182,7 +183,6 @@
   box-shadow: 0 4px 15px rgba(224, 83, 60, 0.4) !important;
 }
 
-/* Stat Telemetry Cards in Hero */
 .hero-stat-card {
   background: rgba(255, 255, 255, 0.06) !important;
   border: 1px solid rgba(255, 255, 255, 0.12) !important;
@@ -256,4 +256,253 @@
 
 .pf-trust-strip .trust-logo-item:hover {
   opacity: 1 !important;
+}
+
+/* =============================================================================
+   4. BENTO SECTIONS (SECTIONS 01, 02, 03, STORIES)
+   ============================================================================= */
+#section-agent,
+#section-tenders,
+#section-playbook {
+  width: 100% !important;
+  max-width: 1240px !important;
+  margin: 0 auto !important;
+  padding: 80px 24px !important;
+}
+
+#section-agent .grid,
+#section-playbook .grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
+  gap: 24px !important;
+}
+
+#section-tenders .grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)) !important;
+  gap: 24px !important;
+}
+
+/* Luxury Bento Card Styling */
+#section-agent .bg-white,
+#section-tenders .bg-white,
+#section-playbook .bg-white {
+  background: #FFFFFF !important;
+  border: 1px solid #E8E5DF !important;
+  border-radius: 24px !important;
+  padding: 36px 30px !important;
+  box-shadow: 0 4px 20px rgba(25, 23, 22, 0.04) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  min-height: 340px !important;
+}
+
+#section-agent .bg-white:hover,
+#section-tenders .bg-white:hover,
+#section-playbook .bg-white:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 16px 40px rgba(25, 23, 22, 0.08) !important;
+  border-color: #DDD7CE !important;
+}
+
+/* Bento Card Typography */
+#section-agent h3,
+#section-tenders h3,
+#section-playbook h3 {
+  font-family: var(--font-heading) !important;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+  color: #191716 !important;
+  margin: 12px 0 10px 0 !important;
+  letter-spacing: -0.01em !important;
+}
+
+#section-agent p,
+#section-tenders p,
+#section-playbook p {
+  font-size: 13.5px !important;
+  color: #4B4643 !important;
+  line-height: 1.6 !important;
+}
+
+/* Bento Card Inner Previews */
+#section-agent .bg-\[\#FAF8F5\],
+#section-playbook .bg-\[\#FAF8F5\],
+#section-tenders .bg-\[\#FAF8F5\] {
+  background: #FAF8F5 !important;
+  border: 1px solid #EDEAE4 !important;
+  border-radius: 14px !important;
+  padding: 14px 18px !important;
+  margin-top: 24px !important;
+}
+
+/* Clean Core Dark Card in Section 2 */
+#section-tenders .bg-\[\#190922\] {
+  background: #190922 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 24px !important;
+  padding: 36px 30px !important;
+  box-shadow: 0 16px 40px rgba(25, 9, 34, 0.3) !important;
+  color: #FFFFFF !important;
+}
+
+#section-tenders .bg-\[\#190922\] h3 {
+  color: #FFFFFF !important;
+  font-family: var(--font-heading) !important;
+  font-size: 22px !important;
+  margin: 12px 0 10px 0 !important;
+}
+
+#section-tenders .bg-\[\#190922\] p {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* =============================================================================
+   5. CUSTOMER STORIES SECTION
+   ============================================================================= */
+section.bg-\[\#FAF8F5\] {
+  background: #FAF8F5 !important;
+  border-top: 1px solid #EDEAE4 !important;
+  border-bottom: 1px solid #EDEAE4 !important;
+  padding: 80px 24px !important;
+}
+
+section.bg-\[\#FAF8F5\] .grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
+  gap: 24px !important;
+  max-width: 1240px !important;
+  margin: 0 auto !important;
+}
+
+section.bg-\[\#FAF8F5\] .bg-white {
+  background: #FFFFFF !important;
+  border: 1px solid #E8E5DF !important;
+  border-radius: 22px !important;
+  padding: 32px 28px !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03) !important;
+}
+
+/* =============================================================================
+   6. FAQ ACCORDION
+   ============================================================================= */
+#section-faq {
+  max-width: 860px !important;
+  margin: 0 auto !important;
+  padding: 80px 20px !important;
+}
+
+#section-faq .space-y-4 {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+}
+
+#section-faq .bg-white {
+  background: #FFFFFF !important;
+  border: 1px solid #E8E5DF !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02) !important;
+}
+
+#section-faq button {
+  width: 100% !important;
+  padding: 22px 28px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  background: none !important;
+  border: none !important;
+  font-family: var(--font-heading) !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #191716 !important;
+  cursor: pointer !important;
+  text-align: left !important;
+}
+
+#section-faq button:hover {
+  background: #FDFCF9 !important;
+}
+
+#section-faq button + div {
+  padding: 0 28px 24px 28px !important;
+  font-size: 14px !important;
+  color: #4B4643 !important;
+  line-height: 1.65 !important;
+}
+
+/* =============================================================================
+   7. CORPORATE LOGIN PORTAL
+   ============================================================================= */
+#login-portal {
+  max-width: 860px !important;
+  margin: 0 auto !important;
+  padding: 60px 20px 100px 20px !important;
+}
+
+#login-portal > .bg-white {
+  background: #FFFFFF !important;
+  border: 1px solid #E8E5DF !important;
+  border-radius: 32px !important;
+  padding: 48px !important;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.07) !important;
+}
+
+#login-portal .flex-wrap button {
+  padding: 8px 16px !important;
+  background: #FAF8F5 !important;
+  border: 1px solid #EDEAE4 !important;
+  border-radius: 9999px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #191716 !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+}
+
+#login-portal .flex-wrap button:hover {
+  background: #190922 !important;
+  color: #FFFFFF !important;
+  border-color: #190922 !important;
+  transform: translateY(-1px) !important;
+}
+
+#formCorporateLogin input {
+  width: 100% !important;
+  padding: 13px 18px !important;
+  background: #FFFFFF !important;
+  border: 1px solid #D6D1C7 !important;
+  border-radius: 14px !important;
+  font-size: 14px !important;
+  color: #191716 !important;
+  outline: none !important;
+  transition: border-color 0.2s, box-shadow 0.2s !important;
+}
+
+#formCorporateLogin input:focus {
+  border-color: #190922 !important;
+  box-shadow: 0 0 0 3px rgba(25, 9, 34, 0.08) !important;
+}
+
+#formCorporateLogin button[type="submit"] {
+  width: 100% !important;
+  padding: 15px !important;
+  background: #190922 !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  border-radius: 9999px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 4px 14px rgba(25, 9, 34, 0.25) !important;
+}
+
+#formCorporateLogin button[type="submit"]:hover {
+  background: #361547 !important;
+  transform: translateY(-1px) !important;
 }
