@@ -506,3 +506,97 @@ section.bg-\[\#FAF8F5\] .bg-white {
   background: #361547 !important;
   transform: translateY(-1px) !important;
 }
+
+/* =============================================================================
+   REMOVE STEPPER BAR FROM ALL LOGINS
+   ============================================================================= */
+.pf-lifecycle-stepper-strip,
+#pfGlobalStepper,
+.stepper-track {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* =============================================================================
+   PASSIONFROOT BLOG & CREATORS WORKSPACE CARD THEMING
+   ============================================================================= */
+.workspace-view {
+  max-width: 1320px !important;
+  margin: 0 auto !important;
+  padding: 24px 16px 80px 16px !important;
+}
+
+.cockpit-hero-banner {
+  background: #FFFFFF !important;
+  border: 1px solid #E8E5DF !important;
+  border-radius: 24px !important;
+  padding: 32px 36px !important;
+  box-shadow: 0 4px 24px rgba(25, 23, 22, 0.04) !important;
+  margin-bottom: 24px !important;
+}
+
+.cockpit-hero-banner.is-obsidian {
+  background: #190922 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 16px 40px rgba(25, 9, 34, 0.35) !important;
+  color: #FFFFFF !important;
+}
+
+.cockpit-hero-banner.is-obsidian h2,
+.cockpit-hero-banner.is-obsidian h3 {
+  color: #FFFFFF !important;
+  font-family: var(--font-heading) !important;
+}
+
+.cockpit-hero-banner.is-obsidian .cockpit-sub-heading {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.cockpit-hero-banner:not(.is-obsidian) h2 {
+  font-family: var(--font-heading) !important;
+  font-size: 24px !important;
+  color: #191716 !important;
+}
+
+/* Luxury Data Tables */
+.table-container,
+.sap-table-responsive {
+  background: #FFFFFF !important;
+  border: 1px solid #E8E5DF !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 20px rgba(25, 23, 22, 0.03) !important;
+  margin-top: 20px !important;
+}
+
+table.sap-data-table {
+  width: 100% !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+}
+
+table.sap-data-table th {
+  background: #FAF8F5 !important;
+  color: #8C867F !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  padding: 16px 20px !important;
+  border-bottom: 1px solid #EDEAE4 !important;
+}
+
+table.sap-data-table td {
+  padding: 18px 20px !important;
+  font-size: 13.5px !important;
+  color: #191716 !important;
+  border-bottom: 1px solid #F2EFE9 !important;
+}
+
+table.sap-data-table tr:hover td {
+  background: #FDFCF9 !important;
+}

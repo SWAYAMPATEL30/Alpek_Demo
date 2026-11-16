@@ -658,7 +658,7 @@
 
       <!-- Right User Menu & Traceability -->
       <div class="topbar-actions-right">
-        <button type="button" class="pf-btn-pill pf-btn-outline" style="padding:6px 14px; font-size:12px;" onclick="openTraceabilityModal()" title="View PR to PO Lineage">
+        <button type="button" class="pf-btn-pill pf-btn-outline" style="padding:6px 14px; font-size:12px;" id="btnTopTraceability" onclick="openTraceabilityModal()" title="View PR to PO Lineage">
           Lineage Timeline
         </button>
 
@@ -691,50 +691,7 @@
     </header>
 
     <!-- Passionfroot 11-Stage Procure-to-Pay Lifecycle Stepper Strip -->
-    <div class="pf-lifecycle-stepper-strip" id="pfGlobalStepper">
-      <div class="stepper-track">
-        <button type="button" class="step-pill" onclick="navigateToStage(1)" data-stage="1" title="Stage 1: Purchase Requisition">
-          <span class="step-num-badge">01</span> Requester PR
-        </button>
-        <span class="step-arrow">&rsaquo;</span>
-        <button type="button" class="step-pill" onclick="navigateToStage(2)" data-stage="2" title="Stage 2: Department Manager Budget Approval">
-          <span class="step-num-badge">02</span> Manager Review
-        </button>
-        <span class="step-arrow">&rsaquo;</span>
-        <button type="button" class="step-pill active" onclick="navigateToStage(3)" data-stage="3" title="Stage 3: Buyer Sourcing RFQ">
-          <span class="step-num-badge">03</span> Buyer RFQ
-        </button>
-        <span class="step-arrow">&rsaquo;</span>
-        <button type="button" class="step-pill" onclick="navigateToStage(4)" data-stage="4" title="Stage 4: Tender Specifications Governance">
-          <span class="step-num-badge">04</span> RFQ Governance
-        </button>
-        <span class="step-arrow">&rsaquo;</span>
-        <button type="button" class="step-pill" onclick="navigateToStage(5)" data-stage="5" title="Stage 5: Vendor Sealed Bids">
-          <span class="step-num-badge">05</span> Vendor Bids
-        </button>
-        <span class="step-arrow">&rsaquo;</span>
-        <button type="button" class="step-pill" onclick="navigateToStage(6)" data-stage="6" title="Stage 6: Two-Envelope Evaluation">
-          <span class="step-num-badge">06</span> Two-Envelope
-        </button>
-        <span class="step-arrow">&rsaquo;</span>
-        <button type="button" class="step-pill" onclick="navigateToStage(7)" data-stage="7" title="Stage 7: Committee Award Decision">
-          <span class="step-num-badge">07</span> Committee Award
-        </button>
-        <span class="step-arrow">&rsaquo;</span>
-        <button type="button" class="step-pill" onclick="navigateToStage(8)" data-stage="8" title="Stage 8: S/4HANA PO Generation">
-          <span class="step-num-badge">08</span> S/4HANA PO
-        </button>
-        <span class="step-arrow">&rsaquo;</span>
-        <button type="button" class="step-pill" onclick="navigateToStage(10)" data-stage="10" title="Stage 10: Warehouse Inward Goods Receipt">
-          <span class="step-num-badge">09</span> Inward GRN
-        </button>
-        <span class="step-arrow">&rsaquo;</span>
-        <button type="button" class="step-pill" onclick="navigateToStage(11)" data-stage="11" title="Stage 11: Final Procure-to-Pay Lifecycle Closure">
-          <span class="step-num-badge">10</span> Order Closure
-        </button>
-      </div>
-    </div>
-
+    
     <!-- Executive KPI Bento Command Strip -->
     <div class="executive-kpi-strip" id="executiveKpiStrip">
       <div class="kpi-stat-card" onclick="navigateIfAuthorized('requester')" title="Inbound Demand Metrics">

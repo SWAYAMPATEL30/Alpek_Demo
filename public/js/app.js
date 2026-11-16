@@ -416,53 +416,54 @@ function navigateToStage(stageNum) {
 
 function updateRoleNavigation() {
   const navTabsContainer = document.getElementById('appNavPills') || document.getElementById('mainSubnavTabs');
+  const btnTrace = document.getElementById('btnTopTraceability');
+  const strip = document.getElementById('executiveKpiStrip');
+
+  if (!currentUser) return;
+  const role = currentUser.role;
+
+  // Strict role-based visibility for Lineage Timeline & Executive KPI Strip
+  if (btnTrace) {
+    btnTrace.style.display = ['buyer', 'admin'].includes(role) ? 'inline-block' : 'none';
+  }
+  if (strip) {
+    strip.style.display = ['buyer', 'admin'].includes(role) ? 'grid' : 'none';
+  }
+
   if (!navTabsContainer) return;
 
-  const role = currentUser.role;
   let html = '';
 
   if (role === 'requester') {
     html = `
       <button class="nav-pill-btn active" onclick="switchMainTab('requester')">My Requisitions (PR)</button>
       <button class="nav-pill-btn" onclick="openAddPrModal()">+ New Plant Demand</button>
-      <button class="nav-pill-btn" onclick="switchMainTab('excel_erp')">ERP Requisitions</button>
     `;
     loadRequesterPrs();
   } else if (role === 'manager') {
     html = `
       <button class="nav-pill-btn active" onclick="switchMainTab('manager')">Approval Inbox</button>
-      <button class="nav-pill-btn" onclick="switchMainTab('excel_erp')">ERP Requisitions</button>
     `;
     loadManagerQueue();
-  } else if (role === 'rfq_approver') {
-    html = `
-      <button class="nav-pill-btn active" onclick="switchMainTab('rfq_approver')">RFQ Governance</button>
-      <button class="nav-pill-btn" onclick="switchMainTab('sourcing')">Sourcing Cockpit</button>
-    `;
-    loadRfqApproverQueue();
   } else if (role === 'tech_evaluator') {
     html = `
-      <button class="nav-pill-btn active" onclick="switchMainTab('tech_eval')">Technical Envelope</button>
-      <button class="nav-pill-btn" onclick="switchMainTab('sourcing')">Sourcing Cockpit</button>
+      <button class="nav-pill-btn active" onclick="switchMainTab('tech_eval')">Technical Envelope Evaluation</button>
     `;
     loadTechEvalQueue();
   } else if (role === 'comm_evaluator') {
     html = `
-      <button class="nav-pill-btn active" onclick="switchMainTab('comm_eval')">Commercial Envelope</button>
-      <button class="nav-pill-btn" onclick="switchMainTab('sourcing')">Sourcing Cockpit</button>
+      <button class="nav-pill-btn active" onclick="switchMainTab('comm_eval')">Commercial Envelope Pricing</button>
     `;
     loadCommEvalQueue();
   } else if (role === 'award_approver') {
     html = `
       <button class="nav-pill-btn active" onclick="switchMainTab('approver')">Award Sign-Off &amp; SAP Push</button>
-      <button class="nav-pill-btn" onclick="switchMainTab('sourcing')">Sourcing Cockpit</button>
-      <button class="nav-pill-btn" onclick="switchMainTab('excel_erp')">Committed POs</button>
+      <button class="nav-pill-btn" onclick="switchMainTab('excel_erp')">Committed Orders</button>
     `;
   } else if (role === 'receiving') {
     html = `
       <button class="nav-pill-btn active" onclick="switchMainTab('receiving')">Goods Receipt (GRN)</button>
-      <button class="nav-pill-btn" onclick="openRecordGrnModal()">+ Record Receipt</button>
-      <button class="nav-pill-btn" onclick="switchMainTab('excel_erp')">Outbound Orders</button>
+      <button class="nav-pill-btn" onclick="openRecordGrnModal()">+ Record Inward Shipment</button>
     `;
     loadReceivingQueue();
   } else if (role === 'supplier') {
@@ -471,7 +472,7 @@ function updateRoleNavigation() {
     `;
     loadSupplierPortalData();
   } else {
-    // Default Buyer (Valeria Martinez)
+    // Default Buyer (Valeria Martinez) / Admin
     html = `
       <button class="nav-pill-btn active" onclick="switchMainTab('sourcing')">Sourcing Events</button>
       <button class="nav-pill-btn" onclick="switchMainTab('order_closure')">Purchase Orders</button>
@@ -504,14 +505,14 @@ function closeRoleGuideModal() {
 // ============================================================================
 
 const ROLE_TAB_PERMISSIONS = {
-  requester: ['requester', 'excel_erp'],
-  manager: ['manager', 'excel_erp'],
+  requester: ['requester'],
+  manager: ['manager'],
   buyer: ['sourcing', 'order_closure', 'excel_erp', 'sap_erp', 'integration'],
   supplier: ['supplier'],
-  tech_evaluator: ['tech_eval', 'sourcing'],
-  comm_evaluator: ['comm_eval', 'sourcing'],
-  award_approver: ['approver', 'sourcing', 'excel_erp', 'integration'],
-  receiving: ['receiving', 'excel_erp'],
+  tech_evaluator: ['tech_eval'],
+  comm_evaluator: ['comm_eval'],
+  award_approver: ['approver', 'excel_erp'],
+  receiving: ['receiving'],
   admin: ['requester', 'manager', 'sourcing', 'supplier', 'tech_eval', 'comm_eval', 'approver', 'receiving', 'order_closure', 'excel_erp', 'sap_erp', 'integration']
 };
 
@@ -3577,14 +3578,12 @@ async function checkSupplierAwardNotification() {
 // ============================================================================
 
 async function updateLiveKpiBar() {
-  // Role-based display isolation: only executive procurement roles see overall executive KPI strip
   const strip = document.getElementById('executiveKpiStrip');
-  const isExecutiveRole = currentUser && ['buyer', 'manager', 'admin', 'award_approver'].includes(currentUser.role);
+  const isBuyerRole = currentUser && ['buyer', 'admin'].includes(currentUser.role) && (AppState.activeMainTab === 'sourcing' || AppState.activeMainTab === 'dashboard');
   if (strip) {
-    strip.style.display = isExecutiveRole ? 'grid' : 'none';
+    strip.style.display = isBuyerRole ? 'grid' : 'none';
   }
-
-  if (!isExecutiveRole) return;
+  if (!isBuyerRole) return;
 
   try {
     const res = await fetch('/api/stats');
