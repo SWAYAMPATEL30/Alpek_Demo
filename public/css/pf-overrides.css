@@ -1786,3 +1786,36 @@ textarea:focus {
 .radar-metric-bar {
   transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+/* =============================================================================
+   7. SAP FIORI MORNING HORIZON DIRECT OVERRIDE SCOPE (#page-app)
+   Enforces exact 1:1 SAP Fiori Horizon styling as shown in Stitch image.
+   ============================================================================= */
+#page-app {
+  background-color: #F5F6F7 !important;
+  color: #1D2D3E !important;
+  font-family: '72', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+}
+
+#page-app h1,
+#page-app h2,
+#page-app h3,
+#page-app h4,
+#page-app h5,
+#page-app h6,
+#page-app button,
+#page-app input,
+#page-app select,
+#page-app span,
+#page-app p,
+#page-app div {
+  font-family: '72', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+#page-app h1,
+#page-app h2,
+#page-app h3 {
+  font-weight: 700 !important;
+  letter-spacing: -0.01em;
+  color: #1D2D3E !important;
+}
