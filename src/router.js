@@ -1396,10 +1396,19 @@ export async function handleApiRequest(req, res, url) {
   // ---------------------------------------------------------------------------
   // 12. FULL LINEAGE & TRACEABILITY
   // ---------------------------------------------------------------------------
-  if (path.startsWith('/api/traceability/') && method === 'GET') {
+  if (path.startsWith('/api/traceability') && method === 'GET') {
     const parts = path.split('/');
-    const entityType = parts[3]; // 'pr', 'rfq', 'po'
-    const id = parts[4];
+    let entityType = parts[3]; // 'pr', 'rfq', 'po'
+    let id = parts[4];
+
+    if (!entityType || entityType === 'undefined') {
+      entityType = 'rfq';
+      id = db.rfqs[0] ? db.rfqs[0].id : 'Doc2432956265';
+    } else if (!id || id === 'undefined') {
+      if (entityType === 'pr') id = db.purchaseRequisitions[0]?.id || 'PR-3000010443';
+      else if (entityType === 'po') id = db.purchaseOrders[0]?.id || '450009180';
+      else id = db.rfqs[0]?.id || 'Doc2432956265';
+    }
 
     let pr = null;
     let rfq = null;

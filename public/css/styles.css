@@ -1394,8 +1394,14 @@ body.sap-fiori-shell {
 .sap-toast.success { border-left-color: var(--sap-green); }
 .sap-toast.warning { border-left-color: var(--sap-orange); }
 
+.sap-modal-backdrop.hidden,
+.sap-modal-backdrop[style*="display: none"],
+.sap-modal-backdrop[style*="display:none"],
 .hidden {
   display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 .font-green { color: var(--sap-green); }

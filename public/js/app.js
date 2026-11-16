@@ -368,14 +368,27 @@ function routeUserToDefaultView() {
 function updateTrackerStage(activeStage) {
   for (let i = 1; i <= 11; i++) {
     const el = document.getElementById(`pstep${i}`);
-    if (!el) continue;
-    el.classList.remove('active', 'done');
-    if (i < activeStage) {
-      el.classList.add('done');
-    } else if (i === activeStage) {
-      el.classList.add('active');
+    if (el) {
+      el.classList.remove('active', 'done');
+      if (i < activeStage) {
+        el.classList.add('done');
+      } else if (i === activeStage) {
+        el.classList.add('active');
+      }
     }
   }
+
+  // Update Passionfroot global stepper strip
+  const stepperPills = document.querySelectorAll('#pfGlobalStepper .step-pill');
+  stepperPills.forEach(pill => {
+    const stage = parseInt(pill.getAttribute('data-stage'), 10);
+    pill.classList.remove('active', 'done');
+    if (stage < activeStage) {
+      pill.classList.add('done');
+    } else if (stage === activeStage) {
+      pill.classList.add('active');
+    }
+  });
 }
 
 function navigateToStage(stageNum) {
@@ -2972,12 +2985,15 @@ async function openTraceabilityModal(type, id) {
   const mTrace = document.getElementById('modalTraceability');
   if (mTrace) {
     mTrace.classList.remove('hidden');
-    mTrace.style.display = 'flex';
+    mTrace.style.setProperty('display', 'flex', 'important');
   }
-  if (container) container.innerHTML = '<p style="text-align:center; padding:20px;">Tracing end-to-end lineage across all 11 stages...</p>';
+  if (container) container.innerHTML = '<p style="text-align:center; padding:20px; color:#191716;">Tracing end-to-end lineage across all 11 stages...</p>';
+
+  const targetType = (type && type !== 'undefined') ? type : 'rfq';
+  const targetId = (id && id !== 'undefined') ? id : (AppState.currentRfqId || 'Doc2432956265');
 
   try {
-    const res = await fetch(`/api/traceability/${type}/${id}`);
+    const res = await fetch(`/api/traceability/${targetType}/${targetId}`);
     const data = await res.json();
     renderTraceability(data);
   } catch (err) {
@@ -2989,9 +3005,11 @@ function closeTraceabilityModal() {
   const modal = document.getElementById('modalTraceability');
   if (modal) {
     modal.classList.add('hidden');
-    modal.style.display = 'none';
+    modal.style.setProperty('display', 'none', 'important');
   }
 }
+window.openTraceabilityModal = openTraceabilityModal;
+window.closeTraceabilityModal = closeTraceabilityModal;
 
 function renderTraceability(data) {
   const container = document.getElementById('traceabilityTimelineContainer');
@@ -3016,7 +3034,7 @@ function renderTraceability(data) {
         </div>
         <p style="font-size:12px; margin:0; color:#334155;">
           <strong>Title:</strong> ${pr ? escapeHtml(pr.title) : 'SUMINISTROS REFRI'}<br>
-          <strong>Plant:</strong> ${pr ? escapeHtml(pr.plant) : 'OP ANG (GTE Col)'} &bull; <strong>Budget:</strong> $${pr ? pr.estimatedBudget.toLocaleString() : '24,937,500'} COP
+          <strong>Plant:</strong> ${pr ? escapeHtml(pr.plant) : 'OP ANG (GTE Col)'} &bull; <strong>Budget:</strong> $${(pr && pr.estimatedBudget) ? Number(pr.estimatedBudget).toLocaleString() : '24,937,500'} COP
         </p>
       </div>
     </div>
@@ -3058,7 +3076,7 @@ function renderTraceability(data) {
           <span class="trace-time">Dr. Victor Chen & Sofia Morales</span>
         </div>
         <p style="font-size:12px; margin:0; color:#334155;">
-          ${quotes.length > 0 ? quotes.map(q => `&bull; <strong>${escapeHtml(q.supplierName)}</strong>: $${q.totalBidAmount.toLocaleString()} COP (Score: ${q.score}/100)`).join('<br>') : '&bull; SONDA DE COLOMBIA S A: $21.375.000 COP ($3,00 COP/unit)'}
+          ${quotes.length > 0 ? quotes.map(q => `&bull; <strong>${escapeHtml(q.supplierName || 'Vendor')}</strong>: $${(q.totalBidAmount != null) ? Number(q.totalBidAmount).toLocaleString() : '21,375,000'} COP (Score: ${q.score || 95}/100)`).join('<br>') : '&bull; SONDA DE COLOMBIA S A: $21.375.000 COP ($3,00 COP/unit)'}
         </p>
       </div>
     </div>
@@ -3712,9 +3730,9 @@ async function submitPrRevision(e) {
 // Global Modal Dismissal Handler (Backdrop Click & ESC Key)
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
-    document.querySelectorAll('.sap-modal-backdrop:not(.hidden)').forEach(modal => {
+    document.querySelectorAll('.sap-modal-backdrop').forEach(modal => {
       modal.classList.add('hidden');
-      modal.style.display = 'none';
+      modal.style.setProperty('display', 'none', 'important');
     });
   }
 });
@@ -3722,6 +3740,6 @@ document.addEventListener('keydown', (e) => {
 document.addEventListener('click', (e) => {
   if (e.target.classList && e.target.classList.contains('sap-modal-backdrop')) {
     e.target.classList.add('hidden');
-    e.target.style.display = 'none';
+    e.target.style.setProperty('display', 'none', 'important');
   }
 });

@@ -1,7 +1,7 @@
 /* =============================================================================
    ALPEK DEMO PROCUREMENT PLATFORM - PASSIONFROOT DESIGN SYSTEM
-   Pixel-perfect design clone based on https://www.passionfroot.me/
-   Warm Alabaster Canvas • Editorial Serif Headings • Luxury Ink & Coral Accents • Floating Pill Components
+   Pixel-accurate design language from https://www.passionfroot.me/ (Home, Careers, Creators)
+   Warm Alabaster Canvas • Stone & Obsidian Gradients • Editorial Serif Headings • Floating Pill Shell
    ============================================================================= */
 
 @import url("https://use.typekit.net/iur2yej.css");
@@ -15,18 +15,21 @@
   --font-body: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-accent: "Caveat", cursive;
 
-  /* Passionfroot Warm Minimalist Palette */
-  --bg-page: #FAF8F5;          /* Warm alabaster canvas */
+  /* Passionfroot Canvas & Authentic Gradients from passionfroot.me/creators & careers */
+  --bg-page: #FAF8F5;          /* Warm alabaster cream */
+  --bg-stone: linear-gradient(180deg, #FBFBF8 0%, #F7F5EE 100%);
+  --bg-stone-light: linear-gradient(180deg, #FAF9F5 0%, #F6F5EE 100%);
+  --bg-obsidian: linear-gradient(180deg, #2C2826 0%, #191716 100%);
   --bg-surface: #FFFFFF;       /* Clean bento card white */
   --bg-subtle: #F5F2EB;        /* Warm sand pill background */
-  --bg-foundation: #EDEAE4;    /* Structural divider warm sand */
+  --bg-foundation: #EDEAE4;    /* Hairline border sand */
 
   --ink-900: #191716;          /* Deep luxury charcoal text / primary dark */
   --ink-800: #2C2826;          /* Elevated charcoal */
   --ink-700: #4B4643;          /* Secondary prose */
   --ink-500: #8C867F;          /* Subdued label metadata */
   --ink-400: #B5AFA6;          /* Placeholder tone */
-  --ink-200: #EDEAE4;          /* Warm hairline border */
+  --ink-200: #EDEAE4;          /* Hairline divider */
 
   /* Passionfroot Signature Coral & Orange */
   --brand-coral: #E0533C;
@@ -58,16 +61,17 @@
   --border-medium: #DDD7CE;
   --border-strong: #191716;
 
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 26px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 28px;
   --radius-full: 9999px;
 
-  /* Elevations */
+  /* Multi-Layer Soft Elevations */
   --shadow-subtle: 0 1px 3px rgba(25, 23, 22, 0.04);
   --shadow-card: 0 4px 20px -4px rgba(25, 23, 22, 0.05), 0 2px 6px -1px rgba(25, 23, 22, 0.02);
   --shadow-float: 0 16px 48px -8px rgba(25, 23, 22, 0.12), 0 4px 14px -2px rgba(25, 23, 22, 0.04);
+  --shadow-obsidian: 0 20px 50px -10px rgba(25, 23, 22, 0.35);
   --shadow-dialog: 0 24px 64px -12px rgba(25, 23, 22, 0.25);
 }
 
@@ -102,65 +106,72 @@ a {
 }
 
 /* =============================================================================
-   1. PASSIONFROOT LANDING PAGE STYLES
+   1. PASSIONFROOT FLOATING PILL NAVBAR (Used in Landing & Authenticated Shell)
    ============================================================================= */
 
-.pf-landing-container {
-  min-height: 100vh;
-  background-color: var(--bg-page);
-  color: var(--ink-900);
-  display: flex;
-  flex-direction: column;
+.pf-navbar-wrapper, .app-topbar {
+  position: sticky !important;
+  top: 14px !important;
+  z-index: 500 !important;
+  padding: 0 24px !important;
+  width: calc(100% - 32px) !important;
+  max-width: 1340px !important;
+  margin: 14px auto 24px auto !important;
 }
 
-/* Floating Navbar */
-.pf-navbar-wrapper {
-  position: sticky;
-  top: 16px;
-  z-index: 100;
-  padding: 0 24px;
-  width: 100%;
-  max-width: 1240px;
-  margin: 0 auto;
+.pf-navbar, .app-topbar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  background: rgba(255, 255, 255, 0.90) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: var(--radius-full) !important;
+  padding: 8px 22px !important;
+  box-shadow: 0 4px 24px -2px rgba(25, 23, 22, 0.06), 0 1px 2px rgba(25, 23, 22, 0.03) !important;
 }
 
-.pf-navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-full);
-  padding: 8px 20px;
-  box-shadow: 0 4px 20px -2px rgba(25, 23, 22, 0.06), 0 1px 2px rgba(25, 23, 22, 0.03);
+.pf-brand, .topbar-brand {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
 }
 
-.pf-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--ink-900);
-  font-family: var(--font-serif);
+.pf-brand-badge, .topbar-logo-badge {
+  width: 36px !important;
+  height: 36px !important;
+  background: var(--brand-dark) !important;
+  color: #FFFFFF !important;
+  border-radius: var(--radius-full) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: var(--font-sans) !important;
+  font-size: 13.5px !important;
+  font-weight: 800 !important;
+  box-shadow: 0 2px 8px rgba(25, 23, 22, 0.25) !important;
 }
 
-.pf-brand-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  background: var(--brand-dark);
-  color: #FFFFFF;
-  border-radius: var(--radius-full);
-  font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 800;
-  box-shadow: 0 2px 6px rgba(25, 23, 22, 0.2);
+.pf-brand-title, .topbar-brand-title {
+  font-family: var(--font-serif) !important;
+  font-size: 19px !important;
+  font-weight: 600 !important;
+  color: var(--ink-900) !important;
+  letter-spacing: -0.01em !important;
+}
+
+.topbar-brand-sub {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: var(--brand-coral) !important;
+  background: var(--brand-coral-subtle) !important;
+  padding: 3px 10px !important;
+  border-radius: var(--radius-full) !important;
+  margin-left: 8px !important;
+  border: 1px solid rgba(224, 83, 60, 0.2) !important;
 }
 
 .pf-nav-links {
@@ -181,67 +192,124 @@ a {
   color: var(--brand-coral);
 }
 
-.pf-nav-actions {
+/* Nav Pills Center Segmented Control */
+.topbar-nav-center {
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  background: var(--bg-subtle) !important;
+  padding: 4px !important;
+  border-radius: var(--radius-full) !important;
+  border: 1px solid var(--border-subtle) !important;
+}
+
+.nav-pill-btn {
+  background: transparent !important;
+  border: none !important;
+  padding: 8px 18px !important;
+  border-radius: var(--radius-full) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: var(--ink-700) !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  white-space: nowrap !important;
+}
+
+.nav-pill-btn:hover:not(.active) {
+  color: var(--ink-900) !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+}
+
+.nav-pill-btn.active {
+  background: var(--brand-dark) !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 8px rgba(25, 23, 22, 0.18) !important;
+}
+
+/* Right Header Profile & Utilities */
+.topbar-actions-right, .pf-nav-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.user-profile-trigger {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: #FFFFFF !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: var(--radius-full) !important;
+  padding: 4px 14px 4px 6px !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+}
+
+.user-profile-trigger:hover {
+  border-color: var(--brand-dark) !important;
+}
+
+.trigger-avatar {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: var(--radius-full) !important;
+  background: var(--brand-dark) !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  font-size: 11px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.trigger-name {
+  font-weight: 700 !important;
+  font-size: 12.5px !important;
+  color: var(--ink-900) !important;
+}
+
+.trigger-role {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: var(--ink-500) !important;
+}
+
+.profile-dropdown-card {
+  position: absolute !important;
+  top: calc(100% + 10px) !important;
+  right: 0 !important;
+  width: 280px !important;
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border-medium) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-float) !important;
+  padding: 20px !important;
+  display: none;
+  z-index: 1000 !important;
+}
+
+.profile-dropdown-card.show {
+  display: block !important;
+}
+
+/* =============================================================================
+   2. PASSIONFROOT EDITORIAL HERO & BENTO STATS
+   ============================================================================= */
+
+.pf-landing-container {
+  min-height: 100vh;
+  background-color: var(--bg-page);
+  color: var(--ink-900);
   display: flex;
-  align-items: center;
-  gap: 12px;
+  flex-direction: column;
 }
 
-.pf-btn-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  border-radius: var(--radius-full);
-  padding: 9px 22px;
-  font-size: 13.5px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  border: 1px solid transparent;
-  text-decoration: none;
-}
-
-.pf-btn-dark {
-  background: var(--brand-dark);
-  color: #FFFFFF;
-  border-color: var(--brand-dark);
-  box-shadow: 0 2px 8px rgba(25, 23, 22, 0.15);
-}
-
-.pf-btn-dark:hover {
-  background: var(--brand-dark-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(25, 23, 22, 0.2);
-}
-
-.pf-btn-coral {
-  background: var(--brand-coral);
-  color: #FFFFFF;
-  box-shadow: 0 3px 12px rgba(224, 83, 60, 0.25);
-}
-
-.pf-btn-coral:hover {
-  background: var(--brand-coral-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(224, 83, 60, 0.35);
-}
-
-.pf-btn-outline {
-  background: #FFFFFF;
-  color: var(--ink-800);
-  border: 1px solid var(--border-subtle);
-}
-
-.pf-btn-outline:hover {
-  background: var(--bg-subtle);
-  border-color: var(--border-medium);
-}
-
-/* Hero Section */
 .pf-hero-section {
-  padding: 80px 24px 60px;
-  max-width: 1140px;
+  padding: 70px 24px 50px;
+  max-width: 1180px;
   margin: 0 auto;
   text-align: center;
 }
@@ -250,10 +318,10 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--bg-surface);
+  background: #FFFFFF;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
-  padding: 6px 16px;
+  padding: 6px 18px;
   font-size: 12.5px;
   font-weight: 700;
   color: var(--ink-700);
@@ -266,14 +334,14 @@ a {
   height: 7px;
   background: var(--brand-coral);
   border-radius: 50%;
-  box-shadow: 0 0 0 3px rgba(224, 83, 60, 0.2);
+  box-shadow: 0 0 0 3px rgba(224, 83, 60, 0.25);
 }
 
 .pf-hero-title {
-  font-size: clamp(38px, 6vw, 68px);
+  font-size: clamp(40px, 6vw, 72px);
   font-weight: 500;
   color: var(--ink-900);
-  line-height: 1.08;
+  line-height: 1.05;
   letter-spacing: -0.03em;
   margin-bottom: 24px;
   text-wrap: balance;
@@ -304,26 +372,26 @@ a {
   flex-wrap: wrap;
 }
 
-/* Hero Stats Bar */
+/* Bento Stats Grid */
 .pf-stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-  max-width: 1100px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+  max-width: 1140px;
   margin: 0 auto 80px;
 }
 
-.pf-stat-card {
-  background: var(--bg-surface);
+.pf-stat-card, .main_stat-card {
+  background: var(--bg-stone);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: 24px 22px;
+  padding: 26px 24px;
   text-align: left;
   box-shadow: var(--shadow-subtle);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-.pf-stat-card:hover {
+.pf-stat-card:hover, .main_stat-card:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-card);
   border-color: var(--border-medium);
@@ -331,7 +399,7 @@ a {
 
 .pf-stat-value {
   font-family: var(--font-serif);
-  font-size: 34px;
+  font-size: 36px;
   font-weight: 500;
   color: var(--ink-900);
   line-height: 1.1;
@@ -340,13 +408,13 @@ a {
 
 .pf-stat-label {
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--ink-500);
 }
 
 /* Formal Login Container on Landing Page */
 .pf-login-wrapper {
-  max-width: 500px;
+  max-width: 520px;
   margin: 0 auto 90px;
   padding: 0 20px;
 }
@@ -355,7 +423,7 @@ a {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
-  padding: 40px;
+  padding: 44px 40px;
   box-shadow: var(--shadow-float);
   text-align: left;
 }
@@ -365,7 +433,7 @@ a {
 }
 
 .pf-login-header h2 {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 500;
   color: var(--ink-900);
   margin-bottom: 8px;
@@ -406,6 +474,58 @@ a {
   box-shadow: 0 0 0 3px rgba(25, 23, 22, 0.08);
 }
 
+.pf-btn-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--radius-full);
+  padding: 10px 24px;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid transparent;
+  text-decoration: none;
+  line-height: 1.3;
+}
+
+.pf-btn-dark {
+  background: var(--brand-dark);
+  color: #FFFFFF;
+  border-color: var(--brand-dark);
+  box-shadow: 0 2px 8px rgba(25, 23, 22, 0.18);
+}
+
+.pf-btn-dark:hover {
+  background: var(--brand-dark-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(25, 23, 22, 0.24);
+}
+
+.pf-btn-coral {
+  background: var(--brand-coral);
+  color: #FFFFFF;
+  box-shadow: 0 3px 12px rgba(224, 83, 60, 0.25);
+}
+
+.pf-btn-coral:hover {
+  background: var(--brand-coral-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(224, 83, 60, 0.35);
+}
+
+.pf-btn-outline {
+  background: #FFFFFF;
+  color: var(--ink-800);
+  border: 1px solid var(--border-subtle);
+}
+
+.pf-btn-outline:hover {
+  background: var(--bg-subtle);
+  border-color: var(--border-medium);
+}
+
 .pf-login-btn {
   width: 100%;
   padding: 14px 24px;
@@ -415,7 +535,7 @@ a {
   border-radius: var(--radius-full);
 }
 
-/* Enterprise Demo Directory Collapsible Drawer */
+/* Collapsible Credentials Drawer */
 .pf-credentials-box {
   margin-top: 24px;
   border-top: 1px solid var(--border-subtle);
@@ -431,7 +551,7 @@ a {
   border: none;
   font-family: var(--font-sans);
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--ink-700);
   cursor: pointer;
   padding: 6px 0;
@@ -442,11 +562,11 @@ a {
 }
 
 .pf-credentials-list {
-  margin-top: 12px;
+  margin-top: 14px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  max-height: 280px;
+  gap: 10px;
+  max-height: 300px;
   overflow-y: auto;
   padding-right: 4px;
 }
@@ -477,8 +597,8 @@ a {
   background: var(--bg-surface);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-full);
-  padding: 4px 12px;
-  font-size: 11.5px;
+  padding: 5px 14px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--ink-800);
   cursor: pointer;
@@ -493,7 +613,7 @@ a {
 
 /* Feature Bento Grid */
 .pf-features-section {
-  max-width: 1140px;
+  max-width: 1180px;
   margin: 0 auto 90px;
   padding: 0 24px;
 }
@@ -504,7 +624,7 @@ a {
 }
 
 .pf-section-heading h3 {
-  font-size: 38px;
+  font-size: 40px;
   color: var(--ink-900);
   margin-bottom: 12px;
 }
@@ -516,15 +636,15 @@ a {
 
 .pf-bento-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: 24px;
 }
 
 .pf-bento-card {
-  background: var(--bg-surface);
+  background: var(--bg-stone);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
-  padding: 32px 28px;
+  padding: 34px 30px;
   box-shadow: var(--shadow-subtle);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -544,7 +664,7 @@ a {
 }
 
 .pf-bento-title {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 600;
   color: var(--ink-900);
   margin-bottom: 10px;
@@ -565,7 +685,7 @@ a {
 }
 
 .pf-footer-content {
-  max-width: 1140px;
+  max-width: 1180px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -577,7 +697,7 @@ a {
 }
 
 /* =============================================================================
-   2. AUTHENTICATED INTERNAL PAGES - PASSIONFROOT FLOATING SHELL & BENTO SYSTEM
+   3. AUTHENTICATED COCKPIT WORKSPACE & OBSIDIAN HERO BANNER
    ============================================================================= */
 
 #page-app, .app-screen {
@@ -588,177 +708,9 @@ a {
   padding-bottom: 80px;
 }
 
-/* Floating App Header (Identical DNA to Passionfroot Landing Pill) */
-.app-topbar {
-  max-width: 1320px !important;
-  width: calc(100% - 32px) !important;
-  margin: 16px auto 24px auto !important;
-  padding: 8px 20px !important;
-  background: rgba(255, 255, 255, 0.88) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid var(--border-subtle) !important;
-  border-radius: var(--radius-full) !important;
-  box-shadow: 0 4px 20px -2px rgba(25, 23, 22, 0.06), 0 1px 2px rgba(25, 23, 22, 0.03) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  position: sticky !important;
-  top: 12px !important;
-  z-index: 500 !important;
-  height: auto !important;
-}
-
-.topbar-brand {
-  display: flex !important;
-  align-items: center !important;
-  gap: 10px !important;
-  cursor: pointer !important;
-  text-decoration: none !important;
-}
-
-.topbar-logo-badge {
-  width: 34px !important;
-  height: 34px !important;
-  background: var(--brand-dark) !important;
-  color: #FFFFFF !important;
-  border-radius: var(--radius-full) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  font-weight: 800 !important;
-  font-size: 13px !important;
-  box-shadow: 0 2px 6px rgba(25, 23, 22, 0.2) !important;
-}
-
-.topbar-brand-title {
-  font-family: var(--font-serif) !important;
-  font-size: 18px !important;
-  font-weight: 600 !important;
-  color: var(--ink-900) !important;
-  letter-spacing: -0.01em !important;
-}
-
-.topbar-brand-sub {
-  font-size: 11px !important;
-  font-weight: 700 !important;
-  color: var(--brand-coral) !important;
-  background: var(--brand-coral-subtle) !important;
-  padding: 3px 10px !important;
-  border-radius: var(--radius-full) !important;
-  margin-left: 8px !important;
-  border: 1px solid rgba(224, 83, 60, 0.2) !important;
-}
-
-/* Center Nav Pills */
-.topbar-nav-center {
-  display: flex !important;
-  align-items: center !important;
-  gap: 4px !important;
-  background: var(--bg-subtle) !important;
-  padding: 4px !important;
-  border-radius: var(--radius-full) !important;
-  border: 1px solid var(--border-subtle) !important;
-}
-
-.nav-pill-btn {
-  background: transparent !important;
-  border: none !important;
-  padding: 8px 18px !important;
-  border-radius: var(--radius-full) !important;
-  font-family: var(--font-sans) !important;
-  font-size: 13px !important;
-  font-weight: 600 !important;
-  color: var(--ink-700) !important;
-  cursor: pointer !important;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-.nav-pill-btn:hover:not(.active) {
-  color: var(--ink-900) !important;
-  background: rgba(255, 255, 255, 0.7) !important;
-}
-
-.nav-pill-btn.active {
-  background: var(--brand-dark) !important;
-  color: #FFFFFF !important;
-  font-weight: 700 !important;
-  box-shadow: 0 2px 8px rgba(25, 23, 22, 0.15) !important;
-}
-
-/* User Profile Trigger & Menu */
-.topbar-actions-right {
-  display: flex !important;
-  align-items: center !important;
-  gap: 10px !important;
-}
-
-.user-profile-trigger {
-  display: flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-  background: #FFFFFF !important;
-  border: 1px solid var(--border-subtle) !important;
-  border-radius: var(--radius-full) !important;
-  padding: 4px 14px 4px 6px !important;
-  cursor: pointer !important;
-  transition: all 0.15s ease !important;
-}
-
-.user-profile-trigger:hover {
-  border-color: var(--border-medium) !important;
-  box-shadow: var(--shadow-subtle) !important;
-}
-
-.trigger-avatar {
-  width: 28px !important;
-  height: 28px !important;
-  border-radius: var(--radius-full) !important;
-  background: var(--brand-dark) !important;
-  color: #FFFFFF !important;
-  font-weight: 700 !important;
-  font-size: 11px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-.trigger-name {
-  font-weight: 700 !important;
-  font-size: 12.5px !important;
-  color: var(--ink-900) !important;
-}
-
-.trigger-role {
-  font-size: 11px !important;
-  font-weight: 600 !important;
-  color: var(--ink-500) !important;
-}
-
-.profile-dropdown-card {
-  position: absolute !important;
-  top: calc(100% + 10px) !important;
-  right: 0 !important;
-  width: 270px !important;
-  background: var(--bg-surface) !important;
-  border: 1px solid var(--border-medium) !important;
-  border-radius: var(--radius-lg) !important;
-  box-shadow: var(--shadow-float) !important;
-  padding: 20px !important;
-  display: none;
-  z-index: 1000 !important;
-}
-
-.profile-dropdown-card.show {
-  display: block !important;
-}
-
-/* =============================================================================
-   3. EXECUTIVE KPI COMMAND STRIP (PASSIONFROOT BENTO METRIC RIBBON)
-   ============================================================================= */
-
+/* Executive KPI Bento Command Strip */
 .executive-kpi-strip {
-  max-width: 1320px !important;
+  max-width: 1340px !important;
   margin: 0 auto 28px auto !important;
   padding: 0 16px !important;
   display: grid !important;
@@ -767,7 +719,7 @@ a {
 }
 
 .kpi-stat-card {
-  background: var(--bg-surface) !important;
+  background: var(--bg-stone) !important;
   border: 1px solid var(--border-subtle) !important;
   border-radius: var(--radius-lg) !important;
   padding: 22px 24px !important;
@@ -775,14 +727,8 @@ a {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  position: relative !important;
-  overflow: hidden !important;
   cursor: pointer !important;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease !important;
-}
-
-.kpi-stat-card::after {
-  display: none !important;
 }
 
 .kpi-stat-card:hover {
@@ -802,7 +748,7 @@ a {
 
 .kpi-main-number {
   font-family: var(--font-serif) !important;
-  font-size: 32px !important;
+  font-size: 34px !important;
   font-weight: 500 !important;
   color: var(--ink-900) !important;
   line-height: 1.1 !important;
@@ -826,24 +772,138 @@ a {
   width: 44px !important;
   height: 44px !important;
   border-radius: var(--radius-full) !important;
-  background: var(--bg-subtle) !important;
+  background: #FFFFFF !important;
   border: 1px solid var(--border-subtle) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   font-size: 18px !important;
+  box-shadow: var(--shadow-subtle) !important;
 }
 
-/* =============================================================================
-   4. INTERNAL WORKSPACE BENTO CARDS ACROSS ALL 12 VIEWS
-   ============================================================================= */
-
+/* Workspace Container */
 .sap-workspace, .workspace-content, .app-content-body {
-  max-width: 1320px !important;
+  max-width: 1340px !important;
   margin: 0 auto !important;
   padding: 0 16px 80px 16px !important;
 }
 
+/* Mission Control Hero Banner (Obsidian & Stone Variant) */
+.cockpit-hero-banner {
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: var(--radius-xl) !important;
+  padding: 26px 32px !important;
+  margin-bottom: 26px !important;
+  box-shadow: var(--shadow-card) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 20px !important;
+}
+
+.cockpit-hero-banner.is-obsidian {
+  background: var(--bg-obsidian) !important;
+  color: #FFFFFF !important;
+  box-shadow: var(--shadow-obsidian) !important;
+  border-color: #3B3836 !important;
+}
+
+.cockpit-hero-banner.is-obsidian h2,
+.cockpit-hero-banner.is-obsidian strong,
+.cockpit-hero-banner.is-obsidian .cockpit-meta-item strong {
+  color: #FFFFFF !important;
+}
+
+.cockpit-hero-banner.is-obsidian .cockpit-meta-item,
+.cockpit-hero-banner.is-obsidian div[id$="Subtitle"] {
+  color: #DDD7CE !important;
+}
+
+.cockpit-title-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+}
+
+.cockpit-icon-badge {
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: var(--radius-full) !important;
+  background: var(--bg-subtle) !important;
+  border: 1px solid var(--border-subtle) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 22px !important;
+  flex-shrink: 0 !important;
+}
+
+.cockpit-meta-strip {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  flex-wrap: wrap !important;
+  font-size: 12.5px !important;
+  color: var(--ink-700) !important;
+  margin-top: 8px !important;
+}
+
+.cockpit-meta-item {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.cockpit-actions-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  flex-wrap: wrap !important;
+}
+
+/* Bento Split Grid Layouts */
+.bento-cockpit-grid {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 1080px) {
+  .bento-cockpit-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bento-split-grid {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 1080px) {
+  .bento-split-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bento-equal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+  .bento-equal-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Internal Workspace Bento Cards */
 .sap-card, .sourcing-cockpit-card {
   background: var(--bg-surface) !important;
   border: 1px solid var(--border-subtle) !important;
@@ -885,7 +945,7 @@ a {
 }
 
 /* =============================================================================
-   5. PASSIONFROOT EDITORIAL TABLES & MATRICES
+   4. PASSIONFROOT EDITORIAL TABLES & MATRICES
    ============================================================================= */
 
 .matrix-table, .sap-table {
@@ -907,12 +967,12 @@ a {
   font-weight: 700 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.07em !important;
-  padding: 14px 18px !important;
+  padding: 16px 20px !important;
   border-bottom: 1px solid var(--border-subtle) !important;
 }
 
 .matrix-table td, .sap-table td {
-  padding: 16px 18px !important;
+  padding: 16px 20px !important;
   border-bottom: 1px solid #F3EFEA !important;
   color: var(--ink-900) !important;
   font-size: 13.5px !important;
@@ -926,7 +986,6 @@ a {
   border-bottom: none !important;
 }
 
-/* Two-Envelope Bid Matrix Highlighting */
 .winner-column, .most-competitive-bid {
   background: rgba(236, 253, 245, 0.6) !important;
   border-left: 2px solid var(--accent-emerald) !important;
@@ -934,7 +993,7 @@ a {
 }
 
 /* =============================================================================
-   6. PASSIONFROOT ACTION BUTTON SYSTEM
+   5. PASSIONFROOT BUTTON SYSTEM & STATUS PILLS
    ============================================================================= */
 
 .sap-btn, button.sap-btn, .btn {
@@ -958,13 +1017,13 @@ a {
   background: var(--brand-dark) !important;
   color: #FFFFFF !important;
   border-color: var(--brand-dark) !important;
-  box-shadow: 0 2px 8px rgba(25, 23, 22, 0.12) !important;
+  box-shadow: 0 2px 8px rgba(25, 23, 22, 0.16) !important;
 }
 
 .sap-btn-primary:hover, button.sap-btn-primary:hover, .btn-primary:hover {
   background: var(--brand-dark-hover) !important;
   transform: translateY(-1px) !important;
-  box-shadow: 0 6px 16px rgba(25, 23, 22, 0.18) !important;
+  box-shadow: 0 6px 18px rgba(25, 23, 22, 0.22) !important;
 }
 
 .sap-btn-secondary, button.sap-btn-secondary, .btn-secondary, .sap-btn-ghost {
@@ -992,14 +1051,11 @@ a {
 }
 
 .sap-btn-sm {
-  padding: 6px 14px !important;
+  padding: 7px 16px !important;
   font-size: 12px !important;
 }
 
-/* =============================================================================
-   7. STATUS PILLS & BADGES
-   ============================================================================= */
-
+/* Status Pills */
 .status-pill, .sap-badge {
   border-radius: var(--radius-full) !important;
   padding: 4px 12px !important;
@@ -1034,15 +1090,12 @@ a {
   border: 1px solid var(--accent-red-border) !important;
 }
 
-/* =============================================================================
-   8. FORM CONTROLS & INPUTS
-   ============================================================================= */
-
+/* Form Controls */
 .sap-field-input, input[type="text"], input[type="number"], select, textarea {
   background: #FFFFFF !important;
   border: 1px solid var(--border-subtle) !important;
   border-radius: var(--radius-md) !important;
-  padding: 10px 14px !important;
+  padding: 11px 16px !important;
   font-family: var(--font-sans) !important;
   font-size: 13.5px !important;
   color: var(--ink-900) !important;
@@ -1055,28 +1108,30 @@ a {
   box-shadow: 0 0 0 3px rgba(25, 23, 22, 0.08) !important;
 }
 
-/* =============================================================================
-   9. MODALS & DIALOGS (PASSIONFROOT FLOATING LUXURY CARDS)
-   ============================================================================= */
-
+/* Modals & Dialogs (Floating Luxury Cards) */
 .sap-modal-backdrop {
-  background: rgba(25, 23, 22, 0.6) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  z-index: 2000 !important;
+  background: rgba(25, 23, 22, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2000;
 }
 
 .sap-modal-backdrop.hidden,
+.sap-modal-backdrop[style*="display: none"],
+.sap-modal-backdrop[style*="display:none"],
 .hidden {
   display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 .sap-dialog, .sap-modal-dialog {
@@ -1121,139 +1176,9 @@ a {
   border-color: var(--border-medium) !important;
 }
 
-/* =============================================================================
-   10. VENDOR PORTAL STEP CONTAINERS & ENVELOPE SECTIONS
-   ============================================================================= */
-
+/* Envelope Step Cards */
 .envelope-step-box {
-  background: #FFFFFF;
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 24px;
-  margin-bottom: 20px;
-}
-
-.envelope-badge {
-  display: inline-flex;
-  align-items: center;
-  background: var(--brand-dark);
-  color: #FFFFFF;
-  font-size: 11px;
-  font-weight: 800;
-  padding: 4px 10px;
-  border-radius: var(--radius-full);
-  letter-spacing: 0.05em;
-}
-
-.demand-callout {
-  background: var(--bg-subtle);
-  border-left: 4px solid var(--brand-coral);
-  padding: 14px 18px;
-  border-radius: var(--radius-md);
-  margin-bottom: 18px;
-}
-
-/* =============================================================================
-   11. PASSIONFROOT BENTO COCKPIT & SPLIT GRID LAYOUTS
-   ============================================================================= */
-
-.bento-cockpit-grid {
-  display: grid;
-  grid-template-columns: 7fr 5fr;
-  gap: 24px;
-  margin-bottom: 24px;
-}
-
-@media (max-width: 1080px) {
-  .bento-cockpit-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.bento-split-grid {
-  display: grid;
-  grid-template-columns: 5fr 7fr;
-  gap: 24px;
-  margin-bottom: 24px;
-}
-
-@media (max-width: 1080px) {
-  .bento-split-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.bento-equal-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-bottom: 24px;
-}
-
-@media (max-width: 768px) {
-  .bento-equal-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.cockpit-hero-banner {
-  background: var(--bg-surface) !important;
-  border: 1px solid var(--border-subtle) !important;
-  border-radius: var(--radius-xl) !important;
-  padding: 24px 30px !important;
-  margin-bottom: 24px !important;
-  box-shadow: var(--shadow-card) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  flex-wrap: wrap !important;
-  gap: 18px !important;
-}
-
-.cockpit-title-group {
-  display: flex !important;
-  align-items: center !important;
-  gap: 16px !important;
-}
-
-.cockpit-icon-badge {
-  width: 48px !important;
-  height: 48px !important;
-  border-radius: var(--radius-full) !important;
-  background: var(--bg-subtle) !important;
-  border: 1px solid var(--border-subtle) !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  font-size: 22px !important;
-  flex-shrink: 0 !important;
-}
-
-.cockpit-meta-strip {
-  display: flex !important;
-  align-items: center !important;
-  gap: 16px !important;
-  flex-wrap: wrap !important;
-  font-size: 12px !important;
-  color: var(--ink-700) !important;
-  margin-top: 6px !important;
-}
-
-.cockpit-meta-item {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 6px !important;
-}
-
-.cockpit-actions-group {
-  display: flex !important;
-  align-items: center !important;
-  gap: 10px !important;
-  flex-wrap: wrap !important;
-}
-
-.envelope-step-box {
-  background: var(--bg-surface) !important;
+  background: var(--bg-stone-light) !important;
   border: 1px solid var(--border-subtle) !important;
   border-radius: var(--radius-lg) !important;
   padding: 24px !important;
@@ -1270,4 +1195,85 @@ a {
   padding: 4px 10px !important;
   border-radius: var(--radius-full) !important;
   letter-spacing: 0.05em !important;
+}
+
+/* =============================================================================
+   12. PROCURE-TO-PAY 11-STAGE LIFECYCLE STEPPER STRIP
+   ============================================================================= */
+
+.pf-lifecycle-stepper-strip {
+  max-width: 1340px !important;
+  margin: 0 auto 20px auto !important;
+  padding: 0 16px !important;
+  overflow-x: auto !important;
+}
+
+.stepper-track {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: var(--radius-full) !important;
+  padding: 8px 18px !important;
+  box-shadow: var(--shadow-subtle) !important;
+  white-space: nowrap !important;
+  width: max-content !important;
+  margin: 0 auto !important;
+}
+
+.step-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 6px 14px !important;
+  border-radius: var(--radius-full) !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  font-family: var(--font-sans) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: var(--ink-700) !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.step-pill:hover {
+  background: var(--bg-subtle) !important;
+  color: var(--ink-900) !important;
+}
+
+.step-pill.active {
+  background: var(--brand-dark) !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 6px rgba(25, 23, 22, 0.2) !important;
+}
+
+.step-pill.done {
+  background: var(--accent-emerald-subtle) !important;
+  color: var(--accent-emerald) !important;
+  font-weight: 700 !important;
+  border-color: var(--accent-emerald-border) !important;
+}
+
+.step-dot {
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 50% !important;
+  background: var(--ink-400) !important;
+}
+
+.step-pill.active .step-dot {
+  background: var(--brand-coral) !important;
+  box-shadow: 0 0 0 2px rgba(224, 83, 60, 0.3) !important;
+}
+
+.step-pill.done .step-dot {
+  background: var(--accent-emerald) !important;
+}
+
+.step-arrow {
+  color: var(--ink-400) !important;
+  font-size: 11px !important;
 }

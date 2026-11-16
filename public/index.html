@@ -5,9 +5,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alpek Demo Procurement Platform | Passionfroot Sourcing OS</title>
-  <link rel="stylesheet" href="/css/styles.css">
-  <link rel="stylesheet" href="/css/passionfroot.css">
+  <link rel="stylesheet" href="/css/styles.css?v=4.0">
+  <link rel="stylesheet" href="/css/passionfroot.css?v=4.0">
   <script>
+    function closeTraceabilityModal() {
+      var modal = document.getElementById('modalTraceability');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.style.setProperty('display', 'none', 'important');
+      }
+    }
+    function closeModal(id) {
+      var modal = document.getElementById(id);
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.style.setProperty('display', 'none', 'important');
+      }
+    }
+    function closeAllModals() {
+      var modals = document.querySelectorAll('.sap-modal-backdrop');
+      modals.forEach(function(m) {
+        m.classList.add('hidden');
+        m.style.setProperty('display', 'none', 'important');
+      });
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeAllModals();
+    });
+    document.addEventListener('click', function(e) {
+      if (e.target && e.target.classList && e.target.classList.contains('sap-modal-backdrop')) {
+        e.target.classList.add('hidden');
+        e.target.style.setProperty('display', 'none', 'important');
+      }
+    });
     function fillCredentials(username, password) {
       var uInput = document.getElementById('loginUsername');
       var pInput = document.getElementById('loginPassword');
@@ -406,6 +436,51 @@
       </div>
     </header>
 
+    <!-- Passionfroot 11-Stage Procure-to-Pay Lifecycle Stepper Strip -->
+    <div class="pf-lifecycle-stepper-strip" id="pfGlobalStepper">
+      <div class="stepper-track">
+        <button type="button" class="step-pill" onclick="navigateToStage(1)" data-stage="1" title="Stage 1: Purchase Requisition">
+          <span class="step-dot"></span>01 Requester PR
+        </button>
+        <span class="step-arrow">&rarr;</span>
+        <button type="button" class="step-pill" onclick="navigateToStage(2)" data-stage="2" title="Stage 2: Department Manager Budget Approval">
+          <span class="step-dot"></span>02 Manager Review
+        </button>
+        <span class="step-arrow">&rarr;</span>
+        <button type="button" class="step-pill active" onclick="navigateToStage(3)" data-stage="3" title="Stage 3: Buyer Sourcing RFQ">
+          <span class="step-dot"></span>03 Buyer RFQ
+        </button>
+        <span class="step-arrow">&rarr;</span>
+        <button type="button" class="step-pill" onclick="navigateToStage(4)" data-stage="4" title="Stage 4: Tender Specifications Governance">
+          <span class="step-dot"></span>04 RFQ Governance
+        </button>
+        <span class="step-arrow">&rarr;</span>
+        <button type="button" class="step-pill" onclick="navigateToStage(5)" data-stage="5" title="Stage 5: Vendor Sealed Bids">
+          <span class="step-dot"></span>05 Vendor Bids
+        </button>
+        <span class="step-arrow">&rarr;</span>
+        <button type="button" class="step-pill" onclick="navigateToStage(6)" data-stage="6" title="Stage 6: Two-Envelope Evaluation">
+          <span class="step-dot"></span>06 Two-Envelope
+        </button>
+        <span class="step-arrow">&rarr;</span>
+        <button type="button" class="step-pill" onclick="navigateToStage(7)" data-stage="7" title="Stage 7: Committee Award Decision">
+          <span class="step-dot"></span>07 Committee Award
+        </button>
+        <span class="step-arrow">&rarr;</span>
+        <button type="button" class="step-pill" onclick="navigateToStage(8)" data-stage="8" title="Stage 8: S/4HANA PO Generation">
+          <span class="step-dot"></span>08 S/4HANA PO
+        </button>
+        <span class="step-arrow">&rarr;</span>
+        <button type="button" class="step-pill" onclick="navigateToStage(10)" data-stage="10" title="Stage 10: Warehouse Inward Goods Receipt">
+          <span class="step-dot"></span>09 Inward GRN
+        </button>
+        <span class="step-arrow">&rarr;</span>
+        <button type="button" class="step-pill" onclick="navigateToStage(11)" data-stage="11" title="Stage 11: Final Procure-to-Pay Lifecycle Closure">
+          <span class="step-dot"></span>10 Order Closure
+        </button>
+      </div>
+    </div>
+
     <!-- Executive KPI Bento Command Strip -->
     <div class="executive-kpi-strip" id="executiveKpiStrip">
       <div class="kpi-stat-card" onclick="navigateIfAuthorized('requester')" title="Inbound Demand Metrics">
@@ -463,38 +538,38 @@
       <div class="workspace-view active" id="view-sourcing-project">
 
         <!-- Sourcing Mission Control Banner with Live Dynamic Bidding Clock -->
-        <div class="cockpit-hero-banner" id="rfqPublicationBanner">
+        <div class="cockpit-hero-banner is-obsidian" id="rfqPublicationBanner">
           <div class="cockpit-title-group">
             <div class="cockpit-icon-badge" id="rfqPubStatusIcon">🎯</div>
             <div>
               <div style="display:flex; align-items:center; gap:10px;">
                 <span class="status-pill pending" id="buyerTimerStatusPill">Round 1 Bidding Active</span>
-                <span id="cfgEventIdBadge" style="font-size:12px; font-weight:700; color:#E0533C; font-family:monospace;">(RFQ: --)</span>
+                <span id="cfgEventIdBadge" style="font-size:12px; font-weight:700; color:#FF8370; font-family:monospace;">(RFQ: --)</span>
               </div>
-              <h2 id="rfqPubStatusTitle" style="font-size:20px; font-weight:600; color:#191716; margin:4px 0 2px 0;">Strategic Sourcing Tender</h2>
-              <div id="rfqPubStatusSubtitle" style="font-size:13px; color:#8C867F;">Technical and commercial bidding envelope open for invited vendors.</div>
+              <h2 id="rfqPubStatusTitle" style="font-size:22px; font-weight:600; color:#FFFFFF; margin:4px 0 2px 0;">Strategic Sourcing Tender</h2>
+              <div id="rfqPubStatusSubtitle" style="font-size:13px; color:#DDD7CE;">Technical and commercial bidding envelope open for invited vendors.</div>
               <div class="cockpit-meta-strip">
-                <span class="cockpit-meta-item">📋 Source PR: <strong id="cfgMetaPrNumber" style="color:#191716;">--</strong></span>
-                <span class="cockpit-meta-item">📦 Material: <strong id="cfgMetaMaterial" style="color:#191716;">--</strong></span>
-                <span class="cockpit-meta-item">🏭 Plant: <strong id="cfgMetaPlant" style="color:#191716;">--</strong></span>
-                <span class="cockpit-meta-item">📝 Follow-on PO: <strong id="cfgMetaPoNumber" style="color:#15803d;">--</strong></span>
+                <span class="cockpit-meta-item" style="color:#DDD7CE;">📋 Source PR: <strong id="cfgMetaPrNumber" style="color:#FFFFFF;">--</strong></span>
+                <span class="cockpit-meta-item" style="color:#DDD7CE;">📦 Material: <strong id="cfgMetaMaterial" style="color:#FFFFFF;">--</strong></span>
+                <span class="cockpit-meta-item" style="color:#DDD7CE;">🏭 Plant: <strong id="cfgMetaPlant" style="color:#FFFFFF;">--</strong></span>
+                <span class="cockpit-meta-item" style="color:#DDD7CE;">📝 Follow-on PO: <strong id="cfgMetaPoNumber" style="color:#4ade80;">--</strong></span>
               </div>
             </div>
           </div>
 
           <!-- Countdown Display & Tender Actions -->
           <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
-            <div style="background:#F5F2EB; border:1px solid #EDEAE4; padding:8px 16px; border-radius:9999px; display:flex; align-items:center; gap:8px;">
-              <span style="font-size:11px; font-weight:700; text-transform:uppercase; color:#8C867F;" id="buyerHeaderTimerText">Deadline:</span>
-              <span id="buyerBiddingCountdownDisplay" style="font-family:var(--font-serif); font-size:16px; font-weight:700; color:#E0533C;">00:00:00</span>
-              <span id="buyerDeadlineTimestamp" style="font-size:11px; color:#8C867F;">(--)</span>
+            <div style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); padding:8px 16px; border-radius:9999px; display:flex; align-items:center; gap:8px;">
+              <span style="font-size:11px; font-weight:700; text-transform:uppercase; color:#DDD7CE;" id="buyerHeaderTimerText">Deadline:</span>
+              <span id="buyerBiddingCountdownDisplay" style="font-family:var(--font-serif); font-size:16px; font-weight:700; color:#FF8370;">00:00:00</span>
+              <span id="buyerDeadlineTimestamp" style="font-size:11px; color:#DDD7CE;">(--)</span>
             </div>
             <div class="cockpit-actions-group">
-              <select id="cfgRfqSelector" onchange="switchSourcingProject(this.value)" class="sap-field-input" style="padding:6px 12px; font-size:12px; border-radius:9999px; max-width:240px;">
+              <select id="cfgRfqSelector" onchange="switchSourcingProject(this.value)" class="sap-field-input" style="padding:6px 12px; font-size:12px; border-radius:9999px; max-width:240px; background:#191716; color:#FFFFFF; border-color:#4A4440;">
                 <option value="">Switch Sourcing Tender...</option>
               </select>
-              <button class="sap-btn sap-btn-secondary sap-btn-sm" onclick="openSetBiddingDeadlineModal()">Set Timer</button>
-              <button class="sap-btn sap-btn-secondary sap-btn-sm" id="btnCloseBidding" onclick="closeBiddingNow()">Close Tender</button>
+              <button class="sap-btn sap-btn-secondary sap-btn-sm" style="background:rgba(255,255,255,0.1); color:#fff; border-color:rgba(255,255,255,0.2);" onclick="openSetBiddingDeadlineModal()">Set Timer</button>
+              <button class="sap-btn sap-btn-secondary sap-btn-sm" style="background:rgba(255,255,255,0.1); color:#fff; border-color:rgba(255,255,255,0.2);" id="btnCloseBidding" onclick="closeBiddingNow()">Close Tender</button>
             </div>
           </div>
         </div>
@@ -674,25 +749,25 @@
       <div class="workspace-view" id="view-supplier-portal">
 
         <!-- Supplier Welcome Mission Control Banner -->
-        <div class="cockpit-hero-banner">
+        <div class="cockpit-hero-banner is-obsidian">
           <div class="cockpit-title-group">
             <div class="cockpit-icon-badge">🏢</div>
             <div>
               <div style="display:flex; align-items:center; gap:10px;">
                 <span class="status-pill pending" id="supplierParticipationStatusBadge">Invitation Received</span>
-                <span id="supPlantNameHeader" style="font-size:12px; font-weight:700; color:#E0533C;">VEREDA MORRISON PLANT</span>
+                <span id="supPlantNameHeader" style="font-size:12px; font-weight:700; color:#FF8370;">VEREDA MORRISON PLANT</span>
               </div>
-              <h2 id="supEventTitle" style="font-size:20px; font-weight:600; color:#191716; margin:4px 0 2px 0;">Strategic Sourcing Tender Quotation</h2>
-              <div style="font-size:13px; color:#8C867F;">Submit sealed technical proposal and unit commercial tariff.</div>
+              <h2 id="supEventTitle" style="font-size:22px; font-weight:600; color:#FFFFFF; margin:4px 0 2px 0;">Strategic Sourcing Tender Quotation</h2>
+              <div style="font-size:13px; color:#DDD7CE;">Submit sealed technical proposal and unit commercial tariff.</div>
             </div>
           </div>
 
           <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
-            <div style="background:#F5F2EB; border:1px solid #EDEAE4; padding:8px 16px; border-radius:9999px; display:flex; align-items:center; gap:8px;">
-              <span style="font-size:11px; font-weight:700; text-transform:uppercase; color:#8C867F;">Tender Time Remaining:</span>
-              <span id="supplierTimeRemainingText" style="font-family:var(--font-serif); font-size:16px; font-weight:700; color:#E0533C;">00:00:00</span>
+            <div style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); padding:8px 16px; border-radius:9999px; display:flex; align-items:center; gap:8px;">
+              <span style="font-size:11px; font-weight:700; text-transform:uppercase; color:#DDD7CE;">Tender Time Remaining:</span>
+              <span id="supplierTimeRemainingText" style="font-family:var(--font-serif); font-size:16px; font-weight:700; color:#FF8370;">00:00:00</span>
             </div>
-            <select id="supplierTenderSelector" onchange="switchSupplierTender(this.value)" class="sap-field-input" style="padding:6px 12px; font-size:12px; border-radius:9999px; max-width:240px;">
+            <select id="supplierTenderSelector" onchange="switchSupplierTender(this.value)" class="sap-field-input" style="padding:6px 12px; font-size:12px; border-radius:9999px; max-width:240px; background:#191716; color:#FFFFFF; border-color:#4A4440;">
               <option value="">Switch RFQ Invitation...</option>
             </select>
           </div>
@@ -1322,7 +1397,7 @@
   <!-- ========================================================================= -->
   <!-- POPUP: FOLLOW-ON DOCUMENTS CREATED (EXACT POPUP FROM VIDEO FRAME 3660s)   -->
   <!-- ========================================================================= -->
-  <div class="sap-modal-backdrop hidden" id="modalFollowOnSuccess">
+  <div class="sap-modal-backdrop hidden" style="display:none;" id="modalFollowOnSuccess">
     <div class="sap-dialog sap-dialog-sm">
       <div class="sap-dialog-header">
         <span class="sap-dialog-title">&#10003; Follow-on documents created successfully</span>
@@ -1344,7 +1419,7 @@
   </div>
 
   <!-- XML / cXML Payload Inspector Modal -->
-  <div class="sap-modal-backdrop hidden" id="modalXmlInspector">
+  <div class="sap-modal-backdrop hidden" style="display:none;" id="modalXmlInspector">
     <div class="sap-dialog sap-dialog-lg">
       <div class="sap-dialog-header">
         <span class="sap-dialog-title" id="xmlModalTitle">Raw Payload Inspector</span>
@@ -1360,7 +1435,7 @@
   </div>
 
   <!-- Modal: Add New Row to Dummy SAP PR Excel Sheet -->
-  <div class="sap-modal-backdrop hidden" id="modalAddPrToSheet">
+  <div class="sap-modal-backdrop hidden" style="display:none;" id="modalAddPrToSheet">
     <div class="sap-dialog sap-dialog-md">
       <div class="sap-dialog-header">
         <span class="sap-dialog-title">&#10133; Push New Requisition into Dummy SAP Excel Sheet</span>
@@ -1425,7 +1500,7 @@
   </div>
 
   <!-- Modal: Prototype Comparison (Why this is 10x easier than SAP) -->
-  <div class="sap-modal-backdrop hidden" id="modalComparison">
+  <div class="sap-modal-backdrop hidden" style="display:none;" id="modalComparison">
     <div class="sap-dialog sap-dialog-lg">
       <div class="sap-dialog-header">
         <span class="sap-dialog-title">&#128202; Why This Platform Is 10x Easier Than SAP Ariba</span>
@@ -1482,7 +1557,7 @@
   </div>
 
   <!-- Modal: Role-Based Access Control (RBAC) User Selection / Login -->
-  <div class="sap-modal-backdrop hidden" id="modalRbacDirectory">
+  <div class="sap-modal-backdrop hidden" style="display:none;" id="modalRbacDirectory">
     <div class="sap-dialog sap-dialog-lg">
       <div class="sap-dialog-header">
         <span class="sap-dialog-title">&#128101; Select Your Persona & Role (RBAC Switcher)</span>
@@ -1674,7 +1749,7 @@
   </div>
 
   <!-- Modal: Complete User Roles & Capabilities Guide -->
-  <div class="sap-modal-backdrop hidden" id="modalRoleGuide">
+  <div class="sap-modal-backdrop hidden" style="display:none;" id="modalRoleGuide">
     <div class="sap-dialog sap-dialog-lg">
       <div class="sap-dialog-header">
         <span class="sap-dialog-title">&#128214; Alpek Demo Complete Procurement Flow & User Roles Guide</span>
@@ -1782,7 +1857,7 @@
   <!-- ========================================================================= -->
   <!-- MODAL: CONFIGURE TECHNICAL REQUIREMENTS (Buyer — Architecture Diagram)    -->
   <!-- ========================================================================= -->
-  <div class="sap-modal-backdrop hidden" id="modalConfigureTechnical">
+  <div class="sap-modal-backdrop hidden" style="display:none;" id="modalConfigureTechnical">
     <div class="sap-dialog" style="max-width: 580px;">
       <div class="sap-dialog-header" style="background:#f5f3ff; border-bottom:1px solid #ddd6fe;">
         <span class="sap-dialog-title" style="color:#5b21b6;">⚙️ Configure Technical Requirements (Step 1)</span>
@@ -1822,7 +1897,7 @@
   <!-- ========================================================================= -->
   <!-- MODAL: CONFIGURE ECONOMIC REQUIREMENTS (Buyer — Architecture Diagram)     -->
   <!-- ========================================================================= -->
-  <div class="sap-modal-backdrop hidden" id="modalConfigureEconomic">
+  <div class="sap-modal-backdrop hidden" style="display:none;" id="modalConfigureEconomic">
     <div class="sap-dialog" style="max-width: 580px;">
       <div class="sap-dialog-header" style="background:#f0fdf4; border-bottom:1px solid #bbf7d0;">
         <span class="sap-dialog-title" style="color:#15803d;">💰 Configure Economic Requirements (Step 1)</span>
@@ -1871,7 +1946,7 @@
   <!-- ========================================================================= -->
   <!-- MODAL: CREATE SOURCING RFQ (Buyer — Multi-Supplier Selection & Timer)      -->
   <!-- ========================================================================= -->
-  <div class="sap-modal-backdrop hidden" id="modalCreateRfq">
+  <div class="sap-modal-backdrop hidden" style="display:none;" id="modalCreateRfq">
     <div class="sap-dialog" style="max-width: 640px;">
       <div class="sap-dialog-header" style="background:#f8fafc; border-bottom:1px solid #e2e8f0;">
         <span class="sap-dialog-title" style="color:#0f172a;">⚡ Create &amp; Configure Sourcing Event (RFQ)</span>
@@ -1944,7 +2019,7 @@
   <!-- ========================================================================= -->
   <!-- MODAL: MANAGE / INVITE SUPPLIERS (Buyer — Multi-Supplier Selection)       -->
   <!-- ========================================================================= -->
-  <div class="sap-modal-backdrop hidden" id="modalInviteSuppliers">
+  <div class="sap-modal-backdrop hidden" style="display:none;" id="modalInviteSuppliers">
     <div class="sap-dialog" style="max-width: 580px;">
       <div class="sap-dialog-header" style="background:#f0f9ff; border-bottom:1px solid #bae6fd;">
         <span class="sap-dialog-title" style="color:#0369a1;">👥 Select &amp; Invite Suppliers to Tender</span>
@@ -1979,7 +2054,7 @@
   <!-- ========================================================================= -->
   <!-- MODAL: CONFIGURE DYNAMIC BIDDING TIMER (Buyer — Dynamic Countdown)        -->
   <!-- ========================================================================= -->
-  <div class="sap-modal-backdrop hidden" id="modalSetBiddingDeadline">
+  <div class="sap-modal-backdrop hidden" style="display:none;" id="modalSetBiddingDeadline">
     <div class="sap-dialog" style="max-width: 500px;">
       <div class="sap-dialog-header" style="background:#fffbeb; border-bottom:1px solid #fde68a;">
         <span class="sap-dialog-title" style="color:#92400e;">⏱️ Set Dynamic Bidding Countdown Timer</span>
@@ -2029,7 +2104,7 @@
   </div>
 
   <!-- Modal: Revise & Resubmit Returned PR (Requester) -->
-  <div class="sap-modal-backdrop hidden" id="modalResubmitPr">
+  <div class="sap-modal-backdrop hidden" style="display:none;" id="modalResubmitPr">
     <div class="sap-dialog" style="max-width: 580px;">
       <div class="sap-dialog-header" style="background:#F5F2EB; border-bottom:1px solid #bfdbfe;">
         <span class="sap-dialog-title" style="color:#191716;">✏️ Revise &amp; Resubmit Requisition</span>
@@ -2089,7 +2164,7 @@
   </div>
 
   <!-- Modal: Return PR for Correction -->
-  <div class="sap-modal-backdrop hidden" id="modalReturnPr">
+  <div class="sap-modal-backdrop hidden" style="display:none;" id="modalReturnPr">
     <div class="sap-dialog">
       <div class="sap-dialog-header">
         <span class="sap-dialog-title">&#9888; Return Requisition for Correction</span>
@@ -2113,7 +2188,7 @@
   </div>
 
   <!-- Modal: Record Goods Receipt (GRN) -->
-  <div class="sap-modal-backdrop hidden" id="modalRecordGrn">
+  <div class="sap-modal-backdrop hidden" style="display:none;" id="modalRecordGrn">
     <div class="sap-dialog">
       <div class="sap-dialog-header">
         <span class="sap-dialog-title">&#128666; Record Inward Goods Receipt (GRN)</span>
@@ -2171,7 +2246,7 @@
   </div>
 
   <!-- Modal: 11-Stage End-to-End Traceability Lineage Drawer -->
-  <div class="sap-modal-backdrop hidden" id="modalTraceability">
+  <div class="sap-modal-backdrop hidden" style="display:none;" id="modalTraceability">
     <div class="sap-dialog sap-dialog-lg">
       <div class="sap-dialog-header">
         <span class="sap-dialog-title">&#128065; End-to-End Procurement Lineage & Traceability (PR &rarr; RFQ &rarr; PO
@@ -2199,7 +2274,7 @@
   <!-- Toast Container -->
   <div class="sap-toast-stack" id="sapToastStack"></div>
 
-  <script src="/js/app.js?v=3.5"></script>
+  <script src="/js/app.js?v=4.0"></script>
 </body>
 
 </html>
