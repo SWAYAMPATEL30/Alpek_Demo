@@ -978,9 +978,9 @@ function startLiveBiddingTimer(deadlineIso) {
 
     if (buyerTimerDisplay) {
       buyerTimerDisplay.textContent = timeStr;
-      buyerTimerDisplay.style.color = diffMs < 300000 ? '#dc2626' : '#b45309';
+      buyerTimerDisplay.style.color = diffMs < 300000 ? '#dc2626' : '#FF8370';
     }
-    if (buyerHeaderTimerText) buyerHeaderTimerText.textContent = timeStr;
+    if (buyerHeaderTimerText) buyerHeaderTimerText.textContent = 'Time Remaining:';
     if (supplierTimeRemainingText) supplierTimeRemainingText.textContent = timeStr;
     if (buyerTimerStatusPill) {
       buyerTimerStatusPill.className = 'status-pill approved';
@@ -3604,7 +3604,9 @@ async function updateLiveKpiBar() {
     if (elRfqs) elRfqs.textContent = stats.activeRfqs || '1';
     if (elQuotes) elQuotes.textContent = stats.totalQuotations || '3';
     if (elSavings) elSavings.textContent = `${stats.savingsPercent || '14.3'}% Verified Savings`;
-    if (elAward) elAward.textContent = stats.awardedRfqs ? '✓ Awarded' : '1 Pending';
+    if (elAward) elAward.textContent = stats.awardedRfqs ? '0' : '1';
+    const elAwardPill = document.getElementById('kpiStripAwardPill');
+    if (elAwardPill) elAwardPill.textContent = stats.awardedRfqs ? 'Award Approved' : 'Awaiting Sign-Off';
     if (elPos) elPos.textContent = stats.totalPos || '1';
   } catch (err) {
     console.debug('Failed to update live KPI bar:', err);

@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alpek Demo Procurement Platform | Passionfroot Sourcing OS</title>
-  <link rel="stylesheet" href="/css/styles.css?v=4.0">
-  <link rel="stylesheet" href="/css/passionfroot.css?v=4.0">
+  <link rel="stylesheet" href="/css/styles.css?v=5.0">
+  <link rel="stylesheet" href="/css/passionfroot.css?v=5.0">
   <script>
     function closeTraceabilityModal() {
       var modal = document.getElementById('modalTraceability');
@@ -176,6 +176,78 @@
         <button type="button" onclick="toggleCredentialsDrawer()" class="pf-btn-pill pf-btn-outline" style="padding:14px 28px; font-size:14px;">
           Corporate Role Directory (10 Personas)
         </button>
+      </div>
+
+      <!-- Passionfroot Signature Product UI Showcase Window -->
+      <div class="pf-hero-mockup-wrapper">
+        <div class="pf-mockup-window">
+          <div class="pf-mockup-topbar">
+            <div class="pf-mac-dots">
+              <span class="mac-dot red"></span>
+              <span class="mac-dot yellow"></span>
+              <span class="mac-dot green"></span>
+            </div>
+            <div class="pf-mockup-title">
+              <span class="live-dot-pulse"></span>
+              Alpek Sourcing Cockpit &bull; Live Tender Session (Doc2432956265)
+            </div>
+            <div class="pf-mockup-badge">S/4HANA Clean Core Active</div>
+          </div>
+
+          <div class="pf-mockup-body">
+            <!-- Cockpit Header Banner Inside Mockup -->
+            <div class="pf-mockup-hero-banner">
+              <div class="mockup-header-info">
+                <span class="mockup-status-tag">ROUND 1 BIDDING ACTIVE</span>
+                <h3 class="mockup-event-title">SUMINISTROS REFRI &bull; Industrial Refrigerant Loop</h3>
+                <span class="mockup-event-meta">Plant: OP ANG (Vereda Morrison) &bull; Volume: 7,125,000 Units &bull; Net 60 Days</span>
+              </div>
+              <div class="mockup-timer-pill">
+                <span class="mockup-timer-label">Time Remaining:</span>
+                <span class="mockup-timer-val">23:48:25</span>
+              </div>
+            </div>
+
+            <!-- Bento 3-Column Feature Cards Inside Mockup -->
+            <div class="pf-mockup-cards-grid">
+              <!-- Card 1: Envelope 1 -->
+              <div class="pf-mockup-card">
+                <div class="mockup-card-tag">ENVELOPE 1 &bull; TECHNICAL</div>
+                <div class="mockup-card-title">Sealed Technical Assays</div>
+                <div class="mockup-check-list">
+                  <div class="check-item"><span class="check-icon">&#10003;</span> ISO 9001:2015 Safety Assay</div>
+                  <div class="check-item"><span class="check-icon">&#10003;</span> Lead time guaranteed &lt; 14 days</div>
+                  <div class="check-item"><span class="check-icon">&#10003;</span> Technical Score: <strong>95/100</strong></div>
+                </div>
+                <div class="mockup-evaluator-badge">Verified by Dr. Elena Gomez</div>
+              </div>
+
+              <!-- Card 2: Envelope 2 -->
+              <div class="pf-mockup-card highlight">
+                <div class="mockup-card-tag green">ENVELOPE 2 &bull; COMMERCIAL</div>
+                <div class="mockup-card-title">Commercial Tariff Unsealing</div>
+                <div class="mockup-price-box">
+                  <div class="price-val">$3.00 <span class="price-curr">COP / unit</span></div>
+                  <div class="savings-tag">14.3% Baseline Savings</div>
+                </div>
+                <div class="mockup-supplier-row">
+                  <span class="sup-avatar">SO</span>
+                  <span>SONDA DE COLOMBIA S A</span>
+                </div>
+              </div>
+
+              <!-- Card 3: Instant S/4HANA PO -->
+              <div class="pf-mockup-card dark">
+                <div class="mockup-card-tag dark">SAP S/4HANA &bull; ZERO LATENCY</div>
+                <div class="mockup-card-title dark">Committed Order #450009180</div>
+                <p class="mockup-dark-desc">Direct OData v4 commitment to SAP ERP without Ariba staging delays.</p>
+                <div class="mockup-po-status">
+                  <span class="status-indicator"></span> POSTED_CONFIRMED (cXML 1.2)
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Live KPI Telemetry Bento -->
@@ -440,43 +512,43 @@
     <div class="pf-lifecycle-stepper-strip" id="pfGlobalStepper">
       <div class="stepper-track">
         <button type="button" class="step-pill" onclick="navigateToStage(1)" data-stage="1" title="Stage 1: Purchase Requisition">
-          <span class="step-dot"></span>01 Requester PR
+          <span class="step-num-badge">01</span> Requester PR
         </button>
-        <span class="step-arrow">&rarr;</span>
+        <span class="step-arrow">&rsaquo;</span>
         <button type="button" class="step-pill" onclick="navigateToStage(2)" data-stage="2" title="Stage 2: Department Manager Budget Approval">
-          <span class="step-dot"></span>02 Manager Review
+          <span class="step-num-badge">02</span> Manager Review
         </button>
-        <span class="step-arrow">&rarr;</span>
+        <span class="step-arrow">&rsaquo;</span>
         <button type="button" class="step-pill active" onclick="navigateToStage(3)" data-stage="3" title="Stage 3: Buyer Sourcing RFQ">
-          <span class="step-dot"></span>03 Buyer RFQ
+          <span class="step-num-badge">03</span> Buyer RFQ
         </button>
-        <span class="step-arrow">&rarr;</span>
+        <span class="step-arrow">&rsaquo;</span>
         <button type="button" class="step-pill" onclick="navigateToStage(4)" data-stage="4" title="Stage 4: Tender Specifications Governance">
-          <span class="step-dot"></span>04 RFQ Governance
+          <span class="step-num-badge">04</span> RFQ Governance
         </button>
-        <span class="step-arrow">&rarr;</span>
+        <span class="step-arrow">&rsaquo;</span>
         <button type="button" class="step-pill" onclick="navigateToStage(5)" data-stage="5" title="Stage 5: Vendor Sealed Bids">
-          <span class="step-dot"></span>05 Vendor Bids
+          <span class="step-num-badge">05</span> Vendor Bids
         </button>
-        <span class="step-arrow">&rarr;</span>
+        <span class="step-arrow">&rsaquo;</span>
         <button type="button" class="step-pill" onclick="navigateToStage(6)" data-stage="6" title="Stage 6: Two-Envelope Evaluation">
-          <span class="step-dot"></span>06 Two-Envelope
+          <span class="step-num-badge">06</span> Two-Envelope
         </button>
-        <span class="step-arrow">&rarr;</span>
+        <span class="step-arrow">&rsaquo;</span>
         <button type="button" class="step-pill" onclick="navigateToStage(7)" data-stage="7" title="Stage 7: Committee Award Decision">
-          <span class="step-dot"></span>07 Committee Award
+          <span class="step-num-badge">07</span> Committee Award
         </button>
-        <span class="step-arrow">&rarr;</span>
+        <span class="step-arrow">&rsaquo;</span>
         <button type="button" class="step-pill" onclick="navigateToStage(8)" data-stage="8" title="Stage 8: S/4HANA PO Generation">
-          <span class="step-dot"></span>08 S/4HANA PO
+          <span class="step-num-badge">08</span> S/4HANA PO
         </button>
-        <span class="step-arrow">&rarr;</span>
+        <span class="step-arrow">&rsaquo;</span>
         <button type="button" class="step-pill" onclick="navigateToStage(10)" data-stage="10" title="Stage 10: Warehouse Inward Goods Receipt">
-          <span class="step-dot"></span>09 Inward GRN
+          <span class="step-num-badge">09</span> Inward GRN
         </button>
-        <span class="step-arrow">&rarr;</span>
+        <span class="step-arrow">&rsaquo;</span>
         <button type="button" class="step-pill" onclick="navigateToStage(11)" data-stage="11" title="Stage 11: Final Procure-to-Pay Lifecycle Closure">
-          <span class="step-dot"></span>10 Order Closure
+          <span class="step-num-badge">10</span> Order Closure
         </button>
       </div>
     </div>
@@ -484,48 +556,58 @@
     <!-- Executive KPI Bento Command Strip -->
     <div class="executive-kpi-strip" id="executiveKpiStrip">
       <div class="kpi-stat-card" onclick="navigateIfAuthorized('requester')" title="Inbound Demand Metrics">
-        <div class="kpi-content-left">
+        <div class="kpi-card-header">
           <span class="kpi-subheading">Inbound Demand</span>
-          <span class="kpi-main-number" id="kpiStripTotalPrs">3</span>
-          <span class="kpi-context-pill" id="kpiStripPendingPrsPill">1 Pending Mgr Approval</span>
+          <div class="kpi-icon-bubble">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          </div>
         </div>
-        <div class="kpi-icon-bubble">📋</div>
+        <span class="kpi-main-number" id="kpiStripTotalPrs">3</span>
+        <span class="kpi-context-pill" id="kpiStripPendingPrsPill">1 Pending Mgr Approval</span>
       </div>
 
       <div class="kpi-stat-card" onclick="navigateIfAuthorized('sourcing')" title="Active Sourcing Events">
-        <div class="kpi-content-left">
+        <div class="kpi-card-header">
           <span class="kpi-subheading">Active Sourcing RFQs</span>
-          <span class="kpi-main-number" id="kpiStripActiveRfqs">1</span>
-          <span class="kpi-context-pill" id="kpiStripRfqTimePill">Round 1 Bidding Active</span>
+          <div class="kpi-icon-bubble">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+          </div>
         </div>
-        <div class="kpi-icon-bubble">🎯</div>
+        <span class="kpi-main-number" id="kpiStripActiveRfqs">1</span>
+        <span class="kpi-context-pill" id="kpiStripRfqTimePill">Round 1 Bidding Active</span>
       </div>
 
       <div class="kpi-stat-card" onclick="navigateIfAuthorized('supplier')" title="Supplier Bids Submitted">
-        <div class="kpi-content-left">
+        <div class="kpi-card-header">
           <span class="kpi-subheading">Supplier Bids</span>
-          <span class="kpi-main-number" id="kpiStripQuotations">3</span>
-          <span class="kpi-context-pill" id="kpiStripSavingsPill" style="color:#15803d; font-weight:700;">14.3% Est. Savings</span>
+          <div class="kpi-icon-bubble">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
         </div>
-        <div class="kpi-icon-bubble">📑</div>
+        <span class="kpi-main-number" id="kpiStripQuotations">3</span>
+        <span class="kpi-context-pill" id="kpiStripSavingsPill" style="color:#15803d; font-weight:700;">14.3% Est. Savings</span>
       </div>
 
       <div class="kpi-stat-card" onclick="navigateIfAuthorized('approver')" title="Internal Approval Status">
-        <div class="kpi-content-left">
+        <div class="kpi-card-header">
           <span class="kpi-subheading">Internal Approval</span>
-          <span class="kpi-main-number" id="kpiStripAwardStatus">1</span>
-          <span class="kpi-context-pill" id="kpiStripAwardPill">Awaiting Sign-Off</span>
+          <div class="kpi-icon-bubble">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </div>
         </div>
-        <div class="kpi-icon-bubble">⚖️</div>
+        <span class="kpi-main-number" id="kpiStripAwardStatus">1</span>
+        <span class="kpi-context-pill" id="kpiStripAwardPill">Awaiting Sign-Off</span>
       </div>
 
       <div class="kpi-stat-card" onclick="navigateIfAuthorized('excel_erp')" title="Committed Purchase Orders">
-        <div class="kpi-content-left">
+        <div class="kpi-card-header">
           <span class="kpi-subheading">S/4HANA Committed POs</span>
-          <span class="kpi-main-number" id="kpiStripTotalPos">1</span>
-          <span class="kpi-context-pill" id="kpiStripPoPill">Clean Core OData Sync</span>
+          <div class="kpi-icon-bubble">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+          </div>
         </div>
-        <div class="kpi-icon-bubble">📦</div>
+        <span class="kpi-main-number" id="kpiStripTotalPos">1</span>
+        <span class="kpi-context-pill" id="kpiStripPoPill">Clean Core OData Sync</span>
       </div>
     </div>
 
@@ -537,39 +619,63 @@
       <!-- ========================================================================= -->
       <div class="workspace-view active" id="view-sourcing-project">
 
-        <!-- Sourcing Mission Control Banner with Live Dynamic Bidding Clock -->
+        <!-- Passionfroot Obsidian Sourcing Mission Control Banner -->
         <div class="cockpit-hero-banner is-obsidian" id="rfqPublicationBanner">
-          <div class="cockpit-title-group">
-            <div class="cockpit-icon-badge" id="rfqPubStatusIcon">🎯</div>
-            <div>
-              <div style="display:flex; align-items:center; gap:10px;">
-                <span class="status-pill pending" id="buyerTimerStatusPill">Round 1 Bidding Active</span>
-                <span id="cfgEventIdBadge" style="font-size:12px; font-weight:700; color:#FF8370; font-family:monospace;">(RFQ: --)</span>
+          <div class="cockpit-header-row">
+            <div class="cockpit-title-left">
+              <div class="cockpit-status-badges">
+                <span class="status-pill pending" id="buyerTimerStatusPill">
+                  Round 1 Bidding Active
+                </span>
+                <span id="cfgEventIdBadge" class="cockpit-event-badge">Doc2432956265</span>
               </div>
-              <h2 id="rfqPubStatusTitle" style="font-size:22px; font-weight:600; color:#FFFFFF; margin:4px 0 2px 0;">Strategic Sourcing Tender</h2>
-              <div id="rfqPubStatusSubtitle" style="font-size:13px; color:#DDD7CE;">Technical and commercial bidding envelope open for invited vendors.</div>
-              <div class="cockpit-meta-strip">
-                <span class="cockpit-meta-item" style="color:#DDD7CE;">📋 Source PR: <strong id="cfgMetaPrNumber" style="color:#FFFFFF;">--</strong></span>
-                <span class="cockpit-meta-item" style="color:#DDD7CE;">📦 Material: <strong id="cfgMetaMaterial" style="color:#FFFFFF;">--</strong></span>
-                <span class="cockpit-meta-item" style="color:#DDD7CE;">🏭 Plant: <strong id="cfgMetaPlant" style="color:#FFFFFF;">--</strong></span>
-                <span class="cockpit-meta-item" style="color:#DDD7CE;">📝 Follow-on PO: <strong id="cfgMetaPoNumber" style="color:#4ade80;">--</strong></span>
-              </div>
+              <h2 id="rfqPubStatusTitle" class="cockpit-main-heading">Strategic Sourcing Tender</h2>
+              <div id="rfqPubStatusSubtitle" class="cockpit-sub-heading">Two-envelope technical and commercial bidding open for verified suppliers.</div>
+            </div>
+
+            <!-- Glowing Luxury Timer Badge -->
+            <div class="cockpit-timer-card">
+              <span class="timer-card-label" id="buyerHeaderTimerText">Time Remaining:</span>
+              <span class="timer-card-digits" id="buyerBiddingCountdownDisplay">23:48:25</span>
+              <span class="timer-card-sub" id="buyerDeadlineTimestamp">Deadline: Nov 17, 18:10</span>
             </div>
           </div>
 
-          <!-- Countdown Display & Tender Actions -->
-          <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
-            <div style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); padding:8px 16px; border-radius:9999px; display:flex; align-items:center; gap:8px;">
-              <span style="font-size:11px; font-weight:700; text-transform:uppercase; color:#DDD7CE;" id="buyerHeaderTimerText">Deadline:</span>
-              <span id="buyerBiddingCountdownDisplay" style="font-family:var(--font-serif); font-size:16px; font-weight:700; color:#FF8370;">00:00:00</span>
-              <span id="buyerDeadlineTimestamp" style="font-size:11px; color:#DDD7CE;">(--)</span>
+          <!-- Structured Telemetry Metadata Chips -->
+          <div class="cockpit-chips-grid">
+            <div class="cockpit-chip">
+              <span class="chip-label">Source Demand</span>
+              <span class="chip-val"><strong id="cfgMetaPrNumber" style="color:#FFFFFF;">PR-3000010443 (3000010443)</strong></span>
             </div>
-            <div class="cockpit-actions-group">
-              <select id="cfgRfqSelector" onchange="switchSourcingProject(this.value)" class="sap-field-input" style="padding:6px 12px; font-size:12px; border-radius:9999px; max-width:240px; background:#191716; color:#FFFFFF; border-color:#4A4440;">
-                <option value="">Switch Sourcing Tender...</option>
+            <div class="cockpit-chip">
+              <span class="chip-label">Operational Material</span>
+              <span class="chip-val"><strong id="cfgMetaMaterial" style="color:#FFFFFF;">SUMINISTROS REFRI • 7,125,000 Units</strong></span>
+            </div>
+            <div class="cockpit-chip">
+              <span class="chip-label">Delivery Plant</span>
+              <span class="chip-val"><strong id="cfgMetaPlant" style="color:#FFFFFF;">Gran Tierra Energy • Vereda Morrison</strong></span>
+            </div>
+            <div class="cockpit-chip highlight-green">
+              <span class="chip-label">Clean Core Follow-on PO</span>
+              <span class="chip-val"><strong id="cfgMetaPoNumber" style="color:#4ade80;">SAP PO 450009180 (Committed)</strong></span>
+            </div>
+          </div>
+
+          <!-- Bottom Tender Control Strip -->
+          <div class="cockpit-control-bar">
+            <div class="cockpit-selector-group">
+              <span class="selector-label">Switch Tender:</span>
+              <select id="cfgRfqSelector" onchange="switchSourcingProject(this.value)" class="cockpit-select">
+                <option value="">Select Sourcing Project...</option>
               </select>
-              <button class="sap-btn sap-btn-secondary sap-btn-sm" style="background:rgba(255,255,255,0.1); color:#fff; border-color:rgba(255,255,255,0.2);" onclick="openSetBiddingDeadlineModal()">Set Timer</button>
-              <button class="sap-btn sap-btn-secondary sap-btn-sm" style="background:rgba(255,255,255,0.1); color:#fff; border-color:rgba(255,255,255,0.2);" id="btnCloseBidding" onclick="closeBiddingNow()">Close Tender</button>
+            </div>
+            <div class="cockpit-btn-group">
+              <button class="pf-btn-secondary" onclick="openSetBiddingDeadlineModal()">
+                ⏱ Set Dynamic Timer
+              </button>
+              <button class="pf-btn-coral" id="btnCloseBidding" onclick="closeBiddingNow()">
+                Close Tender Now &rarr;
+              </button>
             </div>
           </div>
         </div>
@@ -750,26 +856,33 @@
 
         <!-- Supplier Welcome Mission Control Banner -->
         <div class="cockpit-hero-banner is-obsidian">
-          <div class="cockpit-title-group">
-            <div class="cockpit-icon-badge">🏢</div>
-            <div>
-              <div style="display:flex; align-items:center; gap:10px;">
-                <span class="status-pill pending" id="supplierParticipationStatusBadge">Invitation Received</span>
-                <span id="supPlantNameHeader" style="font-size:12px; font-weight:700; color:#FF8370;">VEREDA MORRISON PLANT</span>
+          <div class="cockpit-header-row">
+            <div class="cockpit-title-left">
+              <div class="cockpit-status-badges">
+                <span class="status-pill pending" id="supplierParticipationStatusBadge">
+                  Invitation Received
+                </span>
+                <span id="supPlantNameHeader" class="cockpit-event-badge">VEREDA MORRISON PLANT</span>
               </div>
-              <h2 id="supEventTitle" style="font-size:22px; font-weight:600; color:#FFFFFF; margin:4px 0 2px 0;">Strategic Sourcing Tender Quotation</h2>
-              <div style="font-size:13px; color:#DDD7CE;">Submit sealed technical proposal and unit commercial tariff.</div>
+              <h2 id="supEventTitle" class="cockpit-main-heading">Strategic Sourcing Tender Quotation</h2>
+              <div style="font-size:13.5px; color:#DDD7CE;">Submit sealed technical proposal and unit commercial tariff.</div>
+            </div>
+
+            <!-- Glowing Luxury Timer Badge -->
+            <div class="cockpit-timer-card">
+              <span class="timer-card-label">Tender Time Remaining</span>
+              <span class="timer-card-digits" id="supplierTimeRemainingText">00:00:00</span>
+              <span class="timer-card-sub">Sealed Bid Submission Window</span>
             </div>
           </div>
 
-          <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
-            <div style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); padding:8px 16px; border-radius:9999px; display:flex; align-items:center; gap:8px;">
-              <span style="font-size:11px; font-weight:700; text-transform:uppercase; color:#DDD7CE;">Tender Time Remaining:</span>
-              <span id="supplierTimeRemainingText" style="font-family:var(--font-serif); font-size:16px; font-weight:700; color:#FF8370;">00:00:00</span>
+          <div class="cockpit-control-bar">
+            <div class="cockpit-selector-group">
+              <span class="selector-label">Invitation:</span>
+              <select id="supplierTenderSelector" onchange="switchSupplierTender(this.value)" class="cockpit-select">
+                <option value="">Switch RFQ Invitation...</option>
+              </select>
             </div>
-            <select id="supplierTenderSelector" onchange="switchSupplierTender(this.value)" class="sap-field-input" style="padding:6px 12px; font-size:12px; border-radius:9999px; max-width:240px; background:#191716; color:#FFFFFF; border-color:#4A4440;">
-              <option value="">Switch RFQ Invitation...</option>
-            </select>
           </div>
         </div>
 
@@ -2274,7 +2387,7 @@
   <!-- Toast Container -->
   <div class="sap-toast-stack" id="sapToastStack"></div>
 
-  <script src="/js/app.js?v=4.0"></script>
+  <script src="/js/app.js?v=5.0"></script>
 </body>
 
 </html>
