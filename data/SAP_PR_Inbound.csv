@@ -1,4 +1,6 @@
 SAP_PR_Number,Doc_Type,Item,Material_Desc,Quantity,Unit,Valuation_Unit_Price_COP,Plant,Status,Requester,Department,Created_Date
+3000048546,NB,10,Emergency Replacement Cooling Compressors,2,Units,17500000,Altamira Petrochemical Complex,Awarded (PO 4500093737),Carlos Ramirez,Plant Operations (OP ANG),2026-11-16
+3000098682,NB,10,Industrial Refrigerant R-134a Cylinders,500,Cylinder,250000,OP ANG (GTE Col),Sourcing Pending,Carlos Fonseca (Field Engineer),Operations,2026-11-16
 3000053779,NB,10,Emergency Replacement Cooling Compressors,2,Units,17500000,Altamira Petrochemical Complex,Awarded (PO 4500079828),Carlos Ramirez,Plant Operations (OP ANG),2026-11-16
 3000038077,NB,10,Industrial Refrigerant R-134a Cylinders,500,Cylinder,250000,OP ANG (GTE Col),Sourcing Pending,Carlos Fonseca (Field Engineer),Operations,2026-11-16
 3000024112,NB,10,Emergency Replacement Cooling Compressors,2,Units,17500000,Altamira Petrochemical Complex,Awarded (PO 4500030228),Carlos Ramirez,Plant Operations (OP ANG),2026-11-16
