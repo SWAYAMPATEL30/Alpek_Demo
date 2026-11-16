@@ -3745,3 +3745,104 @@ document.addEventListener('click', (e) => {
     e.target.style.setProperty('display', 'none', 'important');
   }
 });
+
+
+// =============================================================================
+// PASSIONFROOT WORKSPACE UTILITIES & BACKWARD COMPATIBILITY ADAPTERS
+// =============================================================================
+
+function closeProfileDropdown() {
+  const card = document.getElementById('profileDropdownCard');
+  if (card) {
+    card.classList.remove('active');
+    card.style.display = 'none';
+  }
+}
+
+function toggleProfileDropdown() {
+  const card = document.getElementById('profileDropdownCard');
+  if (!card) return;
+  const isShown = card.style.display === 'block' || card.classList.contains('active');
+  if (isShown) {
+    closeProfileDropdown();
+  } else {
+    card.classList.add('active');
+    card.style.display = 'block';
+  }
+}
+
+function logoutUser() {
+  sessionStorage.removeItem('abc_current_user');
+  window.currentUser = null;
+  const loginPage = document.getElementById('page-login');
+  const appPage = document.getElementById('page-app');
+  if (appPage) appPage.classList.add('hidden');
+  if (loginPage) loginPage.classList.remove('hidden');
+  closeProfileDropdown();
+  window.location.hash = 'login-portal';
+  if (typeof showSapToast === 'function') {
+    showSapToast('Signed out of Sourcing OS session.', 'info');
+  }
+}
+
+function closeBiddingNow() {
+  if (typeof closeBiddingManually === 'function') return closeBiddingManually();
+}
+
+function openEnvelopeCommercial() {
+  if (typeof openEnvelopeDetails === 'function') return openEnvelopeDetails('commercial');
+}
+
+function openAwardScenarioModal() {
+  if (typeof triggerAwardApproval === 'function') return triggerAwardApproval();
+}
+
+function exportMatrixCsv() {
+  if (typeof exportExcel === 'function') return exportExcel('matrix');
+}
+
+function openResubmitModalFromAlert() {
+  const modal = document.getElementById('modalCreatePr');
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.style.setProperty('display', 'flex', 'important');
+  }
+}
+
+function switchApproverRfq(id) {
+  if (typeof loadApproverReviewData === 'function') return loadApproverReviewData(id);
+}
+
+function approveAndDispatchPoToSap() {
+  if (typeof executeApproverFinalPoCommit === 'function') return executeApproverFinalPoCommit();
+}
+
+function switchExcelTab(tab) {
+  if (typeof switchExcelSheet === 'function') return switchExcelSheet(tab);
+}
+
+function downloadCurrentExcelCsv() {
+  if (typeof downloadCurrentExcelSheet === 'function') return downloadCurrentExcelSheet();
+}
+
+function handleDurationChange(val) {
+  const customInput = document.getElementById('customBiddingDurationInput');
+  if (customInput) {
+    customInput.style.display = val === 'custom' ? 'block' : 'none';
+  }
+}
+
+// Expose on window for inline event handlers
+window.closeProfileDropdown = closeProfileDropdown;
+window.toggleProfileDropdown = toggleProfileDropdown;
+window.logoutUser = logoutUser;
+window.closeBiddingNow = closeBiddingNow;
+window.openEnvelopeCommercial = openEnvelopeCommercial;
+window.openAwardScenarioModal = openAwardScenarioModal;
+window.exportMatrixCsv = exportMatrixCsv;
+window.openResubmitModalFromAlert = openResubmitModalFromAlert;
+window.switchApproverRfq = switchApproverRfq;
+window.approveAndDispatchPoToSap = approveAndDispatchPoToSap;
+window.switchExcelTab = switchExcelTab;
+window.downloadCurrentExcelCsv = downloadCurrentExcelCsv;
+window.handleDurationChange = handleDurationChange;

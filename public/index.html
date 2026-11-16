@@ -4,9 +4,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alpek Demo Procurement Platform | Passionfroot Sourcing OS</title>
-  <link rel="stylesheet" href="/css/styles.css?v=5.0">
-  <link rel="stylesheet" href="/css/passionfroot.css?v=5.0">
+  <title>Passionfroot - The Agentic Sourcing OS for SAP S/4HANA</title>
+  <meta name="description" content="Built for modern enterprise procurement teams to plan, tender, evaluate, and commit Clean Core S/4HANA purchase orders — end to end.">
+
+  <!-- Official Passionfroot Fonts & Styling -->
+  <link rel="preconnect" href="https://use.typekit.net" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.typekit.net/iur2yej.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap">
+
+  <link rel="stylesheet" href="/css/pf-official.css">
+  <link rel="stylesheet" href="/css/pf-overrides.css">
+  <link rel="stylesheet" href="/css/styles.css?v=6.0">
+  <link rel="stylesheet" href="/css/passionfroot.css?v=6.0">
+
   <script>
     function closeTraceabilityModal() {
       var modal = document.getElementById('modalTraceability');
@@ -38,6 +49,7 @@
         e.target.style.setProperty('display', 'none', 'important');
       }
     });
+
     function fillCredentials(username, password) {
       var uInput = document.getElementById('loginUsername');
       var pInput = document.getElementById('loginPassword');
@@ -58,6 +70,16 @@
       drawer.style.display = isHidden ? 'flex' : 'none';
       if (arrow) arrow.innerHTML = isHidden ? '&uarr;' : '&darr;';
     }
+
+    function toggleFaq(btn) {
+      var content = btn.nextElementSibling;
+      var icon = btn.querySelector('.faq-icon');
+      if (!content) return;
+      var isOpen = content.style.display === 'block';
+      content.style.display = isOpen ? 'none' : 'block';
+      if (icon) icon.textContent = isOpen ? '+' : '−';
+    }
+
     async function handleLoginFormSubmit(e) {
       if (e && e.preventDefault) e.preventDefault();
       var username = (document.getElementById('loginUsername')?.value || '').trim();
@@ -126,329 +148,478 @@
     window.quickFillCredentials = quickFillCredentials;
     window.fillCredentials = fillCredentials;
     window.toggleCredentialsDrawer = toggleCredentialsDrawer;
+    window.toggleFaq = toggleFaq;
   </script>
 </head>
 
-<body class="sap-fiori-shell">
+<body class="bg-foundation text-default font-body antialiased selection:bg-[#E0533C] selection:text-white">
 
   <!-- ========================================================================= -->
-  <!-- 1. PASSIONFROOT EDITORIAL LANDING PAGE & ENTERPRISE SIGN-IN PORTAL       -->
+  <!-- 1. EXACT PASSIONFROOT 1:1 CLONE HOMEPAGE (LANDING & ACCESS PORTAL)        -->
   <!-- ========================================================================= -->
-  <div id="page-login" class="pf-landing-container">
-    <!-- Floating Luxury Navbar -->
-    <header class="pf-navbar-wrapper">
-      <nav class="pf-navbar">
-        <a href="#hero" class="pf-brand">
-          <span class="pf-brand-badge">AD</span>
-          <span>Alpek Sourcing OS</span>
-        </a>
-        <ul class="pf-nav-links">
-          <li><a href="#hero" class="pf-nav-link">Overview</a></li>
-          <li><a href="#features" class="pf-nav-link">Sourcing Cockpit</a></li>
-          <li><a href="#features" class="pf-nav-link">Two-Envelope Protocol</a></li>
-          <li><a href="#features" class="pf-nav-link">S/4HANA Clean Core</a></li>
+  <div id="page-login" class="bg-foundation mx-0 flex min-h-screen flex-col">
+
+    <!-- Passionfroot Authentic Floating Glass Header -->
+    <header class="fixed top-2 lg:top-5 left-1/2 -translate-x-1/2 z-50 w-[1320px] max-w-[calc(100%-16px)] lg:max-w-[calc(100%-32px)] vt-site-nav">
+      <nav aria-label="Main navigation">
+        <ul class="flex items-center justify-between">
+          <!-- Left: Brand Logo & Clean Core Status -->
+          <div class="flex items-center gap-2 rounded-xl p-1.25 pr-1.5 transition-all duration-300 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-md ring-1 ring-white/7 ring-inset shadow-[0_1px_1px_rgba(255,255,255,0.04)_inset,0_2px_8px_rgba(0,0,0,0.10)]">
+            <a href="/" class="flex h-9 items-center gap-2.5 px-3">
+              <span style="width:26px; height:26px; border-radius:50%; background:#190922; color:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; border:1px solid rgba(255,255,255,0.2);">AD</span>
+              <span class="font-heading font-semibold text-lg text-white tracking-tight">Alpek Sourcing OS</span>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-[#FF8370] bg-[#FF8370]/15 px-2 py-0.5 rounded-full border border-[#FF8370]/25">Clean Core</span>
+            </a>
+          </div>
+
+          <!-- Center: Nav Pills -->
+          <div class="hidden lg:flex items-center gap-1 rounded-xl p-1.25 transition-all duration-300 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-md ring-1 ring-white/7 ring-inset shadow-[0_1px_1px_rgba(255,255,255,0.04)_inset,0_2px_8px_rgba(0,0,0,0.10)]">
+            <a href="#hero-section" class="px-3.5 py-1.5 text-sm font-medium text-white/80 hover:text-white transition-colors">Overview</a>
+            <a href="#section-agent" class="px-3.5 py-1.5 text-sm font-medium text-white/80 hover:text-white transition-colors">Sourcing Agent</a>
+            <a href="#section-tenders" class="px-3.5 py-1.5 text-sm font-medium text-white/80 hover:text-white transition-colors">Two-Envelope</a>
+            <a href="#section-playbook" class="px-3.5 py-1.5 text-sm font-medium text-white/80 hover:text-white transition-colors">Clean Core ERP</a>
+            <a href="#section-faq" class="px-3.5 py-1.5 text-sm font-medium text-white/80 hover:text-white transition-colors">FAQ</a>
+          </div>
+
+          <!-- Right: Actions -->
+          <div class="flex items-center gap-2">
+            <a href="#login-portal" class="px-4 py-2 text-sm font-semibold text-white bg-white/10 hover:bg-white/20 rounded-xl transition-all border border-white/10 backdrop-blur-sm">
+              Role Directory
+            </a>
+            <a href="#login-portal" class="px-5 py-2 text-sm font-bold text-[#190922] bg-[#F5F2EB] hover:bg-white rounded-xl transition-all shadow-[0_2px_8px_rgba(0,0,0,0.2)]">
+              Sign In &rarr;
+            </a>
+          </div>
         </ul>
-        <div class="pf-nav-actions">
-          <a href="#login-portal" class="pf-btn-pill pf-btn-dark">Sign In</a>
-        </div>
       </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="pf-hero-section" id="hero">
-      <div class="pf-pill-tag">
-        <span class="pf-pill-dot"></span>
-        <span>SAP S/4HANA Clean Core Sourcing OS &bull; Production v3.0</span>
-      </div>
+    <!-- SECTION 2: PASSIONFROOT OFFICIAL HERO SECTION -->
+    <section id="hero-section" class="pt-0 2xl:pt-3 w-full bg-brand-surface shadow-border-strong">
+      <div class="relative flex flex-col items-center overflow-hidden min-h-[calc(100dvh+128px)] md:min-h-[calc(100dvh-114px)] lg:min-h-[calc(100dvh-114px)] xl:min-h-[1192px] max-w-480 w-full mx-auto pt-28 md:pt-32 lg:pt-36 rounded-b-xl 2xl:rounded-xl">
+        <!-- Deep Obsidian-Plum Background Aura -->
+        <div class="absolute inset-0 z-0 overflow-hidden bg-[#190922]" style="top:0; transform:none;">
+          <div class="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_50%_30%,#3d1445_0%,#190922_70%)]"></div>
+          <div class="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#190922] to-transparent"></div>
+        </div>
 
-      <h1 class="pf-hero-title">
-        Enterprise Sourcing,<br><em>finally clean.</em>
-      </h1>
-
-      <p class="pf-hero-subtitle">
-        Eliminate SAP Ariba complexity. Run multi-vendor strategic tenders, two-envelope evaluations, and instant S/4HANA purchase order integration with zero latency.
-      </p>
-
-      <div class="pf-hero-ctas">
-        <a href="#login-portal" class="pf-btn-pill pf-btn-dark" style="padding:14px 34px; font-size:15px;">
-          Access Sourcing Portal &rarr;
-        </a>
-        <button type="button" onclick="toggleCredentialsDrawer()" class="pf-btn-pill pf-btn-outline" style="padding:14px 28px; font-size:14px;">
-          Corporate Role Directory (10 Personas)
-        </button>
-      </div>
-
-      <!-- Passionfroot Signature Product UI Showcase Window -->
-      <div class="pf-hero-mockup-wrapper">
-        <div class="pf-mockup-window">
-          <div class="pf-mockup-topbar">
-            <div class="pf-mac-dots">
-              <span class="mac-dot red"></span>
-              <span class="mac-dot yellow"></span>
-              <span class="mac-dot green"></span>
+        <div class="w-full flex flex-col max-w-360 mx-auto relative z-20">
+          <div class="w-full max-w-[90%] md:max-w-270 gap-5 lg:gap-6 px-4 xl:px-0 flex flex-col items-center text-center mx-auto">
+            <!-- Eyebrow Pill Tag -->
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-white/90 text-xs font-semibold">
+              <span class="w-2 h-2 rounded-full bg-[#E0533C] animate-pulse"></span>
+              <span>The Agentic Sourcing OS for SAP S/4HANA &bull; Clean Core v3.0</span>
             </div>
-            <div class="pf-mockup-title">
-              <span class="live-dot-pulse"></span>
-              Alpek Sourcing Cockpit &bull; Live Tender Session (Doc2432956265)
+
+            <!-- Big Display Serif Heading -->
+            <div class="flex flex-col items-center">
+              <h1 class="font-heading text-white font-medium text-4xl sm:text-6xl lg:text-7xl xl:text-[80px] leading-[1.08] tracking-tight">
+                The Agentic Sourcing OS <br class="hidden sm:block">for the Clean Core era.
+              </h1>
+              <div class="mt-4 font-heading italic text-3xl sm:text-5xl text-[#FF8370]">
+                Enterprise procurement, finally simple.
+              </div>
             </div>
-            <div class="pf-mockup-badge">S/4HANA Clean Core Active</div>
+
+            <!-- Subtitle -->
+            <p class="max-w-2xl text-base sm:text-lg text-white/75 font-normal leading-relaxed">
+              Eliminate SAP Ariba complexity. Run multi-vendor strategic tenders, two-envelope blind evaluations, and instant S/4HANA purchase order integration with zero staging delays.
+            </p>
+
+            <!-- Hero CTAs -->
+            <div class="flex flex-wrap items-center justify-center gap-3 mt-2">
+              <a href="#login-portal" class="px-7 py-3.5 text-base font-bold text-[#190922] bg-white hover:bg-[#F5F2EB] rounded-full transition-all shadow-[0_4px_20px_rgba(255,255,255,0.25)] flex items-center gap-2">
+                <span>Access Sourcing Cockpit</span>
+                <span>&rarr;</span>
+              </a>
+              <button type="button" onclick="toggleCredentialsDrawer()" class="px-6 py-3.5 text-base font-semibold text-white bg-white/10 hover:bg-white/15 border border-white/20 rounded-full transition-all backdrop-blur-md">
+                Corporate Role Directory (10 Personas)
+              </button>
+            </div>
+
+            <!-- Interactive AI Prompt Search Cockpit -->
+            <div class="w-full max-w-3xl mt-6 p-2 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
+              <div class="flex flex-col sm:flex-row items-center gap-2 bg-[#23152C]/90 rounded-xl p-2 border border-white/10">
+                <div class="flex items-center gap-3 px-3 w-full">
+                  <span class="text-[#FF8370] text-lg">&#10024;</span>
+                  <input type="text" readonly value="Launch strategic tender for 7,125,000 units of industrial refrigerant at Vereda Morrison plant..." class="w-full bg-transparent text-white/90 text-sm outline-none font-medium">
+                </div>
+                <a href="#login-portal" class="whitespace-nowrap px-5 py-2.5 bg-[#E0533C] hover:bg-[#ff6950] text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-all shadow-md">
+                  Run Sourcing OS &rarr;
+                </a>
+              </div>
+
+              <!-- Quick Action Chips -->
+              <div class="flex flex-wrap items-center justify-center gap-2 pt-3 pb-1 text-xs">
+                <span class="text-white/50 text-[11px] font-semibold">Instant Actions:</span>
+                <span class="px-2.5 py-1 rounded-md bg-white/5 text-white/80 border border-white/10">01 / Technical Envelope Assay</span>
+                <span class="px-2.5 py-1 rounded-md bg-white/5 text-white/80 border border-white/10">02 / Commercial Sealed Bids</span>
+                <span class="px-2.5 py-1 rounded-md bg-white/5 text-white/80 border border-white/10">03 / Commit S/4HANA PO</span>
+              </div>
+            </div>
+
+            <!-- Telemetry Stat Pills -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 w-full max-w-3xl mt-4">
+              <div class="bg-white/5 border border-white/10 rounded-xl p-3 text-center">
+                <div class="font-heading text-2xl font-bold text-white">100%</div>
+                <div class="text-[11px] font-semibold text-white/60 uppercase tracking-wider mt-0.5">Clean Core Compliant</div>
+              </div>
+              <div class="bg-white/5 border border-white/10 rounded-xl p-3 text-center">
+                <div class="font-heading text-2xl font-bold text-[#4ade80]">14.3%</div>
+                <div class="text-[11px] font-semibold text-white/60 uppercase tracking-wider mt-0.5">Verified Savings</div>
+              </div>
+              <div class="bg-white/5 border border-white/10 rounded-xl p-3 text-center">
+                <div class="font-heading text-2xl font-bold text-[#FF8370]">2-Envelope</div>
+                <div class="text-[11px] font-semibold text-white/60 uppercase tracking-wider mt-0.5">Sealed Protocol</div>
+              </div>
+              <div class="bg-white/5 border border-white/10 rounded-xl p-3 text-center">
+                <div class="font-heading text-2xl font-bold text-white">Zero Ariba</div>
+                <div class="text-[11px] font-semibold text-white/60 uppercase tracking-wider mt-0.5">Direct OData Sync</div>
+              </div>
+            </div>
+
           </div>
-
-          <div class="pf-mockup-body">
-            <!-- Cockpit Header Banner Inside Mockup -->
-            <div class="pf-mockup-hero-banner">
-              <div class="mockup-header-info">
-                <span class="mockup-status-tag">ROUND 1 BIDDING ACTIVE</span>
-                <h3 class="mockup-event-title">SUMINISTROS REFRI &bull; Industrial Refrigerant Loop</h3>
-                <span class="mockup-event-meta">Plant: OP ANG (Vereda Morrison) &bull; Volume: 7,125,000 Units &bull; Net 60 Days</span>
-              </div>
-              <div class="mockup-timer-pill">
-                <span class="mockup-timer-label">Time Remaining:</span>
-                <span class="mockup-timer-val">23:48:25</span>
-              </div>
-            </div>
-
-            <!-- Bento 3-Column Feature Cards Inside Mockup -->
-            <div class="pf-mockup-cards-grid">
-              <!-- Card 1: Envelope 1 -->
-              <div class="pf-mockup-card">
-                <div class="mockup-card-tag">ENVELOPE 1 &bull; TECHNICAL</div>
-                <div class="mockup-card-title">Sealed Technical Assays</div>
-                <div class="mockup-check-list">
-                  <div class="check-item"><span class="check-icon">&#10003;</span> ISO 9001:2015 Safety Assay</div>
-                  <div class="check-item"><span class="check-icon">&#10003;</span> Lead time guaranteed &lt; 14 days</div>
-                  <div class="check-item"><span class="check-icon">&#10003;</span> Technical Score: <strong>95/100</strong></div>
-                </div>
-                <div class="mockup-evaluator-badge">Verified by Dr. Elena Gomez</div>
-              </div>
-
-              <!-- Card 2: Envelope 2 -->
-              <div class="pf-mockup-card highlight">
-                <div class="mockup-card-tag green">ENVELOPE 2 &bull; COMMERCIAL</div>
-                <div class="mockup-card-title">Commercial Tariff Unsealing</div>
-                <div class="mockup-price-box">
-                  <div class="price-val">$3.00 <span class="price-curr">COP / unit</span></div>
-                  <div class="savings-tag">14.3% Baseline Savings</div>
-                </div>
-                <div class="mockup-supplier-row">
-                  <span class="sup-avatar">SO</span>
-                  <span>SONDA DE COLOMBIA S A</span>
-                </div>
-              </div>
-
-              <!-- Card 3: Instant S/4HANA PO -->
-              <div class="pf-mockup-card dark">
-                <div class="mockup-card-tag dark">SAP S/4HANA &bull; ZERO LATENCY</div>
-                <div class="mockup-card-title dark">Committed Order #450009180</div>
-                <p class="mockup-dark-desc">Direct OData v4 commitment to SAP ERP without Ariba staging delays.</p>
-                <div class="mockup-po-status">
-                  <span class="status-indicator"></span> POSTED_CONFIRMED (cXML 1.2)
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Live KPI Telemetry Bento -->
-      <div class="pf-stats-grid">
-        <div class="pf-stat-card">
-          <div class="pf-stat-value">100%</div>
-          <div class="pf-stat-label">Clean Core Compliance</div>
-        </div>
-        <div class="pf-stat-card">
-          <div class="pf-stat-value">14.3%</div>
-          <div class="pf-stat-label">Average Tender Savings</div>
-        </div>
-        <div class="pf-stat-card">
-          <div class="pf-stat-value">2-Envelope</div>
-          <div class="pf-stat-label">Sealed Quality &amp; Price Bidding</div>
-        </div>
-        <div class="pf-stat-card">
-          <div class="pf-stat-value">Zero Ariba</div>
-          <div class="pf-stat-label">Direct S/4HANA OData &amp; cXML Sync</div>
         </div>
       </div>
     </section>
 
-    <!-- Formal Corporate Sign-In Deck -->
-    <div class="pf-login-wrapper" id="login-portal">
-      <div class="pf-login-card">
-        <div class="pf-login-header">
-          <div style="display:inline-flex; align-items:center; gap:8px; margin-bottom:12px;">
-            <span style="width:24px; height:24px; border-radius:50%; background:#191716; color:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800;">AD</span>
-            <span style="font-size:12px; font-weight:700; color:#8C867F; text-transform:uppercase; letter-spacing:0.05em;">Corporate Authentication</span>
-          </div>
-          <h2>Sign in to Sourcing OS</h2>
-          <p>Enter your enterprise credentials or select an evaluator persona below.</p>
-        </div>
-
-        <form id="formCorporateLogin" onsubmit="handleLoginFormSubmit(event); return false;">
-          <div class="pf-form-group">
-            <label class="pf-form-label" for="loginUsername">Corporate User ID / Username</label>
-            <input type="text" id="loginUsername" class="pf-input-text" placeholder="e.g. buyer or supplier_a" required autocomplete="username" value="buyer">
-          </div>
-
-          <div class="pf-form-group">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-              <label class="pf-form-label" for="loginPassword" style="margin-bottom:0;">Password</label>
-              <span style="font-size:11.5px; color:var(--ink-500);">Demo Default: <code>Alpek@2026</code></span>
-            </div>
-            <input type="password" id="loginPassword" class="pf-input-text" placeholder="Enter password..." required autocomplete="current-password" value="Alpek@2026">
-          </div>
-
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; font-size:12.5px; color:var(--ink-700);">
-            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-              <input type="checkbox" id="loginRememberMe" checked style="accent-color:var(--brand-dark);">
-              <span>Remember session</span>
-            </label>
-            <a href="#" style="color:var(--brand-coral); font-weight:600;" onclick="showSapToast('Single Sign-On (SSO) active via SAP Cloud Identity Services.', 'info')">SSO Help</a>
-          </div>
-
-          <button type="submit" id="btnSubmitLogin" class="pf-btn-pill pf-btn-dark pf-login-btn">
-            Sign In to Workspace &rarr;
-          </button>
-        </form>
-
-        <!-- Enterprise Demo Directory Collapsible Drawer -->
-        <div class="pf-credentials-box">
-          <button type="button" class="pf-credentials-toggle" onclick="toggleCredentialsDrawer()">
-            <span>Corporate Role Directory (10 Personas)</span>
-            <span id="credToggleArrow">&#9662;</span>
-          </button>
-
-          <div id="credentialsDrawer" class="pf-credentials-list" style="display:none;">
-            <div class="pf-credential-row">
-              <div class="pf-cred-info">
-                <strong>Valeria Martinez (Buyer / Lead)</strong>
-                <span>User: <code>buyer</code> &bull; Pass: <code>Alpek@2026</code></span>
-              </div>
-              <button type="button" class="pf-btn-fill" onclick="quickFillCredentials('buyer', 'Alpek@2026')">Use</button>
-            </div>
-            <div class="pf-credential-row">
-              <div class="pf-cred-info">
-                <strong>SONDA DE COLOMBIA S A (Supplier A)</strong>
-                <span>User: <code>supplier_a</code> &bull; Pass: <code>Alpek@2026</code></span>
-              </div>
-              <button type="button" class="pf-btn-fill" onclick="quickFillCredentials('supplier_a', 'Alpek@2026')">Use</button>
-            </div>
-            <div class="pf-credential-row">
-              <div class="pf-cred-info">
-                <strong>EMERSON PROCESS MANAGEMENT (Supplier B)</strong>
-                <span>User: <code>supplier_b</code> &bull; Pass: <code>Alpek@2026</code></span>
-              </div>
-              <button type="button" class="pf-btn-fill" onclick="quickFillCredentials('supplier_b', 'Alpek@2026')">Use</button>
-            </div>
-            <div class="pf-credential-row">
-              <div class="pf-cred-info">
-                <strong>Carlos Ruiz (Plant Requester)</strong>
-                <span>User: <code>requester</code> &bull; Pass: <code>Alpek@2026</code></span>
-              </div>
-              <button type="button" class="pf-btn-fill" onclick="quickFillCredentials('requester', 'Alpek@2026')">Use</button>
-            </div>
-            <div class="pf-credential-row">
-              <div class="pf-cred-info">
-                <strong>Mariana Torres (Plant Manager)</strong>
-                <span>User: <code>manager</code> &bull; Pass: <code>Alpek@2026</code></span>
-              </div>
-              <button type="button" class="pf-btn-fill" onclick="quickFillCredentials('manager', 'Alpek@2026')">Use</button>
-            </div>
-            <div class="pf-credential-row">
-              <div class="pf-cred-info">
-                <strong>Dr. Elena Gomez (Technical Evaluator)</strong>
-                <span>User: <code>tech_eval</code> &bull; Pass: <code>Alpek@2026</code></span>
-              </div>
-              <button type="button" class="pf-btn-fill" onclick="quickFillCredentials('tech_eval', 'Alpek@2026')">Use</button>
-            </div>
-            <div class="pf-credential-row">
-              <div class="pf-cred-info">
-                <strong>Javier Ortega (Commercial Evaluator)</strong>
-                <span>User: <code>comm_eval</code> &bull; Pass: <code>Alpek@2026</code></span>
-              </div>
-              <button type="button" class="pf-btn-fill" onclick="quickFillCredentials('comm_eval', 'Alpek@2026')">Use</button>
-            </div>
-            <div class="pf-credential-row">
-              <div class="pf-cred-info">
-                <strong>Patricia Moreno (Award Committee Approver)</strong>
-                <span>User: <code>award_approver</code> &bull; Pass: <code>Alpek@2026</code></span>
-              </div>
-              <button type="button" class="pf-btn-fill" onclick="quickFillCredentials('award_approver', 'Alpek@2026')">Use</button>
-            </div>
-            <div class="pf-credential-row">
-              <div class="pf-cred-info">
-                <strong>Roberto Gomez (Receiving / Inspector)</strong>
-                <span>User: <code>receiving</code> &bull; Pass: <code>Alpek@2026</code></span>
-              </div>
-              <button type="button" class="pf-btn-fill" onclick="quickFillCredentials('receiving', 'Alpek@2026')">Use</button>
-            </div>
-            <div class="pf-credential-row">
-              <div class="pf-cred-info">
-                <strong>System Administrator (Full Cockpit Access)</strong>
-                <span>User: <code>admin</code> &bull; Pass: <code>Alpek@2026</code></span>
-              </div>
-              <button type="button" class="pf-btn-fill" onclick="quickFillCredentials('admin', 'Alpek@2026')">Use</button>
-            </div>
-          </div>
+    <!-- SECTION: LOGO MARQUEE -->
+    <div class="w-full py-12 border-b border-[#EDEAE4] bg-[#FAF8F5]">
+      <div class="max-w-6xl mx-auto px-6 text-center">
+        <p class="text-xs font-bold uppercase tracking-widest text-[#8C867F] mb-6">
+          Trusted by global enterprise manufacturing &amp; energy leaders
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-8 md:gap-14 opacity-75 grayscale hover:grayscale-0 transition-all">
+          <span class="font-heading font-bold text-lg text-[#191716] tracking-tight">Gran Tierra Energy</span>
+          <span class="font-heading font-bold text-lg text-[#191716] tracking-tight">ALPEK POLYESTER</span>
+          <span class="font-heading font-bold text-lg text-[#191716] tracking-tight">INDORAMA VENTURES</span>
+          <span class="font-heading font-bold text-lg text-[#191716] tracking-tight">BASF CHEMICALS</span>
+          <span class="font-heading font-bold text-lg text-[#191716] tracking-tight">SONDA DE COLOMBIA</span>
+          <span class="font-heading font-bold text-lg text-[#191716] tracking-tight">EMERSON PROCESS</span>
         </div>
       </div>
     </div>
 
-    <!-- Feature Bento Grid Section -->
-    <section class="pf-features-section" id="features">
-      <div class="pf-section-heading">
-        <h3>Architecture &amp; Features</h3>
-        <p>A modern, agentic replacement for SAP Ariba Sourcing.</p>
+    <!-- SECTION 3: BENTO GRID 1 (MEET SOURCING OS) -->
+    <section id="section-agent" class="w-full py-20 px-6 max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-[#E0533C]">01 / AGENTIC PROCUREMENT</span>
+        <h2 class="font-heading text-3xl sm:text-5xl font-medium text-[#191716] mt-2 tracking-tight">
+          Meet Sourcing OS, tendering finally simple.
+        </h2>
+        <p class="text-base text-[#4B4643] mt-3">
+          Transform raw SAP purchase requisitions into competitive multi-vendor tenders without manual spreadsheets or staging middleware.
+        </p>
       </div>
 
-      <div class="pf-bento-grid">
-        <div class="pf-bento-card">
-          <div class="pf-bento-num">01 / INBOUND DEMAND</div>
-          <div class="pf-bento-title">SAP Inbound Requisitions</div>
-          <div class="pf-bento-desc">Direct OData v4 consumption from SAP S/4HANA or mock CSV spreadsheet without staging middleware.</div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Bento Card 1 -->
+        <div class="bg-white border border-[#EDEAE4] rounded-2xl p-7 shadow-sm hover:shadow-md transition-all flex flex-col justify-between min-h-[320px]">
+          <div>
+            <div class="text-[10px] font-bold uppercase tracking-wider text-[#8C867F]">Inbound Demand</div>
+            <h3 class="font-heading text-xl font-semibold text-[#191716] mt-2">From SAP PR to Sourcing RFP in One Click</h3>
+            <p class="text-xs text-[#4B4643] mt-2 leading-relaxed">
+              Native OData consumption ingests PR-3000010443 (SUMINISTROS REFRI) directly from S/4HANA into a live bidding tender.
+            </p>
+          </div>
+          <div class="mt-6 p-3 bg-[#FAF8F5] rounded-xl border border-[#EDEAE4] text-xs">
+            <div class="flex justify-between items-center text-[#8C867F]">
+              <span>Requisition: 3000010443</span>
+              <span class="font-bold text-[#15803D]">Budget $24.9M COP</span>
+            </div>
+          </div>
         </div>
 
-        <div class="pf-bento-card">
-          <div class="pf-bento-num">02 / PROTOCOL</div>
-          <div class="pf-bento-title">Two-Envelope Sealed Tendering</div>
-          <div class="pf-bento-desc">Envelope 1 Technical compliance is evaluated and locked before Envelope 2 Commercial pricing is unsealed.</div>
+        <!-- Bento Card 2 -->
+        <div class="bg-white border border-[#EDEAE4] rounded-2xl p-7 shadow-sm hover:shadow-md transition-all flex flex-col justify-between min-h-[320px]">
+          <div>
+            <div class="text-[10px] font-bold uppercase tracking-wider text-[#15803D]">Envelope 1 &bull; Quality</div>
+            <h3 class="font-heading text-xl font-semibold text-[#191716] mt-2">Two-Envelope Blind Technical Qualification</h3>
+            <p class="text-xs text-[#4B4643] mt-2 leading-relaxed">
+              Technical compliance is scored, audited, and locked before commercial pricing can be decrypted by evaluators.
+            </p>
+          </div>
+          <div class="mt-6 p-3 bg-[#F0FDF4] rounded-xl border border-[#BBF7D0] text-xs">
+            <div class="flex justify-between items-center font-bold text-[#15803D]">
+              <span>Technical Score: 95/100</span>
+              <span>&#10003; ISO 9001 Approved</span>
+            </div>
+          </div>
         </div>
 
-        <div class="pf-bento-card">
-          <div class="pf-bento-num">03 / REAL-TIME CLOCK</div>
-          <div class="pf-bento-title">Dynamic Bidding Engine</div>
-          <div class="pf-bento-desc">Real-time countdown timer with automated tender close and buyer manual override capabilities.</div>
-        </div>
-
-        <div class="pf-bento-card">
-          <div class="pf-bento-num">04 / AUTOMATION</div>
-          <div class="pf-bento-title">Clean Core Follow-on POs</div>
-          <div class="pf-bento-desc">One-click committee sign-off automatically creates and posts standard 45000-series POs to SAP ERP.</div>
-        </div>
-
-        <div class="pf-bento-card">
-          <div class="pf-bento-num">05 / VERIFICATION</div>
-          <div class="pf-bento-title">Inward Goods Receipt (GRN)</div>
-          <div class="pf-bento-desc">Plant warehouse receipt verification, waybill logging, and three-way matching for procurement closure.</div>
-        </div>
-
-        <div class="pf-bento-card">
-          <div class="pf-bento-num">06 / TELEMETRY</div>
-          <div class="pf-bento-title">cXML &amp; IDoc Audit Trail</div>
-          <div class="pf-bento-desc">Full visibility into cXML 1.2.040 OrderRequests and SAP ORDERS05 IDoc payloads with zero data loss.</div>
+        <!-- Bento Card 3 -->
+        <div class="bg-[#190922] border border-[#3E224A] rounded-2xl p-7 shadow-sm hover:shadow-md transition-all flex flex-col justify-between min-h-[320px] text-white">
+          <div>
+            <div class="text-[10px] font-bold uppercase tracking-wider text-[#FF8370]">Clean Core Automation</div>
+            <h3 class="font-heading text-xl font-semibold text-white mt-2">Single-Click S/4HANA Purchase Order</h3>
+            <p class="text-xs text-white/70 mt-2 leading-relaxed">
+              Committee sign-off instantly creates and posts standard 45000-series PO #450009180 directly into SAP ERP with zero latency.
+            </p>
+          </div>
+          <div class="mt-6 p-3 bg-white/10 rounded-xl border border-white/15 text-xs">
+            <div class="flex justify-between items-center text-white/90">
+              <span>SAP Doc: 450009180</span>
+              <span class="font-bold text-[#4ade80]">POSTED_CONFIRMED</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="pf-footer">
-      <div class="pf-footer-content">
-        <div style="display:flex; align-items:center; gap:8px;">
-          <span style="font-weight:700; color:var(--ink-900);">Alpek Demo Procurement Cloud</span>
+    <!-- SECTION 4: BENTO GRID 2 (TENDERS AT SCALE) -->
+    <section id="section-tenders" class="w-full py-20 px-6 max-w-7xl mx-auto bg-[#F7F5EE] rounded-3xl my-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-[#E0533C]">02 / EXECUTION VELOCITY</span>
+        <h2 class="font-heading text-3xl sm:text-5xl font-medium text-[#191716] mt-2 tracking-tight">
+          Run tenders at scale, not in spreadsheets.
+        </h2>
+        <p class="text-base text-[#4B4643] mt-3">
+          Live dynamic bidding clocks, blind supplier evaluation matrices, and automated SAP commits cut tender cycle times by 90%.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Live Clock Card -->
+        <div class="bg-white border border-[#EDEAE4] rounded-2xl p-8 shadow-sm">
+          <div class="flex justify-between items-center mb-4">
+            <span class="text-xs font-bold text-[#E0533C] uppercase tracking-wider">Dynamic Bidding Clock</span>
+            <span class="px-3 py-1 rounded-full text-xs font-bold bg-[#E0533C]/10 text-[#E0533C]">Round 1 Active</span>
+          </div>
+          <h3 class="font-heading text-2xl font-semibold text-[#191716]">Real-Time Countdown Engine</h3>
+          <p class="text-sm text-[#4B4643] mt-2">
+            Suppliers bid against an active clock with automated closing and buyer manual override. Eliminates tender deadline disputes.
+          </p>
+          <div class="mt-6 p-4 bg-[#191716] text-white rounded-xl flex items-center justify-between">
+            <span class="text-xs font-mono text-[#DDD7CE]">Doc2432956265 Timer:</span>
+            <span class="font-serif text-2xl font-bold text-[#FF8370]">23:48:25</span>
+          </div>
+        </div>
+
+        <!-- Two-Envelope Comparison Card -->
+        <div class="bg-white border border-[#EDEAE4] rounded-2xl p-8 shadow-sm">
+          <div class="flex justify-between items-center mb-4">
+            <span class="text-xs font-bold text-[#15803D] uppercase tracking-wider">Blind Matrix Adjudication</span>
+            <span class="px-3 py-1 rounded-full text-xs font-bold bg-[#15803D]/10 text-[#15803D]">3 Bids Evaluated</span>
+          </div>
+          <h3 class="font-heading text-2xl font-semibold text-[#191716]">Automated Award Optimization</h3>
+          <p class="text-sm text-[#4B4643] mt-2">
+            Compares SONDA ($3.00 COP) against Indorama and BASF, calculating 14.3% ($3,562,500 COP) verified savings below baseline.
+          </p>
+          <div class="mt-6 p-4 bg-[#FAF8F5] border border-[#EDEAE4] rounded-xl flex items-center justify-between">
+            <span class="text-xs font-medium text-[#191716]">Recommended Winner: SONDA DE COLOMBIA</span>
+            <span class="text-xs font-bold text-[#15803D]">14.3% Below Budget</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: BENTO GRID 3 (AUDITABLE PLAYBOOK & TRACEABILITY) -->
+    <section id="section-playbook" class="w-full py-20 px-6 max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold uppercase tracking-widest text-[#E0533C]">03 / AUDIT INTELLIGENCE</span>
+        <h2 class="font-heading text-3xl sm:text-5xl font-medium text-[#191716] mt-2 tracking-tight">
+          Build a repeatable, auditable procurement playbook.
+        </h2>
+        <p class="text-base text-[#4B4643] mt-3">
+          Full 11-stage end-to-end lineage links every purchase order back to the original requisition, sealed quotes, and warehouse goods receipts.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white border border-[#EDEAE4] rounded-2xl p-6 shadow-sm">
+          <div class="text-[10px] font-bold text-[#8C867F] uppercase tracking-wider">01 &bull; Requisition &amp; RFQ</div>
+          <h3 class="font-heading text-lg font-semibold text-[#191716] mt-2">Lineage Ingestion</h3>
+          <p class="text-xs text-[#4B4643] mt-2">Carlos Ramirez creates PR-3000010443, approved by Finance Manager David Vance.</p>
+        </div>
+        <div class="bg-white border border-[#EDEAE4] rounded-2xl p-6 shadow-sm">
+          <div class="text-[10px] font-bold text-[#8C867F] uppercase tracking-wider">02 &bull; Award &amp; Commit</div>
+          <h3 class="font-heading text-lg font-semibold text-[#191716] mt-2">Clean Core ERP Push</h3>
+          <p class="text-xs text-[#4B4643] mt-2">Approver Carlos Alberto Fonseca signs off award scenario, dispatching cXML 1.2 PO #450009180.</p>
+        </div>
+        <div class="bg-white border border-[#EDEAE4] rounded-2xl p-6 shadow-sm">
+          <div class="text-[10px] font-bold text-[#8C867F] uppercase tracking-wider">03 &bull; Inward GRN</div>
+          <h3 class="font-heading text-lg font-semibold text-[#191716] mt-2">3-Way Match Verification</h3>
+          <p class="text-xs text-[#4B4643] mt-2">Receiving Team Dock 4 verifies physical delivery note REM-89214 for 7.1M units.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: CUSTOMER STORIES -->
+    <section class="w-full py-20 px-6 max-w-7xl mx-auto bg-[#FAF8F5] border-t border-[#EDEAE4]">
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <span class="text-xs font-bold uppercase tracking-widest text-[#E0533C]">CUSTOMER STORIES</span>
+        <h2 class="font-heading text-3xl sm:text-5xl font-medium text-[#191716] mt-2 tracking-tight">
+          Enterprise leaders run on Alpek Sourcing OS
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white border border-[#EDEAE4] rounded-2xl p-7 shadow-sm">
+          <div class="text-xs font-bold text-[#191716]">Gran Tierra Energy</div>
+          <p class="text-xs text-[#4B4643] mt-3 italic">
+            "Alpek Sourcing OS cut our plant maintenance tender cycle from 45 days down to 48 hours while maintaining 100% two-envelope audit compliance."
+          </p>
+          <div class="mt-4 pt-3 border-t border-[#EDEAE4] text-[11px] font-bold text-[#8C867F]">
+            Plant Operations &bull; Vereda Morrison
+          </div>
+        </div>
+
+        <div class="bg-white border border-[#EDEAE4] rounded-2xl p-7 shadow-sm">
+          <div class="text-xs font-bold text-[#191716]">Alpek Polyester</div>
+          <p class="text-xs text-[#4B4643] mt-3 italic">
+            "Eliminated over $340,000 in recurring SAP Ariba subscription overhead. Our Clean Core ERP sync runs with zero middleware latency."
+          </p>
+          <div class="mt-4 pt-3 border-t border-[#EDEAE4] text-[11px] font-bold text-[#8C867F]">
+            Head of Strategic Sourcing
+          </div>
+        </div>
+
+        <div class="bg-white border border-[#EDEAE4] rounded-2xl p-7 shadow-sm">
+          <div class="text-xs font-bold text-[#191716]">Indorama Ventures</div>
+          <p class="text-xs text-[#4B4643] mt-3 italic">
+            "External suppliers participate effortlessly through the clean vendor portal. Sealed pricing and automated PO generation just work."
+          </p>
+          <div class="mt-4 pt-3 border-t border-[#EDEAE4] text-[11px] font-bold text-[#8C867F]">
+            Director of Global Supply Chain
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: FREQUENTLY ASKED QUESTIONS (ACCORDION) -->
+    <section id="section-faq" class="w-full py-20 px-6 max-w-4xl mx-auto">
+      <div class="text-center mb-14">
+        <span class="text-xs font-bold uppercase tracking-widest text-[#E0533C]">FAQ</span>
+        <h2 class="font-heading text-3xl sm:text-4xl font-medium text-[#191716] mt-2 tracking-tight">
+          Frequently Asked Questions
+        </h2>
+      </div>
+
+      <div class="space-y-4">
+        <div class="bg-white border border-[#EDEAE4] rounded-xl overflow-hidden shadow-sm">
+          <button type="button" class="w-full p-5 text-left font-heading text-lg font-semibold text-[#191716] flex justify-between items-center" onclick="toggleFaq(this)">
+            <span>What is Alpek Sourcing OS?</span>
+            <span class="faq-icon text-[#8C867F] font-mono text-xl">+</span>
+          </button>
+          <div class="p-5 pt-0 text-sm text-[#4B4643] leading-relaxed" style="display:none;">
+            Alpek Sourcing OS is a Clean Core alternative to SAP Ariba Sourcing. It connects directly with SAP S/4HANA via standard OData v4 and cXML 1.2.040, providing an ultra-fast, modern interface for multi-vendor strategic tenders and two-envelope sealed evaluations.
+          </div>
+        </div>
+
+        <div class="bg-white border border-[#EDEAE4] rounded-xl overflow-hidden shadow-sm">
+          <button type="button" class="w-full p-5 text-left font-heading text-lg font-semibold text-[#191716] flex justify-between items-center" onclick="toggleFaq(this)">
+            <span>How does the Two-Envelope Sealed Bidding protocol protect integrity?</span>
+            <span class="faq-icon text-[#8C867F] font-mono text-xl">+</span>
+          </button>
+          <div class="p-5 pt-0 text-sm text-[#4B4643] leading-relaxed" style="display:none;">
+            Envelope 1 contains technical specifications, assays, and ISO compliance. Envelope 2 contains unit commercial tariffs. Envelope 2 remains cryptographically sealed until technical evaluation scores meet the mandatory threshold, preventing pricing bias.
+          </div>
+        </div>
+
+        <div class="bg-white border border-[#EDEAE4] rounded-xl overflow-hidden shadow-sm">
+          <button type="button" class="w-full p-5 text-left font-heading text-lg font-semibold text-[#191716] flex justify-between items-center" onclick="toggleFaq(this)">
+            <span>How does Clean Core S/4HANA integration work without Ariba?</span>
+            <span class="faq-icon text-[#8C867F] font-mono text-xl">+</span>
+          </button>
+          <div class="p-5 pt-0 text-sm text-[#4B4643] leading-relaxed" style="display:none;">
+            The platform adheres strictly to SAP Clean Core guidelines. It communicates directly with SAP APIs (OData v4 and cXML OrderRequest payloads) and generates SAP ORDERS05 IDocs without modifying SAP ABAP tables or requiring expensive middleware.
+          </div>
+        </div>
+
+        <div class="bg-white border border-[#EDEAE4] rounded-xl overflow-hidden shadow-sm">
+          <button type="button" class="w-full p-5 text-left font-heading text-lg font-semibold text-[#191716] flex justify-between items-center" onclick="toggleFaq(this)">
+            <span>Can external suppliers submit quotations without SAP licenses?</span>
+            <span class="faq-icon text-[#8C867F] font-mono text-xl">+</span>
+          </button>
+          <div class="p-5 pt-0 text-sm text-[#4B4643] leading-relaxed" style="display:none;">
+            Yes. External suppliers receive an encrypted invitation link and access the standalone Vendor Cockpit. They can submit sealed technical proposals, specify unit pricing, and track award status with zero software installation or SAP licenses.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9: FORMAL CORPORATE AUTHENTICATION DECK -->
+    <section id="login-portal" class="w-full py-20 px-6 max-w-4xl mx-auto">
+      <div class="bg-white border border-[#EDEAE4] rounded-3xl p-8 sm:p-12 shadow-xl">
+        <div class="text-center max-w-xl mx-auto mb-8">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#191716] text-white text-xs font-semibold mb-3">
+            <span>Corporate Authentication Portal</span>
+          </div>
+          <h2 class="font-heading text-3xl font-semibold text-[#191716]">Sign in to Sourcing OS</h2>
+          <p class="text-sm text-[#8C867F] mt-1">Select an evaluator persona below or enter enterprise credentials.</p>
+        </div>
+
+        <!-- 10 Personas Quick Select Strip -->
+        <div class="mb-8 p-4 bg-[#FAF8F5] rounded-2xl border border-[#EDEAE4]">
+          <div class="text-xs font-bold uppercase tracking-wider text-[#8C867F] mb-3 text-center">
+            One-Click Corporate Persona Switcher (Demo Mode)
+          </div>
+          <div class="flex flex-wrap items-center justify-center gap-2">
+            <button type="button" onclick="quickFillCredentials('buyer', 'Alpek@2026')" class="px-3 py-1.5 rounded-lg bg-white border border-[#EDEAE4] text-xs font-semibold hover:border-[#191716] transition-all">
+              Valeria (Buyer)
+            </button>
+            <button type="button" onclick="quickFillCredentials('supplier_a', 'Alpek@2026')" class="px-3 py-1.5 rounded-lg bg-white border border-[#EDEAE4] text-xs font-semibold hover:border-[#191716] transition-all">
+              SONDA (Supplier A)
+            </button>
+            <button type="button" onclick="quickFillCredentials('supplier_b', 'Alpek@2026')" class="px-3 py-1.5 rounded-lg bg-white border border-[#EDEAE4] text-xs font-semibold hover:border-[#191716] transition-all">
+              Emerson (Supplier B)
+            </button>
+            <button type="button" onclick="quickFillCredentials('requester', 'Alpek@2026')" class="px-3 py-1.5 rounded-lg bg-white border border-[#EDEAE4] text-xs font-semibold hover:border-[#191716] transition-all">
+              Carlos (Requester)
+            </button>
+            <button type="button" onclick="quickFillCredentials('manager', 'Alpek@2026')" class="px-3 py-1.5 rounded-lg bg-white border border-[#EDEAE4] text-xs font-semibold hover:border-[#191716] transition-all">
+              David (Manager)
+            </button>
+            <button type="button" onclick="quickFillCredentials('tech_eval', 'Alpek@2026')" class="px-3 py-1.5 rounded-lg bg-white border border-[#EDEAE4] text-xs font-semibold hover:border-[#191716] transition-all">
+              Elena (Tech Eval)
+            </button>
+            <button type="button" onclick="quickFillCredentials('comm_eval', 'Alpek@2026')" class="px-3 py-1.5 rounded-lg bg-white border border-[#EDEAE4] text-xs font-semibold hover:border-[#191716] transition-all">
+              Javier (Comm Eval)
+            </button>
+            <button type="button" onclick="quickFillCredentials('award_approver', 'Alpek@2026')" class="px-3 py-1.5 rounded-lg bg-white border border-[#EDEAE4] text-xs font-semibold hover:border-[#191716] transition-all">
+              Carlos F. (Approver)
+            </button>
+            <button type="button" onclick="quickFillCredentials('receiving', 'Alpek@2026')" class="px-3 py-1.5 rounded-lg bg-white border border-[#EDEAE4] text-xs font-semibold hover:border-[#191716] transition-all">
+              Mateo (Receiving)
+            </button>
+            <button type="button" onclick="quickFillCredentials('admin', 'Alpek@2026')" class="px-3 py-1.5 rounded-lg bg-white border border-[#EDEAE4] text-xs font-semibold hover:border-[#191716] transition-all">
+              Admin
+            </button>
+          </div>
+        </div>
+
+        <form id="formCorporateLogin" onsubmit="handleLoginFormSubmit(event); return false;" class="max-w-md mx-auto space-y-4">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-[#191716] mb-1.5" for="loginUsername">Username / Corporate ID</label>
+            <input type="text" id="loginUsername" class="w-full px-4 py-3 rounded-xl border border-[#EDEAE4] text-sm focus:border-[#191716] outline-none" required value="buyer">
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center mb-1.5">
+              <label class="block text-xs font-bold uppercase tracking-wider text-[#191716]" for="loginPassword">Password</label>
+              <span class="text-xs text-[#8C867F]">Default: <code>Alpek@2026</code></span>
+            </div>
+            <input type="password" id="loginPassword" class="w-full px-4 py-3 rounded-xl border border-[#EDEAE4] text-sm focus:border-[#191716] outline-none" required value="Alpek@2026">
+          </div>
+
+          <button type="submit" id="btnSubmitLogin" class="w-full py-3.5 bg-[#191716] hover:bg-[#322e2b] text-white text-sm font-bold rounded-xl transition-all shadow-md">
+            Sign In to Workspace &rarr;
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- SECTION 10: LUXURY FOOTER -->
+    <footer class="w-full py-14 px-6 border-t border-[#EDEAE4] bg-[#FAF8F5]">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-6 text-xs text-[#8C867F]">
+        <div class="flex items-center gap-3">
+          <span style="width:20px; height:20px; border-radius:50%; background:#190922; color:#fff; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:800;">AD</span>
+          <span class="font-bold text-[#191716]">Alpek Sourcing OS</span>
           <span>&bull;</span>
-          <span>SAP S/4HANA Clean Core Sourcing Platform</span>
+          <span>SAP S/4HANA Clean Core Production v3.0</span>
         </div>
         <div>
-          <span>Production Ready v3.0 &bull; Built with Passionfroot Design System</span>
+          <span>Engineered with Passionfroot Design System &bull; All Rights Reserved 2026</span>
         </div>
       </div>
     </footer>
@@ -1507,9 +1678,7 @@
     </main>
   </div>
 
-  <!-- ========================================================================= -->
-  <!-- POPUP: FOLLOW-ON DOCUMENTS CREATED (EXACT POPUP FROM VIDEO FRAME 3660s)   -->
-  <!-- ========================================================================= -->
+  <!-- All Application Modals (Preserved Exact IDs) -->
   <div class="sap-modal-backdrop hidden" style="display:none;" id="modalFollowOnSuccess">
     <div class="sap-dialog sap-dialog-sm">
       <div class="sap-dialog-header">
@@ -2384,10 +2553,12 @@
 
   
 
+  
+
   <!-- Toast Container -->
   <div class="sap-toast-stack" id="sapToastStack"></div>
 
-  <script src="/js/app.js?v=5.0"></script>
+  <script src="/js/app.js?v=6.0"></script>
 </body>
 
 </html>

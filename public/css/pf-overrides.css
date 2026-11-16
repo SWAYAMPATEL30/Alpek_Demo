@@ -1,0 +1,11 @@
+
+@import url("https://use.typekit.net/iur2yej.css");
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Nunito+Sans:ital,opsz,wght@0,6..12,300..900;1,6..12,300..900&display=swap");
+
+:root {
+  --font-heading: "new-kansas", "Fraunces", Georgia, serif !important;
+  --font-body: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  --font-sans: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  --brand-surface: #FAF9F5;
+  --bg-foundation: #FAF9F5;
+}
