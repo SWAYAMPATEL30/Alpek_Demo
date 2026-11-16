@@ -7,7 +7,8 @@
   "scripts": {
     "build": "echo \"Build complete\"",
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "test": "node tests/functional.test.js && node --test tests/architecture_diagram.test.js && node --test tests/procurement_flow.test.js"
   },
   "keywords": [
     "sap",

@@ -1,5 +1,6 @@
 /* =============================================================================
-   PASSIONFROOT UNIFIED DESIGN SYSTEM & OFFICIAL PALETTE (MATCHING PIC 3)
+   PASSIONFROOT UNIFIED DESIGN SYSTEM & OFFICIAL LIGHT PALETTE
+   100% Light Theme Enterprise SaaS matching Passionfroot (passionfroot.me)
    ============================================================================= */
 
 @import url("https://use.typekit.net/iur2yej.css");
@@ -12,35 +13,53 @@
   --font-body: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
   --font-sans: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
 
-  /* Authoritative Passionfroot Palette (Fixed for Whole Website) */
+  /* Authoritative Passionfroot Palette (100% Light Theme) */
   --bg-page: #FAF8F5 !important;
   --bg-surface: #FFFFFF !important;
   --bg-subtle: #F5F2EB !important;
+  --bg-stone: linear-gradient(180deg, #FBFBF8 0%, #F7F5EE 100%) !important;
+  --bg-stone-light: linear-gradient(180deg, #FAF9F5 0%, #F6F5EE 100%) !important;
+  --bg-obsidian: #FFFFFF !important;
+  --bg-foundation: #EDEAE4 !important;
+
   --border-subtle: #E8E5DF !important;
   --border-divider: #EDEAE4 !important;
+  --border-medium: #DDD7CE !important;
 
-  --brand-obsidian: #12061A !important;
-  --brand-twilight: #1A0A26 !important;
-  --brand-twilight-light: #2A0F3D !important;
+  --brand-obsidian: #191716 !important;
+  --brand-twilight: #FAF8F5 !important;
+  --brand-twilight-light: #F5F2EB !important;
   --brand-coral: #E0533C !important;
   --brand-coral-hover: #C9422B !important;
   --brand-coral-light: #FF8370 !important;
+  --brand-coral-subtle: #FDF1EE !important;
 
   --ink-900: #191716 !important;
   --ink-800: #2C2826 !important;
   --ink-700: #4B4643 !important;
   --ink-500: #8C867F !important;
   --ink-400: #B5AFA6 !important;
+  --ink-200: #EDEAE4 !important;
 
   --emerald-green: #15803D !important;
   --emerald-subtle: #ECFDF5 !important;
   --emerald-border: #A7F3D0 !important;
+
+  --shadow-sm: 0 1px 3px rgba(25, 23, 22, 0.04) !important;
+  --shadow-card: 0 4px 20px rgba(25, 23, 22, 0.04), 0 1px 3px rgba(25, 23, 22, 0.02) !important;
+  --shadow-hover: 0 12px 32px rgba(25, 23, 22, 0.08) !important;
+  --shadow-obsidian: 0 4px 20px rgba(25, 23, 22, 0.04) !important;
 }
 
 body {
   background-color: var(--bg-page) !important;
   color: var(--ink-900) !important;
   font-family: var(--font-body) !important;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: var(--font-heading) !important;
+  color: var(--ink-900) !important;
 }
 
 /* =============================================================================
@@ -71,15 +90,19 @@ body {
   gap: 6px !important;
   padding: 6px 14px !important;
   border-radius: 9999px !important;
-  background: rgba(20, 8, 30, 0.78) !important;
+  background: rgba(255, 255, 255, 0.90) !important;
   backdrop-filter: blur(20px) !important;
   -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.18) !important;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid #E8E5DF !important;
+  box-shadow: 0 4px 20px rgba(25, 23, 22, 0.05), 0 1px 3px rgba(25, 23, 22, 0.02) !important;
+}
+
+.vt-site-nav .nav-pill-group a {
+  color: #191716 !important;
 }
 
 .vt-site-nav .nav-link-item {
-  color: rgba(255, 255, 255, 0.85) !important;
+  color: #4B4643 !important;
   font-size: 13px !important;
   font-weight: 600 !important;
   padding: 6px 14px !important;
@@ -89,68 +112,70 @@ body {
 }
 
 .vt-site-nav .nav-link-item:hover {
-  color: #FFFFFF !important;
-  background: rgba(255, 255, 255, 0.12) !important;
+  color: #191716 !important;
+  background: #F5F2EB !important;
 }
 
 .vt-site-nav .btn-nav-signin {
-  background: #FFFFFF !important;
-  color: #190922 !important;
+  background: #191716 !important;
+  color: #FFFFFF !important;
   font-size: 13px !important;
   font-weight: 700 !important;
   padding: 8px 18px !important;
   border-radius: 9999px !important;
   text-decoration: none !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0 2px 8px rgba(25, 23, 22, 0.12) !important;
   transition: all 0.2s ease !important;
 }
 
 .vt-site-nav .btn-nav-signin:hover {
-  background: #F5F2EB !important;
+  background: #E0533C !important;
   transform: translateY(-1px) !important;
 }
 
 .vt-site-nav .btn-nav-role {
-  color: #FFFFFF !important;
-  background: rgba(255, 255, 255, 0.1) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #191716 !important;
+  background: #FAF8F5 !important;
+  border: 1px solid #E8E5DF !important;
   font-size: 13px !important;
   font-weight: 600 !important;
   padding: 8px 16px !important;
   border-radius: 9999px !important;
   text-decoration: none !important;
-  backdrop-filter: blur(10px) !important;
   transition: all 0.2s ease !important;
 }
 
 .vt-site-nav .btn-nav-role:hover {
-  background: rgba(255, 255, 255, 0.2) !important;
+  background: #F5F2EB !important;
+  border-color: #DDD7CE !important;
 }
 
 /* =============================================================================
-   2. EXACT PIC 3 COSMIC HERO & HORIZON CARDS
+   2. LIGHT HERO SECTION & 3D FLOATING WHITE HORIZON CARDS
    ============================================================================= */
 .pf-cosmic-hero {
   position: relative !important;
   width: 100% !important;
-  min-height: 94vh !important;
+  min-height: 92vh !important;
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
   align-items: center !important;
-  padding-top: 110px !important;
-  padding-bottom: 40px !important;
+  padding-top: 120px !important;
+  padding-bottom: 60px !important;
   overflow: hidden !important;
-  background: linear-gradient(180deg, #12061A 0%, #170824 35%, #240C38 65%, #3A1248 85%, #6B2252 93%, #D97A56 98%, #FAF8F5 100%) !important;
+  background-color: #FAF8F5 !important;
+  background: radial-gradient(1100px circle at 50% 12%, rgba(224, 83, 60, 0.07) 0%, rgba(254, 243, 199, 0.18) 35%, rgba(250, 248, 245, 0.95) 75%, #FAF8F5 100%) !important;
 }
 
 .hero-cosmic-glow {
   position: absolute !important;
   top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  height: 60% !important;
-  background: radial-gradient(ellipse at 50% 20%, rgba(147, 51, 234, 0.2) 0%, transparent 70%) !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 1200px !important;
+  height: 520px !important;
+  background: radial-gradient(ellipse at 50% 0%, rgba(224, 83, 60, 0.10) 0%, rgba(245, 235, 224, 0.35) 50%, transparent 80%) !important;
   pointer-events: none !important;
   z-index: 1 !important;
 }
@@ -160,8 +185,8 @@ body {
   bottom: 0 !important;
   left: 0 !important;
   right: 0 !important;
-  height: 38% !important;
-  background: radial-gradient(ellipse at 50% 95%, rgba(246, 173, 85, 0.3) 0%, rgba(224, 83, 60, 0.2) 40%, transparent 80%) !important;
+  height: 320px !important;
+  background: radial-gradient(ellipse at 50% 100%, rgba(232, 229, 223, 0.35) 0%, transparent 70%) !important;
   pointer-events: none !important;
   z-index: 1 !important;
 }
@@ -183,16 +208,16 @@ body {
   display: inline-flex !important;
   align-items: center !important;
   gap: 8px !important;
-  padding: 6px 16px !important;
+  padding: 6px 18px !important;
   border-radius: 9999px !important;
-  background: rgba(255, 255, 255, 0.1) !important;
-  border: 1px solid rgba(255, 255, 255, 0.18) !important;
-  backdrop-filter: blur(12px) !important;
+  background: #FFFFFF !important;
+  border: 1px solid #E8E5DF !important;
+  box-shadow: 0 2px 8px rgba(25, 23, 22, 0.04) !important;
   margin-bottom: 24px !important;
-  color: #FFFFFF !important;
-  font-size: 12.5px !important;
+  color: #191716 !important;
+  font-size: 13px !important;
   font-weight: 600 !important;
-  letter-spacing: 0.02em !important;
+  letter-spacing: 0.01em !important;
 }
 
 .hero-eyebrow-pill .pulse-dot {
@@ -200,23 +225,23 @@ body {
   height: 8px !important;
   border-radius: 50% !important;
   background: #E0533C !important;
-  box-shadow: 0 0 10px #E0533C !important;
+  box-shadow: 0 0 8px rgba(224, 83, 60, 0.5) !important;
 }
 
 .hero-main-title {
   font-family: var(--font-heading) !important;
   font-size: clamp(40px, 6.5vw, 76px) !important;
   font-weight: 500 !important;
-  color: #FFFFFF !important;
+  color: #191716 !important;
   line-height: 1.05 !important;
   letter-spacing: -0.025em !important;
-  margin: 0 0 14px 0 !important;
-  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5) !important;
+  margin: 0 0 16px 0 !important;
+  text-shadow: none !important;
 }
 
 .hero-main-subtitle {
-  font-size: clamp(15.5px, 1.8vw, 18.5px) !important;
-  color: rgba(255, 255, 255, 0.85) !important;
+  font-size: clamp(16px, 1.8vw, 19px) !important;
+  color: #4B4643 !important;
   max-width: 740px !important;
   line-height: 1.6 !important;
   margin: 0 auto 32px auto !important;
@@ -236,38 +261,92 @@ body {
   padding: 14px 34px !important;
   font-size: 15px !important;
   font-weight: 700 !important;
-  color: #190922 !important;
-  background: #FFFFFF !important;
+  color: #FFFFFF !important;
+  background: #E0533C !important;
+  border: 1px solid transparent !important;
   border-radius: 9999px !important;
   text-decoration: none !important;
-  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.25), 0 2px 6px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0 4px 16px rgba(224, 83, 60, 0.28) !important;
   transition: all 0.2s ease !important;
 }
 
 .btn-hero-primary:hover {
-  background: #F8F5EE !important;
+  background: #C9422B !important;
   transform: translateY(-2px) !important;
+  box-shadow: 0 6px 22px rgba(224, 83, 60, 0.38) !important;
 }
 
 .btn-hero-secondary {
   padding: 14px 30px !important;
   font-size: 15px !important;
   font-weight: 600 !important;
-  color: #FFFFFF !important;
-  background: rgba(255, 255, 255, 0.12) !important;
-  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  color: #191716 !important;
+  background: #FFFFFF !important;
+  border: 1px solid #E8E5DF !important;
   border-radius: 9999px !important;
-  backdrop-filter: blur(12px) !important;
+  box-shadow: 0 2px 8px rgba(25, 23, 22, 0.04) !important;
   cursor: pointer !important;
   transition: all 0.2s ease !important;
 }
 
 .btn-hero-secondary:hover {
-  background: rgba(255, 255, 255, 0.2) !important;
+  background: #FAF8F5 !important;
+  border-color: #DDD7CE !important;
   transform: translateY(-2px) !important;
 }
 
-/* Floating Horizon Cards (Exact Pic 3 Breakdown & Mix Cards) */
+/* Copilot Prompt Bar */
+.pf-copilot-bar {
+  width: 100% !important;
+  max-width: 680px !important;
+  margin: 28px auto 0 auto !important;
+}
+
+.pf-copilot-input-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  background: #FFFFFF !important;
+  border: 1px solid #E8E5DF !important;
+  border-radius: 9999px !important;
+  padding: 8px 10px 8px 18px !important;
+  box-shadow: 0 4px 20px rgba(25, 23, 22, 0.05), 0 1px 3px rgba(25, 23, 22, 0.03) !important;
+  transition: all 0.2s ease !important;
+}
+
+.pf-copilot-input-row:hover {
+  border-color: #DDD7CE !important;
+  box-shadow: 0 6px 24px rgba(25, 23, 22, 0.08) !important;
+}
+
+.pf-copilot-input-row input {
+  flex: 1 !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  color: #191716 !important;
+  font-size: 13.5px !important;
+  font-family: var(--font-body) !important;
+  text-overflow: ellipsis !important;
+}
+
+.pf-copilot-input-row a {
+  background: #191716 !important;
+  color: #FFFFFF !important;
+  padding: 8px 18px !important;
+  border-radius: 9999px !important;
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  transition: all 0.2s ease !important;
+}
+
+.pf-copilot-input-row a:hover {
+  background: #E0533C !important;
+}
+
+/* Floating Horizon Cards (3D White Horizon Cards) */
 .hero-horizon-cards-strip {
   display: flex !important;
   flex-wrap: wrap !important;
@@ -281,14 +360,14 @@ body {
 
 .horizon-preview-card {
   background: #FFFFFF !important;
-  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid #E8E5DF !important;
   border-radius: 20px !important;
   padding: 24px 26px !important;
-  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.35) !important;
+  box-shadow: 0 16px 36px -8px rgba(25, 23, 22, 0.08), 0 4px 12px rgba(25, 23, 22, 0.03) !important;
   text-align: left !important;
   flex: 1 1 280px !important;
   max-width: 340px !important;
-  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.2s ease !important;
 }
 
 .horizon-preview-card.card-left {
@@ -306,7 +385,8 @@ body {
 
 .horizon-preview-card:hover {
   transform: translateY(-6px) scale(1.02) !important;
-  box-shadow: 0 24px 60px -8px rgba(0, 0, 0, 0.4) !important;
+  border-color: #DDD7CE !important;
+  box-shadow: 0 24px 48px -10px rgba(25, 23, 22, 0.12) !important;
 }
 
 .horizon-card-header {
@@ -371,27 +451,33 @@ body {
 .horizon-card-list .dot.purple { background: #9333EA !important; }
 
 /* =============================================================================
-   3. REDESIGNED PIC 1 (AUTHENTICATED DASHBOARD BANNER)
+   3. LIGHT EXECUTIVE BENTO BANNER (rfqPublicationBanner & Cockpit Banners)
    ============================================================================= */
+.cockpit-hero-banner,
+.cockpit-hero-banner.is-obsidian,
+#rfqPublicationBanner,
+#rfqPublicationBanner.cockpit-hero-banner,
 #rfqPublicationBanner.cockpit-hero-banner.is-obsidian {
-  background: linear-gradient(145deg, #180924 0%, #260D38 60%, #38134C 100%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.16) !important;
-  border-radius: 28px !important;
-  padding: 36px 40px !important;
-  box-shadow: 0 20px 50px rgba(25, 9, 34, 0.25) !important;
+  background: #FFFFFF !important;
+  border: 1px solid #E8E5DF !important;
+  border-radius: 24px !important;
+  padding: 32px 36px !important;
+  box-shadow: 0 4px 20px rgba(25, 23, 22, 0.04), 0 1px 3px rgba(25, 23, 22, 0.02) !important;
   position: relative !important;
   overflow: hidden !important;
   margin-bottom: 24px !important;
+  color: #191716 !important;
 }
 
+.cockpit-hero-banner::after,
 #rfqPublicationBanner::after {
   content: '' !important;
   position: absolute !important;
-  bottom: -60px !important;
-  right: -60px !important;
-  width: 320px !important;
-  height: 320px !important;
-  background: radial-gradient(circle, rgba(224, 83, 60, 0.22) 0%, transparent 70%) !important;
+  top: -40px !important;
+  right: -40px !important;
+  width: 240px !important;
+  height: 240px !important;
+  background: radial-gradient(circle, rgba(224, 83, 60, 0.05) 0%, rgba(250, 248, 245, 0) 70%) !important;
   pointer-events: none !important;
 }
 
@@ -408,23 +494,23 @@ body {
   display: flex !important;
   align-items: center !important;
   gap: 8px !important;
-  margin-bottom: 8px !important;
+  margin-bottom: 10px !important;
 }
 
 .cockpit-status-badges .status-pill {
-  background: rgba(74, 222, 128, 0.15) !important;
-  color: #4ade80 !important;
-  border: 1px solid rgba(74, 222, 128, 0.3) !important;
+  background: #ECFDF5 !important;
+  color: #15803D !important;
+  border: 1px solid #A7F3D0 !important;
   border-radius: 9999px !important;
   padding: 4px 12px !important;
-  font-size: 11px !important;
+  font-size: 11.5px !important;
   font-weight: 700 !important;
 }
 
 .cockpit-event-badge {
-  background: rgba(255, 255, 255, 0.1) !important;
-  color: #FFFFFF !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background: #F5F2EB !important;
+  color: #191716 !important;
+  border: 1px solid #E8E5DF !important;
   border-radius: 9999px !important;
   padding: 4px 12px !important;
   font-size: 11.5px !important;
@@ -432,98 +518,120 @@ body {
   font-family: monospace !important;
 }
 
-.cockpit-main-heading {
+.cockpit-main-heading,
+.cockpit-hero-banner h2 {
   font-family: var(--font-heading) !important;
-  font-size: 30px !important;
-  font-weight: 500 !important;
-  color: #FFFFFF !important;
+  font-size: 28px !important;
+  font-weight: 600 !important;
+  color: #191716 !important;
   letter-spacing: -0.02em !important;
-  line-height: 1.15 !important;
+  line-height: 1.2 !important;
   margin: 6px 0 6px 0 !important;
 }
 
-.cockpit-sub-heading {
+.cockpit-sub-heading,
+.cockpit-hero-banner div[id$="Subtitle"],
+.cockpit-hero-banner .cockpit-sub-heading {
   font-size: 14px !important;
-  color: rgba(255, 255, 255, 0.8) !important;
+  color: #4B4643 !important;
   margin: 0 !important;
 }
 
-/* Luxury Timer Widget in Banner */
+/* Light Executive Countdown Timer Widget with Coral Digits */
 .cockpit-timer-card {
-  background: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(255, 255, 255, 0.18) !important;
-  border-radius: 20px !important;
-  padding: 16px 26px !important;
+  background: #FAF8F5 !important;
+  border: 1px solid #E8E5DF !important;
+  border-radius: 18px !important;
+  padding: 16px 24px !important;
   text-align: center !important;
-  backdrop-filter: blur(16px) !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+  backdrop-filter: none !important;
+  box-shadow: 0 2px 8px rgba(25, 23, 22, 0.04) !important;
   min-width: 190px !important;
 }
 
 .timer-card-label {
   font-size: 10.5px !important;
-  font-weight: 800 !important;
+  font-weight: 700 !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.1em !important;
-  color: rgba(255, 255, 255, 0.65) !important;
+  letter-spacing: 0.08em !important;
+  color: #8C867F !important;
   display: block !important;
 }
 
 .timer-card-digits {
   font-family: var(--font-heading) !important;
-  font-size: 30px !important;
+  font-size: 32px !important;
   font-weight: 700 !important;
-  color: #FF8370 !important;
+  color: #E0533C !important;
   letter-spacing: 0.02em !important;
   display: block !important;
   margin: 4px 0 2px 0 !important;
 }
 
 .timer-card-sub {
-  font-size: 11px !important;
-  color: rgba(255, 255, 255, 0.6) !important;
+  font-size: 11.5px !important;
+  color: #8C867F !important;
 }
 
-/* Glassmorphic Telemetry Chips */
+/* Clean Telemetry Micro-Cards */
 .cockpit-chips-grid {
   display: grid !important;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
-  gap: 14px !important;
+  gap: 12px !important;
   margin-top: 24px !important;
   position: relative !important;
   z-index: 2 !important;
 }
 
 .cockpit-chip {
-  background: rgba(255, 255, 255, 0.06) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  border-radius: 16px !important;
-  padding: 14px 18px !important;
-  backdrop-filter: blur(8px) !important;
+  background: #FAF8F5 !important;
+  border: 1px solid #E8E5DF !important;
+  border-radius: 14px !important;
+  padding: 12px 16px !important;
+  backdrop-filter: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.cockpit-chip:hover {
+  background: #F5F2EB !important;
+  border-color: #DDD7CE !important;
 }
 
 .chip-label {
-  font-size: 10px !important;
-  font-weight: 800 !important;
+  font-size: 10.5px !important;
+  font-weight: 700 !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.08em !important;
-  color: rgba(255, 255, 255, 0.6) !important;
+  letter-spacing: 0.06em !important;
+  color: #8C867F !important;
   display: block !important;
 }
 
 .chip-val {
   font-size: 13.5px !important;
   font-weight: 600 !important;
-  color: #FFFFFF !important;
+  color: #191716 !important;
   margin-top: 4px !important;
   display: block !important;
 }
 
-.cockpit-chip.highlight-green .chip-val strong {
-  color: #4ade80 !important;
+.cockpit-chip .chip-val strong,
+.cockpit-hero-banner .chip-val strong,
+.cockpit-chip strong,
+.cockpit-hero-banner strong {
+  color: #191716 !important;
 }
 
-/* Bottom Control Strip */
+.cockpit-chip.highlight-green {
+  background: #F0FDF4 !important;
+  border-color: #BBF7D0 !important;
+}
+
+.cockpit-chip.highlight-green .chip-val strong,
+.cockpit-chip.highlight-green strong {
+  color: #15803D !important;
+}
+
+/* Bottom Control Bar */
 .cockpit-control-bar {
   display: flex !important;
   flex-wrap: wrap !important;
@@ -532,30 +640,44 @@ body {
   gap: 16px !important;
   margin-top: 24px !important;
   padding-top: 20px !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-top: 1px solid #E8E5DF !important;
   position: relative !important;
   z-index: 2 !important;
 }
 
+.cockpit-selector-group .selector-label {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #8C867F !important;
+  margin-right: 8px !important;
+}
+
 .cockpit-select {
-  background: rgba(255, 255, 255, 0.1) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  color: #FFFFFF !important;
+  background: #FAF8F5 !important;
+  border: 1px solid #E8E5DF !important;
+  color: #191716 !important;
   border-radius: 9999px !important;
-  padding: 9px 18px !important;
+  padding: 8px 16px !important;
   font-size: 13px !important;
+  font-weight: 500 !important;
   outline: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.cockpit-select:focus {
+  border-color: #191716 !important;
+  background: #FFFFFF !important;
 }
 
 .cockpit-select option {
-  background: #190922 !important;
-  color: #FFFFFF !important;
+  background: #FFFFFF !important;
+  color: #191716 !important;
 }
 
 .pf-btn-secondary {
-  background: rgba(255, 255, 255, 0.12) !important;
-  border: 1px solid rgba(255, 255, 255, 0.25) !important;
-  color: #FFFFFF !important;
+  background: #FAF8F5 !important;
+  border: 1px solid #E8E5DF !important;
+  color: #191716 !important;
   border-radius: 9999px !important;
   padding: 9px 20px !important;
   font-size: 13px !important;
@@ -565,7 +687,8 @@ body {
 }
 
 .pf-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.2) !important;
+  background: #F5F2EB !important;
+  border-color: #DDD7CE !important;
 }
 
 .pf-btn-coral {
@@ -578,16 +701,17 @@ body {
   font-weight: 700 !important;
   cursor: pointer !important;
   transition: all 0.2s ease !important;
-  box-shadow: 0 4px 16px rgba(224, 83, 60, 0.35) !important;
+  box-shadow: 0 4px 14px rgba(224, 83, 60, 0.25) !important;
 }
 
 .pf-btn-coral:hover {
-  background: #ff6850 !important;
+  background: #C9422B !important;
   transform: translateY(-1px) !important;
+  box-shadow: 0 6px 18px rgba(224, 83, 60, 0.35) !important;
 }
 
 /* =============================================================================
-   4. BENTO CARDS & WORKSPACE DATA TABLES (PASSIONFROOT BLOG STYLE)
+   4. BENTO CARDS & WORKSPACE DATA TABLES (PASSIONFROOT STYLE)
    ============================================================================= */
 .bento-cockpit-grid {
   display: grid !important;
@@ -600,7 +724,7 @@ body {
   border: 1px solid #E8E5DF !important;
   border-radius: 24px !important;
   padding: 32px 28px !important;
-  box-shadow: 0 4px 20px rgba(25, 23, 22, 0.03) !important;
+  box-shadow: 0 4px 20px rgba(25, 23, 22, 0.03), 0 1px 3px rgba(25, 23, 22, 0.02) !important;
   transition: all 0.2s ease !important;
   margin-bottom: 24px !important;
 }
@@ -622,6 +746,49 @@ body {
   font-size: 13px !important;
   color: #8C867F !important;
   margin-top: 4px !important;
+}
+
+/* App Topbar (Floating White Glass Header) */
+.app-topbar {
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid #E8E5DF !important;
+  border-radius: 9999px !important;
+  box-shadow: 0 4px 20px rgba(25, 23, 22, 0.04) !important;
+}
+
+/* Executive KPI Stat Cards */
+.kpi-stat-card {
+  background: #FFFFFF !important;
+  border: 1px solid #E8E5DF !important;
+  border-radius: 20px !important;
+  box-shadow: 0 2px 10px rgba(25, 23, 22, 0.03) !important;
+  transition: all 0.2s ease !important;
+}
+
+.kpi-stat-card:hover {
+  box-shadow: 0 8px 24px rgba(25, 23, 22, 0.06) !important;
+  border-color: #DDD7CE !important;
+  transform: translateY(-2px) !important;
+}
+
+.kpi-main-number {
+  font-family: var(--font-heading) !important;
+  color: #191716 !important;
+}
+
+.kpi-subheading {
+  color: #8C867F !important;
+}
+
+/* Prevent any dark obsidian boxes from appearing */
+.bg-brand-dark,
+.is-obsidian,
+[class*="is-obsidian"] {
+  background: #FFFFFF !important;
+  color: #191716 !important;
+  border-color: #E8E5DF !important;
 }
 
 /* Hide Stepper Completely */
