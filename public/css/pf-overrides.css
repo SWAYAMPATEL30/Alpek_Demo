@@ -540,77 +540,97 @@ h1, h2, h3, h4, .font-heading {
 /* Light Executive Countdown Timer Widget with Coral Digits */
 .cockpit-timer-card {
   background: #FAF8F5 !important;
-  border: 1px solid #E8E5DF !important;
+  border: 1px solid #EDEAE4 !important;
   border-radius: 18px !important;
   padding: 16px 24px !important;
   text-align: center !important;
   backdrop-filter: none !important;
-  box-shadow: 0 2px 8px rgba(25, 23, 22, 0.04) !important;
-  min-width: 190px !important;
+  box-shadow: 0 2px 8px rgba(25, 23, 22, 0.03) !important;
+  min-width: 200px !important;
+  transition: all 0.2s ease !important;
+}
+
+.cockpit-timer-card:hover {
+  background: #FFFFFF !important;
+  border-color: #DDD7CE !important;
+  box-shadow: 0 6px 16px rgba(25, 23, 22, 0.05) !important;
 }
 
 .timer-card-label {
-  font-size: 10.5px !important;
-  font-weight: 700 !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.08em !important;
+  letter-spacing: 0.09em !important;
   color: #8C867F !important;
   display: block !important;
 }
 
 .timer-card-digits {
   font-family: var(--font-heading) !important;
-  font-size: 32px !important;
+  font-size: 38px !important;
   font-weight: 700 !important;
   color: #E0533C !important;
-  letter-spacing: 0.02em !important;
+  letter-spacing: 0.01em !important;
   display: block !important;
   margin: 4px 0 2px 0 !important;
+  line-height: 1.1 !important;
 }
 
 .timer-card-sub {
   font-size: 11.5px !important;
   color: #8C867F !important;
+  letter-spacing: 0.02em !important;
 }
 
-/* Clean Telemetry Micro-Cards */
+/* Clean Telemetry Micro-Bento Cards */
 .cockpit-chips-grid {
   display: grid !important;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
-  gap: 12px !important;
+  gap: 16px !important;
   margin-top: 24px !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
   position: relative !important;
   z-index: 2 !important;
 }
 
 .cockpit-chip {
   background: #FAF8F5 !important;
-  border: 1px solid #E8E5DF !important;
-  border-radius: 14px !important;
-  padding: 12px 16px !important;
+  border: 1px solid #EDEAE4 !important;
+  border-radius: 16px !important;
+  padding: 16px 20px !important;
   backdrop-filter: none !important;
-  transition: all 0.2s ease !important;
+  box-shadow: 0 1px 3px rgba(25, 23, 22, 0.02) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
 }
 
 .cockpit-chip:hover {
-  background: #F5F2EB !important;
+  background: #FFFFFF !important;
   border-color: #DDD7CE !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px rgba(25, 23, 22, 0.05) !important;
 }
 
 .chip-label {
-  font-size: 10.5px !important;
+  font-size: 10px !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.06em !important;
+  letter-spacing: 0.08em !important;
   color: #8C867F !important;
   display: block !important;
+  margin-bottom: 5px !important;
 }
 
 .chip-val {
   font-size: 13.5px !important;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
   color: #191716 !important;
-  margin-top: 4px !important;
+  line-height: 1.35 !important;
   display: block !important;
 }
 
@@ -624,6 +644,11 @@ h1, h2, h3, h4, .font-heading {
 .cockpit-chip.highlight-green {
   background: #F0FDF4 !important;
   border-color: #BBF7D0 !important;
+}
+
+.cockpit-chip.highlight-green:hover {
+  background: #DCFCE7 !important;
+  border-color: #86EFAC !important;
 }
 
 .cockpit-chip.highlight-green .chip-val strong,
@@ -640,24 +665,40 @@ h1, h2, h3, h4, .font-heading {
   gap: 16px !important;
   margin-top: 24px !important;
   padding-top: 20px !important;
-  border-top: 1px solid #E8E5DF !important;
+  border-top: 1px solid #EDEAE4 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
   position: relative !important;
   z-index: 2 !important;
+}
+
+.cockpit-selector-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  flex-wrap: wrap !important;
+}
+
+.cockpit-btn-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  flex-wrap: wrap !important;
 }
 
 .cockpit-selector-group .selector-label {
   font-size: 12px !important;
   font-weight: 600 !important;
   color: #8C867F !important;
-  margin-right: 8px !important;
+  margin-right: 4px !important;
 }
 
 .cockpit-select {
   background: #FAF8F5 !important;
-  border: 1px solid #E8E5DF !important;
+  border: 1px solid #EDEAE4 !important;
   color: #191716 !important;
   border-radius: 9999px !important;
-  padding: 8px 16px !important;
+  padding: 8px 18px !important;
   font-size: 13px !important;
   font-weight: 500 !important;
   outline: none !important;
@@ -1109,7 +1150,9 @@ h1, h2, h3, h4, .font-heading {
   color: #8C867F !important;
 }
 
-/* Light Table styling refinement */
+/* =============================================================================
+   5. LIGHT TABLE & ROW RHYTHM POLISH (52PX RHYTHM & PASSIONFROOT PALETTE)
+   ============================================================================= */
 .sap-table {
   width: 100% !important;
   border-collapse: separate !important;
@@ -1125,16 +1168,128 @@ h1, h2, h3, h4, .font-heading {
   text-transform: uppercase !important;
   letter-spacing: 0.06em !important;
   padding: 12px 16px !important;
-  border-bottom: 1px solid #E8E5DF !important;
+  border-bottom: 1px solid #EDEAE4 !important;
+  white-space: nowrap !important;
 }
 
 .sap-table td {
-  padding: 14px 16px !important;
+  padding: 12px 16px !important;
   border-bottom: 1px solid #EDEAE4 !important;
   color: #191716 !important;
   vertical-align: middle !important;
+  height: 52px !important;
+  box-sizing: border-box !important;
+}
+
+.sap-table tr {
+  height: 52px !important;
+  transition: background 0.15s ease !important;
 }
 
 .sap-table tr:hover td {
   background: #FAF8F5 !important;
+}
+
+/* Sourcing Event Configuration Deck Cards & Vendor Roster */
+.cfg-deck-card {
+  background: #FAF8F5 !important;
+  border: 1px solid #EDEAE4 !important;
+  border-radius: 16px !important;
+  padding: 20px !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: 0 1px 3px rgba(25, 23, 22, 0.02) !important;
+}
+
+.cfg-deck-card:hover {
+  background: #FFFFFF !important;
+  border-color: #DDD7CE !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px rgba(25, 23, 22, 0.05) !important;
+}
+
+.cfg-deck-icon {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 10px !important;
+  background: #FFFFFF !important;
+  border: 1px solid #EDEAE4 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 16px !important;
+  box-shadow: 0 1px 3px rgba(25, 23, 22, 0.03) !important;
+}
+
+.authorized-vendor-roster-box {
+  background: #FAF8F5 !important;
+  border: 1px solid #EDEAE4 !important;
+  border-radius: 14px !important;
+  padding: 14px 18px !important;
+  margin-top: 16px !important;
+  box-shadow: 0 1px 3px rgba(25, 23, 22, 0.02) !important;
+}
+
+/* Multi-Vendor Sealed Bid Comparison Matrix Luxury Highlight */
+.matrix-table {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  width: 100% !important;
+}
+
+.matrix-table th.winner-header {
+  background: #F0FDF4 !important;
+  border-top: 2px solid #15803D !important;
+  border-left: 2px solid #15803D !important;
+  border-right: 2px solid #15803D !important;
+  border-bottom: 1px solid #BBF7D0 !important;
+  position: relative !important;
+}
+
+.matrix-table td.winner-cell {
+  background: #F0FDF4 !important;
+  border-left: 2px solid #15803D !important;
+  border-right: 2px solid #15803D !important;
+  border-bottom: 1px solid #DCFCE7 !important;
+}
+
+.matrix-table td.winner-total {
+  background: #DCFCE7 !important;
+  border-left: 2px solid #15803D !important;
+  border-right: 2px solid #15803D !important;
+  border-bottom: 2px solid #15803D !important;
+}
+
+.th-badge-lowest {
+  background: #15803D !important;
+  color: #FFFFFF !important;
+  font-size: 9.5px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  padding: 3px 10px !important;
+  border-radius: 9999px !important;
+  display: inline-block !important;
+  margin-top: 6px !important;
+  box-shadow: 0 2px 6px rgba(21, 128, 61, 0.25) !important;
+}
+
+.winner-price {
+  font-family: var(--font-heading) !important;
+  font-size: 22px !important;
+  font-weight: 800 !important;
+  color: #E0533C !important;
+  letter-spacing: -0.01em !important;
+  line-height: 1.2 !important;
+}
+
+.savings-tag {
+  background: #DCFCE7 !important;
+  color: #15803D !important;
+  border: 1px solid #BBF7D0 !important;
+  font-size: 10.5px !important;
+  font-weight: 700 !important;
+  padding: 2px 10px !important;
+  border-radius: 9999px !important;
+  display: inline-block !important;
+  margin-top: 4px !important;
 }

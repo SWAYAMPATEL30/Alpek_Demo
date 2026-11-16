@@ -734,8 +734,10 @@ function renderInvitedSuppliersBadges(rfq) {
     const name = supplierNames[id] || id;
     const hasBid = (AppState.quotations || []).some(q => q.supplierId === id);
     return `
-      <span class="status-pill ${hasBid ? 'confirmed' : 'approved'}" style="font-size:11px; padding:3px 8px;" title="${hasBid ? 'Quotation Submitted (Participated)' : 'Invited (Pending Response)'}">
-        ${hasBid ? '✓' : '✉️'} ${escapeHtml(name.split(' ')[0])}
+      <span class="status-pill ${hasBid ? 'confirmed' : 'approved'}" style="font-size:11px; font-weight:700; padding:4px 10px; border-radius:9999px; background:${hasBid ? '#ECFDF5' : '#FAF8F5'}; color:${hasBid ? '#15803D' : '#191716'}; border:1px solid ${hasBid ? '#A7F3D0' : '#E8E5DF'}; display:inline-flex; align-items:center; gap:4px;" title="${hasBid ? 'Quotation Submitted (Participated)' : 'Invited (Pending Response)'}">
+        <span>${hasBid ? '✓' : '✉️'}</span>
+        <span>${escapeHtml(name.split(' ')[0])}</span>
+        <span style="font-size:9.5px; opacity:0.85; font-weight:600;">${hasBid ? '• Bid In' : '• Invited'}</span>
       </span>
     `;
   }).join('');
@@ -1021,23 +1023,35 @@ async function loadBuyerApprovedPrs() {
 
       return `
         <tr style="${isToothbrush ? 'background:#FDF3F1; border-left:3px solid #E0533C;' : ''}">
-          <td><strong>${escapeHtml(pr.id)}</strong><br><span style="font-size:10px; color:#64748b;">SAP: ${escapeHtml(pr.sapPrNumber || '-')}</span></td>
           <td>
-            <strong style="color:#191716; font-size:13px;">${escapeHtml(pr.title)}</strong><br>
-            <span style="font-size:11px; color:#475569;">${escapeHtml(pr.purpose)}</span>
+            <strong style="color:#191716; font-size:13px; font-weight:700;">${escapeHtml(pr.id)}</strong>
+            <div style="font-size:10.5px; color:#8C867F; font-family:monospace; margin-top:2px;">SAP: ${escapeHtml(pr.sapPrNumber || '-')}</div>
           </td>
-          <td><strong>${pr.lineItems[0] ? pr.lineItems[0].quantity.toLocaleString() : '1'}</strong> ${pr.lineItems[0] ? pr.lineItems[0].unit : 'Unit'}</td>
-          <td><strong style="color:#191716;">$${(pr.estimatedBudget || 0).toLocaleString()} ${pr.currency || 'COP'}</strong></td>
-          <td>${escapeHtml(pr.requesterName)}<br><span style="font-size:10px; color:#64748b;">${escapeHtml(pr.department)}</span></td>
           <td>
-            <span class="status-pill ${hasRfq ? 'confirmed' : 'approved'}">
+            <strong style="color:#191716; font-size:13px; font-weight:700;">${escapeHtml(pr.title)}</strong>
+            <div style="font-size:11.5px; color:#64748B; margin-top:2px; max-width:260px; line-height:1.3;">${escapeHtml(pr.purpose)}</div>
+          </td>
+          <td>
+            <strong style="color:#191716; font-size:13px;">${pr.lineItems[0] ? pr.lineItems[0].quantity.toLocaleString() : '1'}</strong>
+            <span style="font-size:11px; color:#8C867F; margin-left:2px;">${pr.lineItems[0] ? pr.lineItems[0].unit : 'Unit'}</span>
+          </td>
+          <td>
+            <strong style="color:#191716; font-size:13px; font-weight:700;">$${(pr.estimatedBudget || 0).toLocaleString()}</strong>
+            <span style="font-size:11px; color:#8C867F; margin-left:2px;">${pr.currency || 'COP'}</span>
+          </td>
+          <td>
+            <div style="color:#191716; font-weight:600; font-size:12.5px;">${escapeHtml(pr.requesterName)}</div>
+            <div style="font-size:10.5px; color:#8C867F; margin-top:1px;">${escapeHtml(pr.department)}</div>
+          </td>
+          <td>
+            <span class="status-pill ${hasRfq ? 'confirmed' : 'approved'}" style="font-size:11px; padding:3px 10px; border-radius:9999px;">
               ${hasRfq ? `In Sourcing (${pr.linkedRfqId})` : `✓ Approved by ${escapeHtml(pr.managerName || 'David Vance')}`}
             </span>
           </td>
           <td style="text-align:right;">
             ${hasRfq 
-              ? `<button class="sap-btn sap-btn-secondary sap-btn-sm" onclick="switchSourcingProject('${pr.linkedRfqId}')">View Tender RFQ</button>`
-              : `<button class="sap-btn sap-btn-primary sap-btn-sm" style="background:#191716; font-weight:700;" onclick="openCreateRfqModal('${pr.id}')">
+              ? `<button class="sap-btn sap-btn-secondary sap-btn-sm" style="border-radius:9999px; font-weight:600; padding:6px 14px;" onclick="switchSourcingProject('${pr.linkedRfqId}')">View Tender RFQ</button>`
+              : `<button class="sap-btn sap-btn-primary sap-btn-sm" style="background:#191716; color:#FFFFFF; border-radius:9999px; font-weight:700; padding:7px 16px; border:none; box-shadow:0 2px 6px rgba(25,23,22,0.15);" onclick="openCreateRfqModal('${pr.id}')">
                   ⚡ Create Sourcing RFQ
                 </button>`
             }
@@ -1431,11 +1445,11 @@ function renderComparisonMatrix() {
 
         return `
           <th class="col-supplier ${isLowest ? 'winner-header' : ''}" style="min-width:200px;">
-            <div class="th-sup-name">${isLowest ? '🏆 ' : ''}${escapeHtml(name)}</div>
-            <div class="th-sup-meta">${supId} ${score ? `| Score: <strong>${score}/100</strong>` : ''}</div>
+            <div class="th-sup-name" style="font-weight:700; color:#191716;">${isLowest ? '🏆 ' : ''}${escapeHtml(name)}</div>
+            <div class="th-sup-meta" style="font-size:11px; color:#8C867F; margin-top:2px;">${supId} ${score ? `| Score: <strong>${score}/100</strong>` : ''}</div>
             ${quote 
-              ? (isLowest ? '<div class="th-badge-lowest">Most Competitive Bid</div>' : '<div style="font-size:10px; color:#15803d; font-weight:700;">✓ Bid Submitted</div>')
-              : '<div style="font-size:10px; color:#b45309; font-weight:700;">⏳ Pending Response</div>'
+              ? (isLowest ? '<div class="th-badge-lowest">MOST COMPETITIVE BID</div>' : '<div style="font-size:10px; color:#15803D; font-weight:700; margin-top:6px;">✓ Bid Submitted</div>')
+              : '<div style="font-size:10px; color:#B45309; font-weight:700; margin-top:6px;">⏳ Pending Response</div>'
             }
           </th>
         `;
@@ -1456,8 +1470,9 @@ function renderComparisonMatrix() {
       <td>Mandatory Compliance</td>
       ${invitedSupplierIds.map(supId => {
         const quote = quotations.find(q => q.supplierId === supId);
+        const isLowest = quote && quote.totalBidAmount === lowestTotal;
         if (!quote) return `<td class="text-center" style="color:#94a3b8; font-size:11px;">Awaiting response</td>`;
-        return `<td class="text-center font-green" style="font-weight:700;">✓ Verified Valid</td>`;
+        return `<td class="text-center font-green ${isLowest ? 'winner-cell' : ''}" style="font-weight:700;">✓ Verified Valid</td>`;
       }).join('')}
     </tr>
   `;
@@ -1480,6 +1495,7 @@ function renderComparisonMatrix() {
       </td>
       ${invitedSupplierIds.map(supId => {
         const quote = quotations.find(q => q.supplierId === supId);
+        const isLowest = quote && quote.totalBidAmount === lowestTotal;
         if (!quote) {
           return `
             <td class="text-center" style="background:#fafafa; color:#94a3b8; font-size:12px;">
@@ -1492,15 +1508,14 @@ function renderComparisonMatrix() {
         const unitPrice = Number(bid.unitPrice);
         const totalAmount = Number(quote.totalBidAmount || (unitPrice * quantity));
         const savingsPct = baselineTotal > 0 ? (((baselineTotal - totalAmount) / baselineTotal) * 100).toFixed(1) : 0;
-        const isLowest = totalAmount === lowestTotal;
 
         return `
           <td class="text-center ${isLowest ? 'winner-cell' : ''}">
-            <div class="unit-price" style="font-size:15px; font-weight:800; color:#0f172a;">$${unitPrice.toFixed(2)} ${currency}</div>
-            <div class="sub-price" style="font-size:12px; font-weight:700; color:#191716; margin:2px 0;">Total: $${totalAmount.toLocaleString()} ${currency}</div>
+            <div class="unit-price ${isLowest ? 'winner-price' : ''}" style="${isLowest ? 'font-size:22px; font-weight:800; color:#E0533C; font-family:var(--font-heading);' : 'font-size:15px; font-weight:800; color:#191716;'}">$${unitPrice.toFixed(2)} ${currency}</div>
+            <div class="sub-price" style="font-size:12px; font-weight:700; color:#191716; margin:3px 0 2px 0;">Total: $${totalAmount.toLocaleString()} ${currency}</div>
             ${savingsPct > 0 
-              ? `<span class="savings-tag" style="background:#dcfce7; color:#15803d; font-size:10px; font-weight:700; padding:2px 8px; border-radius:10px;">${savingsPct}% Below Baseline</span>`
-              : `<span style="font-size:10px; color:#64748b;">At Target Budget</span>`
+              ? `<span class="savings-tag" style="background:#DCFCE7; color:#15803D; border:1px solid #BBF7D0; font-size:10.5px; font-weight:700; padding:2px 10px; border-radius:9999px; display:inline-block; margin-top:4px;">${savingsPct}% Below Baseline</span>`
+              : `<span style="font-size:10px; color:#64748B;">At Target Budget</span>`
             }
           </td>
         `;
@@ -1518,8 +1533,9 @@ function renderComparisonMatrix() {
       <td>14 Days Standard Max</td>
       ${invitedSupplierIds.map(supId => {
         const quote = quotations.find(q => q.supplierId === supId);
+        const isLowest = quote && quote.totalBidAmount === lowestTotal;
         if (!quote) return `<td class="text-center" style="color:#94a3b8; font-size:11px;">--</td>`;
-        return `<td class="text-center"><strong>${quote.leadTimeDays || 8} Business Days</strong></td>`;
+        return `<td class="text-center ${isLowest ? 'winner-cell' : ''}"><strong>${quote.leadTimeDays || 8} Business Days</strong></td>`;
       }).join('')}
     </tr>
     <tr>
@@ -1527,8 +1543,9 @@ function renderComparisonMatrix() {
       <td>Net 60 Days</td>
       ${invitedSupplierIds.map(supId => {
         const quote = quotations.find(q => q.supplierId === supId);
+        const isLowest = quote && quote.totalBidAmount === lowestTotal;
         if (!quote) return `<td class="text-center" style="color:#94a3b8; font-size:11px;">--</td>`;
-        return `<td class="text-center">${escapeHtml(quote.paymentTerms || 'Net 60 Days')}</td>`;
+        return `<td class="text-center ${isLowest ? 'winner-cell' : ''}">${escapeHtml(quote.paymentTerms || 'Net 60 Days')}</td>`;
       }).join('')}
     </tr>
   `;
@@ -1545,10 +1562,10 @@ function renderComparisonMatrix() {
         const isLowest = totalAmount === lowestTotal;
         return `
           <td class="text-center ${isLowest ? 'winner-total' : ''}">
-            <div class="total-amount" style="font-size:16px; font-weight:800; color:${isLowest ? '#15803d' : '#0f172a'};">
+            <div class="total-amount" style="font-size:17px; font-weight:800; color:${isLowest ? '#15803D' : '#191716'};">
               $${totalAmount.toLocaleString()} ${currency}
             </div>
-            ${isLowest ? '<div class="winner-note" style="font-size:10px; color:#15803d; font-weight:800; margin-top:2px;">🏆 Recommended Sourcing Award</div>' : ''}
+            ${isLowest ? '<div class="winner-note" style="font-size:10px; color:#15803D; font-weight:800; margin-top:2px;">🏆 Recommended Sourcing Award</div>' : ''}
           </td>
         `;
       }).join('')}

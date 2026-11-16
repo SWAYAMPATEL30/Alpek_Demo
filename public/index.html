@@ -38,7 +38,7 @@
   <link rel="stylesheet" href="/css/pf-official.css">
   <link rel="stylesheet" href="/css/styles.css?v=6.0">
   <link rel="stylesheet" href="/css/passionfroot.css?v=6.0">
-  <link rel="stylesheet" href="/css/pf-overrides.css?v=8.0">
+  <link rel="stylesheet" href="/css/pf-overrides.css?v=9.0">
 
   <script>
     function closeTraceabilityModal() {
@@ -1135,12 +1135,12 @@
                   <thead>
                     <tr>
                       <th>PR Number</th>
-                      <th>Requester &amp; Dept</th>
                       <th>Material Scope</th>
-                      <th>Target Plant</th>
                       <th>Quantity</th>
                       <th>Est. Total</th>
-                      <th>Action</th>
+                      <th>Requester &amp; Dept</th>
+                      <th>Status</th>
+                      <th style="text-align:right;">Action</th>
                     </tr>
                   </thead>
                   <tbody id="buyerApprovedPrsBody">
@@ -1163,37 +1163,59 @@
               </div>
 
               <!-- 3-Pillar Micro Bento Strip -->
-              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px; margin-bottom:12px;">
-                <div style="background:#FAF8F5; border:1px solid #EDEAE4; border-radius:16px; padding:18px;">
-                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                    <strong style="font-size:13px; color:#191716;">🔬 Technical Specs</strong>
-                    <span id="techReqStatusBadge"><span class="status-pill pending">Pending</span></span>
+              <div class="cfg-deck-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin-bottom:16px;">
+                <div class="cfg-deck-card" style="background:#FAF8F5; border:1px solid #EDEAE4; border-radius:16px; padding:20px; display:flex; flex-direction:column; justify-content:space-between; transition:all 0.2s ease;">
+                  <div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                      <div style="display:flex; align-items:center; gap:8px;">
+                        <span class="cfg-deck-icon" style="width:32px; height:32px; border-radius:10px; background:#FFFFFF; border:1px solid #EDEAE4; display:flex; align-items:center; justify-content:center; font-size:16px; box-shadow:0 1px 3px rgba(25,23,22,0.03);">🔬</span>
+                        <strong style="font-size:13.5px; color:#191716; font-weight:700;">Technical Specs</strong>
+                      </div>
+                      <span id="techReqStatusBadge"><span class="status-pill pending">Pending</span></span>
+                    </div>
+                    <p style="font-size:12px; color:#8C867F; line-height:1.4; margin-bottom:16px;">ISO 9001:2015, guaranteed delivery lead times, and engineering tolerances.</p>
                   </div>
-                  <p style="font-size:12px; color:#8C867F; margin-bottom:14px;">ISO 9001:2015, guaranteed delivery lead times, and engineering tolerances.</p>
-                  <button class="sap-btn sap-btn-secondary sap-btn-sm" style="width:100%;" onclick="openConfigureTechnicalModal()">Configure Specs</button>
+                  <button class="sap-btn sap-btn-secondary sap-btn-sm" style="width:100%; border-radius:9999px; font-weight:600; padding:8px 16px;" onclick="openConfigureTechnicalModal()">Configure Specs</button>
                 </div>
 
-                <div style="background:#FAF8F5; border:1px solid #EDEAE4; border-radius:16px; padding:18px;">
-                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                    <strong style="font-size:13px; color:#191716;">💰 Economic Target</strong>
-                    <span id="econReqStatusBadge"><span class="status-pill pending">Pending</span></span>
+                <div class="cfg-deck-card" style="background:#FAF8F5; border:1px solid #EDEAE4; border-radius:16px; padding:20px; display:flex; flex-direction:column; justify-content:space-between; transition:all 0.2s ease;">
+                  <div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                      <div style="display:flex; align-items:center; gap:8px;">
+                        <span class="cfg-deck-icon" style="width:32px; height:32px; border-radius:10px; background:#FFFFFF; border:1px solid #EDEAE4; display:flex; align-items:center; justify-content:center; font-size:16px; box-shadow:0 1px 3px rgba(25,23,22,0.03);">💰</span>
+                        <strong style="font-size:13.5px; color:#191716; font-weight:700;">Economic Target</strong>
+                      </div>
+                      <span id="econReqStatusBadge"><span class="status-pill pending">Pending</span></span>
+                    </div>
+                    <p style="font-size:12px; color:#8C867F; line-height:1.4; margin-bottom:16px;">Budget ceiling tariff, payment terms (Net 60), and Incoterms (DDP).</p>
                   </div>
-                  <p style="font-size:12px; color:#8C867F; margin-bottom:14px;">Budget ceiling tariff, payment terms (Net 60), and Incoterms (DDP).</p>
-                  <button class="sap-btn sap-btn-secondary sap-btn-sm" style="width:100%;" onclick="openConfigureEconomicModal()">Set Target Price</button>
+                  <button class="sap-btn sap-btn-secondary sap-btn-sm" style="width:100%; border-radius:9999px; font-weight:600; padding:8px 16px;" onclick="openConfigureEconomicModal()">Set Target Price</button>
                 </div>
 
-                <div style="background:#FAF8F5; border:1px solid #EDEAE4; border-radius:16px; padding:18px;">
-                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                    <strong style="font-size:13px; color:#191716;">👥 Invited Suppliers (<span id="invitedSupplierCountBadge">3</span>)</strong>
-                    <span class="status-pill confirmed">Verified</span>
+                <div class="cfg-deck-card" style="background:#FAF8F5; border:1px solid #EDEAE4; border-radius:16px; padding:20px; display:flex; flex-direction:column; justify-content:space-between; transition:all 0.2s ease;">
+                  <div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                      <div style="display:flex; align-items:center; gap:8px;">
+                        <span class="cfg-deck-icon" style="width:32px; height:32px; border-radius:10px; background:#FFFFFF; border:1px solid #EDEAE4; display:flex; align-items:center; justify-content:center; font-size:16px; box-shadow:0 1px 3px rgba(25,23,22,0.03);">👥</span>
+                        <strong style="font-size:13.5px; color:#191716; font-weight:700;">Invited Suppliers (<span id="invitedSupplierCountBadge">3</span>)</strong>
+                      </div>
+                      <span class="status-pill confirmed">Verified</span>
+                    </div>
+                    <p style="font-size:12px; color:#8C867F; line-height:1.4; margin-bottom:16px;">Authorized vendor invitations with secure sealed bidding access.</p>
                   </div>
-                  <p style="font-size:12px; color:#8C867F; margin-bottom:14px;">Authorized vendor invitations with secure sealed bidding access.</p>
-                  <button class="sap-btn sap-btn-secondary sap-btn-sm" style="width:100%;" onclick="openInviteSuppliersModal()">Manage Suppliers</button>
+                  <button class="sap-btn sap-btn-secondary sap-btn-sm" style="width:100%; border-radius:9999px; font-weight:600; padding:8px 16px;" onclick="openInviteSuppliersModal()">Manage Suppliers</button>
                 </div>
               </div>
 
-              <div id="cfgInvitedSuppliersBadges" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;">
-                <!-- Supplier chips injected dynamically -->
+              <!-- Dedicated Authorized Vendor Roster Container -->
+              <div class="authorized-vendor-roster-box" style="padding:14px 18px; background:#FAF8F5; border:1px solid #EDEAE4; border-radius:14px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#8C867F;">Authorized Vendor Roster:</span>
+                  <span class="status-pill confirmed" style="font-size:10.5px; padding:2px 8px;">Clean Core Verified</span>
+                </div>
+                <div id="cfgInvitedSuppliersBadges" style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
+                  <!-- Supplier chips injected dynamically -->
+                </div>
               </div>
             </div>
 
@@ -3218,7 +3240,7 @@
   <!-- Toast Container -->
   <div class="sap-toast-stack" id="sapToastStack"></div>
 
-  <script src="/js/app.js?v=6.0"></script>
+  <script src="/js/app.js?v=7.0"></script>
 </body>
 
 </html>
