@@ -415,75 +415,83 @@ function navigateToStage(stageNum) {
 }
 
 function updateRoleNavigation() {
-  const navTabsContainer = document.getElementById('appNavPills') || document.getElementById('mainSubnavTabs');
-  const btnTrace = document.getElementById('btnTopTraceability');
+  const navTabsContainer = document.getElementById('appNavPills');
   const strip = document.getElementById('executiveKpiStrip');
 
   if (!currentUser) return;
   const role = currentUser.role;
 
-  // Strict role-based visibility for Lineage Timeline & Executive KPI Strip
-  if (btnTrace) {
-    btnTrace.style.display = ['buyer', 'admin'].includes(role) ? 'inline-block' : 'none';
-  }
   if (strip) {
-    strip.style.display = ['buyer', 'admin'].includes(role) ? 'grid' : 'none';
+    strip.style.display = (AppState.activeMainTab === 'sourcing' && ['buyer', 'admin'].includes(role)) ? 'block' : 'none';
   }
 
   if (!navTabsContainer) return;
+
+  const btnActive = 'nav-pill-btn active bg-[#121211] text-white font-medium px-4 py-1.5 rounded-full text-[12.5px] transition shadow-pill-glow cursor-pointer border-none';
+  const btnInactive = 'nav-pill-btn text-[#6C6963] hover:text-[#121211] hover:bg-white font-medium px-3.5 py-1.5 rounded-full text-[12.5px] transition cursor-pointer border-none bg-transparent';
 
   let html = '';
 
   if (role === 'requester') {
     html = `
-      <button class="nav-pill-btn active" onclick="switchMainTab('requester')">My Requisitions (PR)</button>
-      <button class="nav-pill-btn" onclick="openAddPrModal()">+ New Plant Demand</button>
+      <button class="${btnActive}" onclick="switchMainTab('requester')">Requisitions (ME51N)</button>
+      <button class="${btnInactive}" onclick="openAddPrModal()">+ New Plant Demand</button>
+      <button class="${btnInactive}" onclick="switchMainTab('excel_erp')">ERP Inbound Sheet</button>
     `;
     loadRequesterPrs();
   } else if (role === 'manager') {
     html = `
-      <button class="nav-pill-btn active" onclick="switchMainTab('manager')">Approval Inbox</button>
+      <button class="${btnActive}" onclick="switchMainTab('manager')">Requisition Approval Inbox</button>
+      <button class="${btnInactive}" onclick="switchMainTab('excel_erp')">ERP Requisitions Sheet</button>
     `;
     loadManagerQueue();
   } else if (role === 'tech_evaluator') {
     html = `
-      <button class="nav-pill-btn active" onclick="switchMainTab('tech_eval')">Technical Envelope Evaluation</button>
+      <button class="${btnActive}" onclick="switchMainTab('tech_eval')">Technical Envelope Evaluation</button>
     `;
     loadTechEvalQueue();
   } else if (role === 'comm_evaluator') {
     html = `
-      <button class="nav-pill-btn active" onclick="switchMainTab('comm_eval')">Commercial Envelope Pricing</button>
+      <button class="${btnActive}" onclick="switchMainTab('comm_eval')">Commercial Envelope Pricing</button>
     `;
     loadCommEvalQueue();
   } else if (role === 'award_approver') {
     html = `
-      <button class="nav-pill-btn active" onclick="switchMainTab('approver')">Award Sign-Off &amp; SAP Push</button>
-      <button class="nav-pill-btn" onclick="switchMainTab('excel_erp')">Committed Orders</button>
+      <button class="${btnActive}" onclick="switchMainTab('approver')">Executive Award Sign-Off</button>
+      <button class="${btnInactive}" onclick="switchMainTab('excel_erp')">Committed PO Orders</button>
     `;
+    loadApproverReviewData();
   } else if (role === 'receiving') {
     html = `
-      <button class="nav-pill-btn active" onclick="switchMainTab('receiving')">Goods Receipt (GRN)</button>
-      <button class="nav-pill-btn" onclick="openRecordGrnModal()">+ Record Inward Shipment</button>
+      <button class="${btnActive}" onclick="switchMainTab('receiving')">Goods Receipt (GRN)</button>
+      <button class="${btnInactive}" onclick="openRecordGrnModal()">+ Record Inward Shipment</button>
     `;
     loadReceivingQueue();
   } else if (role === 'supplier') {
     html = `
-      <button class="nav-pill-btn active" onclick="switchMainTab('supplier')">Active RFQ Invitations &amp; Bidding</button>
+      <button class="${btnActive}" onclick="switchMainTab('supplier')">Supplier Bidding Portal</button>
     `;
     loadSupplierPortalData();
+  } else if (role === 'order_closure') {
+    html = `
+      <button class="${btnActive}" onclick="switchMainTab('order_closure')">3-Way Match &amp; MIRO Closure</button>
+      <button class="${btnInactive}" onclick="switchMainTab('excel_erp')">ERP Requisitions &amp; POs</button>
+      <button class="${btnInactive}" onclick="switchMainTab('sap_erp')">SAP GUI (ME53N)</button>
+    `;
+    loadClosureQueue();
   } else {
     // Default Buyer (Valeria Martinez) / Admin
     html = `
-      <button class="nav-pill-btn active" onclick="switchMainTab('sourcing')">Sourcing Events</button>
-      <button class="nav-pill-btn" onclick="switchMainTab('order_closure')">Purchase Orders</button>
-      <button class="nav-pill-btn" onclick="switchMainTab('excel_erp')">ERP Requisitions &amp; POs</button>
-      <button class="nav-pill-btn" onclick="switchMainTab('sap_erp')">SAP GUI (ME53N)</button>
+      <button class="${btnActive}" onclick="switchMainTab('sourcing')">Sourcing Events</button>
+      <button class="${btnInactive}" onclick="switchMainTab('order_closure')">Purchase Orders</button>
+      <button class="${btnInactive}" onclick="switchMainTab('excel_erp')">ERP Requisitions &amp; POs</button>
+      <button class="${btnInactive}" onclick="switchMainTab('sap_erp')">SAP GUI (ME53N)</button>
+      <button class="${btnInactive}" onclick="switchMainTab('integration')">CIG Integration</button>
     `;
   }
 
   navTabsContainer.innerHTML = html;
 }
-
 function openRbacModal() {
   document.getElementById('modalRbacDirectory').classList.remove('hidden');
 }
@@ -505,14 +513,15 @@ function closeRoleGuideModal() {
 // ============================================================================
 
 const ROLE_TAB_PERMISSIONS = {
-  requester: ['requester'],
-  manager: ['manager'],
+  requester: ['requester', 'excel_erp'],
+  manager: ['manager', 'excel_erp'],
   buyer: ['sourcing', 'order_closure', 'excel_erp', 'sap_erp', 'integration'],
   supplier: ['supplier'],
   tech_evaluator: ['tech_eval'],
   comm_evaluator: ['comm_eval'],
   award_approver: ['approver', 'excel_erp'],
   receiving: ['receiving'],
+  order_closure: ['order_closure', 'excel_erp', 'sap_erp', 'integration'],
   admin: ['requester', 'manager', 'sourcing', 'supplier', 'tech_eval', 'comm_eval', 'approver', 'receiving', 'order_closure', 'excel_erp', 'sap_erp', 'integration']
 };
 
@@ -527,30 +536,36 @@ function navigateIfAuthorized(tab) {
 }
 
 function switchMainTab(tab) {
-  // Strict Frontend RBAC: Block unauthorized tab access
   const userRole = (currentUser && currentUser.role) || 'buyer';
   const normalizedTab = tab === 'dashboard' ? 'sourcing' : tab;
   const allowed = ROLE_TAB_PERMISSIONS[userRole] || [];
 
   if (userRole !== 'admin' && !allowed.includes(normalizedTab)) {
-    showSapToast(`Access Restricted: Persona [${currentUser.name || userRole}] is not authorized to access this workspace.`, 'error');
+    showSapToast(`Access Restricted: Persona [${currentUser.name || userRole}] is not authorized for this workspace.`, 'error');
     return;
   }
 
   AppState.activeMainTab = tab;
 
-  // Update topbar nav pill buttons
-  const pills = document.querySelectorAll('.topbar-nav-center .nav-pill-btn');
+  // Update topbar nav pill buttons in Stitch container
+  const pills = document.querySelectorAll('#appNavPills .nav-pill-btn');
   pills.forEach(p => {
-    p.classList.toggle('active', p.getAttribute('onclick')?.includes(`'${tab}'`));
+    const isActive = p.getAttribute('onclick')?.includes(`'${tab}'`);
+    if (isActive) {
+      p.className = 'nav-pill-btn active bg-[#121211] text-white font-medium px-4 py-1.5 rounded-full text-[12.5px] transition shadow-pill-glow cursor-pointer border-none';
+    } else {
+      p.className = 'nav-pill-btn text-[#6C6963] hover:text-[#121211] hover:bg-white font-medium px-3.5 py-1.5 rounded-full text-[12.5px] transition cursor-pointer border-none bg-transparent';
+    }
   });
 
-  // Update legacy tabs if any
-  const tabs = document.querySelectorAll('.subnav-tabs .subnav-tab');
-  tabs.forEach(t => t.classList.remove('active'));
-
-  // Hide all main views
+  // Hide all main workspace views
   document.querySelectorAll('.workspace-view').forEach(v => v.classList.remove('active'));
+
+  // Control Executive KPI Strip: only show for Sourcing view when user is Buyer or Admin
+  const strip = document.getElementById('executiveKpiStrip');
+  if (strip) {
+    strip.style.display = (tab === 'sourcing' && ['buyer', 'admin'].includes(userRole)) ? 'block' : 'none';
+  }
 
   if (tab === 'sourcing' || tab === 'dashboard') {
     const v = document.getElementById('view-sourcing-project');
@@ -566,10 +581,6 @@ function switchMainTab(tab) {
     const v = document.getElementById('view-manager');
     if (v) v.classList.add('active');
     loadManagerQueue();
-  } else if (tab === 'rfq_approver') {
-    const v = document.getElementById('view-rfq-approver');
-    if (v) v.classList.add('active');
-    loadRfqApproverQueue();
   } else if (tab === 'tech_eval') {
     const v = document.getElementById('view-tech-eval');
     if (v) v.classList.add('active');
@@ -586,6 +597,10 @@ function switchMainTab(tab) {
     const v = document.getElementById('view-receiving');
     if (v) v.classList.add('active');
     loadReceivingQueue();
+  } else if (tab === 'supplier') {
+    const v = document.getElementById('view-supplier-portal');
+    if (v) v.classList.add('active');
+    loadSupplierPortalData();
   } else if (tab === 'order_closure') {
     const v = document.getElementById('view-order-closure');
     if (v) v.classList.add('active');
@@ -601,13 +616,8 @@ function switchMainTab(tab) {
     const v = document.getElementById('view-cig-integration');
     if (v) v.classList.add('active');
     loadCigAuditLogs();
-  } else if (tab === 'supplier') {
-    const v = document.getElementById('view-supplier-portal');
-    if (v) v.classList.add('active');
-    loadSupplierPortalData();
   }
 }
-
 // ============================================================================
 // 3. INNER SOURCING PROJECT TABS (TASKS, AWARDS, ATTACHMENTS...)
 // ============================================================================
@@ -3862,3 +3872,19 @@ window.approveAndDispatchPoToSap = approveAndDispatchPoToSap;
 window.switchExcelTab = switchExcelTab;
 window.downloadCurrentExcelCsv = downloadCurrentExcelCsv;
 window.handleDurationChange = handleDurationChange;
+
+function toggleBrandNavigation() {
+  const loginPage = document.getElementById('page-login');
+  const appPage = document.getElementById('page-app');
+  if (appPage && !appPage.classList.contains('hidden')) {
+    if (typeof showMainLandingPage === 'function') showMainLandingPage();
+  } else {
+    if (currentUser) {
+      if (loginPage) loginPage.classList.add('hidden');
+      if (appPage) appPage.classList.remove('hidden');
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+}
+window.toggleBrandNavigation = toggleBrandNavigation;
