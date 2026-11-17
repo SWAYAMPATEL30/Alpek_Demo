@@ -24,18 +24,12 @@ views.forEach(v => {
   viewHtmlMap[v] = fs.readFileSync(`apps/alpek-supplier-platform/scripts/clean_${v}.html`, 'utf8');
 });
 
-// 3. Read modals and compatibility registry from public/index.html
-const currentIndex = fs.readFileSync('apps/alpek-supplier-platform/public/index.html', 'utf8');
-const modalsStart = currentIndex.indexOf('<!-- All Application Modals');
-const modalsEnd = currentIndex.indexOf('<script>', modalsStart);
-const modalsAndCompat = currentIndex.substring(modalsStart, modalsEnd).trim();
-
-// 4. Extract head from stitchRaw
+// 3. Extract Head from stitchRaw
 const headStart = stitchRaw.indexOf('<head>');
 const headEnd = stitchRaw.indexOf('</head>') + 7;
 let rawHead = stitchRaw.substring(headStart, headEnd);
 
-// Add styling rules for all user dashboards in the Google Stitch theme
+// Add custom workspace & table styling
 const additionalStyles = `
     /* Workspace Views */
     .workspace-view {
@@ -241,11 +235,38 @@ if (!rawHead.includes('/css/landing.css')) {
   rawHead = rawHead.replace('</head>', '  <link rel="stylesheet" href="/css/landing.css">\n</head>');
 }
 
-// 5. Build Header for #page-app
-// Clicking the Alpek brand logo navigates to Landing Page (or Dashboard if on Landing Page)
-// Dynamic #appNavPills container handles the role navigation
-// Lineage Timeline removed
-// Standalone [Landing Page] button removed
+// 4. Exact section extraction from stitchRaw
+const kpiStart = stitchRaw.indexOf('<!-- 2. Executive Metric KPI Strip');
+const kpiEnd = stitchRaw.indexOf('<!-- 3. Strategic Tender Hero Showcase');
+const rawKpi = stitchRaw.substring(kpiStart, kpiEnd).trim();
+
+const tenderStart = stitchRaw.indexOf('<!-- 3. Strategic Tender Hero Showcase');
+const tenderEnd = stitchRaw.indexOf('<!-- 5. cXML Drawer Slide-over');
+let rawTenderAndTable = stitchRaw.substring(tenderStart, tenderEnd).trim();
+
+// Wire filter buttons
+rawTenderAndTable = rawTenderAndTable.replace(
+  `class="w-8 h-8 rounded-full border border-[#ECEAE4] hover:bg-[#FAF9F6] flex items-center justify-center text-[#6C6963] transition" title="Filter columns"`,
+  `class="w-8 h-8 rounded-full border border-[#ECEAE4] hover:bg-[#FAF9F6] flex items-center justify-center text-[#6C6963] transition cursor-pointer" title="Cycle Filter View" onclick="cycleMatrixView()"`
+);
+rawTenderAndTable = rawTenderAndTable.replace(
+  `class="w-8 h-8 rounded-full border border-[#ECEAE4] hover:bg-[#FAF9F6] flex items-center justify-center text-[#6C6963] transition" title="Toggle full matrix"`,
+  `class="w-8 h-8 rounded-full border border-[#ECEAE4] hover:bg-[#FAF9F6] flex items-center justify-center text-[#6C6963] transition cursor-pointer" title="Reset to All Criteria" onclick="document.querySelector('.matrix-filter-btn[data-view=\\'all\\']')?.click()"`
+);
+
+const drawerStart = stitchRaw.indexOf('<!-- 5. cXML Drawer Slide-over');
+const drawerEnd = stitchRaw.indexOf('<!-- 7. Footer');
+const rawDrawer = stitchRaw.substring(drawerStart, drawerEnd).trim();
+
+const footerStart = stitchRaw.indexOf('<!-- 7. Footer');
+const footerEnd = stitchRaw.indexOf('</footer>', footerStart) + 9;
+const rawFooter = stitchRaw.substring(footerStart, footerEnd).trim();
+
+const scriptsStart = stitchRaw.indexOf('<script>', footerEnd);
+const bodyEnd = stitchRaw.indexOf('</body>');
+const rawStitchScripts = stitchRaw.substring(scriptsStart, bodyEnd).trim();
+
+// 5. Build ONE single application header for #page-app
 const appHeaderHtml = `
 <header class="w-full px-6 pt-5 pb-3">
   <div class="max-w-[1720px] mx-auto bg-white/95 backdrop-blur-md rounded-full border border-[#ECEAE4] shadow-subtle-ambient px-4 py-2 flex items-center justify-between gap-4">
@@ -290,7 +311,7 @@ const appHeaderHtml = `
         </div>
       </div>
 
-      <!-- Professional Profile Menu (No demo switchers, clean enterprise production) -->
+      <!-- Professional Profile Menu (Clean enterprise production) -->
       <div id="userDropdownMenu" class="hidden absolute right-0 mt-2.5 w-72 bg-white rounded-3xl shadow-float-pop border border-[#ECEAE4] z-50 p-4 text-[12.5px] animate-in fade-in duration-150">
         <div class="pb-3 mb-2.5 border-b border-[#ECEAE4] flex items-center gap-3">
           <div id="dropdownAvatar" class="w-10 h-10 rounded-full bg-[#121211] text-white flex items-center justify-center font-bold text-[13px] shadow-sm">VM</div>
@@ -322,46 +343,17 @@ const appHeaderHtml = `
 </header>
 `;
 
-// 6. Extract KPI Strip
-const kpiStart = stitchRaw.indexOf('<!-- ========================================================================= -->\n<!-- 2. Top-Level Metric KPI Cards');
-const kpiEnd = stitchRaw.indexOf('<!-- ========================================================================= -->\n<!-- 3. Strategic Tender Hero Showcase');
-const rawKpi = stitchRaw.substring(kpiStart, kpiEnd);
+// 6. Build Landing Page (#page-login)
+// Read from git show 2fec07e:public/index.html to ensure clean source
+const { execSync } = require('child_process');
+const raw2fec = execSync('git show 2fec07e:public/index.html', { cwd: 'apps/alpek-supplier-platform', maxBuffer: 10 * 1024 * 1024 }).toString('utf8');
+const pStart = raw2fec.indexOf('<div id="page-login"');
+const footerEndIdx = raw2fec.indexOf('</footer>', pStart);
+const closeDivIdx = raw2fec.indexOf('</div>', footerEndIdx);
+let cleanLanding = raw2fec.substring(pStart, closeDivIdx + 6).trim();
 
-// 7. Extract Tender Hero & Table
-const tenderStart = stitchRaw.indexOf('<!-- ========================================================================= -->\n<!-- 3. Strategic Tender Hero Showcase');
-const tenderEnd = stitchRaw.indexOf('<!-- ========================================================================= -->\n<!-- 5. cXML Drawer');
-let rawTenderAndTable = stitchRaw.substring(tenderStart, tenderEnd);
-
-// Wire filter buttons
-rawTenderAndTable = rawTenderAndTable.replace(
-  `class="w-8 h-8 rounded-full border border-[#ECEAE4] hover:bg-[#FAF9F6] flex items-center justify-center text-[#6C6963] transition" title="Filter columns"`,
-  `class="w-8 h-8 rounded-full border border-[#ECEAE4] hover:bg-[#FAF9F6] flex items-center justify-center text-[#6C6963] transition cursor-pointer" title="Cycle Filter View" onclick="cycleMatrixView()"`
-);
-rawTenderAndTable = rawTenderAndTable.replace(
-  `class="w-8 h-8 rounded-full border border-[#ECEAE4] hover:bg-[#FAF9F6] flex items-center justify-center text-[#6C6963] transition" title="Toggle full matrix"`,
-  `class="w-8 h-8 rounded-full border border-[#ECEAE4] hover:bg-[#FAF9F6] flex items-center justify-center text-[#6C6963] transition cursor-pointer" title="Reset to All Criteria" onclick="document.querySelector('.matrix-filter-btn[data-view=\\'all\\']')?.click()"`
-);
-
-// 8. Extract cXML Drawer
-const drawerStart = stitchRaw.indexOf('<!-- ========================================================================= -->\n<!-- 5. cXML Drawer');
-const drawerEnd = stitchRaw.indexOf('<!-- ========================================================================= -->\n<!-- 6. Footer');
-let rawDrawer = stitchRaw.substring(drawerStart, drawerEnd);
-
-// 9. Extract Footer
-const footerStart = stitchRaw.indexOf('<!-- ========================================================================= -->\n<!-- 6. Footer');
-const footerEnd = stitchRaw.indexOf('</footer>', footerStart) + 9;
-const rawFooter = stitchRaw.substring(footerStart, footerEnd);
-
-// 10. Extract Scripts
-const scriptsStart = stitchRaw.indexOf('<script>', footerEnd);
-const bodyEnd = stitchRaw.indexOf('</body>');
-const rawStitchScripts = stitchRaw.substring(scriptsStart, bodyEnd);
-
-// 11. Read and clean Landing Page (Remove 10 preview cards, make proper enterprise login)
-let landingSource = fs.readFileSync('apps/alpek-supplier-platform/scripts/clean_page_login.html', 'utf8');
-
-// Update Landing Page Header: Clicking Alpek logo toggles brand navigation; remove Role Directory link
-landingSource = landingSource.replace(
+// Landing Page Header updates:
+cleanLanding = cleanLanding.replace(
   /<a href="\/" style="display:flex; align-items:center; gap:10px; text-decoration:none;">[\s\S]*?<\/a>/,
   `<a href="javascript:void(0)" onclick="toggleBrandNavigation()" style="display:flex; align-items:center; gap:10px; text-decoration:none;">
               <span style="width:28px; height:28px; border-radius:50%; background:#121211; color:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; border:1px solid rgba(255,255,255,0.3);">AD</span>
@@ -369,21 +361,14 @@ landingSource = landingSource.replace(
               <span style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#167953; background:#EDF8F3; padding:2px 8px; border-radius:9999px; border:1px solid #BDE8D3;">Clean Core</span>
             </a>`
 );
-
-// Remove "Role Directory (10 Personas)" from Landing Nav
-landingSource = landingSource.replace(
-  /<a href="#login-portal" class="btn-nav-role">[\s\S]*?<\/a>/,
-  ''
-);
-
-// Update Sign In button in Landing Nav
-landingSource = landingSource.replace(
+cleanLanding = cleanLanding.replace(/<a href="#login-portal" class="btn-nav-role">[\s\S]*?<\/a>/, '');
+cleanLanding = cleanLanding.replace(
   /<a href="#login-portal" class="btn-nav-signin">[\s\S]*?<\/a>/,
   `<a href="#login-portal" class="btn-nav-signin" style="background:#121211; color:#fff; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:6px;"><span>Sign In</span> &rarr;</a>`
 );
 
-// Update Hero Buttons: Remove "Corporate Role Directory (10 Personas)" preview
-landingSource = landingSource.replace(
+// Hero CTA buttons:
+cleanLanding = cleanLanding.replace(
   /<div class="hero-cta-group">[\s\S]*?<\/div>/,
   `<div class="hero-cta-group">
           <a href="#login-portal" class="btn-hero-primary" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px;">
@@ -397,11 +382,11 @@ landingSource = landingSource.replace(
         </div>`
 );
 
-// Clean up #login-portal section: Remove 10 preview cards, make clean enterprise SSO login box
-const portalSectionStart = landingSource.indexOf('<section id="login-portal"');
-const footerSectionStart = landingSource.lastIndexOf('<!-- SECTION 10: LUXURY FOOTER -->');
+// Replace #login-portal with clean corporate SSO card (no preview cards)
+const portalStart = cleanLanding.indexOf('<section id="login-portal"');
+const footerStartIdx = cleanLanding.lastIndexOf('<!-- SECTION 10: LUXURY FOOTER -->');
 
-const cleanLoginPortalSection = `
+const corporateLoginPortalSection = `
     <!-- SECTION 9: FORMAL CORPORATE AUTHENTICATION DECK -->
     <section id="login-portal" class="w-full py-20 px-6 max-w-4xl mx-auto">
       <div class="text-center max-w-xl mx-auto mb-10">
@@ -417,7 +402,6 @@ const cleanLoginPortalSection = `
         </p>
       </div>
 
-      <!-- Traditional Credentials Box -->
       <div class="bg-white rounded-3xl border border-[#ECEAE4] p-8 max-w-md mx-auto shadow-card-elevated">
         <form id="formCorporateLogin" onsubmit="handleLoginFormSubmit(event); return false;" class="space-y-4">
           <div>
@@ -457,9 +441,101 @@ const cleanLoginPortalSection = `
     </section>
 `;
 
-const stitchLoginPortal = landingSource.substring(0, portalSectionStart) + cleanLoginPortalSection.trim() + '\n\n    ' + landingSource.substring(footerSectionStart);
+const stitchLoginPortal = cleanLanding.substring(0, portalStart) + corporateLoginPortalSection.trim() + '\n\n    ' + cleanLanding.substring(footerStartIdx);
 
-// 12. Helper scripts
+// 7. Modals
+const modalsAndCompat = `
+  <!-- All Application Modals (Clean Core Sourcing & Procurement) -->
+  <div id="modalAddPr" class="sap-modal-backdrop hidden">
+    <div class="sap-dialog sap-dialog-md">
+      <div class="sap-dialog-header">
+        <div class="sap-dialog-title">Create Purchase Requisition (ME51N)</div>
+        <button class="sap-dialog-close" onclick="closeModal('modalAddPr')">&times;</button>
+      </div>
+      <div class="sap-dialog-body">
+        <form id="formAddPr" onsubmit="submitAddPr(event); return false;" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-[#121211] mb-1">Material Scope / Description</label>
+            <input type="text" id="newPrTitle" class="w-full px-3 py-2 rounded-xl border border-[#ECEAE4] text-xs" required placeholder="e.g. Refrigerant-134a Industrial Supply">
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-[#121211] mb-1">Requested Quantity</label>
+              <input type="number" id="newPrQuantity" class="w-full px-3 py-2 rounded-xl border border-[#ECEAE4] text-xs" required value="7125000">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-[#121211] mb-1">Unit of Measure</label>
+              <input type="text" id="newPrUom" class="w-full px-3 py-2 rounded-xl border border-[#ECEAE4] text-xs" required value="KG">
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-[#121211] mb-1">Estimated Unit Price (COP)</label>
+              <input type="number" step="0.01" id="newPrPrice" class="w-full px-3 py-2 rounded-xl border border-[#ECEAE4] text-xs" required value="3.50">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-[#121211] mb-1">Receiving Plant</label>
+              <input type="text" id="newPrPlant" class="w-full px-3 py-2 rounded-xl border border-[#ECEAE4] text-xs" required value="CO-MOR-01">
+            </div>
+          </div>
+          <div class="pt-2 flex justify-end gap-2">
+            <button type="button" class="sap-btn-secondary" onclick="closeModal('modalAddPr')">Cancel</button>
+            <button type="submit" class="sap-btn-primary">Submit to Manager Gate 1 &rarr;</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalRecordGrn" class="sap-modal-backdrop hidden">
+    <div class="sap-dialog sap-dialog-md">
+      <div class="sap-dialog-header">
+        <div class="sap-dialog-title">Post Inward Goods Receipt (MIGO / GRN)</div>
+        <button class="sap-dialog-close" onclick="closeModal('modalRecordGrn')">&times;</button>
+      </div>
+      <div class="sap-dialog-body">
+        <form id="formRecordGrn" onsubmit="submitRecordGrn(event); return false;" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-[#121211] mb-1">Target Purchase Order</label>
+            <select id="grnPoSelect" class="w-full px-3 py-2 rounded-xl border border-[#ECEAE4] text-xs" required>
+              <option value="PO-4500078416">PO 4500078416 - SONDA Colombia S.A. (7,125,000 KG)</option>
+            </select>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-[#121211] mb-1">Delivery Waybill / Remisión</label>
+              <input type="text" id="grnWaybill" class="w-full px-3 py-2 rounded-xl border border-[#ECEAE4] text-xs" required value="REM-2026-9812">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-[#121211] mb-1">Accepted Quantity</label>
+              <input type="number" id="grnQuantity" class="w-full px-3 py-2 rounded-xl border border-[#ECEAE4] text-xs" required value="7125000">
+            </div>
+          </div>
+          <div class="pt-2 flex justify-end gap-2">
+            <button type="button" class="sap-btn-secondary" onclick="closeModal('modalRecordGrn')">Cancel</button>
+            <button type="submit" class="sap-btn-primary">Post GRN to S/4HANA &rarr;</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalTraceability" class="sap-modal-backdrop hidden">
+    <div class="sap-dialog sap-dialog-lg">
+      <div class="sap-dialog-header">
+        <div class="sap-dialog-title">Clean Core Sourcing Audit &amp; Lineage Trail</div>
+        <button class="sap-dialog-close" onclick="closeModal('modalTraceability')">&times;</button>
+      </div>
+      <div class="sap-dialog-body">
+        <div id="traceabilityContent" class="space-y-3 font-mono text-xs">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </div>
+  </div>
+`;
+
+// 8. Helper scripts
 const helperScripts = `
 <script>
   function toggleBrandNavigation() {
@@ -522,21 +598,27 @@ const helperScripts = `
   }
   window.toggleFaq = toggleFaq;
 
-  function handleLandingHash() {
-    const hash = (window.location.hash || '').replace('#', '');
-    const landingHashes = ['login-portal', 'hero-section', 'section-agent', 'section-tenders', 'section-playbook', 'section-faq', 'overview', 'landing'];
-    if (landingHashes.includes(hash)) {
-      showMainLandingPage(hash);
-    }
+  function closeModal(id) {
+    const m = document.getElementById(id);
+    if (m) m.classList.add('hidden');
   }
-  window.addEventListener('hashchange', handleLandingHash);
-  document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(handleLandingHash, 100);
-  });
+  window.closeModal = closeModal;
+
+  function openAddPrModal() {
+    const m = document.getElementById('modalAddPr');
+    if (m) m.classList.remove('hidden');
+  }
+  window.openAddPrModal = openAddPrModal;
+
+  function openRecordGrnModal() {
+    const m = document.getElementById('modalRecordGrn');
+    if (m) m.classList.remove('hidden');
+  }
+  window.openRecordGrnModal = openRecordGrnModal;
 </script>
 `;
 
-// 13. Assemble the final index.html
+// 9. Assemble the final index.html
 const finalHtml = `<!DOCTYPE html>
 <html lang="en">
 ${rawHead}
@@ -557,9 +639,7 @@ ${rawHead}
     <!-- VIEW 1: STRATEGIC SOURCING BUYER (view-sourcing-project) - EXACT SCREENSHOTS -->
     <!-- ========================================================================= -->
     <div class="workspace-view active flex-1 flex flex-col" id="view-sourcing-project">
-      <!-- Hidden banner for script compatibility -->
       <div id="rfqPublicationBanner" class="hidden"></div>
-
       ${rawTenderAndTable}
     </div>
 
@@ -631,11 +711,11 @@ ${rawHead}
   ${rawStitchScripts}
 
   <!-- Load Main Application Logic -->
-  <script src="/js/app.js?v=14.0"></script>
+  <script src="/js/app.js?v=15.0"></script>
 </body>
 </html>
 `;
 
 fs.writeFileSync('apps/alpek-supplier-platform/public/index.html', finalHtml);
 fs.writeFileSync('apps/alpek-supplier-platform/scripts/build_final_stitch_platform.cjs', fs.readFileSync(__filename, 'utf8'));
-console.log('Successfully rebuilt public/index.html! Length:', finalHtml.length);
+console.log('Successfully generated public/index.html! Length:', finalHtml.length);

@@ -41,7 +41,15 @@ async function initializePlatform() {
   const loginPage = document.getElementById('page-login');
   const appPage = document.getElementById('page-app');
 
-  if (cachedUser) {
+  const currentHash = (window.location.hash || '').replace('#', '');
+  const isLandingHash = ['login-portal', 'hero-section', 'section-agent', 'section-tenders', 'section-playbook', 'section-faq', 'overview', 'landing'].includes(currentHash);
+
+  if (isLandingHash) {
+    if (loginPage) loginPage.classList.remove('hidden');
+    if (appPage) appPage.classList.add('hidden');
+    const target = document.getElementById(currentHash);
+    if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 60);
+  } else if (cachedUser) {
     try {
       currentUser = JSON.parse(cachedUser);
       if (loginPage) loginPage.classList.add('hidden');
@@ -3888,3 +3896,21 @@ function toggleBrandNavigation() {
   }
 }
 window.toggleBrandNavigation = toggleBrandNavigation;
+
+window.addEventListener('hashchange', () => {
+  const currentHash = (window.location.hash || '').replace('#', '');
+  const isLandingHash = ['login-portal', 'hero-section', 'section-agent', 'section-tenders', 'section-playbook', 'section-faq', 'overview', 'landing'].includes(currentHash);
+  const loginPage = document.getElementById('page-login');
+  const appPage = document.getElementById('page-app');
+
+  if (isLandingHash) {
+    if (loginPage) loginPage.classList.remove('hidden');
+    if (appPage) appPage.classList.add('hidden');
+    const target = document.getElementById(currentHash);
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  } else if (['sourcing', 'supplier', 'requester', 'manager', 'tech_eval', 'comm_eval', 'approver', 'receiving', 'order_closure', 'excel_erp', 'sap_erp', 'integration'].includes(currentHash)) {
+    if (loginPage) loginPage.classList.add('hidden');
+    if (appPage) appPage.classList.remove('hidden');
+    if (typeof switchMainTab === 'function') switchMainTab(currentHash);
+  }
+});
