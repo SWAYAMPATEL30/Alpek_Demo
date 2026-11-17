@@ -1,0 +1,125 @@
+<div class="workspace-view" id="view-approver">
+        <div class="cockpit-hero-banner">
+          <div class="cockpit-title-group">
+            <div class="cockpit-icon-badge">🏆</div>
+            <div>
+              <span class="status-pill approved" id="approverPendingBadge">Award Sign-Off Ready</span>
+              <h2 id="apprEventTitle" style="font-size:20px; font-weight:600; color:#191716; margin:4px 0 2px 0;">Executive Award Sign-Off Cockpit</h2>
+              <div style="font-size:13px; color:#8C867F;">Final committee approval automatically generates follow-on SAP S/4HANA Purchase Orders.</div>
+            </div>
+          </div>
+          <select id="approverRfqSelector" onchange="switchApproverRfq(this.value)" class="cockpit-select">
+            <option value="">Select Completed RFQ...</option>
+          </select>
+        </div>
+
+        <!-- Asymmetric 2-Column Studio Layout (65% Studio, 35% Intelligence) -->
+        <div class="studio-layout">
+
+          <!-- 65% Operational Studio -->
+          <div class="studio-main">
+            <!-- Studio Card 1: All Evaluated Bids for Tender -->
+            <div class="sap-card">
+              <div class="card-toolbar">
+                <div>
+                  <span class="card-title">All Evaluated Bids for Tender</span>
+                  <div class="card-subtitle">Comprehensive ranking combining technical quality and unsealed commercial tariffs.</div>
+                </div>
+                <div id="approvalStrategyCallout" style="font-size:12px; font-weight:700; color:#15803D;">Lowest Evaluated Compliant Bidder</div>
+              </div>
+              <div style="overflow-x:auto;">
+                <table class="sap-table">
+                  <thead>
+                    <tr>
+                      <th style="text-align:center;">Rank</th>
+                      <th>Supplier Organization</th>
+                      <th>Technical &amp; Delivery</th>
+                      <th>Unit Price</th>
+                      <th>Total Amount</th>
+                      <th>Savings vs Budget</th>
+                      <th>Composite Score</th>
+                      <th style="text-align:center;">Select</th>
+                    </tr>
+                  </thead>
+                  <tbody id="approverSupplierTableBody">
+                    <!-- Dynamically populated -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 35% Intelligence Sidebar -->
+          <div class="studio-sidebar">
+            <!-- Sidebar Card 1: Award Recommendation Summary -->
+            <div class="studio-sidebar-card">
+              <div class="studio-sidebar-header">
+                <div>
+                  <h3 class="studio-sidebar-title">🏆 Award Recommendation</h3>
+                  <div class="studio-sidebar-subtitle">Committee Decision Sign-off</div>
+                </div>
+                <span class="status-pill approved">&#10003; Qualified</span>
+              </div>
+
+              <div style="background:#FAF8F5; border:1px solid #EDEAE4; border-radius:18px; padding:20px; margin-bottom:18px;">
+                <span style="font-size:11px; font-weight:700; text-transform:uppercase; color:#8C867F; letter-spacing:0.04em;">Recommended Winner</span>
+                <div id="apprDecWinner" style="font-family:var(--font-serif); font-size:20px; font-weight:600; color:#191716; margin-top:4px;">SONDA DE COLOMBIA S A</div>
+                <div id="apprDecProduct" style="font-size:12.5px; color:#4B4643; margin-top:4px;">Refrigerant-134A Industrial</div>
+                <div style="margin-top:14px; border-top:1px solid #EDEAE4; padding-top:12px; display:flex; justify-content:space-between; align-items:center;">
+                  <div>
+                    <span style="font-size:11px; color:#8C867F; display:block;">Total Award Value</span>
+                    <span id="apprDecAmount" style="font-size:17px; font-weight:700; color:#15803d;">$90.000,00 COP</span>
+                  </div>
+                  <div style="text-align:right;">
+                    <span style="font-size:11px; color:#8C867F; display:block;">Calculated Savings</span>
+                    <span id="apprDecSavings" style="font-size:15px; font-weight:700; color:#15803d;">14.3% Est. Savings</span>
+                  </div>
+                </div>
+              </div>
+
+              <button class="sap-btn sap-btn-primary" id="btnApproverDispatchPo" style="width:100%;" onclick="approveAndDispatchPoToSap()">&#10003; Sign-Off Award &amp; Generate S/4HANA PO &rarr;</button>
+            </div>
+
+            <!-- Sidebar Card 2: S/4HANA Follow-on Metadata -->
+            <div class="studio-sidebar-card">
+              <div class="studio-sidebar-header">
+                <div>
+                  <h3 class="studio-sidebar-title">⚡ S/4HANA Dispatch Channel</h3>
+                  <div class="studio-sidebar-subtitle">Automated Clean Core Integration</div>
+                </div>
+              </div>
+              <ul class="studio-intel-list">
+                <li class="studio-intel-item">
+                  <span class="studio-intel-icon">📄</span>
+                  <div class="studio-intel-content">
+                    <strong>Source Demand Requisition</strong>
+                    <span id="apprMetaPr">PR-3000010443</span>
+                  </div>
+                </li>
+                <li class="studio-intel-item">
+                  <span class="studio-intel-icon">📦</span>
+                  <div class="studio-intel-content">
+                    <strong>Operational Material</strong>
+                    <span id="apprMetaMaterial">SUMINISTROS REFRI</span>
+                  </div>
+                </li>
+                <li class="studio-intel-item">
+                  <span class="studio-intel-icon">🏭</span>
+                  <div class="studio-intel-content">
+                    <strong>Delivery Plant</strong>
+                    <span id="apprMetaPlant">Gran Tierra Energy • Vereda Morrison</span>
+                  </div>
+                </li>
+                <li class="studio-intel-item">
+                  <span class="studio-intel-icon">💵</span>
+                  <div class="studio-intel-content">
+                    <strong>Ceiling Target Budget</strong>
+                    <span id="apprMetaBudget">$24,937,500 COP</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      

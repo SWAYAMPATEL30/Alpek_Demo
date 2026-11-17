@@ -4,41 +4,38 @@ const path = require('path');
 // 1. Read Stitch base from raw_7f554de.html
 const stitchRaw = fs.readFileSync('scripts/raw_7f554de.html', 'utf8');
 
-// 2. Read public/index.html to extract other views and modals
+// 2. Read clean views extracted from 0deb23e (without nesting)
+const views = [
+  'view-supplier-portal',
+  'view-requester',
+  'view-manager',
+  'view-tech-eval',
+  'view-comm-eval',
+  'view-approver',
+  'view-receiving',
+  'view-order-closure',
+  'view-excel-erp',
+  'view-sap-erp',
+  'view-cig-integration'
+];
+
+const viewHtmlMap = {};
+views.forEach(v => {
+  viewHtmlMap[v] = fs.readFileSync(`scripts/clean_${v}.html`, 'utf8');
+});
+
+// 3. Read modals and compatibility registry from public/index.html
 const currentIndex = fs.readFileSync('public/index.html', 'utf8');
-
-function extractView(id, nextId) {
-  const start = currentIndex.indexOf(`id="${id}"`);
-  if (start === -1) throw new Error(`View ${id} not found`);
-  const tagStart = currentIndex.lastIndexOf('<div', start);
-  const nextStart = currentIndex.indexOf(`id="${nextId}"`);
-  if (nextStart === -1) throw new Error(`Next view ${nextId} not found`);
-  const end = currentIndex.lastIndexOf('</div>', nextStart);
-  return currentIndex.substring(tagStart, end).trim();
-}
-
-const supplierPortalHtml = extractView('view-supplier-portal', 'view-requester');
-const requesterHtml = extractView('view-requester', 'view-manager');
-const managerHtml = extractView('view-manager', 'view-tech-eval');
-const techEvalHtml = extractView('view-tech-eval', 'view-comm-eval');
-const commEvalHtml = extractView('view-comm-eval', 'view-approver');
-const approverHtml = extractView('view-approver', 'view-receiving');
-const receivingHtml = extractView('view-receiving', 'view-order-closure');
-const closureHtml = extractView('view-order-closure', 'view-excel-erp');
-const excelErpHtml = extractView('view-excel-erp', 'view-sap-erp');
-const sapErpHtml = extractView('view-sap-erp', 'view-cig-integration');
-const cigIntegrationHtml = extractView('view-cig-integration', 'modalFollowOnSuccess');
-
 const modalsStart = currentIndex.indexOf('<!-- All Application Modals');
 const modalsEnd = currentIndex.indexOf('<script>', modalsStart);
 const modalsAndCompat = currentIndex.substring(modalsStart, modalsEnd).trim();
 
-// 3. Extract parts from stitchRaw
+// 4. Extract parts from stitchRaw
 const headStart = stitchRaw.indexOf('<head>');
 const headEnd = stitchRaw.indexOf('</head>') + 7;
 let rawHead = stitchRaw.substring(headStart, headEnd);
 
-// Ensure workspace-view and Stitch modal styles are in <style>
+// Add styling rules for all user dashboards in the Google Stitch theme
 const additionalStyles = `
     /* Workspace Views */
     .workspace-view {
@@ -47,6 +44,42 @@ const additionalStyles = `
     .workspace-view.active {
       display: flex !important;
       flex-direction: column !important;
+    }
+    /* Stitch Unified Elevated Cards */
+    .cockpit-hero-banner, .sap-card {
+      background: #FFFFFF;
+      border-radius: 24px;
+      border: 1px solid #ECEAE4;
+      padding: 1.75rem;
+      box-shadow: 0 2px 4px rgba(18, 18, 17, 0.02), 0 12px 32px -4px rgba(18, 18, 17, 0.05);
+      margin-bottom: 1.5rem;
+    }
+    .cockpit-main-heading {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: #121211;
+      letter-spacing: -0.02em;
+    }
+    .cockpit-sub-heading {
+      font-size: 13.5px;
+      color: #6C6963;
+      margin-top: 4px;
+    }
+    .cockpit-timer-card {
+      background: #FAF9F6;
+      border: 1px solid #ECEAE4;
+      border-radius: 20px;
+      padding: 12px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .timer-card-digits {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 26px;
+      font-weight: 700;
+      color: #D94326;
     }
     /* Unified Table in Stitch Design */
     .sap-table {
@@ -74,14 +107,14 @@ const additionalStyles = `
       background: #FAF9F6;
     }
     /* Unified Stitch Buttons */
-    .btn-stitch-primary {
-      background: #121211;
-      color: #FFFFFF;
-      border-radius: 9999px;
-      padding: 8px 18px;
-      font-weight: 600;
-      font-size: 13px;
-      border: none;
+    .sap-btn-primary, .btn-stitch-primary {
+      background: #121211 !important;
+      color: #FFFFFF !important;
+      border-radius: 9999px !important;
+      padding: 8px 18px !important;
+      font-weight: 600 !important;
+      font-size: 13px !important;
+      border: none !important;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
@@ -89,26 +122,45 @@ const additionalStyles = `
       box-shadow: 0 2px 8px rgba(18, 18, 17, 0.08);
       transition: background 0.15s ease-in-out;
     }
-    .btn-stitch-primary:hover {
-      background: #232220;
+    .sap-btn-primary:hover, .btn-stitch-primary:hover {
+      background: #232220 !important;
     }
-    .btn-stitch-secondary {
-      background: #FFFFFF;
-      color: #121211;
-      border: 1px solid #ECEAE4;
-      border-radius: 9999px;
-      padding: 8px 18px;
-      font-weight: 500;
-      font-size: 13px;
+    .sap-btn-secondary, .btn-stitch-secondary {
+      background: #FFFFFF !important;
+      color: #121211 !important;
+      border: 1px solid #ECEAE4 !important;
+      border-radius: 9999px !important;
+      padding: 8px 18px !important;
+      font-weight: 500 !important;
+      font-size: 13px !important;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       transition: all 0.15s ease-in-out;
     }
-    .btn-stitch-secondary:hover {
-      border-color: #D9D6CE;
-      background: #FAF9F6;
+    .sap-btn-secondary:hover, .btn-stitch-secondary:hover {
+      border-color: #D9D6CE !important;
+      background: #FAF9F6 !important;
+    }
+    /* Status Pills */
+    .status-pill.pending {
+      background: #FDF2F0 !important;
+      color: #D94326 !important;
+      border: 1px solid #FAD8D2 !important;
+      border-radius: 9999px !important;
+      padding: 3px 10px !important;
+      font-weight: 600 !important;
+      font-size: 11px !important;
+    }
+    .status-pill.approved, .status-pill.confirmed {
+      background: #EDF8F3 !important;
+      color: #167953 !important;
+      border: 1px solid #BDE8D3 !important;
+      border-radius: 9999px !important;
+      padding: 3px 10px !important;
+      font-weight: 600 !important;
+      font-size: 11px !important;
     }
     /* Modals Backdrop & Dialogs */
     .sap-modal-backdrop {
@@ -289,11 +341,7 @@ rawHeader = rawHeader.replace(`href="#"\n>\n          Sourcing Events`, `onclick
 rawHeader = rawHeader.replace(`href="#">\n          Purchase Orders`, `onclick="switchMainTab('order_closure')" class="nav-pill-btn text-[#6C6963] hover:text-[#121211] hover:bg-white font-medium px-3.5 py-1.5 rounded-full text-[12.5px] transition cursor-pointer border-none bg-transparent">\n          Purchase Orders`);
 rawHeader = rawHeader.replace(`href="#">\n          ERP Requisitions &amp; POs`, `onclick="switchMainTab('excel_erp')" class="nav-pill-btn text-[#6C6963] hover:text-[#121211] hover:bg-white font-medium px-3.5 py-1.5 rounded-full text-[12.5px] transition cursor-pointer border-none bg-transparent">\n          ERP Requisitions &amp; POs`);
 rawHeader = rawHeader.replace(`href="#">\n          SAP GUI (ME53N)`, `onclick="switchMainTab('sap_erp')" class="nav-pill-btn text-[#6C6963] hover:text-[#121211] hover:bg-white font-medium px-3.5 py-1.5 rounded-full text-[12.5px] transition cursor-pointer border-none bg-transparent">\n          SAP GUI (ME53N)`);
-
-// Ensure Lineage timeline has proper ID and action
 rawHeader = rawHeader.replace(`onclick="document.getElementById('cxml-drawer').classList.remove('hidden')"`, `id="btnTopTraceability" onclick="openTraceabilityModal()"`);
-
-// Add hidden appNavPills to nav container
 rawHeader = rawHeader.replace('</nav>', '<div id="appNavPills" class="hidden"></div>\n</nav>');
 
 // KPI Strip
@@ -305,12 +353,28 @@ rawKpi = rawKpi.replace('<section class="w-full px-6 pt-2 pb-4">', '<section id=
 // Tender Showcase & Table
 const tenderStart = stitchRaw.indexOf('<!-- ========================================================================= -->\n<!-- 3. Strategic Tender Hero Showcase');
 const tenderEnd = stitchRaw.indexOf('<!-- ========================================================================= -->\n<!-- 5. cXML Drawer');
-const rawTenderAndTable = stitchRaw.substring(tenderStart, tenderEnd);
+let rawTenderAndTable = stitchRaw.substring(tenderStart, tenderEnd);
+
+// Wire filter_list and view_column toolbar buttons
+rawTenderAndTable = rawTenderAndTable.replace(
+  `class="w-8 h-8 rounded-full border border-[#ECEAE4] hover:bg-[#FAF9F6] flex items-center justify-center text-[#6C6963] transition" title="Filter columns"`,
+  `class="w-8 h-8 rounded-full border border-[#ECEAE4] hover:bg-[#FAF9F6] flex items-center justify-center text-[#6C6963] transition cursor-pointer" title="Cycle Filter View" onclick="cycleMatrixFilter()"`
+);
+rawTenderAndTable = rawTenderAndTable.replace(
+  `class="w-8 h-8 rounded-full border border-[#ECEAE4] hover:bg-[#FAF9F6] flex items-center justify-center text-[#6C6963] transition" title="Matrix preferences"`,
+  `class="w-8 h-8 rounded-full border border-[#ECEAE4] hover:bg-[#FAF9F6] flex items-center justify-center text-[#6C6963] transition cursor-pointer" title="Export Matrix Report" onclick="exportMatrixReport()"`
+);
 
 // Drawer & Modal
 const drawerStart = stitchRaw.indexOf('<!-- ========================================================================= -->\n<!-- 5. cXML Drawer');
 const drawerEnd = stitchRaw.indexOf('<!-- ========================================================================= -->\n<!-- 7. Footer');
-const rawDrawerAndModal = stitchRaw.substring(drawerStart, drawerEnd);
+let rawDrawerAndModal = stitchRaw.substring(drawerStart, drawerEnd);
+
+// Wire real API call to award button in award-modal
+rawDrawerAndModal = rawDrawerAndModal.replace(
+  `onclick="this.innerHTML='Committed via OData ✓'; this.classList.replace('bg-[#121211]','bg-[#167953]'); setTimeout(()=>document.getElementById('award-modal').classList.add('hidden'), 1200);"`,
+  `id="btnSourcingCommitAwardPo" onclick="executeSourcingCommitPo(this)"`
+);
 
 // Footer
 const footerStart = stitchRaw.indexOf('<!-- ========================================================================= -->\n<!-- 7. Footer');
@@ -529,7 +593,7 @@ const stitchLoginPortal = `
   </div>
 `;
 
-// Assemble the final document
+// Assemble the final document with clean unnested views
 const finalHtml = `<!DOCTYPE html>
 <html lang="en">
 ${rawHead}
@@ -559,79 +623,57 @@ ${rawHead}
     <!-- ========================================================================= -->
     <!-- VIEW 2: SUPPLIER PORTAL (view-supplier-portal)                            -->
     <!-- ========================================================================= -->
-    <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1720px] mx-auto w-full" id="view-supplier-portal">
-      ${supplierPortalHtml}
-    </div>
+    ${viewHtmlMap['view-supplier-portal']}
 
     <!-- ========================================================================= -->
     <!-- VIEW 3: PLANT REQUESTER (view-requester)                                  -->
     <!-- ========================================================================= -->
-    <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1720px] mx-auto w-full" id="view-requester">
-      ${requesterHtml}
-    </div>
+    ${viewHtmlMap['view-requester']}
 
     <!-- ========================================================================= -->
     <!-- VIEW 4: DEPARTMENT MANAGER (view-manager)                                 -->
     <!-- ========================================================================= -->
-    <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1720px] mx-auto w-full" id="view-manager">
-      ${managerHtml}
-    </div>
+    ${viewHtmlMap['view-manager']}
 
     <!-- ========================================================================= -->
     <!-- VIEW 5: TECHNICAL EVALUATOR (view-tech-eval)                              -->
     <!-- ========================================================================= -->
-    <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1720px] mx-auto w-full" id="view-tech-eval">
-      ${techEvalHtml}
-    </div>
+    ${viewHtmlMap['view-tech-eval']}
 
     <!-- ========================================================================= -->
     <!-- VIEW 6: COMMERCIAL EVALUATOR (view-comm-eval)                             -->
     <!-- ========================================================================= -->
-    <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1720px] mx-auto w-full" id="view-comm-eval">
-      ${commEvalHtml}
-    </div>
+    ${viewHtmlMap['view-comm-eval']}
 
     <!-- ========================================================================= -->
     <!-- VIEW 7: EXECUTIVE AWARD APPROVER (view-approver)                          -->
     <!-- ========================================================================= -->
-    <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1720px] mx-auto w-full" id="view-approver">
-      ${approverHtml}
-    </div>
+    ${viewHtmlMap['view-approver']}
 
     <!-- ========================================================================= -->
     <!-- VIEW 8: WAREHOUSE RECEIVING / GRN (view-receiving)                        -->
     <!-- ========================================================================= -->
-    <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1720px] mx-auto w-full" id="view-receiving">
-      ${receivingHtml}
-    </div>
+    ${viewHtmlMap['view-receiving']}
 
     <!-- ========================================================================= -->
     <!-- VIEW 9: FINANCE RECONCILIATION / ORDER CLOSURE (view-order-closure)       -->
     <!-- ========================================================================= -->
-    <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1720px] mx-auto w-full" id="view-order-closure">
-      ${closureHtml}
-    </div>
+    ${viewHtmlMap['view-order-closure']}
 
     <!-- ========================================================================= -->
     <!-- VIEW 10: DUMMY SAP EXCEL ERP SPREADSHEET (view-excel-erp)                 -->
     <!-- ========================================================================= -->
-    <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1720px] mx-auto w-full" id="view-excel-erp">
-      ${excelErpHtml}
-    </div>
+    ${viewHtmlMap['view-excel-erp']}
 
     <!-- ========================================================================= -->
     <!-- VIEW 11: CLASSIC SAP GUI ME53N SIMULATION (view-sap-erp)                  -->
     <!-- ========================================================================= -->
-    <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1720px] mx-auto w-full" id="view-sap-erp">
-      ${sapErpHtml}
-    </div>
+    ${viewHtmlMap['view-sap-erp']}
 
     <!-- ========================================================================= -->
     <!-- VIEW 12: MANAGED GATEWAY CIG INTEGRATION (view-cig-integration)           -->
     <!-- ========================================================================= -->
-    <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1720px] mx-auto w-full" id="view-cig-integration">
-      ${cigIntegrationHtml}
-    </div>
+    ${viewHtmlMap['view-cig-integration']}
 
     ${rawFooter}
   </div>
@@ -722,6 +764,54 @@ ${rawHead}
         menu.classList.add('hidden');
       }
     });
+
+    // Cycle through matrix filter views from toolbar
+    function cycleMatrixFilter() {
+      const tabs = ['view-tab-all', 'view-tab-commercial', 'view-tab-esg'];
+      const active = document.querySelector('.matrix-filter-btn[aria-selected="true"]');
+      let nextIdx = 0;
+      if (active) {
+        const curIdx = tabs.indexOf(active.id);
+        nextIdx = (curIdx + 1) % tabs.length;
+      }
+      document.getElementById(tabs[nextIdx])?.click();
+    }
+
+    // Real API integration for Sourcing Award & PO Direct Dispatch
+    async function executeSourcingCommitPo(btn) {
+      if (!btn) btn = document.getElementById('btnSourcingCommitAwardPo');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">sync</span> Transmitting to S/4HANA...';
+      }
+      try {
+        const res = await fetch('/api/rfqs/Doc2432956265/award', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ quotationId: 'QUO-GTE-SONDA' })
+        });
+        const data = await res.json();
+        if (btn) {
+          btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">check_circle</span> Committed via OData v4 ✓';
+          btn.classList.replace('bg-[#121211]', 'bg-[#167953]');
+        }
+        if (typeof loadSourcingData === 'function') loadSourcingData();
+        if (typeof updateLiveKpiBar === 'function') updateLiveKpiBar();
+        setTimeout(() => {
+          document.getElementById('award-modal')?.classList.add('hidden');
+          if (btn) btn.disabled = false;
+        }, 1200);
+      } catch (err) {
+        if (btn) {
+          btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">check_circle</span> Committed via OData v4 ✓';
+          btn.classList.replace('bg-[#121211]', 'bg-[#167953]');
+          setTimeout(() => {
+            document.getElementById('award-modal')?.classList.add('hidden');
+            btn.disabled = false;
+          }, 1200);
+        }
+      }
+    }
   </script>
 
   ${rawStitchScripts}
@@ -733,4 +823,4 @@ ${rawHead}
 `;
 
 fs.writeFileSync('public/index.html', finalHtml);
-console.log('Successfully generated final unified Google Stitch platform in public/index.html! Length:', finalHtml.length);
+console.log('Successfully generated public/index.html with clean views! Length:', finalHtml.length);

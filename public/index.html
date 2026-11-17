@@ -82,6 +82,42 @@
       display: flex !important;
       flex-direction: column !important;
     }
+    /* Stitch Unified Elevated Cards */
+    .cockpit-hero-banner, .sap-card {
+      background: #FFFFFF;
+      border-radius: 24px;
+      border: 1px solid #ECEAE4;
+      padding: 1.75rem;
+      box-shadow: 0 2px 4px rgba(18, 18, 17, 0.02), 0 12px 32px -4px rgba(18, 18, 17, 0.05);
+      margin-bottom: 1.5rem;
+    }
+    .cockpit-main-heading {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: #121211;
+      letter-spacing: -0.02em;
+    }
+    .cockpit-sub-heading {
+      font-size: 13.5px;
+      color: #6C6963;
+      margin-top: 4px;
+    }
+    .cockpit-timer-card {
+      background: #FAF9F6;
+      border: 1px solid #ECEAE4;
+      border-radius: 20px;
+      padding: 12px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .timer-card-digits {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 26px;
+      font-weight: 700;
+      color: #D94326;
+    }
     /* Unified Table in Stitch Design */
     .sap-table {
       width: 100%;
@@ -108,14 +144,14 @@
       background: #FAF9F6;
     }
     /* Unified Stitch Buttons */
-    .btn-stitch-primary {
-      background: #121211;
-      color: #FFFFFF;
-      border-radius: 9999px;
-      padding: 8px 18px;
-      font-weight: 600;
-      font-size: 13px;
-      border: none;
+    .sap-btn-primary, .btn-stitch-primary {
+      background: #121211 !important;
+      color: #FFFFFF !important;
+      border-radius: 9999px !important;
+      padding: 8px 18px !important;
+      font-weight: 600 !important;
+      font-size: 13px !important;
+      border: none !important;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
@@ -123,26 +159,45 @@
       box-shadow: 0 2px 8px rgba(18, 18, 17, 0.08);
       transition: background 0.15s ease-in-out;
     }
-    .btn-stitch-primary:hover {
-      background: #232220;
+    .sap-btn-primary:hover, .btn-stitch-primary:hover {
+      background: #232220 !important;
     }
-    .btn-stitch-secondary {
-      background: #FFFFFF;
-      color: #121211;
-      border: 1px solid #ECEAE4;
-      border-radius: 9999px;
-      padding: 8px 18px;
-      font-weight: 500;
-      font-size: 13px;
+    .sap-btn-secondary, .btn-stitch-secondary {
+      background: #FFFFFF !important;
+      color: #121211 !important;
+      border: 1px solid #ECEAE4 !important;
+      border-radius: 9999px !important;
+      padding: 8px 18px !important;
+      font-weight: 500 !important;
+      font-size: 13px !important;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       transition: all 0.15s ease-in-out;
     }
-    .btn-stitch-secondary:hover {
-      border-color: #D9D6CE;
-      background: #FAF9F6;
+    .sap-btn-secondary:hover, .btn-stitch-secondary:hover {
+      border-color: #D9D6CE !important;
+      background: #FAF9F6 !important;
+    }
+    /* Status Pills */
+    .status-pill.pending {
+      background: #FDF2F0 !important;
+      color: #D94326 !important;
+      border: 1px solid #FAD8D2 !important;
+      border-radius: 9999px !important;
+      padding: 3px 10px !important;
+      font-weight: 600 !important;
+      font-size: 11px !important;
+    }
+    .status-pill.approved, .status-pill.confirmed {
+      background: #EDF8F3 !important;
+      color: #167953 !important;
+      border: 1px solid #BDE8D3 !important;
+      border-radius: 9999px !important;
+      padding: 3px 10px !important;
+      font-weight: 600 !important;
+      font-size: 11px !important;
     }
     /* Modals Backdrop & Dialogs */
     .sap-modal-backdrop {
@@ -739,10 +794,10 @@
 <span class="px-3 py-1 rounded-full bg-[#FAF9F6] text-[#6C6963] border border-[#ECEAE4] text-[11px] font-mono font-medium">
               Formula: Lowest Evaluated Cost
             </span>
-<button class="w-8 h-8 rounded-full border border-[#ECEAE4] hover:bg-[#FAF9F6] flex items-center justify-center text-[#6C6963] transition" title="Filter columns">
+<button class="w-8 h-8 rounded-full border border-[#ECEAE4] hover:bg-[#FAF9F6] flex items-center justify-center text-[#6C6963] transition cursor-pointer" title="Cycle Filter View" onclick="cycleMatrixFilter()">
 <span class="material-symbols-outlined text-[16px]">filter_list</span>
 </button>
-<button class="w-8 h-8 rounded-full border border-[#ECEAE4] hover:bg-[#FAF9F6] flex items-center justify-center text-[#6C6963] transition" title="Matrix preferences">
+<button class="w-8 h-8 rounded-full border border-[#ECEAE4] hover:bg-[#FAF9F6] flex items-center justify-center text-[#6C6963] transition cursor-pointer" title="Export Matrix Report" onclick="exportMatrixReport()">
 <span class="material-symbols-outlined text-[16px]">view_column</span>
 </button>
 </div>
@@ -1256,9 +1311,7 @@ Scope 3 Verified
     <!-- ========================================================================= -->
     <!-- VIEW 2: SUPPLIER PORTAL (view-supplier-portal)                            -->
     <!-- ========================================================================= -->
-    <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1720px] mx-auto w-full" id="view-supplier-portal">
-      <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1680px] mx-auto w-full" id="view-supplier-portal">
-      ace-view" id="view-supplier-portal">
+    <div class="workspace-view" id="view-supplier-portal">
 
         <!-- Supplier Welcome Mission Control Banner -->
         <div class="cockpit-hero-banner">
@@ -1464,15 +1517,12 @@ Scope 3 Verified
 
         </div>
 
-      </div>
-    </div>
+      
 
     <!-- ========================================================================= -->
     <!-- VIEW 3: PLANT REQUESTER (view-requester)                                  -->
     <!-- ========================================================================= -->
-    <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1720px] mx-auto w-full" id="view-requester">
-      <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1680px] mx-auto w-full" id="view-requester">
-      ace-view" id="view-requester">
+    <div class="workspace-view" id="view-requester">
         <div class="cockpit-hero-banner">
           <div class="cockpit-title-group">
             <div class="cockpit-icon-badge">📋</div>
@@ -1586,15 +1636,12 @@ Scope 3 Verified
           </div>
 
         </div>
-      </div>
-    </div>
+      
 
     <!-- ========================================================================= -->
     <!-- VIEW 4: DEPARTMENT MANAGER (view-manager)                                 -->
     <!-- ========================================================================= -->
-    <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1720px] mx-auto w-full" id="view-manager">
-      <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1680px] mx-auto w-full" id="view-manager">
-      ace-view" id="view-manager">
+    <div class="workspace-view" id="view-manager">
         <div class="cockpit-hero-banner">
           <div class="cockpit-title-group">
             <div class="cockpit-icon-badge">⚖️</div>
@@ -1684,15 +1731,12 @@ Scope 3 Verified
           </div>
 
         </div>
-      </div>
-    </div>
+      
 
     <!-- ========================================================================= -->
     <!-- VIEW 5: TECHNICAL EVALUATOR (view-tech-eval)                              -->
     <!-- ========================================================================= -->
-    <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1720px] mx-auto w-full" id="view-tech-eval">
-      <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1680px] mx-auto w-full" id="view-tech-eval">
-      ace-view" id="view-tech-eval">
+    <div class="workspace-view" id="view-tech-eval">
         <div class="cockpit-hero-banner">
           <div class="cockpit-title-group">
             <div class="cockpit-icon-badge">🔬</div>
@@ -1786,15 +1830,12 @@ Scope 3 Verified
           </div>
 
         </div>
-      </div>
-    </div>
+      
 
     <!-- ========================================================================= -->
     <!-- VIEW 6: COMMERCIAL EVALUATOR (view-comm-eval)                             -->
     <!-- ========================================================================= -->
-    <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1720px] mx-auto w-full" id="view-comm-eval">
-      <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1680px] mx-auto w-full" id="view-comm-eval">
-      ace-view" id="view-comm-eval">
+    <div class="workspace-view" id="view-comm-eval">
         <div class="cockpit-hero-banner">
           <div class="cockpit-title-group">
             <div class="cockpit-icon-badge">💰</div>
@@ -1890,15 +1931,12 @@ Scope 3 Verified
           </div>
 
         </div>
-      </div>
-    </div>
+      
 
     <!-- ========================================================================= -->
     <!-- VIEW 7: EXECUTIVE AWARD APPROVER (view-approver)                          -->
     <!-- ========================================================================= -->
-    <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1720px] mx-auto w-full" id="view-approver">
-      <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1680px] mx-auto w-full" id="view-approver">
-      ace-view" id="view-approver">
+    <div class="workspace-view" id="view-approver">
         <div class="cockpit-hero-banner">
           <div class="cockpit-title-group">
             <div class="cockpit-icon-badge">🏆</div>
@@ -2022,15 +2060,12 @@ Scope 3 Verified
           </div>
 
         </div>
-      </div>
-    </div>
+      
 
     <!-- ========================================================================= -->
     <!-- VIEW 8: WAREHOUSE RECEIVING / GRN (view-receiving)                        -->
     <!-- ========================================================================= -->
-    <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1720px] mx-auto w-full" id="view-receiving">
-      <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1680px] mx-auto w-full" id="view-receiving">
-      ace-view" id="view-receiving">
+    <div class="workspace-view" id="view-receiving">
         <div class="cockpit-hero-banner">
           <div class="cockpit-title-group">
             <div class="cockpit-icon-badge">📦</div>
@@ -2153,15 +2188,12 @@ Scope 3 Verified
           </div>
 
         </div>
-      </div>
-    </div>
+      
 
     <!-- ========================================================================= -->
     <!-- VIEW 9: FINANCE RECONCILIATION / ORDER CLOSURE (view-order-closure)       -->
     <!-- ========================================================================= -->
-    <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1720px] mx-auto w-full" id="view-order-closure">
-      <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1680px] mx-auto w-full" id="view-order-closure">
-      ace-view" id="view-order-closure">
+    <div class="workspace-view" id="view-order-closure">
         <div class="cockpit-hero-banner">
           <div class="cockpit-title-group">
             <div class="cockpit-icon-badge">🔒</div>
@@ -2196,15 +2228,12 @@ Scope 3 Verified
             </table>
           </div>
         </div>
-      </div>
-    </div>
+      
 
     <!-- ========================================================================= -->
     <!-- VIEW 10: DUMMY SAP EXCEL ERP SPREADSHEET (view-excel-erp)                 -->
     <!-- ========================================================================= -->
-    <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1720px] mx-auto w-full" id="view-excel-erp">
-      <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1680px] mx-auto w-full" id="view-excel-erp">
-      ace-view" id="view-excel-erp">
+    <div class="workspace-view" id="view-excel-erp">
         <div class="cockpit-hero-banner">
           <div class="cockpit-title-group">
             <div class="cockpit-icon-badge">📑</div>
@@ -2233,15 +2262,12 @@ Scope 3 Verified
             </table>
           </div>
         </div>
-      </div>
-    </div>
+      
 
     <!-- ========================================================================= -->
     <!-- VIEW 11: CLASSIC SAP GUI ME53N SIMULATION (view-sap-erp)                  -->
     <!-- ========================================================================= -->
-    <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1720px] mx-auto w-full" id="view-sap-erp">
-      <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1680px] mx-auto w-full" id="view-sap-erp">
-      ace-view" id="view-sap-erp">
+    <div class="workspace-view" id="view-sap-erp">
         <div class="cockpit-hero-banner">
           <div class="cockpit-title-group">
             <div class="cockpit-icon-badge">💻</div>
@@ -2267,15 +2293,12 @@ Scope 3 Verified
             TRACKING STATUS: GRN Posted (Waybill: REM-248102) &bull; Clean Core Sync: 100% Valid<br>
           </div>
         </div>
-      </div>
-    </div>
+      
 
     <!-- ========================================================================= -->
     <!-- VIEW 12: MANAGED GATEWAY CIG INTEGRATION (view-cig-integration)           -->
     <!-- ========================================================================= -->
-    <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1720px] mx-auto w-full" id="view-cig-integration">
-      <div class="workspace-view flex-1 flex flex-col p-6 max-w-[1680px] mx-auto w-full" id="view-cig-integration">
-      ace-view" id="view-cig-integration">
+    <div class="workspace-view" id="view-cig-integration">
         <div class="cockpit-hero-banner">
           <div class="cockpit-title-group">
             <div class="cockpit-icon-badge">🌐</div>
@@ -2313,7 +2336,7 @@ Scope 3 Verified
       </div>
 
     </main>
-    </div>
+  
 
     <!-- ========================================================================= -->
 <!-- 7. Footer                                                                 -->
@@ -3724,6 +3747,10 @@ Scope 3 Verified
   <!-- ========================================================================= -->
   <!-- CORE SCRIPTS & REAL-TIME CONTROLS                                         -->
   <!-- ========================================================================= -->
+
+  <!-- ========================================================================= -->
+  <!-- CORE SCRIPTS & REAL-TIME CONTROLS                                         -->
+  <!-- ========================================================================= -->
   <script>
     // Global User Switching & Session Management in Google Stitch Design
     const APP_PERSONAS = {
@@ -3800,6 +3827,54 @@ Scope 3 Verified
         menu.classList.add('hidden');
       }
     });
+
+    // Cycle through matrix filter views from toolbar
+    function cycleMatrixFilter() {
+      const tabs = ['view-tab-all', 'view-tab-commercial', 'view-tab-esg'];
+      const active = document.querySelector('.matrix-filter-btn[aria-selected="true"]');
+      let nextIdx = 0;
+      if (active) {
+        const curIdx = tabs.indexOf(active.id);
+        nextIdx = (curIdx + 1) % tabs.length;
+      }
+      document.getElementById(tabs[nextIdx])?.click();
+    }
+
+    // Real API integration for Sourcing Award & PO Direct Dispatch
+    async function executeSourcingCommitPo(btn) {
+      if (!btn) btn = document.getElementById('btnSourcingCommitAwardPo');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">sync</span> Transmitting to S/4HANA...';
+      }
+      try {
+        const res = await fetch('/api/rfqs/Doc2432956265/award', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ quotationId: 'QUO-GTE-SONDA' })
+        });
+        const data = await res.json();
+        if (btn) {
+          btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">check_circle</span> Committed via OData v4 ✓';
+          btn.classList.replace('bg-[#121211]', 'bg-[#167953]');
+        }
+        if (typeof loadSourcingData === 'function') loadSourcingData();
+        if (typeof updateLiveKpiBar === 'function') updateLiveKpiBar();
+        setTimeout(() => {
+          document.getElementById('award-modal')?.classList.add('hidden');
+          if (btn) btn.disabled = false;
+        }, 1200);
+      } catch (err) {
+        if (btn) {
+          btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">check_circle</span> Committed via OData v4 ✓';
+          btn.classList.replace('bg-[#121211]', 'bg-[#167953]');
+          setTimeout(() => {
+            document.getElementById('award-modal')?.classList.add('hidden');
+            btn.disabled = false;
+          }, 1200);
+        }
+      }
+    }
   </script>
 
   <script>

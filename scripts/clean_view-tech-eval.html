@@ -1,0 +1,95 @@
+<div class="workspace-view" id="view-tech-eval">
+        <div class="cockpit-hero-banner">
+          <div class="cockpit-title-group">
+            <div class="cockpit-icon-badge">🔬</div>
+            <div>
+              <span class="status-pill approved">Envelope 1 Protocol</span>
+              <h2 style="font-size:20px; font-weight:600; color:#191716; margin:4px 0 2px 0;">Technical Proposal &amp; Quality Adjudication</h2>
+              <div style="font-size:13px; color:#8C867F;">Evaluate ISO 9001 certifications and guaranteed delivery lead times. Commercial pricing remains sealed.</div>
+            </div>
+          </div>
+          <select id="techEvalRfqSelector" onchange="switchTechEvalRfq(this.value)" class="cockpit-select">
+            <option value="">Select RFQ Event...</option>
+          </select>
+        </div>
+
+        <!-- Asymmetric 2-Column Studio Layout (65% Studio, 35% Intelligence) -->
+        <div class="studio-layout">
+
+          <!-- 65% Operational Studio -->
+          <div class="studio-main">
+            <div class="sap-card">
+              <div class="card-toolbar">
+                <div>
+                  <span class="card-title">Supplier Technical Envelope Submissions</span>
+                  <div class="card-subtitle">Grade engineering proposals, delivery guarantees, and certificate compliance.</div>
+                </div>
+                <div id="techEvalPrDemandInfo" style="font-size:12px; color:#8C867F;">--</div>
+              </div>
+              <div style="overflow-x:auto;">
+                <table class="sap-table">
+                  <thead>
+                    <tr>
+                      <th>Supplier Organization</th>
+                      <th>ISO 9001 Status</th>
+                      <th>Guaranteed Lead Time</th>
+                      <th>Technical Remarks</th>
+                      <th>Technical Score (0-100)</th>
+                      <th>Adjudication Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="techEvalTableBody">
+                    <!-- Dynamically populated -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 35% Intelligence Sidebar -->
+          <div class="studio-sidebar">
+            <!-- Sidebar Card 1: Blind Adjudication Invariant -->
+            <div class="studio-sidebar-card">
+              <div class="studio-sidebar-header">
+                <div>
+                  <h3 class="studio-sidebar-title">🔒 Blind Technical Invariant</h3>
+                  <div class="studio-sidebar-subtitle">Two-Envelope Integrity Protocol</div>
+                </div>
+                <span class="status-pill pending">Prices Sealed</span>
+              </div>
+              <ul class="studio-intel-list">
+                <li class="studio-intel-item">
+                  <span class="studio-intel-icon">🛡️</span>
+                  <div class="studio-intel-content">
+                    <strong>Commercial Price Shield</strong>
+                    <span>Commercial envelopes remain encrypted and inaccessible to technical evaluators.</span>
+                  </div>
+                </li>
+                <li class="studio-intel-item">
+                  <span class="studio-intel-icon">🎯</span>
+                  <div class="studio-intel-content">
+                    <strong>Minimum Qualification Score</strong>
+                    <span>Suppliers must achieve &ge; 80/100 to proceed to commercial envelope unsealing.</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Sidebar Card 2: Scoring Rubric -->
+            <div class="studio-sidebar-card">
+              <div class="studio-sidebar-header">
+                <div>
+                  <h3 class="studio-sidebar-title">📐 Technical Weighting Matrix</h3>
+                  <div class="studio-sidebar-subtitle">Evaluation criteria distribution</div>
+                </div>
+              </div>
+              <div style="font-size:12.5px; color:#4B4643; line-height:1.6;">
+                <div>&bull; ISO 9001:2015 Certification: <strong>40 pts</strong></div>
+                <div>&bull; Guaranteed Delivery Lead Time (&le; 10 days): <strong>35 pts</strong></div>
+                <div>&bull; Technical Specification Compliance: <strong>25 pts</strong></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      

@@ -1,0 +1,39 @@
+<div class="workspace-view" id="view-cig-integration">
+        <div class="cockpit-hero-banner">
+          <div class="cockpit-title-group">
+            <div class="cockpit-icon-badge">🌐</div>
+            <div>
+              <span class="status-pill approved">Zero Data Loss</span>
+              <h2 style="font-size:20px; font-weight:600; color:#191716; margin:4px 0 2px 0;">SAP Managed Gateway (CIG) Telemetry</h2>
+              <div style="font-size:13px; color:#8C867F;">Inspect real-time cXML 1.2.040 and SAP IDoc ORDERS05 document dispatches.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sap-card">
+          <div class="card-toolbar">
+            <span class="card-title">Integration Message Audit Trail</span>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="sap-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Payload Standard</th>
+                  <th>Document Type</th>
+                  <th>Document Number</th>
+                  <th>Recipient System</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="cigAuditTableBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  

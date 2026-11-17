@@ -1,0 +1,30 @@
+<div class="workspace-view" id="view-excel-erp">
+        <div class="cockpit-hero-banner">
+          <div class="cockpit-title-group">
+            <div class="cockpit-icon-badge">📑</div>
+            <div>
+              <span class="status-pill confirmed" id="excelActiveBadge">Inbound Requisitions Sheet</span>
+              <h2 style="font-size:20px; font-weight:600; color:#191716; margin:4px 0 2px 0;">SAP Clean Core Mock ERP Data Stores</h2>
+              <div style="font-size:13px; color:#8C867F;">Live spreadsheet view of SAP Inbound Requisitions and Outbound Committed PO files.</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button class="sap-btn sap-btn-primary sap-btn-sm" id="btnTabPrSheet" onclick="switchExcelTab('pr')">Inbound PRs (Excel)</button>
+            <button class="sap-btn sap-btn-secondary sap-btn-sm" id="btnTabPoSheet" onclick="switchExcelTab('po')">Outbound POs (Excel)</button>
+            <button class="sap-btn sap-btn-secondary sap-btn-sm" onclick="downloadCurrentExcelCsv()">Download CSV</button>
+          </div>
+        </div>
+
+        <div class="sap-card">
+          <div style="overflow-x:auto;">
+            <table class="sap-table" style="font-family:monospace; font-size:12px;">
+              <thead id="excelSheetHead">
+                <!-- Dynamically populated -->
+              </thead>
+              <tbody id="excelSheetBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      

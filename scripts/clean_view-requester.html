@@ -1,0 +1,115 @@
+<div class="workspace-view" id="view-requester">
+        <div class="cockpit-hero-banner">
+          <div class="cockpit-title-group">
+            <div class="cockpit-icon-badge">📋</div>
+            <div>
+              <span class="status-pill approved">Plant Requester Cockpit</span>
+              <h2 style="font-size:20px; font-weight:600; color:#191716; margin:4px 0 2px 0;">Plant Operations Demand Requisitions</h2>
+              <div style="font-size:13px; color:#8C867F;">Create and manage operational purchase requisitions for plant consumables and equipment.</div>
+            </div>
+          </div>
+          <button class="sap-btn sap-btn-primary" onclick="openAddPrModal()">+ Create Purchase Requisition</button>
+        </div>
+
+        <!-- Asymmetric 2-Column Studio Layout (65% Studio, 35% Intelligence) -->
+        <div class="studio-layout">
+
+          <!-- 65% Operational Studio -->
+          <div class="studio-main">
+            <!-- Returned PR Alert -->
+            <div id="requesterReturnedAlert" style="display:none; background:#FEF2F2; border:1px solid #FECACA; border-radius:18px; padding:18px 24px;">
+              <div style="font-weight:700; color:#B91C1C; font-size:14px; margin-bottom:4px;">⚠️ Action Required: Requisition Returned by Department Manager</div>
+              <div id="returnedReasonText" style="font-size:13px; color:#7F1D1D; margin-bottom:12px;">--</div>
+              <button class="sap-btn sap-btn-primary sap-btn-sm" onclick="openResubmitModalFromAlert()">Revise &amp; Resubmit Demand &rarr;</button>
+            </div>
+
+            <!-- PR Table Card -->
+            <div class="sap-card">
+              <div class="card-toolbar">
+                <div>
+                  <span class="card-title">My Purchase Requisitions</span>
+                  <div class="card-subtitle">Active plant demands submitted to S/4HANA OData staging.</div>
+                </div>
+                <button class="sap-btn sap-btn-secondary sap-btn-sm" onclick="openAddPrModal()">+ New Demand</button>
+              </div>
+              <div style="overflow-x:auto;">
+                <table class="sap-table">
+                  <thead>
+                    <tr>
+                      <th>PR Number</th>
+                      <th>Title &amp; Description</th>
+                      <th>Target Plant</th>
+                      <th>Quantity</th>
+                      <th>Est. Value</th>
+                      <th>Approval Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="requesterPrTableBody">
+                    <!-- Dynamically populated -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 35% Intelligence Sidebar -->
+          <div class="studio-sidebar">
+            <!-- Sidebar Card 1: Demand Telemetry KPIs -->
+            <div class="studio-sidebar-card">
+              <div class="studio-sidebar-header">
+                <div>
+                  <h3 class="studio-sidebar-title">📊 Demand Telemetry</h3>
+                  <div class="studio-sidebar-subtitle">Real-time status of your plant requisitions</div>
+                </div>
+              </div>
+
+              <div class="studio-metric-stack">
+                <div class="studio-metric-tile">
+                  <div class="studio-metric-val" id="kpiReqTotalPrs">0</div>
+                  <div class="studio-metric-lbl">Total Demands</div>
+                </div>
+                <div class="studio-metric-tile">
+                  <div class="studio-metric-val" id="kpiReqPendingPrs" style="color:#B45309;">0</div>
+                  <div class="studio-metric-lbl">Pending Approval</div>
+                </div>
+                <div class="studio-metric-tile">
+                  <div class="studio-metric-val" id="kpiReqApprovedPrs" style="color:#15803D;">0</div>
+                  <div class="studio-metric-lbl">Approved for RFQ</div>
+                </div>
+                <div class="studio-metric-tile">
+                  <div class="studio-metric-val" id="kpiReqReturnedPrs" style="color:#B91C1C;">0</div>
+                  <div class="studio-metric-lbl">Returned for Action</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sidebar Card 2: Plant Operational Guidelines -->
+            <div class="studio-sidebar-card">
+              <div class="studio-sidebar-header">
+                <div>
+                  <h3 class="studio-sidebar-title">🌿 Requisition Guidelines</h3>
+                  <div class="studio-sidebar-subtitle">Clean Core standard procurement policy</div>
+                </div>
+              </div>
+              <ul class="studio-intel-list">
+                <li class="studio-intel-item">
+                  <span class="studio-intel-icon">📝</span>
+                  <div class="studio-intel-content">
+                    <strong>Plant Account Assignment</strong>
+                    <span>Ensure target cost center (OP ANG) matches project budget line.</span>
+                  </div>
+                </li>
+                <li class="studio-intel-item">
+                  <span class="studio-intel-icon">⏱️</span>
+                  <div class="studio-intel-content">
+                    <strong>Tender Lead Time</strong>
+                    <span>Allow minimum 5 business days for competitive supplier bidding.</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      

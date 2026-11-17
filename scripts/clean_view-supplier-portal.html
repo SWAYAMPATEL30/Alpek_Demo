@@ -1,0 +1,207 @@
+<div class="workspace-view" id="view-supplier-portal">
+
+        <!-- Supplier Welcome Mission Control Banner -->
+        <div class="cockpit-hero-banner">
+          <div class="cockpit-header-row">
+            <div class="cockpit-title-left">
+              <div class="cockpit-status-badges">
+                <span class="status-pill pending" id="supplierParticipationStatusBadge">
+                  Invitation Received
+                </span>
+                <span id="supPlantNameHeader" class="cockpit-event-badge">VEREDA MORRISON PLANT</span>
+              </div>
+              <h2 id="supEventTitle" class="cockpit-main-heading">Strategic Sourcing Tender Quotation</h2>
+              <div class="cockpit-sub-heading" style="font-size:13.5px; color:#4B4643;">Submit sealed technical proposal and unit commercial tariff.</div>
+            </div>
+
+            <!-- Luxury Timer Badge -->
+            <div class="cockpit-timer-card">
+              <span class="timer-card-label">Tender Time Remaining</span>
+              <span class="timer-card-digits" id="supplierTimeRemainingText">00:00:00</span>
+              <span class="timer-card-sub">Sealed Bid Submission Window</span>
+            </div>
+          </div>
+
+          <div class="cockpit-control-bar">
+            <div class="cockpit-selector-group">
+              <span class="selector-label">Invitation:</span>
+              <select id="supplierTenderSelector" onchange="switchSupplierTender(this.value)" class="cockpit-select">
+                <option value="">Switch RFQ Invitation...</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asymmetric 2-Column Studio Layout (65% Studio, 35% Intelligence) -->
+        <div class="studio-layout">
+
+          <!-- 65% Operational Studio -->
+          <div class="studio-main">
+            <!-- Studio Card 1: Two-Envelope Quotation Submission Form -->
+            <div class="sap-card">
+              <div class="card-toolbar">
+                <div>
+                  <span class="card-title">📝 Two-Envelope Quotation Submission</span>
+                  <div class="card-subtitle">Technical qualification and commercial unit tariffs remain sealed until evaluation.</div>
+                </div>
+              </div>
+
+              <!-- STEP 1: TECHNICAL ENVELOPE -->
+              <div class="envelope-step-box">
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+                  <span class="envelope-badge">STEP 1</span>
+                  <strong style="font-size:14px; color:#191716;">Technical Proposal &amp; Quality Compliance (Envelope 1)</strong>
+                  <span style="font-size:11px; color:#8C867F; margin-left:auto;">Pricing remains sealed</span>
+                </div>
+
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:16px; margin-bottom:16px;">
+                  <div>
+                    <label class="pf-form-label">1. ISO 9001:2015 Quality Certificate <span style="color:#E0533C;">*</span></label>
+                    <select class="sap-field-input" id="supplierIsoAnswer" style="width:100%; font-weight:600;">
+                      <option value="" disabled selected>-- Select ISO Certification --</option>
+                      <option value="Yes">&#10003; Yes &mdash; Valid ISO 9001:2015 Certified</option>
+                      <option value="No">No &mdash; Not Certified</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label class="pf-form-label">2. Guaranteed Lead Time <span style="color:#E0533C;">*</span></label>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                      <input type="number" id="supplierLeadTimeInput" class="sap-field-input" placeholder="e.g. 10" min="1" max="90" style="width:120px; font-weight:700; text-align:center;">
+                      <span style="font-size:12px; color:#4B4643; font-weight:600;">Business Days</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="pf-form-label">3. Technical Specification Acceptance</label>
+                  <input type="text" id="supplierTechnicalRemarks" class="sap-field-input" placeholder="Enter technical compliance notes..." style="width:100%;">
+                </div>
+              </div>
+
+              <!-- STEP 2: COMMERCIAL ENVELOPE -->
+              <div class="envelope-step-box">
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+                  <span class="envelope-badge">STEP 2</span>
+                  <strong style="font-size:14px; color:#191716;">Commercial Pricing &amp; Unit Tariffs (Envelope 2)</strong>
+                  <span style="font-size:11px; color:#8C867F; margin-left:auto;">Instant subtotal multiplier</span>
+                </div>
+
+                <div style="display:flex; align-items:center; justify-content:space-between; background:#FAF8F5; border:1px solid #EDEAE4; border-radius:16px; padding:20px; flex-wrap:wrap; gap:16px;">
+                  <div>
+                    <label for="supInputUnitPrice" class="pf-form-label">Your Unit Price Offer <span style="color:#E0533C;">*</span></label>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                      <span style="font-size:18px; font-weight:800; color:#191716;">$</span>
+                      <input type="text" class="sap-field-input" id="supInputUnitPrice" placeholder="0.00" oninput="calculateSupplierSubtotal()" style="font-size:18px; font-weight:700; width:160px; text-align:right;">
+                      <span style="font-size:13px; font-weight:700; color:#8C867F;" id="supCurrencyLabel">COP</span>
+                    </div>
+                  </div>
+
+                  <div style="text-align:right;">
+                    <span style="font-size:11px; font-weight:700; text-transform:uppercase; color:#8C867F;">Total Calculated Bid</span>
+                    <div id="supLineSubtotal" style="font-family:var(--font-serif); font-size:24px; font-weight:600; color:#15803d; margin-top:2px;">&mdash;</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action Bar -->
+              <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-top:20px;">
+                <div>
+                  <span style="font-size:12px; color:#8C867F;">Proposal Subtotal:</span>
+                  <span id="supGroupSubtotal" style="font-size:16px; font-weight:700; color:#191716; margin-left:6px;"><strong>&mdash;</strong></span>
+                </div>
+                <div style="display:flex; gap:10px;">
+                  <button type="button" class="sap-btn sap-btn-secondary" onclick="updateSupplierTotals()">Recalculate</button>
+                  <button type="button" class="sap-btn sap-btn-secondary" onclick="showSapToast('Draft proposal saved locally.', 'info')">Save Draft</button>
+                  <button type="button" class="sap-btn sap-btn-primary" onclick="submitSupplierFullBid()">Submit Complete Quotation &rarr;</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Studio Card 2: RFQ Invitations History Table -->
+            <div class="sap-card">
+              <div class="card-toolbar">
+                <div>
+                  <span class="card-title">📑 My RFQ Invitations &amp; Tenders</span>
+                  <div class="card-subtitle">Active and past procurement events dispatched to your organization.</div>
+                </div>
+                <span class="status-pill approved" id="supplierInvitedTendersCountBadge">1 Active</span>
+              </div>
+
+              <div style="overflow-x:auto;">
+                <table class="sap-table">
+                  <thead>
+                    <tr>
+                      <th>RFQ Number</th>
+                      <th>Title &amp; Specifications</th>
+                      <th>Status</th>
+                      <th>Action State</th>
+                      <th style="text-align:right;">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="supplierInvitedTendersBody">
+                    <!-- Dynamically populated -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 35% Intelligence Sidebar -->
+          <div class="studio-sidebar">
+            <!-- Sidebar Card 1: Operational Demand Scope -->
+            <div class="studio-sidebar-card">
+              <div class="studio-sidebar-header">
+                <div>
+                  <h3 class="studio-sidebar-title">📦 Operational Demand Scope</h3>
+                  <div class="studio-sidebar-subtitle">Material delivery requirements from SAP ERP</div>
+                </div>
+              </div>
+
+              <div style="background:#FAF8F5; border:1px solid #EDEAE4; border-radius:16px; padding:18px; margin-bottom:16px;">
+                <div id="supLineItemCodeName" style="font-size:14px; font-weight:700; color:#191716;">2.1.1 REFRIGERANT-134A INDUSTRIAL</div>
+                <div id="supLineItemDesc" style="font-size:12.5px; color:#4B4643; margin-top:4px;">Refrigeration Supplies &amp; Industrial Chemical Consumables</div>
+                <div style="font-size:12px; color:#8C867F; margin-top:12px; border-top:1px solid #EDEAE4; padding-top:10px; line-height:1.6;">
+                  Ship-to Plant: <strong id="supLineItemPlant" style="color:#191716;">VEREDA MORRISON PLANT</strong><br>
+                  Requested Delivery: <strong id="supDeliveryDate" style="color:#191716;">Oct 13, 2026</strong>
+                </div>
+              </div>
+
+              <div style="background:#FFFFFF; border:1px solid #EDEAE4; border-radius:16px; padding:18px; text-align:center;">
+                <span style="font-size:11px; font-weight:700; text-transform:uppercase; color:#8C867F; letter-spacing:0.04em;">Required Order Quantity</span>
+                <div style="font-family:var(--font-serif); font-size:28px; font-weight:500; color:#191716; margin-top:4px;">
+                  <span id="supItemQuantity">1,000</span> <span id="supItemUnit" style="font-size:14px; color:#8C867F;">Unidad</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sidebar Card 2: Cryptographic Sealed Protocol -->
+            <div class="studio-sidebar-card">
+              <div class="studio-sidebar-header">
+                <div>
+                  <h3 class="studio-sidebar-title">🛡️ Sealed Two-Envelope Rules</h3>
+                  <div class="studio-sidebar-subtitle">Cryptographic Blind Evaluation Integrity</div>
+                </div>
+              </div>
+              <ul class="studio-intel-list">
+                <li class="studio-intel-item">
+                  <span class="studio-intel-icon">🔒</span>
+                  <div class="studio-intel-content">
+                    <strong>Blind Technical Evaluation</strong>
+                    <span>Evaluators only see specs, certificates, and delivery lead time.</span>
+                  </div>
+                </li>
+                <li class="studio-intel-item">
+                  <span class="studio-intel-icon">💰</span>
+                  <div class="studio-intel-content">
+                    <strong>Decryption Upon Sign-Off</strong>
+                    <span>Your unit price remains locked in vault until technical threshold is passed.</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+      

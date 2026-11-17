@@ -1,0 +1,91 @@
+<div class="workspace-view" id="view-manager">
+        <div class="cockpit-hero-banner">
+          <div class="cockpit-title-group">
+            <div class="cockpit-icon-badge">⚖️</div>
+            <div>
+              <span class="status-pill pending">Governance Gate 1</span>
+              <h2 style="font-size:20px; font-weight:600; color:#191716; margin:4px 0 2px 0;">Department Requisition Approval Inbox</h2>
+              <div style="font-size:13px; color:#8C867F;">Approve valid plant demands to release into Buyer sourcing queue, or return for correction.</div>
+            </div>
+          </div>
+          <span class="status-pill pending" id="kpiMgrPendingCount">0 Pending</span>
+        </div>
+
+        <!-- Asymmetric 2-Column Studio Layout (65% Studio, 35% Intelligence) -->
+        <div class="studio-layout">
+
+          <!-- 65% Operational Studio -->
+          <div class="studio-main">
+            <div class="sap-card">
+              <div class="card-toolbar">
+                <div>
+                  <span class="card-title">Requisitions Awaiting Your Sign-Off</span>
+                  <div class="card-subtitle">Review operational justification, budget threshold, and cost center allocation.</div>
+                </div>
+              </div>
+              <div style="overflow-x:auto;">
+                <table class="sap-table">
+                  <thead>
+                    <tr>
+                      <th>PR Number</th>
+                      <th>Requester &amp; Dept</th>
+                      <th>Scope Details</th>
+                      <th>Cost Center</th>
+                      <th>Est. Budget</th>
+                      <th>Required Date</th>
+                      <th style="text-align:right;">Decision Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="managerPrTableBody">
+                    <!-- Dynamically populated -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 35% Intelligence Sidebar -->
+          <div class="studio-sidebar">
+            <!-- Sidebar Card 1: Gate 1 Governance Matrix -->
+            <div class="studio-sidebar-card">
+              <div class="studio-sidebar-header">
+                <div>
+                  <h3 class="studio-sidebar-title">🛡️ Approval Gate 1 Matrix</h3>
+                  <div class="studio-sidebar-subtitle">Delegation of Financial Authority (DoA)</div>
+                </div>
+              </div>
+              <ul class="studio-intel-list">
+                <li class="studio-intel-item">
+                  <span class="studio-intel-icon">✅</span>
+                  <div class="studio-intel-content">
+                    <strong>Department Authority Ceiling</strong>
+                    <span>Sign-off limit: up to $100,000,000 COP for Operational Consumables.</span>
+                  </div>
+                </li>
+                <li class="studio-intel-item">
+                  <span class="studio-intel-icon">🔄</span>
+                  <div class="studio-intel-content">
+                    <strong>Return For Correction</strong>
+                    <span>Include explicit technical or budget comments for the field engineer.</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Sidebar Card 2: Budget Policy -->
+            <div class="studio-sidebar-card">
+              <div class="studio-sidebar-header">
+                <div>
+                  <h3 class="studio-sidebar-title">📈 S/4HANA Budget Check</h3>
+                  <div class="studio-sidebar-subtitle">Live availability control active</div>
+                </div>
+                <span class="status-pill approved">Funds Reserved</span>
+              </div>
+              <p style="font-size:12.5px; color:#4B4643; margin:0; line-height:1.5;">
+                Approved requisitions instantly transition status to <code style="color:#15803D; font-weight:700;">APPROVED</code> and appear in the Procurement Buyer's sourcing workbench.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      

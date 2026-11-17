@@ -1,0 +1,97 @@
+<div class="workspace-view" id="view-comm-eval">
+        <div class="cockpit-hero-banner">
+          <div class="cockpit-title-group">
+            <div class="cockpit-icon-badge">💰</div>
+            <div>
+              <span class="status-pill pending">Envelope 2 Protocol</span>
+              <h2 style="font-size:20px; font-weight:600; color:#191716; margin:4px 0 2px 0;">Commercial Envelope Pricing Comparison</h2>
+              <div style="font-size:13px; color:#8C867F;">Compare unsealed unit tariffs, baseline savings, and total evaluated pricing against budget ceiling.</div>
+            </div>
+          </div>
+          <select id="commEvalRfqSelector" onchange="switchCommEvalRfq(this.value)" class="cockpit-select">
+            <option value="">Select RFQ Event...</option>
+          </select>
+        </div>
+
+        <!-- Asymmetric 2-Column Studio Layout (65% Studio, 35% Intelligence) -->
+        <div class="studio-layout">
+
+          <!-- 65% Operational Studio -->
+          <div class="studio-main">
+            <div class="sap-card">
+              <div class="card-toolbar">
+                <div>
+                  <span class="card-title">Unsealed Commercial Quotations</span>
+                  <div class="card-subtitle">Commercial unit tariffs decrypted after technical qualification.</div>
+                </div>
+                <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
+                  <div id="commEvalPrDemandInfo" style="font-size:12px; color:#8C867F;"></div>
+                  <div id="commEvalBaselineCallout" style="font-size:12px; font-weight:700; color:#15803d;">--</div>
+                </div>
+              </div>
+              <div style="overflow-x:auto;">
+                <table class="sap-table">
+                  <thead>
+                    <tr>
+                      <th>Supplier Organization</th>
+                      <th>Offered Unit Price</th>
+                      <th>Required Units</th>
+                      <th>Total Calculated Bid</th>
+                      <th>Baseline Variance / Savings</th>
+                      <th>Commercial Rank</th>
+                    </tr>
+                  </thead>
+                  <tbody id="commEvalTableBody">
+                    <!-- Dynamically populated -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 35% Intelligence Sidebar -->
+          <div class="studio-sidebar">
+            <!-- Sidebar Card 1: Commercial Envelope Intelligence -->
+            <div class="studio-sidebar-card">
+              <div class="studio-sidebar-header">
+                <div>
+                  <h3 class="studio-sidebar-title">💡 Commercial Intelligence</h3>
+                  <div class="studio-sidebar-subtitle">Baseline Tariff &amp; Savings Target</div>
+                </div>
+                <span class="status-pill approved">Budget $24.9M COP</span>
+              </div>
+              <ul class="studio-intel-list">
+                <li class="studio-intel-item">
+                  <span class="studio-intel-icon">📉</span>
+                  <div class="studio-intel-content">
+                    <strong>Baseline Benchmark</strong>
+                    <span>Historical SAP purchasing price: $3.50 COP / unit.</span>
+                  </div>
+                </li>
+                <li class="studio-intel-item">
+                  <span class="studio-intel-icon">🏆</span>
+                  <div class="studio-intel-content">
+                    <strong>Adjudication Strategy</strong>
+                    <span>Lowest Evaluated Compliant Bidder (LECB) across qualified vendors.</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Sidebar Card 2: Two-Envelope Completion -->
+            <div class="studio-sidebar-card">
+              <div class="studio-sidebar-header">
+                <div>
+                  <h3 class="studio-sidebar-title">⚖️ Envelope Unsealing Audit</h3>
+                  <div class="studio-sidebar-subtitle">Quorum Verification</div>
+                </div>
+              </div>
+              <p style="font-size:12.5px; color:#4B4643; margin:0; line-height:1.5;">
+                Both technical and commercial envelopes are unsealed and ready for committee award sign-off.
+              </p>
+              <button class="sap-btn sap-btn-primary" style="margin-top:14px; width:100%;" onclick="navigateIfAuthorized('approver')">Proceed to Award Sign-Off &rarr;</button>
+            </div>
+          </div>
+
+        </div>
+      

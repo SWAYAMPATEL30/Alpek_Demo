@@ -1,0 +1,124 @@
+<div class="workspace-view" id="view-receiving">
+        <div class="cockpit-hero-banner">
+          <div class="cockpit-title-group">
+            <div class="cockpit-icon-badge">📦</div>
+            <div>
+              <span class="status-pill approved">Warehouse Operations</span>
+              <h2 style="font-size:20px; font-weight:600; color:#191716; margin:4px 0 2px 0;">Plant Inward Goods Receipt (GRN)</h2>
+              <div style="font-size:13px; color:#8C867F;">Record delivery note waybills, verify physical shipments, and log inspection clearance.</div>
+            </div>
+          </div>
+          <button class="sap-btn sap-btn-primary" onclick="openRecordGrnModal()">+ Record New Goods Receipt</button>
+        </div>
+
+        <!-- Asymmetric 2-Column Studio Layout (65% Studio, 35% Intelligence) -->
+        <div class="studio-layout">
+
+          <!-- 65% Operational Studio -->
+          <div class="studio-main">
+            <!-- Studio Card 1: Open Committed Purchase Orders for Inward Receipt -->
+            <div class="sap-card">
+              <div class="card-toolbar">
+                <div>
+                  <span class="card-title">Open Committed Purchase Orders for Inward Receipt</span>
+                  <div class="card-subtitle">Committed S/4HANA POs awaiting physical delivery and warehouse check-in.</div>
+                </div>
+              </div>
+              <div style="overflow-x:auto;">
+                <table class="sap-table">
+                  <thead>
+                    <tr>
+                      <th>PO Number</th>
+                      <th>SAP Document</th>
+                      <th>Supplier</th>
+                      <th>Material</th>
+                      <th>Ordered</th>
+                      <th>Received</th>
+                      <th>Remaining</th>
+                      <th>Status</th>
+                      <th style="text-align:right;">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="receivingPoTableBody">
+                    <!-- Dynamically populated -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Studio Card 2: Recent Goods Receipt History (GRN Audit Trail) -->
+            <div class="sap-card">
+              <div class="card-toolbar">
+                <div>
+                  <span class="card-title">Recent Goods Receipt History (GRN Audit Trail)</span>
+                  <div class="card-subtitle">Immutable log of delivery notes, carrier waybills, and inspection sign-offs.</div>
+                </div>
+              </div>
+              <div style="overflow-x:auto;">
+                <table class="sap-table">
+                  <thead>
+                    <tr>
+                      <th>GRN Number</th>
+                      <th>Receipt Date</th>
+                      <th>Inspector</th>
+                      <th>Delivery Note No</th>
+                      <th>Carrier</th>
+                      <th>Quantity Received</th>
+                      <th>Inspection</th>
+                      <th>Discrepancy Notes</th>
+                    </tr>
+                  </thead>
+                  <tbody id="grnArchiveTableBody">
+                    <!-- Dynamically populated -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 35% Intelligence Sidebar -->
+          <div class="studio-sidebar">
+            <!-- Sidebar Card 1: Warehouse Gate 3 Inspection Protocol -->
+            <div class="studio-sidebar-card">
+              <div class="studio-sidebar-header">
+                <div>
+                  <h3 class="studio-sidebar-title">📦 Gate 3 Inspection Protocol</h3>
+                  <div class="studio-sidebar-subtitle">Physical Goods Verification</div>
+                </div>
+                <span class="status-pill approved">ISO 9001 Protocol</span>
+              </div>
+              <ul class="studio-intel-list">
+                <li class="studio-intel-item">
+                  <span class="studio-intel-icon">🔍</span>
+                  <div class="studio-intel-content">
+                    <strong>Physical Seal Verification</strong>
+                    <span>Verify manufacturer tamper-evident seals and pressure certifications.</span>
+                  </div>
+                </li>
+                <li class="studio-intel-item">
+                  <span class="studio-intel-icon">🚚</span>
+                  <div class="studio-intel-content">
+                    <strong>Waybill Matching</strong>
+                    <span>Cross-examine carrier delivery notes against S/4HANA PO #450009180.</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Sidebar Card 2: Three-Way Matching Status -->
+            <div class="studio-sidebar-card">
+              <div class="studio-sidebar-header">
+                <div>
+                  <h3 class="studio-sidebar-title">⚡ 3-Way Reconciliation</h3>
+                  <div class="studio-sidebar-subtitle">PR &rarr; PO &rarr; GRN Integrity</div>
+                </div>
+                <span class="status-pill approved">OData v4 Synced</span>
+              </div>
+              <p style="font-size:12.5px; color:#4B4643; margin:0; line-height:1.5;">
+                Recording a Goods Receipt automatically creates standard SAP Material Document (MIGO) records in the Clean Core audit trail.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      
