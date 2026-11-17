@@ -1,4 +1,3 @@
-# ALPEK SAP Supplier Linking Platform
 
 > **SAP S/4HANA Clean Core Sourcing Platform** (Alternative to SAP Ariba Sourcing & Supplier Network)
 > Engineered specifically for ALPEK chemical, polyester, and refining operations based on the [Client Discovery Questions](file:///c:/Users/ipate/OneDrive/Documents/REA/src/domain/ALPEK%20SAP%20Supplier%20Linking%20Platform%20Client%20Discovery%20Questions.docx).
