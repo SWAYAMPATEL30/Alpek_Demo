@@ -1042,50 +1042,56 @@
       <button class="nav-pill-btn text-[#6C6963] hover:text-[#121211] hover:bg-white font-medium px-3.5 py-1.5 rounded-full text-[12.5px] transition cursor-pointer border-none bg-transparent" onclick="switchMainTab('integration')">CIG Integration</button>
     </nav>
 
-    <!-- Shell Right: Verified User Profile Pill -->
-    <div class="relative">
-      <div id="appUserProfileBtn" onclick="toggleUserDropdown()" class="border border-[#ECEAE4] bg-white hover:border-[#DCD8CE] pl-1 pr-3 py-1 rounded-full flex items-center gap-2.5 transition cursor-pointer shadow-xs select-none">
-        <div id="appUserAvatar" class="w-7 h-7 rounded-full bg-[#121211] text-white flex items-center justify-center font-bold text-[10.5px]">
-          VM
+    <!-- Shell Right: Verified User Profile Pill & 1-Click Logout -->
+    <div class="flex items-center gap-2">
+      <div class="relative">
+        <div id="appUserProfileBtn" onclick="toggleUserDropdown(event)" class="border border-[#ECEAE4] bg-white hover:border-[#DCD8CE] pl-1 pr-3 py-1 rounded-full flex items-center gap-2.5 transition cursor-pointer shadow-xs select-none">
+          <div id="appUserAvatar" class="w-7 h-7 rounded-full bg-[#121211] text-white flex items-center justify-center font-bold text-[10.5px]">
+            VM
+          </div>
+          <div class="flex flex-col text-left leading-tight pr-1">
+            <span class="text-[12px] font-semibold text-[#121211] flex items-center gap-0.5">
+              <span id="appUserName">Valeria Martinez</span>
+              <span class="material-symbols-outlined text-[13px] text-[#9E9A92]">expand_more</span>
+            </span>
+            <span id="appUserRole" class="text-[10px] text-[#6C6963] font-medium">Procurement Buyer</span>
+          </div>
         </div>
-        <div class="flex flex-col text-left leading-tight pr-1">
-          <span class="text-[12px] font-semibold text-[#121211] flex items-center gap-0.5">
-            <span id="appUserName">Valeria Martinez</span>
-            <span class="material-symbols-outlined text-[13px] text-[#9E9A92]">expand_more</span>
-          </span>
-          <span id="appUserRole" class="text-[10px] text-[#6C6963] font-medium">Procurement Buyer</span>
+
+        <!-- Professional Profile Menu (Clean enterprise production) -->
+        <div id="userDropdownMenu" class="hidden absolute right-0 mt-2.5 w-72 bg-white rounded-3xl shadow-float-pop border border-[#ECEAE4] z-50 p-4 text-[12.5px] animate-in fade-in duration-150">
+          <div class="pb-3 mb-2.5 border-b border-[#ECEAE4] flex items-center gap-3">
+            <div id="dropdownAvatar" class="w-10 h-10 rounded-full bg-[#121211] text-white flex items-center justify-center font-bold text-[13px] shadow-sm">VM</div>
+            <div class="flex-1 min-w-0">
+              <div id="dropdownName" class="font-bold text-[#121211] text-[13.5px] truncate">Valeria Martinez</div>
+              <div id="dropdownRole" class="text-[11px] text-[#6C6963] truncate">Procurement Buyer</div>
+              <div id="dropdownEmail" class="text-[10.5px] font-mono text-[#9E9A92] truncate">valeria.martinez@abccompany.com</div>
+            </div>
+          </div>
+          <div class="py-1 flex flex-col gap-1.5 text-[11.5px] text-[#6C6963]">
+            <div class="flex items-center justify-between px-2 py-1 rounded-xl bg-[#FAF9F6] border border-[#ECEAE4]">
+              <span>Security Layer:</span>
+              <span class="font-mono text-[#167953] font-semibold">S/4HANA OData v4</span>
+            </div>
+            <div class="flex items-center justify-between px-2 py-1 rounded-xl bg-[#FAF9F6] border border-[#ECEAE4]">
+              <span>Compliance:</span>
+              <span class="text-[#167953] font-semibold">Clean Core Certified</span>
+            </div>
+          </div>
+          <div class="pt-3 mt-3 border-t border-[#ECEAE4]">
+            <button type="button" onclick="signOutToLogin()" class="w-full py-2.5 px-4 rounded-full bg-[#FDF2F0] hover:bg-[#FAD8D2] text-[#D94326] font-semibold text-[12.5px] text-center flex items-center justify-center gap-2 transition cursor-pointer border border-[#FAD8D2] shadow-xs">
+              <span class="material-symbols-outlined text-[16px]">logout</span>
+              <span>Sign Out to Enterprise Portal</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- Professional Profile Menu (Clean enterprise production) -->
-      <div id="userDropdownMenu" class="hidden absolute right-0 mt-2.5 w-72 bg-white rounded-3xl shadow-float-pop border border-[#ECEAE4] z-50 p-4 text-[12.5px] animate-in fade-in duration-150">
-        <div class="pb-3 mb-2.5 border-b border-[#ECEAE4] flex items-center gap-3">
-          <div id="dropdownAvatar" class="w-10 h-10 rounded-full bg-[#121211] text-white flex items-center justify-center font-bold text-[13px] shadow-sm">VM</div>
-          <div class="flex-1 min-w-0">
-            <div id="dropdownName" class="font-bold text-[#121211] text-[13.5px] truncate">Valeria Martinez</div>
-            <div id="dropdownRole" class="text-[11px] text-[#6C6963] truncate">Procurement Buyer</div>
-            <div id="dropdownEmail" class="text-[10.5px] font-mono text-[#9E9A92] truncate">valeria.martinez@abccompany.com</div>
-          </div>
-        </div>
-        <div class="py-1 flex flex-col gap-1.5 text-[11.5px] text-[#6C6963]">
-          <div class="flex items-center justify-between px-2 py-1 rounded-xl bg-[#FAF9F6] border border-[#ECEAE4]">
-            <span>Security Layer:</span>
-            <span class="font-mono text-[#167953] font-semibold">S/4HANA OData v4</span>
-          </div>
-          <div class="flex items-center justify-between px-2 py-1 rounded-xl bg-[#FAF9F6] border border-[#ECEAE4]">
-            <span>Compliance:</span>
-            <span class="text-[#167953] font-semibold">Clean Core Certified</span>
-          </div>
-        </div>
-        <div class="pt-3 mt-3 border-t border-[#ECEAE4]">
-          <button onclick="signOutToLogin()" class="w-full py-2 px-3 rounded-full bg-[#FAF9F6] hover:bg-[#FDF2F0] text-[#D94326] font-semibold text-center flex items-center justify-center gap-1.5 transition cursor-pointer border border-[#ECEAE4]">
-            <span class="material-symbols-outlined text-[15px]">logout</span>
-            <span>Sign Out</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+      <!-- Quick 1-Click Logout Button on Header Bar -->
+      <button type="button" onclick="signOutToLogin()" title="Sign Out of Corporate Session" class="w-9 h-9 rounded-full bg-white hover:bg-[#FDF2F0] text-[#6C6963] hover:text-[#D94326] border border-[#ECEAE4] hover:border-[#FAD8D2] flex items-center justify-center transition cursor-pointer shadow-xs select-none">
+        <span class="material-symbols-outlined text-[16px]">logout</span>
+      </button>
+    </div></div>
 </header>
 
 
@@ -3063,6 +3069,31 @@ Scope 3 Verified
 
   
 <script>
+  function toggleUserDropdown(e) {
+    if (e && e.stopPropagation) e.stopPropagation();
+    const menu = document.getElementById('userDropdownMenu');
+    if (!menu) return;
+    menu.classList.toggle('hidden');
+  }
+  window.toggleUserDropdown = toggleUserDropdown;
+
+  function closeUserDropdown() {
+    const menu = document.getElementById('userDropdownMenu');
+    if (menu) menu.classList.add('hidden');
+  }
+  window.closeUserDropdown = closeUserDropdown;
+  window.closeProfileDropdown = closeUserDropdown;
+
+  document.addEventListener('click', (e) => {
+    const btn = document.getElementById('appUserProfileBtn');
+    const menu = document.getElementById('userDropdownMenu');
+    if (menu && !menu.classList.contains('hidden')) {
+      if (btn && !btn.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.add('hidden');
+      }
+    }
+  });
+
   function toggleBrandNavigation() {
     const loginPage = document.getElementById('page-login');
     const appPage = document.getElementById('page-app');

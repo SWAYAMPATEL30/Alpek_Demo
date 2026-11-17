@@ -3805,19 +3805,55 @@ function toggleProfileDropdown() {
   }
 }
 
-function logoutUser() {
+
+function toggleUserDropdown(e) {
+  if (e && e.stopPropagation) e.stopPropagation();
+  const menu = document.getElementById('userDropdownMenu');
+  if (!menu) return;
+  menu.classList.toggle('hidden');
+}
+window.toggleUserDropdown = toggleUserDropdown;
+
+function closeUserDropdown() {
+  const menu = document.getElementById('userDropdownMenu');
+  if (menu) menu.classList.add('hidden');
+}
+window.closeUserDropdown = closeUserDropdown;
+window.closeProfileDropdown = closeUserDropdown;
+
+function signOutToLogin() {
   sessionStorage.removeItem('abc_current_user');
+  sessionStorage.clear();
   window.currentUser = null;
   const loginPage = document.getElementById('page-login');
   const appPage = document.getElementById('page-app');
   if (appPage) appPage.classList.add('hidden');
   if (loginPage) loginPage.classList.remove('hidden');
-  closeProfileDropdown();
+  closeUserDropdown();
   window.location.hash = 'login-portal';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  const portal = document.getElementById('login-portal');
+  if (portal) {
+    setTimeout(() => portal.scrollIntoView({ behavior: 'smooth' }), 50);
+  }
   if (typeof showSapToast === 'function') {
-    showSapToast('Signed out of Sourcing OS session.', 'info');
+    showSapToast('Signed out of corporate session.', 'info');
   }
 }
+window.signOutToLogin = signOutToLogin;
+window.logoutUser = signOutToLogin;
+
+// Global document click listener to close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+  const btn = document.getElementById('appUserProfileBtn');
+  const menu = document.getElementById('userDropdownMenu');
+  if (menu && !menu.classList.contains('hidden')) {
+    if (btn && !btn.contains(e.target) && !menu.contains(e.target)) {
+      menu.classList.add('hidden');
+    }
+  }
+});
+
 
 function closeBiddingNow() {
   if (typeof closeBiddingManually === 'function') return closeBiddingManually();
