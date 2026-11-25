@@ -1,0 +1,1544 @@
+const fs = require('fs');
+const path = require('path');
+
+console.log('--- Step 1: Loading clean view components ---');
+const views = [
+  'view-supplier-portal',
+  'view-requester',
+  'view-manager',
+  'view-tech-eval',
+  'view-comm-eval',
+  'view-approver',
+  'view-receiving',
+  'view-order-closure',
+  'view-excel-erp',
+  'view-sap-erp',
+  'view-cig-integration'
+];
+
+const viewHtmlMap = {};
+views.forEach(v => {
+  viewHtmlMap[v] = fs.readFileSync(`apps/alpek-supplier-platform/scripts/clean_${v}.html`, 'utf8');
+});
+
+// 1. Construct modern, ultra-clean HTML head
+const headHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alpek Sourcing OS - Modern Intake-to-Procure Platform for S/4HANA</title>
+  
+  <!-- Modern Clean Typography (Zip + Linear + Mercury) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#F0FDF4',
+              100: '#DCFCE7',
+              500: '#10B981',
+              600: '#059669',
+              700: '#047857',
+              900: '#064E3B',
+            },
+            slateSurface: '#F8FAFC',
+            borderSubtle: '#E2E8F0',
+            borderStrong: '#CBD5E1',
+          },
+          boxShadow: {
+            'card-subtle': '0 1px 3px 0 rgb(0 0 0 / 0.05), 0 1px 2px -1px rgb(0 0 0 / 0.05)',
+            'card-elevated': '0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05)',
+            'float-pop': '0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.08)',
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #F8FAFC;
+      color: #0F172A;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    /* Workspace Views */
+    .workspace-view {
+      display: none !important;
+    }
+    .workspace-view.active {
+      display: flex !important;
+      flex-direction: column !important;
+    }
+
+    /* Modern Card & Table Aesthetics */
+    .cockpit-hero-banner, .sap-card {
+      background: #FFFFFF;
+      border-radius: 16px;
+      border: 1px solid #E2E8F0;
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
+      margin: 1rem 1.5rem 0 1.5rem;
+    }
+    .cockpit-main-heading {
+      font-size: 22px;
+      font-weight: 700;
+      color: #0F172A;
+      letter-spacing: -0.02em;
+    }
+    .cockpit-sub-heading {
+      font-size: 13.5px;
+      color: #64748B;
+      margin-top: 4px;
+    }
+    .cockpit-timer-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 12px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .timer-card-digits {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 26px;
+      font-weight: 700;
+      color: #EF4444;
+    }
+
+    /* Unified Modern Table */
+    .sap-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .sap-table th {
+      background: #F8FAFC;
+      color: #64748B;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      padding: 12px 16px;
+      border-bottom: 1px solid #E2E8F0;
+      text-align: left;
+    }
+    .sap-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #F1F5F9;
+      color: #0F172A;
+    }
+    .sap-table tr:hover {
+      background: #F8FAFC;
+    }
+
+    /* Modern Buttons */
+    .sap-btn-primary, .btn-stitch-primary {
+      background: #0F172A !important;
+      color: #FFFFFF !important;
+      border-radius: 9999px !important;
+      padding: 8px 18px !important;
+      font-weight: 600 !important;
+      font-size: 13px !important;
+      border: none !important;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      transition: all 0.15s ease-in-out;
+    }
+    .sap-btn-primary:hover, .btn-stitch-primary:hover {
+      background: #1E293B !important;
+    }
+    .sap-btn-secondary, .btn-stitch-secondary {
+      background: #FFFFFF !important;
+      color: #0F172A !important;
+      border: 1px solid #E2E8F0 !important;
+      border-radius: 9999px !important;
+      padding: 8px 18px !important;
+      font-weight: 500 !important;
+      font-size: 13px !important;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease-in-out;
+    }
+    .sap-btn-secondary:hover, .btn-stitch-secondary:hover {
+      border-color: #CBD5E1 !important;
+      background: #F8FAFC !important;
+    }
+
+    /* Status Pills */
+    .status-pill.pending {
+      background: #FEF2F2 !important;
+      color: #DC2626 !important;
+      border: 1px solid #FCA5A5 !important;
+      border-radius: 9999px !important;
+      padding: 3px 10px !important;
+      font-weight: 600 !important;
+      font-size: 11px !important;
+    }
+    .status-pill.approved, .status-pill.confirmed {
+      background: #ECFDF5 !important;
+      color: #059669 !important;
+      border: 1px solid #A7F3D0 !important;
+      border-radius: 9999px !important;
+      padding: 3px 10px !important;
+      font-weight: 600 !important;
+      font-size: 11px !important;
+    }
+
+    /* Modals Backdrop & Dialogs */
+    .sap-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .sap-dialog {
+      background: #FFFFFF;
+      border-radius: 20px;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+      max-height: 90vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .sap-dialog-sm { max-width: 28rem; width: 100%; }
+    .sap-dialog-md { max-width: 38rem; width: 100%; }
+    .sap-dialog-lg { max-width: 56rem; width: 100%; }
+    .sap-dialog-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid #E2E8F0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #FFFFFF;
+    }
+    .sap-dialog-title {
+      font-weight: 700;
+      font-size: 18px;
+      color: #0F172A;
+    }
+    .sap-dialog-close {
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      color: #64748B;
+      cursor: pointer;
+      border-radius: 9999px;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .sap-dialog-close:hover {
+      background: #F1F5F9;
+      color: #0F172A;
+    }
+    .sap-dialog-body {
+      padding: 1.5rem;
+      font-size: 13.5px;
+      color: #0F172A;
+    }
+    .sap-dialog-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid #E2E8F0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.75rem;
+      background: #F8FAFC;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+
+    /* Winner Highlight in Bid Matrix */
+    .winner-highlight {
+      background: linear-gradient(180deg, rgba(236, 253, 245, 0.8) 0%, rgba(240, 253, 250, 0.5) 100%);
+    }
+    .matrix-row-transition {
+      transition: all 0.2s ease-in-out;
+    }
+    .matrix-row-transition.matrix-hidden {
+      display: none;
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    .row-callout-commercial {
+      background-color: rgba(248, 250, 252, 0.95);
+    }
+    .row-callout-esg {
+      background-color: rgba(236, 253, 245, 0.45);
+    }
+  </style>
+  <link rel="stylesheet" href="/css/landing.css">
+</head>
+<body class="min-h-screen flex flex-col bg-[#F8FAFC] text-[#0F172A] text-[13px] leading-relaxed antialiased selection:bg-[#0F172A] selection:text-white">
+`;
+
+// 2. Modern Zip + Linear Header
+const appHeaderHtml = `
+<!-- ========================================================================= -->
+<!-- Modern Executive Top Navigation Bar (Zip x Linear x Ramp)                 -->
+<!-- ========================================================================= -->
+<header class="w-full px-6 pt-4 pb-2 sticky top-0 z-40 bg-[#F8FAFC]/90 backdrop-blur-md">
+  <div class="max-w-[1720px] mx-auto bg-white rounded-2xl border border-slate-200 shadow-sm px-4 py-2.5 flex items-center justify-between gap-4">
+    <!-- Shell Left: Monogram, Identity & Enterprise Badges -->
+    <div class="flex items-center gap-3">
+      <div onclick="toggleBrandNavigation()" class="flex items-center gap-2.5 cursor-pointer select-none group" title="Return to Corporate Overview">
+        <div class="w-9 h-9 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-[13px] tracking-tight shrink-0 shadow-sm group-hover:bg-slate-800 transition">
+          AD
+        </div>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-[14.5px] tracking-tight text-slate-900 group-hover:text-emerald-700 transition">Alpek Sourcing OS</span>
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+              Clean Core
+            </span>
+          </div>
+          <span class="text-[10.5px] font-medium font-mono text-slate-500 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            S/4HANA OData v4 • 14ms
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shell Center: High-Contrast Floating Nav Tabs -->
+    <nav class="hidden md:flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
+      <button class="nav-pill-btn bg-slate-900 text-white font-semibold px-3.5 py-1.5 rounded-lg text-[12.5px] transition shadow-xs cursor-pointer border-none" onclick="switchMainTab('sourcing')">
+        Sourcing Events
+      </button>
+      <button class="nav-pill-btn text-slate-600 hover:text-slate-900 hover:bg-white font-medium px-3.5 py-1.5 rounded-lg text-[12.5px] transition cursor-pointer border-none bg-transparent" onclick="switchMainTab('requester')">
+        Intake & PRs
+      </button>
+      <button class="nav-pill-btn text-slate-600 hover:text-slate-900 hover:bg-white font-medium px-3.5 py-1.5 rounded-lg text-[12.5px] transition cursor-pointer border-none bg-transparent" onclick="switchMainTab('orders')">
+        Purchase Orders
+      </button>
+      <button class="nav-pill-btn text-slate-600 hover:text-slate-900 hover:bg-white font-medium px-3.5 py-1.5 rounded-lg text-[12.5px] transition cursor-pointer border-none bg-transparent" onclick="switchMainTab('supplier')">
+        Supplier Cockpit
+      </button>
+      <button class="nav-pill-btn text-slate-600 hover:text-slate-900 hover:bg-white font-medium px-3.5 py-1.5 rounded-lg text-[12.5px] transition cursor-pointer border-none bg-transparent" onclick="switchMainTab('excel')">
+        ERP Requisitions & POs
+      </button>
+      <button class="nav-pill-btn text-slate-600 hover:text-slate-900 hover:bg-white font-medium px-3.5 py-1.5 rounded-lg text-[12.5px] transition cursor-pointer border-none bg-transparent" onclick="switchMainTab('sap')">
+        SAP GUI (ME53N)
+      </button>
+      <button class="nav-pill-btn text-slate-600 hover:text-slate-900 hover:bg-white font-medium px-3.5 py-1.5 rounded-lg text-[12.5px] transition cursor-pointer border-none bg-transparent" onclick="switchMainTab('integration')">
+        CIG Integration
+      </button>
+    </nav>
+
+    <!-- Shell Right: Verified User Profile Pill & 1-Click Logout -->
+    <div class="flex items-center gap-2">
+      <!-- Quick Action: Launch New Request Modal -->
+      <button onclick="openNewReqModal()" class="hidden lg:inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-3 py-1.5 rounded-lg text-[12px] shadow-xs transition">
+        <span class="material-symbols-outlined text-[15px]">add</span>
+        <span>New Request</span>
+      </button>
+
+      <div class="relative">
+        <div id="appUserProfileBtn" onclick="toggleUserDropdown(event)" class="border border-slate-200 bg-white hover:border-slate-300 pl-1 pr-3 py-1 rounded-xl flex items-center gap-2.5 transition cursor-pointer shadow-xs select-none">
+          <div id="appUserAvatar" class="w-7 h-7 rounded-lg bg-slate-900 text-white flex items-center justify-center font-bold text-[11px]">
+            VM
+          </div>
+          <div class="flex flex-col text-left leading-tight pr-1">
+            <span class="text-[12px] font-bold text-slate-900 flex items-center gap-0.5">
+              <span id="appUserName">Valeria Martinez</span>
+              <span class="material-symbols-outlined text-[13px] text-slate-400">expand_more</span>
+            </span>
+            <span id="appUserRole" class="text-[10px] text-slate-500 font-medium">Procurement Buyer</span>
+          </div>
+        </div>
+
+        <!-- Professional Profile Dropdown Menu -->
+        <div id="userDropdownMenu" class="hidden absolute right-0 mt-2.5 w-72 bg-white rounded-2xl shadow-float-pop border border-slate-200 z-50 p-4 text-[12.5px] animate-in fade-in duration-150">
+          <div class="pb-3 mb-2.5 border-b border-slate-100 flex items-center gap-3">
+            <div id="dropdownAvatar" class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-[13px] shadow-xs">VM</div>
+            <div class="flex-1 min-w-0">
+              <div id="dropdownName" class="font-bold text-slate-900 text-[13.5px] truncate">Valeria Martinez</div>
+              <div id="dropdownRole" class="text-[11px] text-slate-500 truncate">Procurement Buyer</div>
+              <div id="dropdownEmail" class="text-[10.5px] font-mono text-slate-400 truncate">valeria.martinez@abccompany.com</div>
+            </div>
+          </div>
+          <div class="py-1 flex flex-col gap-1.5 text-[11.5px] text-slate-600">
+            <div class="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-slate-50 border border-slate-100">
+              <span>Security Layer:</span>
+              <span class="font-mono text-emerald-700 font-semibold">S/4HANA OData v4</span>
+            </div>
+            <div class="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-slate-50 border border-slate-100">
+              <span>Compliance:</span>
+              <span class="text-emerald-700 font-semibold">Clean Core Certified</span>
+            </div>
+          </div>
+          <div class="pt-3 mt-3 border-t border-slate-100">
+            <button type="button" onclick="signOutToLogin()" class="w-full py-2.5 px-4 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-semibold text-[12.5px] text-center flex items-center justify-center gap-2 transition cursor-pointer border border-rose-200 shadow-xs">
+              <span class="material-symbols-outlined text-[16px]">logout</span>
+              <span>Sign Out to Enterprise Portal</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick 1-Click Logout Button on Header Bar -->
+      <button type="button" onclick="signOutToLogin()" title="Sign Out of Corporate Session" class="w-9 h-9 rounded-xl bg-white hover:bg-rose-50 text-slate-500 hover:text-rose-600 border border-slate-200 hover:border-rose-200 flex items-center justify-center transition cursor-pointer shadow-xs select-none">
+        <span class="material-symbols-outlined text-[16px]">logout</span>
+      </button>
+    </div>
+  </div>
+</header>
+`;
+
+// 3. Modern KPI Strip
+const kpiStripHtml = `
+<!-- ========================================================================= -->
+<!-- 2. Executive Metric KPI Strip (Ramp x Mercury High-Density Cards)         -->
+<!-- ========================================================================= -->
+<section class="w-full px-6 pt-2 pb-4">
+  <div class="max-w-[1720px] mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5">
+    <!-- Card 1: Inbound Demand -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-card-subtle hover:shadow-card-elevated hover:border-slate-300 transition-all flex flex-col justify-between">
+      <div class="flex items-center justify-between">
+        <span class="text-[11px] font-bold tracking-wider uppercase text-slate-500">Inbound Demand</span>
+        <div class="w-7 h-7 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-600">
+          <span class="material-symbols-outlined text-[16px]">description</span>
+        </div>
+      </div>
+      <div class="my-3 text-left">
+        <span class="text-3xl font-bold font-mono text-slate-900 tracking-tight block">71</span>
+      </div>
+      <div>
+        <span class="text-[11px] font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-full inline-block">
+          37 Pending Mgr Approval
+        </span>
+      </div>
+    </div>
+
+    <!-- Card 2: Active Sourcing RFQs -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-card-subtle hover:shadow-card-elevated hover:border-slate-300 transition-all flex flex-col justify-between">
+      <div class="flex items-center justify-between">
+        <span class="text-[11px] font-bold tracking-wider uppercase text-slate-500">Active Sourcing RFQs</span>
+        <div class="w-7 h-7 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">
+          <span class="material-symbols-outlined text-[16px]">schedule</span>
+        </div>
+      </div>
+      <div class="my-3 text-left">
+        <span class="text-3xl font-bold font-mono text-slate-900 tracking-tight block">1</span>
+      </div>
+      <div>
+        <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full inline-block">
+          Round 1 Bidding Active
+        </span>
+      </div>
+    </div>
+
+    <!-- Card 3: Supplier Bids -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-card-subtle hover:shadow-card-elevated hover:border-slate-300 transition-all flex flex-col justify-between">
+      <div class="flex items-center justify-between">
+        <span class="text-[11px] font-bold tracking-wider uppercase text-slate-500">Supplier Bids</span>
+        <div class="w-7 h-7 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-600">
+          <span class="material-symbols-outlined text-[16px]">groups</span>
+        </div>
+      </div>
+      <div class="my-3 text-left">
+        <span class="text-3xl font-bold font-mono text-slate-900 tracking-tight block">4</span>
+      </div>
+      <div>
+        <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full inline-block">
+          14.3% Verified Savings
+        </span>
+      </div>
+    </div>
+
+    <!-- Card 4: Internal Approval -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-card-subtle hover:shadow-card-elevated hover:border-slate-300 transition-all flex flex-col justify-between">
+      <div class="flex items-center justify-between">
+        <span class="text-[11px] font-bold tracking-wider uppercase text-slate-500">Internal Approval</span>
+        <div class="w-7 h-7 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-600">
+          <span class="material-symbols-outlined text-[16px]">verified</span>
+        </div>
+      </div>
+      <div class="my-3 text-left">
+        <span class="text-3xl font-bold font-mono text-slate-900 tracking-tight block">0</span>
+      </div>
+      <div>
+        <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full inline-block">
+          Award Approved
+        </span>
+      </div>
+    </div>
+
+    <!-- Card 5: S/4HANA Committed POs -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-card-subtle hover:shadow-card-elevated hover:border-slate-300 transition-all flex flex-col justify-between">
+      <div class="flex items-center justify-between">
+        <span class="text-[11px] font-bold tracking-wider uppercase text-slate-500">S/4HANA Committed POs</span>
+        <div class="w-7 h-7 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-600">
+          <span class="material-symbols-outlined text-[16px]">receipt_long</span>
+        </div>
+      </div>
+      <div class="my-3 text-left">
+        <span class="text-3xl font-bold font-mono text-slate-900 tracking-tight block">3</span>
+      </div>
+      <div>
+        <span class="text-[11px] font-semibold text-indigo-700 bg-indigo-50 border border-indigo-200 px-2.5 py-0.5 rounded-full inline-block">
+          Clean Core OData Sync
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+`;
+
+// 4. Zip's Signature Visual Workflow Pipeline Component
+const zipWorkflowPipelineHtml = `
+<!-- ========================================================================= -->
+<!-- Zip Signature Feature: Intake-to-Procure Visual Workflow Pipeline         -->
+<!-- ========================================================================= -->
+<section class="w-full px-6 pb-4">
+  <div class="max-w-[1720px] mx-auto bg-white rounded-2xl border border-slate-200 p-5 shadow-card-subtle">
+    <div class="flex items-center justify-between pb-3.5 mb-3.5 border-b border-slate-100">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600">
+          <span class="material-symbols-outlined text-[18px]">account_tree</span>
+        </div>
+        <div>
+          <h2 class="text-[14px] font-bold text-slate-900">Intake-to-Procure Lifecycle Orchestration</h2>
+          <p class="text-[11.5px] text-slate-500">Autonomous multi-stage routing connecting Requester, Approvers, External Bidders, and S/4HANA Clean Core</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          Doc2432956265 Active
+        </span>
+      </div>
+    </div>
+
+    <!-- 5 Connected Interactive Nodes -->
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
+      <!-- Node 1: PR Intake -->
+      <div onclick="switchMainTab('requester')" class="p-3.5 rounded-xl border border-emerald-200 bg-emerald-50/50 hover:bg-emerald-50 hover:border-emerald-300 transition cursor-pointer relative group">
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-800">1. Intake PR</span>
+          <span class="material-symbols-outlined text-[16px] text-emerald-600">check_circle</span>
+        </div>
+        <div class="font-bold text-[13px] text-slate-900 truncate">PR-3000010443</div>
+        <div class="text-[11px] text-slate-500 truncate">7,125,000 units Refrigerant</div>
+        <div class="mt-2 text-[10.5px] font-mono text-emerald-700 font-semibold">● Approved by Manager</div>
+      </div>
+
+      <!-- Node 2: Sourcing RFQ & Timer -->
+      <div onclick="switchMainTab('sourcing')" class="p-3.5 rounded-xl border border-emerald-500 bg-white ring-2 ring-emerald-500/20 hover:border-emerald-600 transition cursor-pointer relative group shadow-xs">
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-700 font-mono">2. Sourcing RFQ</span>
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        </div>
+        <div class="font-bold text-[13px] text-slate-900 truncate">Doc2432956265</div>
+        <div class="text-[11px] text-slate-500 truncate">3 Supplier Bids Inbound</div>
+        <div class="mt-2 text-[10.5px] font-mono text-rose-600 font-bold">● Countdown: 00:54:02</div>
+      </div>
+
+      <!-- Node 3: Two-Envelope Evaluation -->
+      <div onclick="switchMainTab('sourcing')" class="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-slate-300 transition cursor-pointer relative group">
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-slate-600">3. Adjudication</span>
+          <span class="material-symbols-outlined text-[16px] text-slate-400">tune</span>
+        </div>
+        <div class="font-bold text-[13px] text-slate-900 truncate">Technical & Commercial</div>
+        <div class="text-[11px] text-slate-500 truncate">8 Evaluation Dimensions</div>
+        <div class="mt-2 text-[10.5px] font-mono text-slate-600 font-semibold">● SONDA Colombia (Rec #1)</div>
+      </div>
+
+      <!-- Node 4: Executive Award Approval -->
+      <div onclick="switchMainTab('approver')" class="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white hover:border-slate-300 transition cursor-pointer relative group">
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-slate-600">4. Award Sign-Off</span>
+          <span class="material-symbols-outlined text-[16px] text-slate-400">gavel</span>
+        </div>
+        <div class="font-bold text-[13px] text-slate-900 truncate">Carlos Fonseca</div>
+        <div class="text-[11px] text-slate-500 truncate">Head of Strategic Sourcing</div>
+        <div class="mt-2 text-[10.5px] font-mono text-emerald-700 font-semibold">● Ready for Execution</div>
+      </div>
+
+      <!-- Node 5: S/4HANA Clean Core PO -->
+      <div onclick="switchMainTab('sap')" class="p-3.5 rounded-xl border border-indigo-200 bg-indigo-50/40 hover:bg-indigo-50 hover:border-indigo-300 transition cursor-pointer relative group">
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-700">5. Clean Core PO</span>
+          <span class="material-symbols-outlined text-[16px] text-indigo-600">cloud_done</span>
+        </div>
+        <div class="font-bold text-[13px] text-slate-900 truncate">PO #450009180</div>
+        <div class="text-[11px] text-slate-500 truncate">Direct OData v4 Integration</div>
+        <div class="mt-2 text-[10.5px] font-mono text-indigo-700 font-semibold">● 14ms Latency • cXML 1.2</div>
+      </div>
+    </div>
+  </div>
+</section>
+`;
+
+// 5. Strategic Sourcing Workspace (Two-Envelope Matrix + Countdown + Telemetry)
+const sourcingWorkspaceHtml = `
+<div id="view-sourcing-events" class="workspace-view active w-full px-6 pb-12">
+  <div class="max-w-[1720px] mx-auto space-y-4">
+    
+    <!-- Hero Header Card with Live Urgency Countdown -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-card-subtle">
+      <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              ACTIVE COUNTDOWN
+            </span>
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-slate-100 text-slate-700 border border-slate-200">
+              ID: Doc2432956265
+            </span>
+          </div>
+          <h1 class="text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight">
+            Strategic Sourcing Tender
+          </h1>
+          <p class="text-sm text-slate-500 mt-1 max-w-2xl">
+            Two-envelope technical and commercial bidding adjudication for verified petrochemical & operational suppliers.
+          </p>
+        </div>
+
+        <!-- Monospace Countdown Urgency Card -->
+        <div class="cockpit-timer-card min-w-[240px] bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col items-center">
+          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">TIME REMAINING:</span>
+          <span class="text-3xl font-bold font-mono text-rose-600 tracking-tight my-1" id="tender-countdown-display">
+            00:54:02
+          </span>
+          <span class="text-[11px] text-slate-500 flex items-center gap-1 font-mono">
+            <span class="material-symbols-outlined text-[13px]">schedule</span>
+            Deadline: 17 Nov, 05:52:02
+          </span>
+        </div>
+      </div>
+
+      <!-- Metadata summary strip -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mt-6 pt-5 border-t border-slate-100 text-xs">
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
+          <div class="text-[10.5px] uppercase font-bold text-slate-400">SOURCE DEMAND</div>
+          <div class="font-bold text-slate-800 truncate mt-0.5">PR-3000010443 (SAP: 30000104...)</div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
+          <div class="text-[10.5px] uppercase font-bold text-slate-400">OPERATIONAL MATERIAL</div>
+          <div class="font-bold text-slate-800 truncate mt-0.5">SUMINISTROS REFRI - Quantitie...</div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
+          <div class="text-[10.5px] uppercase font-bold text-slate-400">DELIVERY PLANT</div>
+          <div class="font-bold text-slate-800 truncate mt-0.5">Gran Tierra Energy - Vereda Mor...</div>
+        </div>
+        <div class="p-3 rounded-xl bg-emerald-50/70 border border-emerald-200">
+          <div class="text-[10.5px] uppercase font-bold text-emerald-800">CLEAN CORE FOLLOW-ON PO</div>
+          <div class="font-bold text-emerald-900 truncate mt-0.5 font-mono">SAP PO 4500078416 (SONDA D...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Asymmetric Workspace Layout: 65% Matrix, 35% Intelligence -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+      
+      <!-- Left 8 Cols (66%): Bid Evaluation Matrix (Zip x Attio) -->
+      <div class="lg:col-span-8 bg-white rounded-2xl border border-slate-200 p-6 shadow-card-subtle flex flex-col justify-between">
+        <div>
+          <!-- Matrix Title & Filter Bar -->
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 mb-4 border-b border-slate-100">
+            <div>
+              <h2 class="text-base font-bold text-slate-900">Bid Evaluation Matrix (3 Proposals Evaluated)</h2>
+              <p class="text-xs text-slate-500">Commercial, SLA & Quality Parameters evaluated against PR #109482 baseline</p>
+            </div>
+            
+            <div class="flex items-center gap-2">
+              <button id="export-report-btn" onclick="exportMatrixReport()" class="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer shadow-xs">
+                <span class="material-symbols-outlined text-[15px]">download</span>
+                <span>Export Report</span>
+              </button>
+              <span class="text-[11px] font-mono text-slate-500 bg-slate-100 px-2 py-1 rounded-md border border-slate-200">
+                Lowest Evaluated Cost
+              </span>
+            </div>
+          </div>
+
+          <!-- View Filter Pill Buttons -->
+          <div class="flex flex-wrap items-center gap-2 mb-4">
+            <button class="matrix-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-slate-900 text-white shadow-xs cursor-pointer border-none" data-view="all" aria-selected="true" onclick="filterMatrixView('all', this)">
+              <span class="material-symbols-outlined text-[14px]">view_list</span>
+              <span>All Criteria</span>
+              <span class="px-1.5 py-0.2 rounded-full bg-slate-700 text-[10px]">8</span>
+            </button>
+            <button class="matrix-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition flex items-center gap-1.5 bg-white border border-slate-200 cursor-pointer" data-view="commercial" aria-selected="false" onclick="filterMatrixView('commercial', this)">
+              <span class="material-symbols-outlined text-[14px]">payments</span>
+              <span>Commercial View</span>
+              <span class="px-1.5 py-0.2 rounded-full bg-slate-100 text-[10px]">4</span>
+            </button>
+            <button class="matrix-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition flex items-center gap-1.5 bg-white border border-slate-200 cursor-pointer" data-view="esg" aria-selected="false" onclick="filterMatrixView('esg', this)">
+              <span class="material-symbols-outlined text-[14px]">eco</span>
+              <span>ESG & Sustainability</span>
+              <span class="px-1.5 py-0.2 rounded-full bg-slate-100 text-[10px]">4</span>
+            </button>
+            <span class="text-[11px] text-slate-400 ml-auto hidden sm:inline-block">Displaying full two-envelope matrix</span>
+          </div>
+
+          <!-- The Two-Envelope Matrix Table -->
+          <div class="overflow-x-auto rounded-xl border border-slate-200">
+            <table class="w-full text-left border-collapse text-[12.5px]">
+              <thead>
+                <tr class="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase text-[10.5px] tracking-wider">
+                  <th class="py-3 px-4 w-1/4">Evaluation Criteria</th>
+                  <th class="py-3 px-4 w-1/5">Baseline Demand</th>
+                  <th class="py-3 px-4 w-1/4 bg-emerald-50/70 border-x border-emerald-200 text-emerald-900">
+                    <div class="flex items-center justify-between">
+                      <span class="font-extrabold">SONDA COLOMBIA</span>
+                      <span class="px-2 py-0.5 rounded-full bg-emerald-600 text-white font-bold text-[9.5px]">REC #1</span>
+                    </div>
+                  </th>
+                  <th class="py-3 px-4 w-1/6">Indorama Ventures</th>
+                  <th class="py-3 px-4 w-1/6">BASF Chemicals</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-slate-800" id="matrix-table-body">
+                <!-- Row 1: Technical Compliance -->
+                <tr class="matrix-row-transition" data-category="technical">
+                  <td class="py-3 px-4 font-semibold">
+                    <div>Technical Compliance</div>
+                    <div class="text-[10px] text-slate-400 font-normal">Quality & Lab Assay Specs</div>
+                  </td>
+                  <td class="py-3 px-4 font-mono text-slate-500">ISO 9001:2015</td>
+                  <td class="py-3 px-4 bg-emerald-50/40 border-x border-emerald-200 font-bold text-emerald-800">
+                    <span class="inline-flex items-center gap-1">
+                      <span class="material-symbols-outlined text-[14px] text-emerald-600">check_circle</span>
+                      Pass (95/100)
+                    </span>
+                  </td>
+                  <td class="py-3 px-4 text-slate-600">Pass (91/100)</td>
+                  <td class="py-3 px-4 text-slate-600">Pass (88/100)</td>
+                </tr>
+
+                <!-- Row 2: Delivery SLA -->
+                <tr class="matrix-row-transition" data-category="commercial">
+                  <td class="py-3 px-4 font-semibold">
+                    <div>Delivery SLA</div>
+                    <div class="text-[10px] text-slate-400 font-normal">Lead time to Plant Morrison</div>
+                  </td>
+                  <td class="py-3 px-4 font-mono text-slate-500">≤ 15 days</td>
+                  <td class="py-3 px-4 bg-emerald-50/40 border-x border-emerald-200 font-bold text-emerald-800">
+                    10 days <span class="text-[10.5px] text-emerald-600 font-normal">(-5d lead)</span>
+                  </td>
+                  <td class="py-3 px-4 text-slate-600">14 days</td>
+                  <td class="py-3 px-4 text-rose-600 font-medium">18 days (Exceeded)</td>
+                </tr>
+
+                <!-- Row 3: Unit Price -->
+                <tr class="matrix-row-transition" data-category="commercial">
+                  <td class="py-3 px-4 font-semibold">
+                    <div>Unit Price</div>
+                    <div class="text-[10px] text-slate-400 font-normal">Kg delivered (Incoterm DDP)</div>
+                  </td>
+                  <td class="py-3 px-4 font-mono text-slate-500">$3.50 COP</td>
+                  <td class="py-3 px-4 bg-emerald-50/40 border-x border-emerald-200 font-bold text-emerald-800 font-mono">
+                    $3.00 COP <span class="text-[10.5px] text-emerald-600 font-normal">(-14.3%)</span>
+                  </td>
+                  <td class="py-3 px-4 font-mono text-slate-600">$3.35 COP</td>
+                  <td class="py-3 px-4 font-mono text-slate-600">$3.48 COP</td>
+                </tr>
+
+                <!-- Row 4: Commercial Terms & Payment -->
+                <tr class="matrix-row-transition" data-category="commercial">
+                  <td class="py-3 px-4 font-semibold">
+                    <div>Payment Terms</div>
+                    <div class="text-[10px] text-slate-400 font-normal">Net Terms & Early Pay Discount</div>
+                  </td>
+                  <td class="py-3 px-4 font-mono text-slate-500">Net 60 Days</td>
+                  <td class="py-3 px-4 bg-emerald-50/40 border-x border-emerald-200 font-bold text-emerald-800">
+                    Net 90 Days <span class="text-[10.5px] text-emerald-600 font-normal">(2/10 Net 90)</span>
+                  </td>
+                  <td class="py-3 px-4 text-slate-600">Net 60 Days</td>
+                  <td class="py-3 px-4 text-slate-600">Net 45 Days</td>
+                </tr>
+
+                <!-- Row 5: Scope 3 Carbon Footprint -->
+                <tr class="matrix-row-transition" data-category="esg">
+                  <td class="py-3 px-4 font-semibold">
+                    <div>Scope 3 Carbon Footprint</div>
+                    <div class="text-[10px] text-slate-400 font-normal">Product Lifecycle CO2 Intensity</div>
+                  </td>
+                  <td class="py-3 px-4 font-mono text-slate-500">&lt; 0.55 kg CO2e/kg</td>
+                  <td class="py-3 px-4 bg-emerald-50/40 border-x border-emerald-200 font-bold text-emerald-800 font-mono">
+                    0.42 kg <span class="text-[10.5px] text-emerald-600 font-normal">(-24%)</span>
+                  </td>
+                  <td class="py-3 px-4 font-mono text-slate-600">0.51 kg</td>
+                  <td class="py-3 px-4 font-mono text-rose-600 font-medium">0.56 kg (Exceeded)</td>
+                </tr>
+
+                <!-- Row 6: EcoVadis & Circularity -->
+                <tr class="matrix-row-transition" data-category="esg">
+                  <td class="py-3 px-4 font-semibold">
+                    <div>EcoVadis & Circularity</div>
+                    <div class="text-[10px] text-slate-400 font-normal">ESG Scorecard & Closed Loop</div>
+                  </td>
+                  <td class="py-3 px-4 text-slate-500">Silver / 65 min</td>
+                  <td class="py-3 px-4 bg-emerald-50/40 border-x border-emerald-200 font-bold text-emerald-800">
+                    Platinum (88/100)
+                  </td>
+                  <td class="py-3 px-4 text-slate-600">Gold (74/100)</td>
+                  <td class="py-3 px-4 text-slate-600">Silver (66/100)</td>
+                </tr>
+
+                <!-- Row 7: Renewable Energy Share -->
+                <tr class="matrix-row-transition" data-category="esg">
+                  <td class="py-3 px-4 font-semibold">
+                    <div>Renewable Energy Share</div>
+                    <div class="text-[10px] text-slate-400 font-normal">Facility Power Origin</div>
+                  </td>
+                  <td class="py-3 px-4 text-slate-500">≥ 50% Renewable</td>
+                  <td class="py-3 px-4 bg-emerald-50/40 border-x border-emerald-200 font-bold text-emerald-800">
+                    85% Solar/Hydro
+                  </td>
+                  <td class="py-3 px-4 text-slate-600">62% Grid Mix</td>
+                  <td class="py-3 px-4 text-slate-600">45% Fossil Blend</td>
+                </tr>
+
+                <!-- Row 8: Total Commercial Bid -->
+                <tr class="matrix-row-transition bg-slate-50/80 font-bold" data-category="commercial">
+                  <td class="py-3.5 px-4 text-slate-900">
+                    <div>Total Commercial Bid</div>
+                    <div class="text-[10px] text-slate-500 font-normal">7,125,000 Kg Total Volume</div>
+                  </td>
+                  <td class="py-3.5 px-4 font-mono text-slate-700">$24.93M COP</td>
+                  <td class="py-3.5 px-4 bg-emerald-100/60 border-x border-emerald-200 font-extrabold text-emerald-900 font-mono text-[14px]">
+                    $21.37M COP <div class="text-[10.5px] text-emerald-700 font-semibold">-$3.56M (-14.3%)</div>
+                  </td>
+                  <td class="py-3.5 px-4 font-mono text-slate-700">$23.86M COP</td>
+                  <td class="py-3.5 px-4 font-mono text-slate-700">$24.79M COP</td>
+                </tr>
+
+                <!-- Decision Action Row -->
+                <tr class="bg-white">
+                  <td class="py-3 px-4 font-semibold text-slate-500 uppercase text-[10.5px]">Decision Action</td>
+                  <td class="py-3 px-4 text-slate-400 text-xs">PR Baseline</td>
+                  <td class="py-3 px-4 bg-emerald-50/40 border-x border-emerald-200">
+                    <button onclick="commitPoNow()" class="w-full py-2 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-xs cursor-pointer">
+                      <span class="material-symbols-outlined text-[15px]">check_circle</span>
+                      <span>Select & Commit</span>
+                    </button>
+                  </td>
+                  <td class="py-3 px-4">
+                    <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 text-xs font-semibold inline-block">Standby (Tier 2)</span>
+                  </td>
+                  <td class="py-3 px-4">
+                    <span class="px-2.5 py-1 rounded-md bg-rose-50 text-rose-600 text-xs font-semibold inline-block">Disqualified (SLA)</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between text-xs text-slate-500 pt-4 mt-4 border-t border-slate-100">
+          <span class="flex items-center gap-1.5 font-mono text-[11px]">
+            <span class="material-symbols-outlined text-[15px] text-emerald-600">verified</span>
+            Audit Hash: SHA-256:d9e76fa9b881a7cf902
+          </span>
+          <span class="text-emerald-700 font-semibold">Clean Core Certified • Zero Custom Tables</span>
+        </div>
+      </div>
+
+      <!-- Right 4 Cols (34%): Intelligence & Award Cockpit (Zip x Ramp) -->
+      <div class="lg:col-span-4 space-y-4">
+        
+        <!-- Award Summary Card -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-card-subtle">
+          <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-emerald-600 text-[18px]">verified_user</span>
+              <h3 class="font-bold text-slate-900 text-sm">Award Summary</h3>
+            </div>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+              Final Approval Ready
+            </span>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div class="flex items-center justify-between py-1 border-b border-slate-100">
+              <span class="text-slate-500">Selected Vendor:</span>
+              <span class="font-bold text-slate-900">SONDA Colombia S.A.</span>
+            </div>
+            <div class="flex items-center justify-between py-1 border-b border-slate-100">
+              <span class="text-slate-500">SAP Vendor ID:</span>
+              <span class="font-mono font-bold text-slate-900">#800192</span>
+            </div>
+            <div class="flex items-center justify-between py-1 border-b border-slate-100">
+              <span class="text-slate-500">Follow-on PO Doc:</span>
+              <span class="font-mono font-bold text-emerald-700">PO 450009180 (NB)</span>
+            </div>
+            <div class="flex items-center justify-between py-1 border-b border-slate-100">
+              <span class="text-slate-500">Total Commitment:</span>
+              <span class="font-mono font-extrabold text-base text-emerald-800">$21,375,000 COP</span>
+            </div>
+            <div class="flex items-center justify-between py-1 border-b border-slate-100">
+              <span class="text-slate-500">Verified Savings:</span>
+              <span class="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">14.3% Under Baseline</span>
+            </div>
+            <div class="flex items-center justify-between py-1">
+              <span class="text-slate-500">Release Mode:</span>
+              <span class="font-semibold text-slate-900 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                Direct OData v4 Post
+              </span>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-4 border-t border-slate-100 space-y-2">
+            <button id="btnCommitOrder" onclick="commitPoNow()" class="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-2 transition shadow-xs cursor-pointer">
+              <span class="material-symbols-outlined text-[16px]">task_alt</span>
+              <span>Commit Purchase Order to S/4HANA</span>
+            </button>
+            <button onclick="document.getElementById('cxml-drawer').classList.remove('hidden')" class="w-full py-2 px-3 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer">
+              <span class="material-symbols-outlined text-[15px]">code</span>
+              <span>Inspect cXML 1.2 Payload</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Supplier Telemetry Radar Scores -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-card-subtle">
+          <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-slate-700 text-[18px]">query_stats</span>
+              <h3 class="font-bold text-slate-900 text-sm">Supplier Telemetry Radar</h3>
+            </div>
+            <span class="font-bold font-mono text-emerald-700 text-xs">95.8% Overall</span>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div>
+              <div class="flex justify-between font-semibold mb-1">
+                <span class="text-slate-600">Technical Specs & Quality</span>
+                <span class="font-mono text-slate-900">95 / 100</span>
+              </div>
+              <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                <div class="bg-emerald-600 h-full rounded-full" style="width: 95%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between font-semibold mb-1">
+                <span class="text-slate-600">Financial Health & Risk</span>
+                <span class="font-mono text-slate-900">98 / 100</span>
+              </div>
+              <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                <div class="bg-emerald-600 h-full rounded-full" style="width: 98%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between font-semibold mb-1">
+                <span class="text-slate-600">Historical SLA Fidelity</span>
+                <span class="font-mono text-slate-900">94 / 100</span>
+              </div>
+              <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                <div class="bg-emerald-600 h-full rounded-full" style="width: 94%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between font-semibold mb-1">
+                <span class="text-slate-600">Circularity & Closed-Loop</span>
+                <span class="font-mono text-slate-900">96 / 100</span>
+              </div>
+              <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                <div class="bg-emerald-600 h-full rounded-full" style="width: 96%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between font-semibold mb-1">
+                <span class="text-slate-600">Scope 3 Carbon Intensity</span>
+                <span class="font-mono text-emerald-700">0.42 kg CO2e/kg (-28%)</span>
+              </div>
+              <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                <div class="bg-emerald-600 h-full rounded-full" style="width: 92%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-400 flex justify-between items-center">
+            <span>Lead Procurement Auditor:</span>
+            <span class="font-semibold text-slate-700">Valeria Martinez (Certified)</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+`;
+
+// 6. Other Role Workspaces
+let allWorkspacesHtml = `
+${sourcingWorkspaceHtml}
+${viewHtmlMap['view-requester']}
+${viewHtmlMap['view-manager']}
+${viewHtmlMap['view-tech-eval']}
+${viewHtmlMap['view-comm-eval']}
+${viewHtmlMap['view-approver']}
+${viewHtmlMap['view-receiving']}
+${viewHtmlMap['view-order-closure']}
+${viewHtmlMap['view-excel-erp']}
+${viewHtmlMap['view-sap-erp']}
+${viewHtmlMap['view-cig-integration']}
+${viewHtmlMap['view-supplier-portal']}
+`;
+
+// 7. Modals & Drawers
+const modalsAndCompatHtml = `
+<!-- ========================================================================= -->
+<!-- Modals & Slide-over Drawers (cXML, PO Sign-Off, Fast Intake)             -->
+<!-- ========================================================================= -->
+
+<!-- cXML 1.2 Inspection Drawer -->
+<div id="cxml-drawer" class="hidden fixed inset-0 z-50 overflow-hidden">
+  <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-xs transition-opacity" onclick="document.getElementById('cxml-drawer').classList.add('hidden')"></div>
+  <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+    <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
+      <div class="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-900 text-white">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-[20px]">code</span>
+          <h3 class="font-bold text-sm">cXML 1.2.040 OrderRequest</h3>
+        </div>
+        <button onclick="document.getElementById('cxml-drawer').classList.add('hidden')" class="text-slate-400 hover:text-white cursor-pointer">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+      <div class="p-4 flex-1 overflow-y-auto bg-slate-950 font-mono text-[11.5px] text-emerald-400 leading-relaxed">
+        <pre>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE cXML SYSTEM "http://xml.cxml.org/schemas/cXML/1.2.040/cXML.dtd"&gt;
+&lt;cXML payloadID="1794932242472-881a7cf902@alpek.com" timestamp="2026-11-17T05:52:02Z"&gt;
+  &lt;Header&gt;
+    &lt;From&gt;
+      &lt;Credential domain="NetworkID"&gt;
+        &lt;Identity&gt;ALPEK-CORP-PRD&lt;/Identity&gt;
+      &lt;/Credential&gt;
+    &lt;/From&gt;
+    &lt;To&gt;
+      &lt;Credential domain="VendorID"&gt;
+        &lt;Identity&gt;SONDA-COLOMBIA-800192&lt;/Identity&gt;
+      &lt;/Credential&gt;
+    &lt;/To&gt;
+    &lt;Sender&gt;
+      &lt;Credential domain="S4HANA_CLEAN_CORE"&gt;
+        &lt;Identity&gt;SAP-ODATA-V4-CLIENT&lt;/Identity&gt;
+      &lt;/Credential&gt;
+    &lt;/Sender&gt;
+  &lt;/Header&gt;
+  &lt;Request deploymentMode="production"&gt;
+    &lt;OrderRequest&gt;
+      &lt;OrderRequestHeader orderID="450009180" orderDate="2026-11-17" type="new"&gt;
+        &lt;Total&gt;
+          &lt;Money currency="COP"&gt;21375000.00&lt;/Money&gt;
+        &lt;/Total&gt;
+        &lt;ShipTo&gt;
+          &lt;Address addressID="CO-MOR-01"&gt;
+            &lt;Name xml:lang="en"&gt;Plant Morrison - Gran Tierra Energy&lt;/Name&gt;
+          &lt;/Address&gt;
+        &lt;/ShipTo&gt;
+      &lt;/OrderRequestHeader&gt;
+      &lt;ItemOut quantity="7125000" lineNumber="1"&gt;
+        &lt;ItemID&gt;
+          &lt;SupplierPartID&gt;REFRI-IND-01&lt;/SupplierPartID&gt;
+        &lt;/ItemID&gt;
+        &lt;ItemDetail&gt;
+          &lt;UnitPrice&gt;
+            &lt;Money currency="COP"&gt;3.00&lt;/Money&gt;
+          &lt;/UnitPrice&gt;
+          &lt;Description xml:lang="es"&gt;SUMINISTROS REFRIGERANTE INDUSTRIAL&lt;/Description&gt;
+          &lt;UnitOfMeasure&gt;KGM&lt;/UnitOfMeasure&gt;
+        &lt;/ItemDetail&gt;
+      &lt;/ItemOut&gt;
+    &lt;/OrderRequest&gt;
+  &lt;/Request&gt;
+&lt;/cXML&gt;</pre>
+      </div>
+      <div class="p-4 border-t border-slate-200 bg-slate-50 flex justify-end">
+        <button onclick="document.getElementById('cxml-drawer').classList.add('hidden')" class="px-4 py-2 rounded-xl bg-slate-900 text-white font-semibold text-xs">
+          Close Payload Inspector
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Committee Sign-Off Modal -->
+<div id="award-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+  <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-xs" onclick="document.getElementById('award-modal').classList.add('hidden')"></div>
+  <div class="relative bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 z-10">
+    <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-emerald-600 text-[22px]">gavel</span>
+        <h3 class="font-bold text-base text-slate-900">Sign-off & Commit PO</h3>
+      </div>
+      <button onclick="document.getElementById('award-modal').classList.add('hidden')" class="text-slate-400 hover:text-slate-600">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+    </div>
+    <div class="space-y-3 text-xs text-slate-600">
+      <p>
+        By authorizing committee sign-off, an official <strong>cXML OrderRequest payload</strong> will be dispatched via OData v4 directly to SAP S/4HANA with zero middleware alteration. Polite non-award notifications will be queued for Indorama Ventures and BASF Chemicals.
+      </p>
+      <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+        <div class="flex justify-between"><span>Target PO:</span><span class="font-mono font-bold text-slate-900">450009180</span></div>
+        <div class="flex justify-between"><span>Awarded Supplier:</span><span class="font-bold text-slate-900">SONDA Colombia S.A.</span></div>
+        <div class="flex justify-between"><span>Net Amount:</span><span class="font-mono font-bold text-emerald-700">$21,375,000 COP</span></div>
+      </div>
+    </div>
+    <div class="mt-6 flex justify-end gap-2">
+      <button onclick="document.getElementById('award-modal').classList.add('hidden')" class="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 text-xs font-semibold hover:bg-slate-50">Cancel</button>
+      <button onclick="commitPoNow(); document.getElementById('award-modal').classList.add('hidden');" class="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs">
+        <span class="material-symbols-outlined text-[16px]">check_circle</span>
+        <span>Authorize & Commit</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Fast Intake New Requisition Modal -->
+<div id="modalNewReq" class="hidden sap-modal-backdrop">
+  <div class="sap-dialog sap-dialog-md">
+    <div class="sap-dialog-header">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-emerald-600">post_add</span>
+        <h3 class="sap-dialog-title">Submit Purchase Requisition</h3>
+      </div>
+      <button class="sap-dialog-close" onclick="closeNewReqModal()">&times;</button>
+    </div>
+    <div class="sap-dialog-body">
+      <form id="formNewRequisition" onsubmit="handleNewRequisitionSubmit(event); return false;" class="space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Material / Service Description</label>
+          <input type="text" id="reqDesc" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg focus:border-slate-900 outline-none" placeholder="e.g. Industrial Lubricants & Coolants" required>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Quantity</label>
+            <input type="number" id="reqQty" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg focus:border-slate-900 outline-none" value="5000" required>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Estimated Budget (COP)</label>
+            <input type="text" id="reqBudget" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg focus:border-slate-900 outline-none" value="15,000,000" required>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Delivery Plant</label>
+            <select id="reqPlant" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg focus:border-slate-900 outline-none">
+              <option value="Gran Tierra Energy - Plant Morrison (CO-MOR-01)">Plant Morrison (CO-MOR-01)</option>
+              <option value="Cartagena Petrochemical Complex (CO-CTG-02)">Cartagena Complex (CO-CTG-02)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Required SLA Date</label>
+            <input type="date" id="reqDate" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg focus:border-slate-900 outline-none" required>
+          </div>
+        </div>
+        <div class="pt-3 flex justify-end gap-2">
+          <button type="button" onclick="closeNewReqModal()" class="px-4 py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50">Cancel</button>
+          <button type="submit" class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold shadow-xs">Submit to Department Manager &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Export Report Toast -->
+<div id="export-toast" class="hidden fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl z-50 flex items-center gap-3 text-xs border border-slate-800">
+  <span class="material-symbols-outlined text-emerald-400 text-[18px]">verified</span>
+  <div>
+    <div id="toast-export-title" class="font-bold">Report Exported</div>
+    <div id="toast-export-desc" class="text-slate-400 text-[11px]">Generated clean-core dossier • Doc2432956265</div>
+  </div>
+</div>
+`;
+
+// 8. Modern Zip-Style Landing Page & Single Sign-On Portal
+const landingPageHtml = `
+<div id="page-login" class="w-full min-h-screen flex flex-col bg-slate-50">
+  <!-- Minimalist Executive Landing Navbar -->
+  <header class="w-full px-6 py-4 bg-white/90 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40">
+    <div class="max-w-[1720px] mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-[13px] tracking-tight shadow-sm">
+          AD
+        </div>
+        <div>
+          <span class="font-bold text-base text-slate-900 tracking-tight">Alpek Sourcing OS</span>
+          <span class="hidden sm:inline-block ml-2 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+            S/4HANA Clean Core
+          </span>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="#login-portal" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition shadow-xs flex items-center gap-1.5">
+          <span>Enterprise Sign In</span>
+          <span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section (Zip Inspiration) -->
+  <section class="max-w-5xl mx-auto px-6 pt-16 pb-12 text-center">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 mb-6">
+      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      Clean Core S/4HANA Direct OData v4 Integration • Zero ABAP Customization
+    </div>
+    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
+      The Next-Generation <br>
+      <span class="text-emerald-600">Intake-to-Procure Platform</span>
+    </h1>
+    <p class="mt-5 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+      Transform complex SAP requisitions into competitive multi-vendor tenders, autonomous two-envelope evaluations, and instant 45000-series purchase orders with sub-second latency.
+    </p>
+
+    <!-- Key Metrics Strip -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mt-12 text-left">
+      <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-card-subtle">
+        <div class="text-2xl font-bold font-mono text-slate-900">14ms</div>
+        <div class="text-xs text-slate-500 mt-0.5">OData v4 Sync Latency</div>
+      </div>
+      <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-card-subtle">
+        <div class="text-2xl font-bold font-mono text-emerald-600">14.3%</div>
+        <div class="text-xs text-slate-500 mt-0.5">Verified Tender Savings</div>
+      </div>
+      <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-card-subtle">
+        <div class="text-2xl font-bold font-mono text-slate-900">100%</div>
+        <div class="text-xs text-slate-500 mt-0.5">Clean Core Compliant</div>
+      </div>
+      <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-card-subtle">
+        <div class="text-2xl font-bold font-mono text-slate-900">0</div>
+        <div class="text-xs text-slate-500 mt-0.5">Custom ABAP Tables</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enterprise Single Sign-On Portal -->
+  <section id="login-portal" class="max-w-xl w-full mx-auto px-6 pb-24">
+    <div class="bg-white rounded-3xl border border-slate-200 p-8 shadow-card-elevated">
+      <div class="text-center pb-6 mb-6 border-b border-slate-100">
+        <div class="w-12 h-12 rounded-2xl bg-slate-900 text-white flex items-center justify-center font-bold text-lg mx-auto mb-3 shadow-sm">
+          AD
+        </div>
+        <h2 class="text-xl font-bold text-slate-900">Enterprise Single Sign-On</h2>
+        <p class="text-xs text-slate-500 mt-1">Select your corporate role or enter credentials to enter the workspace</p>
+      </div>
+
+      <!-- Quick Persona Switcher (For smooth testing & demoing) -->
+      <div class="mb-6">
+        <span class="block text-[10.5px] font-bold uppercase tracking-wider text-slate-400 mb-2">Instant Role Selector (1-Click Login)</span>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <button type="button" onclick="quickLoginRole('buyer')" class="px-2.5 py-2 rounded-xl border border-slate-200 hover:border-slate-900 hover:bg-slate-50 text-left transition cursor-pointer">
+            <div class="font-bold text-xs text-slate-900">Buyer</div>
+            <div class="text-[10px] text-slate-500 truncate">V. Martinez</div>
+          </button>
+          <button type="button" onclick="quickLoginRole('approver')" class="px-2.5 py-2 rounded-xl border border-slate-200 hover:border-slate-900 hover:bg-slate-50 text-left transition cursor-pointer">
+            <div class="font-bold text-xs text-slate-900">Approver</div>
+            <div class="text-[10px] text-slate-500 truncate">C. Fonseca</div>
+          </button>
+          <button type="button" onclick="quickLoginRole('supplier_a')" class="px-2.5 py-2 rounded-xl border border-emerald-200 bg-emerald-50/50 hover:bg-emerald-50 text-left transition cursor-pointer">
+            <div class="font-bold text-xs text-emerald-900">Supplier</div>
+            <div class="text-[10px] text-emerald-700 truncate">SONDA Col.</div>
+          </button>
+          <button type="button" onclick="quickLoginRole('requester')" class="px-2.5 py-2 rounded-xl border border-slate-200 hover:border-slate-900 hover:bg-slate-50 text-left transition cursor-pointer">
+            <div class="font-bold text-xs text-slate-900">Requester</div>
+            <div class="text-[10px] text-slate-500 truncate">J. Perez</div>
+          </button>
+          <button type="button" onclick="quickLoginRole('manager')" class="px-2.5 py-2 rounded-xl border border-slate-200 hover:border-slate-900 hover:bg-slate-50 text-left transition cursor-pointer">
+            <div class="font-bold text-xs text-slate-900">Manager</div>
+            <div class="text-[10px] text-slate-500 truncate">A. Soto</div>
+          </button>
+          <button type="button" onclick="quickLoginRole('tech_eval')" class="px-2.5 py-2 rounded-xl border border-slate-200 hover:border-slate-900 hover:bg-slate-50 text-left transition cursor-pointer">
+            <div class="font-bold text-xs text-slate-900">Tech Eval</div>
+            <div class="text-[10px] text-slate-500 truncate">R. Gomez</div>
+          </button>
+          <button type="button" onclick="quickLoginRole('receiving')" class="px-2.5 py-2 rounded-xl border border-slate-200 hover:border-slate-900 hover:bg-slate-50 text-left transition cursor-pointer">
+            <div class="font-bold text-xs text-slate-900">Receiving</div>
+            <div class="text-[10px] text-slate-500 truncate">M. Hernandez</div>
+          </button>
+          <button type="button" onclick="quickLoginRole('finance')" class="px-2.5 py-2 rounded-xl border border-slate-200 hover:border-slate-900 hover:bg-slate-50 text-left transition cursor-pointer">
+            <div class="font-bold text-xs text-slate-900">Finance</div>
+            <div class="text-[10px] text-slate-500 truncate">E. Rostova</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Formal Corporate Login Form -->
+      <form id="formCorporateLogin" onsubmit="handleLoginFormSubmit(event); return false;" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="loginUsername">Corporate Username or Work Email</label>
+          <input type="text" id="loginUsername" class="w-full px-4 py-2.5 text-xs rounded-xl border border-slate-200 focus:border-slate-900 outline-none bg-slate-50 text-slate-900" placeholder="e.g. buyer, approver, supplier_a" required value="buyer">
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1" for="loginPassword">Corporate Password</label>
+          <input type="password" id="loginPassword" class="w-full px-4 py-2.5 text-xs rounded-xl border border-slate-200 focus:border-slate-900 outline-none bg-slate-50 text-slate-900" placeholder="••••••••••••" required value="Alpek@2026">
+        </div>
+        <button type="submit" class="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-2 transition shadow-xs cursor-pointer">
+          <span>Authenticate Session</span>
+          <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Modern Enterprise Footer -->
+  <footer class="w-full py-8 text-center text-xs text-slate-400 border-t border-slate-200 bg-white">
+    <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>© 2026 Alpek Sourcing OS • Clean Core Certified Edition</div>
+      <div class="font-mono text-[11px]">S/4HANA OData: ACTIVE • cXML Envelope: 881a-7cf902 • Latency: 14ms</div>
+    </div>
+  </footer>
+</div>
+`;
+
+// 9. Operational Application Shell (#page-app)
+const appShellHtml = `
+<div id="page-app" class="w-full min-h-screen flex flex-col hidden">
+  ${appHeaderHtml}
+  ${kpiStripHtml}
+  ${zipWorkflowPipelineHtml}
+  <main class="flex-1 w-full">
+    ${allWorkspacesHtml}
+  </main>
+  ${modalsAndCompatHtml}
+  <footer class="w-full py-6 text-center text-xs text-slate-400 border-t border-slate-200 bg-white mt-auto">
+    <div class="max-w-[1720px] mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>© 2026 Alpek Sourcing OS • Modern Intake-to-Procure Architecture</div>
+      <div class="font-mono text-[11px]">S/4HANA OData: ACTIVE • cXML Envelope: 881a-7cf902 • Latency: 14ms</div>
+    </div>
+  </footer>
+</div>
+`;
+
+// 10. Runtime scripts (wiring up dropdown, logout, tabs, router, and timers)
+const helperScripts = `
+<script>
+  // Profile dropdown toggling
+  function toggleUserDropdown(e) {
+    if (e && e.stopPropagation) e.stopPropagation();
+    const menu = document.getElementById('userDropdownMenu');
+    if (!menu) return;
+    menu.classList.toggle('hidden');
+  }
+  window.toggleUserDropdown = toggleUserDropdown;
+
+  function closeUserDropdown() {
+    const menu = document.getElementById('userDropdownMenu');
+    if (menu) menu.classList.add('hidden');
+  }
+  window.closeUserDropdown = closeUserDropdown;
+  window.closeProfileDropdown = closeUserDropdown;
+
+  document.addEventListener('click', (e) => {
+    const btn = document.getElementById('appUserProfileBtn');
+    const menu = document.getElementById('userDropdownMenu');
+    if (menu && !menu.classList.contains('hidden')) {
+      if (btn && !btn.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.add('hidden');
+      }
+    }
+  });
+
+  // Navigation between corporate overview & application
+  function toggleBrandNavigation() {
+    const loginPage = document.getElementById('page-login');
+    const appPage = document.getElementById('page-app');
+    if (appPage && !appPage.classList.contains('hidden')) {
+      appPage.classList.add('hidden');
+      if (loginPage) loginPage.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      if (loginPage) loginPage.classList.add('hidden');
+      if (appPage) appPage.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+  window.toggleBrandNavigation = toggleBrandNavigation;
+
+  // Sign out functionality
+  function signOutToLogin() {
+    sessionStorage.removeItem('abc_current_user');
+    sessionStorage.clear();
+    window.currentUser = null;
+    const loginPage = document.getElementById('page-login');
+    const appPage = document.getElementById('page-app');
+    if (appPage) appPage.classList.add('hidden');
+    if (loginPage) loginPage.classList.remove('hidden');
+    closeUserDropdown();
+    window.location.hash = 'login-portal';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const portal = document.getElementById('login-portal');
+    if (portal) {
+      setTimeout(() => portal.scrollIntoView({ behavior: 'smooth' }), 50);
+    }
+    if (typeof showSapToast === 'function') {
+      showSapToast('Signed out of corporate session.', 'info');
+    }
+  }
+  window.signOutToLogin = signOutToLogin;
+  window.logoutUser = signOutToLogin;
+
+  // Main navigation tab switcher
+  function switchMainTab(tabKey) {
+    const views = {
+      'sourcing': 'view-sourcing-events',
+      'requester': 'view-requester',
+      'orders': 'view-receiving',
+      'excel': 'view-excel-erp',
+      'sap': 'view-sap-erp',
+      'integration': 'view-cig-integration',
+      'supplier': 'view-supplier-portal',
+      'manager': 'view-manager',
+      'tech_eval': 'view-tech-eval',
+      'comm_eval': 'view-comm-eval',
+      'approver': 'view-approver',
+      'receiving': 'view-receiving',
+      'finance': 'view-order-closure'
+    };
+
+    // Hide all views
+    document.querySelectorAll('.workspace-view').forEach(v => {
+      v.classList.remove('active');
+      v.style.display = 'none';
+    });
+
+    const targetId = views[tabKey] || 'view-sourcing-events';
+    const targetEl = document.getElementById(targetId);
+    if (targetEl) {
+      targetEl.classList.add('active');
+      targetEl.style.display = 'flex';
+    }
+
+    // Update active nav button
+    document.querySelectorAll('.nav-pill-btn').forEach(btn => {
+      btn.classList.remove('bg-slate-900', 'text-white', 'font-semibold', 'shadow-xs');
+      btn.classList.add('text-slate-600', 'hover:text-slate-900', 'hover:bg-white', 'font-medium', 'bg-transparent');
+    });
+
+    if (window.event && window.event.currentTarget && window.event.currentTarget.classList.contains('nav-pill-btn')) {
+      const activeBtn = window.event.currentTarget;
+      activeBtn.classList.remove('text-slate-600', 'hover:text-slate-900', 'hover:bg-white', 'font-medium', 'bg-transparent');
+      activeBtn.classList.add('bg-slate-900', 'text-white', 'font-semibold', 'shadow-xs');
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  window.switchMainTab = switchMainTab;
+
+  function navigateIfAuthorized(roleKey) {
+    switchMainTab(roleKey);
+  }
+  window.navigateIfAuthorized = navigateIfAuthorized;
+
+  // Filter matrix view (All vs Commercial vs ESG)
+  function filterMatrixView(category, btn) {
+    const buttons = document.querySelectorAll('.matrix-filter-btn');
+    buttons.forEach(b => {
+      b.classList.remove('bg-slate-900', 'text-white', 'shadow-xs');
+      b.classList.add('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+      b.setAttribute('aria-selected', 'false');
+    });
+
+    if (btn) {
+      btn.classList.remove('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+      btn.classList.add('bg-slate-900', 'text-white', 'shadow-xs');
+      btn.setAttribute('aria-selected', 'true');
+    }
+
+    const rows = document.querySelectorAll('#matrix-table-body tr[data-category]');
+    rows.forEach(row => {
+      if (category === 'all' || row.getAttribute('data-category') === category) {
+        row.classList.remove('matrix-hidden');
+      } else {
+        row.classList.add('matrix-hidden');
+      }
+    });
+  }
+  window.filterMatrixView = filterMatrixView;
+
+  function exportMatrixReport() {
+    const toast = document.getElementById('export-toast');
+    if (toast) {
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 3500);
+    }
+  }
+  window.exportMatrixReport = exportMatrixReport;
+
+  // Single-Click Commit PO
+  function commitPoNow() {
+    if (typeof approveAndDispatchPoToSap === 'function') {
+      approveAndDispatchPoToSap();
+    } else {
+      const btn = document.getElementById('btnCommitOrder');
+      if (btn) {
+        btn.innerHTML = 'PO 450009180 Dispatched to S/4HANA ✓';
+        btn.classList.replace('bg-slate-900', 'bg-emerald-600');
+      }
+      if (typeof showSapToast === 'function') {
+        showSapToast('Clean Core PO #450009180 committed via OData v4.', 'success');
+      }
+    }
+  }
+  window.commitPoNow = commitPoNow;
+
+  // Fast Requisition modal controls
+  function openNewReqModal() {
+    const m = document.getElementById('modalNewReq');
+    if (m) m.classList.remove('hidden');
+  }
+  function closeNewReqModal() {
+    const m = document.getElementById('modalNewReq');
+    if (m) m.classList.add('hidden');
+  }
+  window.openNewReqModal = openNewReqModal;
+  window.closeNewReqModal = closeNewReqModal;
+</script>
+<script src="/js/app.js"></script>
+</body>
+</html>
+`;
+
+// 11. Assemble final document
+const finalHtml = `${headHtml}
+${landingPageHtml}
+${appShellHtml}
+${helperScripts}
+`;
+
+fs.writeFileSync('apps/alpek-supplier-platform/public/index.html', finalHtml, 'utf8');
+console.log('Successfully written Zip + Ramp + Linear public/index.html! Length:', finalHtml.length);
