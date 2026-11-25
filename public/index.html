@@ -38,6 +38,22 @@
       padding: 0;
     }
 
+    /* Universal Hidden Utility */
+    .hidden {
+      display: none !important;
+    }
+
+    /* Specific Display Modes when not hidden */
+    #cxml-drawer:not(.hidden) {
+      display: flex !important;
+    }
+    #modalNewReq:not(.hidden) {
+      display: flex !important;
+    }
+    #export-toast:not(.hidden) {
+      display: block !important;
+    }
+
     /* Workspace Views */
     .workspace-view {
       display: none !important;
@@ -1830,7 +1846,7 @@
   </main>
   
 <!-- cXML Drawer -->
-<div id="cxml-drawer" class="hidden" style="position: fixed; inset: 0; z-index: 100; display: flex; justify-content: flex-end; background: rgba(0,0,0,0.5);">
+<div id="cxml-drawer" class="hidden" style="position: fixed; inset: 0; z-index: 100; justify-content: flex-end; background: rgba(0,0,0,0.5);">
   <div style="background: var(--page); width: 100%; max-width: 500px; height: 100%; display: flex; flex-direction: column; box-shadow: -10px 0 25px rgba(0,0,0,0.15);">
     <div style="padding: 1rem 1.25rem; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; background: var(--ink); color: var(--page);">
       <div style="font-weight: 700; font-size: 0.9rem;">cXML 1.2.040 OrderRequest</div>
